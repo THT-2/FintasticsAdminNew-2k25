@@ -1,0 +1,202 @@
+  :root {
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --panel: #eef0ff;
+    --border: #e6e8ef;
+    --menu-hover: #ede6f7;
+    --ink: #0f1222;
+    --muted: #6b7280;
+    --card: var(--surface);
+    --header-height: 60px;
+  }
+
+  [data-theme="dark"] {
+    --bg: #0b0e14;
+    --surface: #111827;
+    --panel: #0f172a;
+    --border: #1f2937;
+    --menu-hover: rgba(255,255,255,0.06);
+    --ink: #e5e7eb;
+    --muted: #9ca3af;
+    --card: var(--surface);
+  }
+
+.cat-card{
+    background: #ffffff;
+    border: 2px solid #e6e8ef;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom:12px;
+    box-shadow: var(--shadow);
+  }
+
+  .cat-card .cat-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:12px;
+  }
+  .cat-card .cat-header h5{
+    margin:0;
+    font-weight:800;
+    letter-spacing:.2px;
+   }
+
+  .cat-search{
+    border-radius:10px;
+     border:1px solid #e6e8ef;
+     background:#ffffff;
+    }
+
+  .cat-search::placeholder{
+     color: #6b7280;
+    }
+  .cat-table thead th{
+     font-size:.8rem;
+     text-transform:uppercase;
+     color: #6b7280;
+     background: #eef0ff;
+    border-bottom:1px solid #e6e8ef !important;
+  }
+  .cat-table tbody tr{
+    border-bottom:1px solid #e6e8ef;
+  }
+  .cat-table tbody tr:hover{
+    background: #ede6f7;
+   }
+
+  .table-actions .btn{
+    border:0;
+    background:transparent;
+  }
+  .table-actions .btn:hover{
+    background: rgba(0,0,0,.06);
+   }
+
+  [data-theme="dark"] .table-actions .btn:hover{
+    background: rgba(255,255,255,.06);
+  }
+
+.icon-image{
+  width: 40px !important;
+}
+.head-text{
+  text-align: center;
+}
+.cat-table thead th {
+  text-align: center;
+}
+
+.cat-table tbody td {
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.cat-table .table-actions {
+  text-align: center !important;
+}
+
+.cat-table td a {
+  color: #333; // Default color for the icons
+  transition: color 0.3s ease; // Smooth transition for hover effect
+
+  // Hover effect for each icon
+  &:hover bi.bi-eye {
+    color: #fcff33; // Eye icon color on hover
+  }
+
+  &:hover bi.bi-pencil-square {
+    color: #33ffff; // Pencil icon color on hover
+  }
+
+  &:hover bi.bi-trash {
+    color: #ff5733; // Trash icon color on hover
+  }
+}
+
+  .mat-slide-toggle {
+    &.mat-checked {
+      ::ng-deep.mat-slide-toggle-bar::after {
+        content: 'Yes';
+        font-size: 45%;
+        font-weight: 700;
+        color: black;
+        position: absolute;
+        left: 4px;
+        top: -5px;
+      }
+    }
+    &:not(.mat-checked) {
+      ::ng-deep.mat-slide-toggle-bar::after {
+        content: 'No';
+        font-size: 45%;
+        font-weight: 700;
+        color: white;
+        position: absolute;
+        left: 21px;
+        top: -5px;
+      }
+    }
+  }
+.sendbtn{
+  cursor: pointer;
+}
+
+
+/* table.scss */
+.wave-loader {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.wave-loader .bar {
+  width: 6px;
+  height: 20px;
+  background: #0d6efd;
+  border-radius: 3px;
+  animation: wave 1s infinite ease-in-out;
+}
+
+.record{
+  margin-bottom: 1px;
+}
+
+
+@keyframes wave {
+  0%, 40%, 100% { height: 20px; }
+  20% { height: 40px; }
+}
+
+
+.shimmer-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.shimmer-line {
+    background: linear-gradient(
+        to right,
+        #f6f7f8 0%,
+        #edeef1 20%,
+        #f6f7f8 40%,
+        #f6f7f8 100%
+    );
+    background-size: 800px 104px;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 4px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -800px 0;
+    }
+    100% {
+        background-position: 800px 0;
+    }
+}

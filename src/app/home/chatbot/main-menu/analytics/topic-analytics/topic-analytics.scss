@@ -1,0 +1,94 @@
+    /* Topic Analysis */
+        .topic-analysis {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 25px;
+        }
+
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .topic-item {
+            background: var(--light-gray);
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .topic-item:hover {
+            background: var(--pastel-blue);
+            transform: translateY(-3px);
+        }
+
+        .topic-name {
+            font-weight: 600;
+            color: var(--primary-purple);
+        }
+
+        .topic-stats {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .topic-count {
+            font-weight: 700;
+            color: var(--dark-text);
+        }
+
+        .topic-change {
+            font-size: 13px;
+            font-weight: 600;
+        }
+         .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-header h3 {
+            color: var(--primary-purple);
+            font-size: 19px;
+        }
+
+        .chart-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chart-option-btn {
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--light-blue);
+            background: var(--white);
+            color: var(--medium-text);
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .chart-option-btn:hover, .chart-option-btn.active {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+
+        .chart-placeholder {
+            height: 300px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--medium-text);
+            font-size: 16px;
+        }

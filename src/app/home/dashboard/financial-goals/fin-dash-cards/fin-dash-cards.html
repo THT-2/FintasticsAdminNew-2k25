@@ -1,0 +1,55 @@
+    <!-- Tier 1 — Quick Stats (Header) -->
+         <div class="row g-3 align-items-stretch">
+      <div class="col-12"><h5 class="section-title">Financial Goals</h5></div>
+     <app-filter></app-filter>
+    <div class="row g-3" id="tier1">
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="kpi-card h-100" data-bs-toggle="tooltip" title="Count of unique users with a goals screen open or event in last 60s.">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="meta">
+              <div class="label">Live Users (Goals)</div>
+              <div class="value" id="kpiLiveUsers">0</div>
+              <div class="text-muted small">Active right now</div>
+            </div>
+            <div class="icon"><i class="bi bi-activity"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="kpi-card h-100" data-bs-toggle="tooltip" title="New goals started in selected period.">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="meta">
+              <div class="label">Goals Created</div>
+              <div class="value" id="kpiGoalsCreated">0</div>
+              <div class="text-muted small" id="kpiGoalsCreatedSub">Today / Week / Month</div>
+            </div>
+            <div class="icon"><i class="bi bi-plus-circle"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="kpi-card h-100" data-bs-toggle="tooltip" title="Goals with progress = 100% in selected period.">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="meta">
+              <div class="label">Goals Completed</div>
+              <div class="value" id="kpiGoalsCompleted">0</div>
+              <div class="text-muted small">Marked 100%</div>
+            </div>
+            <div class="icon"><i class="bi bi-check2-circle"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="kpi-card h-100" data-bs-toggle="tooltip" title="Active = 1–99% progress; Abandoned = no update ≥ X days (e.g., 30).">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="meta">
+              <div class="label">Active vs Abandoned</div>
+              <div class="value" id="kpiActiveAbandoned">0 / 0</div>
+              <div class="text-muted small">In-Progress • Abandoned</div>
+            </div>
+            <div class="icon"><i class="bi bi-slash-circle"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>

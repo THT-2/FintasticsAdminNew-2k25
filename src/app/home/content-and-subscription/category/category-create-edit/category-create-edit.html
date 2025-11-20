@@ -1,0 +1,103 @@
+<main class="main-content" id="mainContent">
+  <app-card>
+    <section class="container-xxl">
+      <h2 class="section-title">
+        {{ categoryFormControl['_id'].value ? GlobalConstant['EDIT'] + ' Category' : GlobalConstant['ADD'] + ' Category' }}
+      </h2>
+      <div class="form-card p-3 p-md-4">
+        <form [formGroup]="categoryForm" (ngSubmit)="submit()" class="needs-validation" novalidate>
+          <div class="row g-3">
+
+            <!-- Category Type -->
+            <div class="col-md-6">
+              <label class="form-label">Category Type <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-list-ul"></i></span>
+                <select class="form-select" formControlName="categoryType">
+                  <option hidden [value]="">Please Select</option>
+                  <option *ngFor="let item of categoryTypes">{{ item }}</option>
+                </select>
+              </div>
+              <div *ngIf="categoryForm.get('categoryType')?.touched && categoryForm.get('categoryType')?.invalid" class="text-danger">
+                Category Type is required.
+              </div>
+            </div>
+
+            <!-- Category Name -->
+            <div class="col-md-6">
+              <label class="form-label">Category Name <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                <input type="text" class="form-control" placeholder="Category Name" formControlName="desc_type" />
+              </div>
+              <div *ngIf="categoryForm.get('desc_type')?.touched && categoryForm.get('desc_type')?.invalid" class="text-danger">
+                Category Name is required.
+              </div>
+            </div>
+
+            <!-- Icon Upload -->
+            <div class="col-md-6">
+              <label class="form-label">Icon <span class="req">*</span></label>
+              <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
+              <div *ngIf="categoryFormControl['icon'].value" class="mt-2">
+                <app-file-preview [filePath]="categoryFormControl['icon'].value"></app-file-preview>
+              </div>
+              <div *ngIf="categoryForm.get('icon')?.touched && categoryForm.get('icon')?.invalid" class="text-danger">
+                Icon is required.
+              </div>
+            </div>
+
+            <!-- Background Image -->
+            <div class="col-md-6">
+              <label class="form-label">Background Image <span class="req">*</span></label>
+              <app-file-upload (getFilePath)="onBgFilePathReceived($event)"></app-file-upload>
+              <div *ngIf="categoryFormControl['backgroundimage'].value" class="mt-2">
+                <app-file-preview [filePath]="categoryFormControl['backgroundimage'].value"></app-file-preview>
+              </div>
+              <div *ngIf="categoryForm.get('backgroundimage')?.touched && categoryForm.get('backgroundimage')?.invalid" class="text-danger">
+                Background Image is required.
+              </div>
+            </div>
+
+            <!-- Color Code -->
+            <div class="col-md-6">
+              <label class="form-label">Color Code</label>
+              <div class="input-group">
+                <span class="input-group-text p-0" style="border-radius:8px; overflow:hidden;">
+                  <input type="color" formControlName="colorCode" style="width:42px; height:38px; border:none;">
+                </span>
+                <input type="text" class="form-control" formControlName="colorCode" placeholder="Color Code" />
+              </div>
+            </div>
+
+            <!-- Budget Percentage -->
+            <div class="col-md-6">
+              <label class="form-label">Budget wise percentage</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-percent"></i></span>
+                <input type="number" class="form-control" placeholder="Budget Percentage" formControlName="budgetpercentage" />
+              </div>
+              <div *ngIf="categoryForm.get('budgetpercentage')?.touched && categoryForm.get('budgetpercentage')?.invalid" class="text-danger">
+                Percentage is required.
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="col-12 pt-2 d-flex justify-content-end">
+              <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+                <ng-container *ngIf="btnLoader; else btnText">
+                  <div class="spinner-border text-white" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </ng-container>
+                <ng-template #btnText>
+                  {{ categoryFormControl['_id'].value ? 'Update' : 'Submit' }}
+                </ng-template>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </app-card>
+</main>

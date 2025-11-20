@@ -1,0 +1,9 @@
+<input type="file" #imgType (change)="onFileSelect($event)" class="form-control" multiple>
+
+@if (loading) {
+<div class="loader-container">
+  <div class="spinner"></div>
+  <p>Uploading, please wait...</p>
+</div>
+
+}

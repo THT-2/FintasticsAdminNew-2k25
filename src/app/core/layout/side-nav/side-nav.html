@@ -1,0 +1,90 @@
+<!-- Toggle button (hamburger) visible only on mobile -->
+<nav class="sidebar" [class.collapsed]="isCollapsed" id="sidebar">
+
+  <div class="logo">
+  @if (!isCollapsed) {
+    <img class="logo-full" src="../../../../assets/Fintastics-new-logo.jpg" alt="Full logo">
+  } @else {
+    <img class="logo-compact" src="../../../../assets/favicon.ico" alt="Compact logo">
+  }
+</div>
+
+
+
+  <div class="nav-scroll">
+    @for (navItem of NavItems; track navItem) {
+      @if (navItem.checked === true) {
+        <div class="menu-heading dashboard" [style.backgroundColor]="navItem.color">
+          {{ navItem.title }}
+        </div>
+      }
+      @for (item of navItem.subtitle; track item) {
+        @if (item.checked === true) {
+
+          <div class="menu-item-wrapper"
+               [class.open]="topRLA?.isActive || hasActiveChild(item)">
+
+            <a class="menu-item"
+               [routerLink]="item.path"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: true }"
+               #topRLA="routerLinkActive">
+              <i class="{{ item.icon }}"></i>
+              <span>{{ item.title }}</span>
+              <i *ngIf="item.children?.length" class="chevron"></i>
+            </a>
+
+            <div class="submenu"
+                 *ngIf="item.children?.length && (item.open || hasActiveChild(item))">
+              @for (child of item.children; track child) {
+                <a class="submenu-item"
+                   [routerLink]="child.url"
+                   routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }">
+                  <i class="{{ child.icon }}"></i>
+                  <span>{{ child.title }}</span>
+                </a>
+              }
+            </div>
+          </div>
+        }
+      }
+    }
+  </div>
+  
+ <!-- side-nav.html -->
+<!-- <div class="nav-scroll">
+
+  <div class="nav-section" *ngFor="let nav of NavItems">
+
+    <button
+      type="button"
+      class="menu-heading dashboard"
+      [style.backgroundColor]="nav.color || null"
+      (click)="toggleSection(nav)"
+      [attr.aria-expanded]="!!nav.open">
+      {{ nav.title }}
+      <i class="chevron" [class.rotate]="nav.open"></i>
+    </button>
+
+
+    <div class="submenu-wrapper" [class.open]="nav.open">
+      <div class="submenu">
+        <a class="menu-item"
+           *ngFor="let item of nav.subtitle"
+           [routerLink]="item.path"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: true }">
+          <i class="{{ item.icon }}"></i>
+          <span>{{ item.title }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+
+</nav>

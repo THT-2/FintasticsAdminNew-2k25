@@ -1,0 +1,46 @@
+   <div class="header">
+        <h1 class="page-title">30 Days Challenge Dashboard</h1>
+        <div class="user-info">
+          <div class="user-avatar">AD</div>
+          <div>
+            <div style="font-weight: 600;">Challenge Manager</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Administrator</div>
+          </div>
+        </div>
+      </div>
+
+   <!-- Filters Section -->
+      <div class="filters-container">
+        <h3 class="filters-title"><i class="fas fa-filter"></i> Filter Dashboard Data</h3>
+        <div class="filters-row">
+          <div class="filter-group">
+            <label class="filter-label">Time Period</label>
+            <select class="filter-select" id="timeFilter">
+              <option value="today">Today</option>
+              <option value="yesterday">Yesterday</option>
+              <option value="week" selected>This Week</option>
+              <option value="lastWeek">Last Week</option>
+              <option value="month">This Month</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">User Status</label>
+            <select class="filter-select" id="statusFilter">
+              <option value="all">All Users</option>
+              <option value="active" selected>Active</option>
+              <option value="dropped">Dropped</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Platform</label>
+            <select class="filter-select" id="platformFilter">
+              <option value="all">All Platforms</option>
+              <option value="ios">iOS</option>
+              <option value="android">Android</option>
+              <option value="web">Web</option>
+            </select>
+          </div>
+          <button class="filter-button" id="applyFilters"><i class="fas fa-check"></i> Apply Filters</button>
+        </div>
+      </div>

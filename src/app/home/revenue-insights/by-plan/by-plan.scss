@@ -1,0 +1,80 @@
+    /* Buttons & chips */
+    .btn-outline-secondary.active, .btn-outline-secondary:active{ background:linear-gradient(90deg,var(--grad-1),var(--grad-2)); color:#fff; border-color:transparent }
+    .badge-soft{ background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:999px; padding:.2rem .55rem;
+       font-weight:600 }
+    /* Pastel Purple/Blue accents and widget helpers */
+    .pastel-89{ background:#F5F1FF; border-color:#E6DDFF; }
+    .pastel-499{ background:#F0F6FF; border-color:#D9EAFF; }
+    .pastel-719{ background:#F0FFFB; border-color:#CFF5EA; }
+    .pastel-ios{ background:#F7F2FF; border-color:#E9DEFF; }
+    .pastel-android{ background:#EFFBFF;
+      border-color:#D8F4FF; }
+    .box-card.pastel-89::before{opacity:.6}
+    .box-card.pastel-499::before{opacity:.6}
+    .box-card.pastel-719::before{opacity:.6}
+    .btn-export{ white-space:nowrap }
+    .table thead th{ font-size:.8rem; color:var(--muted) }
+    /* Live list */
+  //   .live-list{
+  //   max-height:240px;
+  //   // overflow:auto; scroll-behavior:smooth; overscroll-behavior:contain
+  // }
+    .live-list li{ transition: background .3s ease }
+    .live-list li.highlight{
+      background: color-mix(in oklab,
+      var(--grad-1), white 85%); }
+
+       h1,h2,h3,h4,h5,h6,.section-title,.box-header{ font-weight:600; letter-spacing:.2px }
+
+    // .kpi-card .delta{ font-weight:500 }
+    // .range-btn.active{ background:linear-gradient(90deg,var(--grad-1),var(--grad-2)); color:#fff; border-color:transparent }
+    .table-sm td,.table-sm th{ padding:.4rem .5rem }
+    // /* Cards & KPIs */
+    .kpi-card, .box-card{ position:relative; border:1px solid var(--border); border-radius:14px; padding:16px; box-shadow:var(--shadow); }
+    // .kpi-card .meta .label{ font-size:.8rem; color:var(--muted) }
+    // .kpi-card .meta .value{ font-size:1.6rem; font-weight:800 }
+    // .kpi-card .delta{ font-size:.78rem }
+    .kpi-card .icon{ width:46px; height:46px; border-radius:14px; display:flex;
+       align-items:center; justify-content:center;
+       background:linear-gradient(135deg, color-mix(in oklab, var(--grad-1), white 80%), color-mix(in oklab, var(--grad-2), white 80%));
+       color:#3b0764;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.6); }
+    .kpi-card::before, .box-card::before{ content:""; position:absolute; inset:0 0 auto 0; height:3px; background:linear-gradient(90deg,var(--grad-1),var(--grad-2)); opacity:.45 }
+    .box-header{ display:flex; align-items:center; gap:.5rem; font-weight:800; margin-top:35px }
+    .section-title{ margin:30px 0 15px; font-weight:600; letter-spacing:.2px; position:relative; display:flex; align-items:center; gap:.5rem }
+    .section-title::after{ content:""; position:absolute; left:0; bottom:-6px; width:64px; height:4px; border-radius:999px; background:linear-gradient(90deg,var(--grad-1),var(--grad-2)); opacity:.8 }
+    .section-title::before{
+      // content:'🎯';
+    display:inline-flex;align-items:center;
+    justify-content:center;width:26px;height:26px;
+    border-radius:8px;
+    background:linear-gradient(135deg,var(--grad-1),
+    var(--grad-2));
+    color:#fff;font-size:14px;
+    box-shadow:0 6px 14px rgba(0,0,0,.08)}
+
+      .widget-export{ top:12px; right:12px; z-index:2 }
+.box-card .live-list thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bs-body-bg, #fff);
+  z-index: 2;
+  box-shadow: 0 1px 0 rgba(0,0,0,.08);
+}
+
+
+.box-card .live-list table {
+  margin: 0;
+  table-layout: fixed;
+  width: 100%;
+}
+
+
+.box-card .live-list tbody td,
+.box-card .live-list thead th {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

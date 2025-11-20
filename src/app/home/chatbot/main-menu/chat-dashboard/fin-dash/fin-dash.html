@@ -1,0 +1,68 @@
+<!-- Main Content -->
+<div class="main-content">
+  <div class="dashboard-header">
+    <h2>Financial Support Dashboard</h2>
+    <p>Manage customer queries and assign to specialized financial experts</p>
+  </div>
+
+  <!-- filter -->
+  <app-filter></app-filter>
+
+  <!-- Stats Cards -->
+  <div class="stats-cards">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fas fa-users"></i>
+      </div>
+      <div class="stat-info">
+        <h4>{{ activeUsers }}</h4>
+        <p>Active Users</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fas fa-comment-dots"></i>
+      </div>
+      <div class="stat-info">
+        <h4>{{ waitingChats }}</h4>
+        <p>Waiting Chats</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fas fa-comments"></i>
+      </div>
+      <div class="stat-info">
+        <h4>{{ ongoingChats }}</h4>
+        <p>Ongoing Chats</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fas fa-times-circle"></i>
+      </div>
+      <div class="stat-info">
+        <h4>{{ droppedChats }}</h4>
+        <p>Dropped Chats</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <div class="stat-info">
+        <h4>{{ resolvedToday }}</h4>
+        <p>Resolved Today</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fas fa-star"></i>
+      </div>
+      <div class="stat-info">
+        <h4>{{ satisfactionRate }}%</h4>
+        <p>Satisfaction Rate</p>
+      </div>
+    </div>
+  </div>
+</div>

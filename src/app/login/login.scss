@@ -1,0 +1,301 @@
+
+    *{
+      /* Purple–Bluish Light theme */
+      --bg-outer:#f2f6ff;          /* soft blue page bg */
+      --card-bg:#ffffff;
+      --brand-1:#6366f1;           /* indigo */
+      --brand-2:#3b82f6;           /* blue */
+      --brand-3:#a78bfa;           /* violet */
+      --text-900:#0f172a;          /* slate-900 */
+      --text-600:#475569;          /* slate-600 */
+      --stroke:#e4e7ff;            /* cool border */
+      --field:#eef2ff;             /* light blue field */
+      --radius:22px;
+      --shadow:0 30px 80px rgba(15,23,42,.12);
+      box-sizing:border-box
+    }
+  .main-content{
+    padding: 5rem 1.5rem 4rem;
+    overflow-y: hidden;
+    // padding: 4.5rem 1rem 3rem;
+  }
+
+
+
+
+
+    /* Particles */
+    #tsparticles{
+      position:fixed;
+      inset:0;
+      z-index:0
+    }
+
+    /* Wrapper card mimicking the example layout */
+    .wrap{
+      position:relative;
+      z-index:1;
+      max-width:1180px;
+      top: 10%;
+      margin:0 auto;
+      bottom: 10px;
+      border-radius:24px;
+      overflow:hidden;
+
+      box-shadow:0 30px 80px rgba(15,23,42,.12);
+      background:#ffffff;
+      border:1px solid #e4e7ff;
+      display:grid;
+      grid-template-columns:1fr 1fr
+    }
+
+    @media (max-width:980px){
+      .wrap{
+        grid-template-columns:1fr
+      }
+    }
+
+    /* LEFT side – hero image + brand panel */
+    .left{
+      display:flex;
+       flex-direction:column;
+        min-height:620px;
+        background:#fafaff
+      }
+    .hero{
+      flex:1;
+      position:relative;
+       overflow:hidden
+      }
+
+    .hero img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+       filter:saturate(1.02) contrast(1.02)
+      }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(80% 70% at 10% 10%, rgba(99,102,241,.20),
+      transparent 55%), linear-gradient(180deg, transparent 40%, rgba(59,130,246,.18));
+      mix-blend-mode:multiply
+    }
+
+    .brand-panel{
+      background:linear-gradient(140deg, rgba(99,102,241,.18), rgba(59,130,246,.16));
+       border-top:1px solid #e4e7ff; padding:28px 34px;
+      }
+
+    .brow{
+      display:flex;
+      align-items:center;
+       gap:10px;
+      margin-bottom:14px
+    }
+    .logo{
+      width:42px;
+      height:42px;
+       border-radius:12px;
+       display:grid;
+       place-items:center;
+      color:#fff;
+       background:linear-gradient(135deg, #6366f1, #3b82f6);
+        box-shadow:0 10px 20px rgba(180,142,246,.35)
+    }
+    .brand-name{
+      font-weight:800;
+      letter-spacing:.2px
+    }
+
+    .welcome{
+      display:flex;
+       flex-direction:column;
+       gap:6px
+      }
+    .welcome h3{
+      margin:0;
+      font-size:22px;
+       font-weight:800
+      }
+    .welcome .muted{
+      color:#475569;
+      font-size:14px
+    }
+
+    /* RIGHT side – login form */
+    .right{
+      padding:46px 48px;
+      display:flex;
+      flex-direction:column;
+       justify-content:center
+      }
+
+    .right .top{
+      display:flex;
+      align-items:center;
+       gap:10px;
+       margin-bottom:16px
+      }
+
+    .right h2{
+      margin:0 0 6px;
+       font-size:26px
+      }
+    .right p{
+      margin:0 0 18px;
+       color:#475569
+      }
+
+    form{
+      display:flex;
+      flex-direction:column;
+      gap:14px
+    }
+
+    .field input{
+      width:100%;
+       height:50px;
+       border-radius:12px;
+        border:1px solid #e4e7ff;
+      background:#eef2ff;
+      padding:0 14px 0 42px;
+      font:600 15px 'Plus Jakarta Sans',sans-serif;
+       color:#0f172a;
+       outline:none
+      }
+
+    .field input::placeholder{
+      color:#8f92a1
+    }
+    .field input:focus{
+      border-color:#d7caff;
+       box-shadow:0 0 0 8px rgba(212,185,255,.18)
+      }
+
+//   .field {
+//   position: relative;
+// }
+
+.field {
+  margin-bottom: 12px;
+}
+
+.input-wrapper,
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input,
+.password-wrapper input {
+  width: 100%;
+  height: 50px;
+  border-radius: 12px;
+  border: 1px solid #e4e7ff;
+  background: #eef2ff;
+  padding: 0 14px 0 42px; /* space for the icon */
+  font: 600 15px 'Plus Jakarta Sans', sans-serif;
+  color: #0f172a;
+  outline: none;
+}
+
+/* Icon centered relative to the wrapper (i.e., the input) */
+.icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: #6366f1;
+  opacity: 0.85;
+}
+
+
+
+
+
+
+
+    .meta a{
+      color:#6366f1;
+      text-decoration:none;
+      font-weight:700
+    }
+
+    .btn{
+      height:50px;
+      border:none;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:800;
+      letter-spacing:.3px;
+      color:#ffffff;
+      background:linear-gradient(100deg, #6366f1, #3b82f6);
+      box-shadow:0 10px 22px rgba(99,102,241,.32), inset 0 0 0 1px rgba(255,255,255,.18);
+      position:relative;
+      overflow:hidden
+    }
+
+    .btn:hover{
+      transform:translateY(-1px)
+    }
+
+
+
+.toggle-password {
+
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #6366f1;
+}
+
+    /* Flash animation sweep */
+    .btn::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:linear-gradient(120deg, transparent 20%, rgba(255,255,255,.55) 40%, rgba(255,255,255,.12) 60%, transparent 80%);
+       transform:skewX(-25deg) translateX(-130%);
+       animation:buttonFlash 3.2s infinite
+      }
+    @keyframes buttonFlash{
+      0%{
+        transform:skewX(-25deg) translateX(-130%)}
+        55%{
+          transform:skewX(-25deg) translateX(130%)
+        }100%{
+          transform:skewX(-25deg) translateX(130%)
+        }}
+
+    .signup{
+      margin-top:12px;
+      color:#475569
+    }
+    .signup a{
+      color:#6d28d9;
+      text-decoration:none;
+      font-weight:800
+    }
+
+    .badge{
+      display:inline-flex;
+      color: black;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--stroke);
+      font-weight:700
+    }
+

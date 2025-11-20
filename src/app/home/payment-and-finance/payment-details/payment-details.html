@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="User List" blockClass="pc-component" [buttondata]="buttondata">
+      <app-card [showHeader]="false" blockClass="dashboard-card">
+        <form [formGroup]="Form" (ngSubmit)=" getdetails()">
+          <div class="row">
+        <div class="form-group mb-3 col-md-3">
+          <label class="form-label" for="email">Filter</label>
+          <select class="form-control" formControlName="filterType" (change)="filterChanges()">
+            <option value="" disabled>Choose...</option>
+            @for (item of FilterData; track item) {
+              <option value="{{item}}">{{item}}</option>
+            }
+
+          </select>
+          @if (Form.get('filterType')?.touched && Form.get('filterType')?.invalid) {
+            <div class="text-danger">
+              FilterType is required.
+            </div>
+          }
+
+        </div>
+        @if(filterFormvalue === "Custom"){
+        <div class="form-group mb-3 col-md-3">
+          <label class="form-label" for="email">Start Date</label>
+          <input type="date" class="form-control" formControlName="startDate" required>
+          @if (Form.get('startDate')?.touched && Form.get('startDate')?.invalid) {
+            <div class="text-danger">
+              Start Date is required.
+            </div>
+          }
+
+        </div>
+        <div class="form-group mb-3 col-md-3">
+          <label class="form-label" for="email">End date</label>
+          <input type="date" class="form-control" formControlName="endDate" required>
+          @if (Form.get('endDate')?.touched && Form.get('endDate')?.invalid) {
+            <div class="text-danger">
+              End Date is required.
+            </div>
+          }
+
+        </div>
+      }
+
+        <div class="col-md-3">
+          <div class="row">
+            <div class="d-grid mt-4 col-md-6">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div> <div class="d-grid mt-4 col-md-6" >
+              <button type="button" class="btn btn-success" (click)="ngOnInit()">Refresh</button>
+            </div>
+          </div>
+
+      </div>
+      </div>
+        </form>
+      </app-card>
+        <app-table [tableData]="Datas" [columnHeader]="columnDefinition" [buttondata]="buttondata"></app-table>
+      </app-card>
+    </div>
+  </div>

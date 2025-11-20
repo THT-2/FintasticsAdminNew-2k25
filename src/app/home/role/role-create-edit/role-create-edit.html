@@ -1,0 +1,59 @@
+<main class="main-content container mt-5" id="mainContent">
+  <app-card [cardTitle]="roleFormControl['_id'].value ? GlobalConstant['EDIT'] + ' Role' : GlobalConstant['ADD'] + ' Role'" blockClass="pc-component" route_button="" >
+    <div class="card-body">
+      <form [formGroup]="roleForm" (ngSubmit)="submit()">
+         <!-- Role Input -->
+          <div class="mb-4">
+            <label class="form-label fw-bold" for="roleType">Role Name</label>
+             <input type="text"
+             id="roleType"
+             class="form-control form-control-lg"
+             formControlName="roleType"
+              placeholder="Enter role name..." />
+
+              <div *ngIf="roleForm.get('roleType')?.touched && roleForm.get('roleType')?.invalid" class="text-danger mt-1" >
+                 Role is required.
+                </div>
+                </div>
+                <!-- Navigation Items -->
+                 <div class="row g-3">
+                   <ng-container *ngFor="let item of NavItems">
+                    <div class="col-md-6">
+                      <div class="card shadow-sm p-3 h-100">
+                        <!-- Main Title Checkbox -->
+                         <div class="d-flex justify-content-between align-items-center mb-2">
+                          <label class="form-check-label fw-semibold" for="{{ item.title }}">
+                            {{ item.title }}
+                           </label>
+
+                             <!-- Select All Button -->
+                              <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2" (click)="toggleSelectAll(item)" >
+                                 {{ areAllSubtitlesChecked(item) ? 'Deselect All' : 'Select All' }}
+                                 </button>
+                                </div>
+                                 <!-- Subtitles (Normal Checkboxes) -->
+                                 <ul class="list-unstyled ms-3 mt-2">
+                                   <li *ngFor="let sub of item.subtitle">
+                                    <div class="form-check mb-1">
+                                       <input class="form-check-input"
+                                        type="checkbox" id="{{ item.title }}-{{ sub.title }}" [(ngModel)]="sub.checked"
+                                         [ngModelOptions]="{ standalone: true }" />
+                                         <label class="form-check-label" for="{{ item.title }}-{{ sub.title }}">
+                                          {{ sub.title }} </label>
+                                         </div>
+                                         </li>
+                                        </ul>
+                                      </div>
+                                        </div>
+                                      </ng-container>
+                                     </div>
+                                     <!-- Submit Button -->
+                                       <div class="d-grid mt-4">
+                                         <button type="submit" class="btn btn-cta btn-cta-wide">
+                                           {{ roleFormControl['_id'].value ? 'Update Role' : 'Submit Role' }}
+                                           </button>
+                                          </div>
+                                         </form>
+                                         </div>
+                                        </app-card>
+                                      </main>

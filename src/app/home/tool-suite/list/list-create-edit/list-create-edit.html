@@ -1,0 +1,153 @@
+<main class="main-content" id="mainContent">
+  <app-card>
+    <section class="container-xxl">
+      <h2 class="section-title">
+        {{ (toolsFormControl['_id'].value ? GlobalConstant['EDIT'] : GlobalConstant['ADD']) + ' Tools' }}
+      </h2>
+      <div class="form-card p-3 p-md-4">
+        <form [formGroup]="toolsForm" (ngSubmit)="submit()" class="needs-validation" novalidate>
+          <div class="row g-3">
+
+            <!-- Type -->
+            <div class="col-md-6">
+              <label class="form-label">Type <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-list-ul"></i></span>
+                <select class="form-select" formControlName="type">
+                  <option hidden [value]="null">Please Select</option>
+                  <option *ngFor="let item of categoryData" [value]="item">{{item}}</option>
+                </select>
+              </div>
+              <div *ngIf="toolsForm.get('type')?.touched && toolsForm.get('type')?.invalid" class="text-danger">
+                Type is required.
+              </div>
+            </div>
+
+            <!-- Subscription Offer -->
+            <div class="col-md-6" *ngIf="toolsForm.value.type == 'Special Offer'">
+              <label class="form-label">Subscription Offer <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-gift"></i></span>
+                <select class="form-select" formControlName="offerId">
+                  <option hidden [value]="null">Please Select</option>
+                  <option *ngFor="let item of Data" [value]="item._id">{{item.title}}</option>
+                </select>
+              </div>
+              <div *ngIf="toolsForm.get('offerId')?.touched && toolsForm.get('offerId')?.invalid" class="text-danger">
+                Offer is required.
+              </div>
+            </div>
+
+            <!-- Tool Name -->
+            <div class="col-md-6">
+              <label class="form-label">Tool Name <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-tools"></i></span>
+                <input type="text" class="form-control" formControlName="toolName" placeholder="Enter tool name" />
+              </div>
+              <div *ngIf="toolsForm.get('toolName')?.touched && toolsForm.get('toolName')?.invalid" class="text-danger">
+                Tool Name is required.
+              </div>
+            </div>
+
+            <!-- Overview -->
+            <div class="col-md-6">
+              <label class="form-label">Overview <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-file-text"></i></span>
+                <textarea class="form-control" formControlName="overView" placeholder="Enter overview"></textarea>
+              </div>
+              <div *ngIf="toolsForm.get('overView')?.touched && toolsForm.get('overView')?.invalid" class="text-danger">
+                Overview is required.
+              </div>
+            </div>
+
+            <!-- Image Upload -->
+            <div class="col-md-6">
+              <label class="form-label">Image <span class="req">*</span></label>
+              <app-file-upload (getFilePath)="onFilePathReceived($event,'imageUrl')"></app-file-upload>
+              <!-- <div *ngIf="toolsFormControl['imageUrl'].value" class="mt-2">
+                <app-file-preview [filePath]="toolsFormControl['imageUrl'].value"></app-file-preview>
+              </div> -->
+
+              <div *ngIf="toolsForm.get('imageUrl')?.touched && toolsForm.get('imageUrl')?.invalid" class="text-danger">
+                Image is required.
+              </div>
+            </div>
+
+            <!-- Price Image Upload -->
+            <div class="col-md-6">
+              <label class="form-label">Price Image <span class="req">*</span></label>
+              <app-file-upload (getFilePath)="onFilePathReceived($event,'priceimageUrl')"></app-file-upload>
+              <div *ngIf="toolsFormControl['priceimageUrl'].value" class="mt-2">
+                <app-file-preview [filePath]="toolsFormControl['priceimageUrl'].value"></app-file-preview>
+              </div>
+              <div *ngIf="toolsForm.get('priceimageUrl')?.touched && toolsForm.get('priceimageUrl')?.invalid" class="text-danger">
+                Price image is required.
+              </div>
+            </div>
+
+            <!-- Original Price -->
+            <div class="col-md-6">
+              <label class="form-label">Original Price <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-cash-stack"></i></span>
+                <input type="number" class="form-control" formControlName="price" placeholder="Enter Original Price" />
+              </div>
+              <div *ngIf="toolsForm.get('price')?.touched && toolsForm.get('price')?.invalid" class="text-danger">
+                Original Price is required.
+              </div>
+            </div>
+
+            <!-- Offer Price -->
+            <div class="col-md-6">
+              <label class="form-label">Offer Price <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                <input type="number" class="form-control" formControlName="offerPrice" placeholder="Enter Offer Price" />
+              </div>
+              <div *ngIf="toolsForm.get('offerPrice')?.touched && toolsForm.get('offerPrice')?.invalid" class="text-danger">
+                Offer Price is required.
+              </div>
+            </div>
+
+            <!-- Tools Suites Upload -->
+            <div class="col-md-6">
+              <label class="form-label">Tools Suites <span class="req">*</span></label>
+              <app-file-upload (getFilePath)="onFilePathReceived($event,'tools')"></app-file-upload>
+              <div *ngIf="toolsFormControl['tools'].value" class="mt-2">
+                <app-file-preview [filePath]="toolsFormControl['tools'].value"></app-file-preview>
+              </div>
+              <div *ngIf="toolsForm.get('tools')?.touched && toolsForm.get('tools')?.invalid" class="text-danger">
+                Tools suites is required.
+              </div>
+            </div>
+
+            <!-- Rich Text Content -->
+            <div class="col-12">
+              <label class="form-label">Content <span class="req">*</span></label>
+              <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+              <ngx-editor [editor]="editor" formControlName="content"></ngx-editor>
+            </div>
+
+          </div>
+
+          <!-- Submit Button -->
+          <div class="d-flex justify-content-end gap-2 mt-4">
+            <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+              <ng-container *ngIf="btnLoader; else btnText">
+                <div class="spinner-border text-white" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </ng-container>
+              <ng-template #btnText>
+                {{ toolsFormControl['_id'].value ? 'Update' : 'Submit' }}
+              </ng-template>
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+  </app-card>
+</main>

@@ -1,0 +1,62 @@
+<div class="chat-container">
+  <app-left
+    (chatSelected)="onChatSelected($event)"
+    (ticket)="onTicketSelected($event)"
+
+  ></app-left>
+
+  <app-right
+    [chatSelected]="selectedChatId"
+    [ticket]="selectedTicketId"
+    
+  ></app-right>
+</div>
+<!-- <div class="chat-container">
+  <app-left
+    (chatSelected)="onChatSelected($event)"
+    (ticket)="onTicketSelected($event)"
+    (openChat)="startChat()"
+  ></app-left>
+
+  <app-right
+    [chatSelected]="selectedChatId"
+    [ticket]="selectedTicketId"
+    (chatEnded)="endChat()"
+  ></app-right>
+</div> -->
+
+
+
+<!-- Colorful LEAVE-CHAT Popup (for module change, logout, etc.) -->
+<div class="chat-switch-backdrop" *ngIf="showLeavePopup">
+  <div class="chat-switch-modal">
+    <h3>Leave Chat?</h3>
+    <p>You have an active chat. Do you really want to leave this page?</p>
+
+    <div class="buttons">
+      <button class="btn btn-cancel" (click)="onLeavePopupAnswer(false)">
+        Stay on chat
+      </button>
+      <button class="btn btn-confirm" (click)="onLeavePopupAnswer(true)">
+        Leave anyway
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Colorful Chat Switch Popup -->
+<div class="chat-switch-backdrop" *ngIf="showSwitchPopup">
+  <div class="chat-switch-modal">
+    <h3>Switch Chat?</h3>
+    <p>You have an active chat. Do you want to switch to another chat?</p>
+
+    <div class="buttons">
+      <button class="btn btn-cancel" (click)="confirmChatSwitch(false)">
+        No, stay here
+      </button>
+      <button class="btn btn-confirm" (click)="confirmChatSwitch(true)">
+        Yes, switch
+      </button>
+    </div>
+  </div>
+</div>

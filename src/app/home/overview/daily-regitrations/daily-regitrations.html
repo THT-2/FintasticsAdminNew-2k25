@@ -1,0 +1,46 @@
+<div class="section-highlight mb-4">
+  <div class="d-flex align-items-center justify-content-between mb-2">
+    <h5 class="section-title mb-0">User Daily Registration & Forecast</h5>
+    <div class="forecast-filter btn-group" role="group" aria-label="Forecast range">
+      <button #fcButton class="btn btn-outline-primary btn-sm active" data-fc="30">Monthly</button>
+      <button #fcButton class="btn btn-outline-primary btn-sm" data-fc="180">6 Months</button>
+      <button #fcButton class="btn btn-outline-primary btn-sm" data-fc="365">1 Year</button>
+    </div>
+  </div>
+
+  <div class="row g-3 align-items-stretch">
+    <div class="col-lg-9">
+      <div class="card-widget" style="height: 340px; position: relative;">
+  <canvas #forecastChart style="width: 100%; height: 100%;"></canvas>
+</div>
+      <div class="forecast-legend mt-2">
+        Actual last 30 days (solid) • Forecast (dashed). Vertical marker indicates start of forecast.
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+      <div class="mini-stats">
+        <div class="mini-card">
+          <div class="label">Actual (last 30 days)</div>
+          <div class="val" #fcActual>—</div>
+          <div class="sub">Users registered</div>
+        </div>
+        <div class="mini-card">
+          <div class="label">Forecast (<span #fcHorizonLbl>30</span>d)</div>
+          <div class="val" #fcForecast>—</div>
+          <div class="sub">Projected registrations</div>
+        </div>
+        <div class="mini-card">
+          <div class="label">Avg / day (forecast)</div>
+          <div class="val" #fcAvg>—</div>
+          <div class="sub">Rounded</div>
+        </div>
+        <div class="mini-card">
+          <div class="label">Peak day (forecast)</div>
+          <div class="val" #fcPeak>—</div>
+          <div class="sub">Max users in a day</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

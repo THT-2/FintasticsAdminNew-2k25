@@ -1,0 +1,131 @@
+<main class="main-content" id="mainContent">
+  <app-card>
+    <section class="container-xxl">
+      <h2 class="section-title">
+        {{ (subCategoryFormControl['_id'].value ? GlobalConstant['EDIT'] : GlobalConstant['ADD']) + ' Sub Category' }}
+      </h2>
+      <div class="form-card p-3 p-md-4">
+        <form [formGroup]="subCategoryForm" (ngSubmit)="submit()" class="needs-validation" novalidate>
+          <div class="row g-3">
+
+            <!-- Category Type -->
+            <!-- <div class="col-md-6">
+              <label class="form-label">Category Type <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-list-ul"></i></span>
+                <select class="form-select" formControlName="categoryType" (change)="getCategoryData()">
+                  <option hidden [value]="">Please Select</option>
+                  <option *ngFor="let item of categoryTypes">{{ item }}</option>
+                </select>
+              </div>
+              <div *ngIf="subCategoryForm.get('categoryType')?.touched && subCategoryForm.get('categoryType')?.invalid" class="text-danger">
+                Category Type is required.
+              </div>
+            </div> -->
+
+            <!-- Category Name -->
+            <div class="col-md-6">
+              <label class="form-label">Category Name <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                <select class="form-select" formControlName="desc_type_id">
+                  <option hidden [value]="null">Please Select</option>
+                   @for (item of categoryData; track item) {
+                    <option value="{{item._id}}">{{item.desc_type}}</option>
+                  }
+                  <!-- <option *ngFor="let item of categoryData" [value]="{{item._id}}">{{ item.desc_type }}</option> -->
+                </select>
+              </div>
+              <div *ngIf="subCategoryForm.get('desc_type_id')?.touched && subCategoryForm.get('desc_type_id')?.invalid" class="text-danger">
+                Category Name is required.
+              </div>
+            </div>
+
+            <!-- Sub Category Type -->
+            <div class="col-md-6">
+              <label class="form-label">Sub Category Type <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-pencil-square"></i></span>
+                <input type="text" class="form-control" placeholder="Sub Category" formControlName="sub_desc_type" />
+              </div>
+              <div *ngIf="subCategoryForm.get('sub_desc_type')?.touched && subCategoryForm.get('sub_desc_type')?.invalid" class="text-danger">
+                Sub Category is required.
+              </div>
+            </div>
+
+            <!-- Icon Upload -->
+            <div class="col-md-6">
+              <label class="form-label">Icon <span class="req">*</span></label>
+              <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
+              <div *ngIf="subCategoryFormControl['icon'].value" class="mt-2">
+                <app-file-preview [filePath]="subCategoryFormControl['icon'].value"></app-file-preview>
+              </div>
+              <div *ngIf="subCategoryForm.get('icon')?.touched && subCategoryForm.get('icon')?.invalid" class="text-danger">
+                Icon is required.
+              </div>
+            </div>
+
+            <!-- Color Code -->
+            <div class="col-md-6">
+              <label class="form-label">Color Code</label>
+              <div class="input-group">
+                <span class="input-group-text p-0" style="border-radius:8px; overflow:hidden;">
+                  <input type="color" formControlName="colorCode" style="width:42px; height:38px; border:none;">
+                </span>
+                <input type="text" class="form-control" formControlName="colorCode" placeholder="Color Code" />
+              </div>
+            </div>
+
+            <!-- Tax Message -->
+            <div class="col-12">
+              <label class="form-label">Tax Message</label>
+              <textarea class="form-control" formControlName="tax_msg" placeholder="Tax Message"></textarea>
+            </div>
+
+            <!-- Transaction Success Msg Input + Button -->
+            <div class="col-md-8">
+              <div class="row g-2 align-items-end">
+                <div class="col-md-10">
+                  <label class="form-label"><b>Transaction Success Message</b></label>
+                  <input type="text" class="form-control" placeholder="Success message" formControlName="success_msg" />
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+      <!-- + button styled like submit button but keeps its size -->
+      <button type="button" class="btn btn-cta" (click)="addsuccess_msg()">
+        <i class="bi bi-plus-lg"></i>
+      </button>
+    </div>
+              </div>
+            </div>
+
+            <!-- Success Msg List -->
+            <div class="col-md-8">
+              <div class="tags-box mt-2">
+                <span class="tag" *ngFor="let item of success_msg_data; let i = index">
+                  {{ item }} <span class="remove" (click)="removesuccess_msg(i)">×</span>
+                </span>
+              </div>
+            </div>
+
+
+          </div>
+          <!-- Submit Button -->
+<div class="col-12 pt-2 d-flex justify-content-end">
+<button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+  <ng-container *ngIf="btnLoader; else btnText">
+    <div class="spinner-border text-white" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </ng-container>
+  <ng-template #btnText>
+    {{ subCategoryFormControl['_id'].value ? 'Update' : 'Submit' }}
+  </ng-template>
+</button>
+</div>
+
+
+        </form>
+      </div>
+    </section>
+  </app-card>
+</main>

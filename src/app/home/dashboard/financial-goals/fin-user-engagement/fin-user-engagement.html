@@ -1,0 +1,27 @@
+    <!-- Tier 3 — User Engagement -->
+    <h3 class="section-title">User Engagement</h3>
+    <div class="row g-3">
+      <div class="col-12 col-xl-6">
+        <div class="box-card h-100" data-bs-toggle="tooltip" title="Success% = Completed / (Completed + Abandoned) for that user.">
+          <div class="box-header"><i class="bi bi-trophy"></i> Top Goal Achievers <span class="text-muted small">— #Completed • Success%</span></div>
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead><tr><th>User</th><th class="text-end">Completed</th><th class="text-end">Success%</th></tr></thead>
+              <tbody id="tblAchievers"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="box-card h-100" data-bs-toggle="tooltip" title="Achiever = ≥1 completed goal in period; Dropper = ≥1 abandoned and 0 completed.">
+          <div class="box-header"><i class="bi bi-people"></i> Achievers vs Droppers <span class="text-muted small">— User split by outcome</span></div>
+          <canvas id="chartAchieverSplit"></canvas>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="box-card h-100" data-bs-toggle="tooltip" title="Users who created a goal this period AND previous comparable period.">
+          <div class="box-header"><i class="bi bi-graph-up-arrow"></i> Repeat Goal-Setters <span class="text-muted small">— Retention</span></div>
+          <canvas id="chartRetention"></canvas>
+        </div>
+      </div>
+    </div>

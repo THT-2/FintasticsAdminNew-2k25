@@ -1,0 +1,144 @@
+          * {
+            --primary-blue: #5a54c9;
+            --primary-purple: #7b4dd2;
+            --light-blue: #a8b1ff;
+            --light-purple: #c5a8ff;
+            --pastel-blue: #d4dcff;
+            --pastel-purple: #e5d5ff;
+            --dark-text: #2a2755;
+            --medium-text: #4a4678;
+            --light-text: #6c63a0;
+            --success: #3da8c9;
+            --warning: #e52d73;
+            --excellent: #4cc9f0;
+            --good: #7b4dd2;
+            --average: #ff9e44;
+            --poor: #e52d73;
+            --gray: #7a759f;
+            --light-gray: #ececf4;
+            --white: #ffffff;
+            --card-shadow: 0 5px 15px rgba(90, 84, 201, 0.15);
+
+            // margin: 0;
+            // padding: 0;
+            // box-sizing: border-box;
+            // border-bottom: 30px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+
+//         .chat-container {
+//   height: 100vh;
+//   // overflow-y: auto;
+//   // overflow-x: auto;
+// }
+
+// app-chat-left, app-chat-right {
+//   padding: 10px;
+//   border-radius: 10px;
+// }
+
+// app-chat-left {
+//   // background-color: #f1f1f1;
+//   background: #fafafa;
+//   margin-bottom: 10px;
+//   overflow-y: auto !important;
+// }
+
+// app-chat-right {
+//   // background-color: #007bff;
+//   background: #fff;
+//   margin-bottom: 10px;
+//   overflow-y: auto;
+// // }
+
+//          .chat-container {
+//             display: grid;
+//             grid-template-columns: 350px 1fr;
+//             gap: 0;
+//             max-width: 1400px;
+//             height: 90vh;
+//             margin: 0 auto;
+//             background: var(--white);
+//             border-radius: 18px;
+//             overflow: hidden;
+//             box-shadow: 0 12px 35px rgba(90, 84, 201, 0.25);
+//         }
+        .chat-container {
+  // display: flex;
+  // height: 2000px;
+  margin-bottom: 10%;
+  margin-top: 0px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Left Sidebar */
+app-chat-left {
+  width: 320px; /* adjust as needed */
+  border-right: 1px solid #eee;
+  background: #fafafa;
+  overflow-y: auto;
+  height: 300px;
+  margin-bottom: 0 !important;
+}
+
+/* Right Chat Area */
+app-chat-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+height: 570px;
+}
+
+ /* Responsive Design */
+        @media (max-width: 992px) {
+            .chat-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .sidebar.active {
+                display: flex;
+            }
+
+            .chat-area.hidden {
+                display: none;
+            }
+
+            .back-button {
+                display: block !important;
+            }
+        }
+
+        .back-button {
+            display: none;
+            margin-right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--primary-purple);
+        }
+
+        /* Scrollbar Styling */
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(90, 84, 201, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(90, 84, 201, 0.3);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(90, 84, 201, 0.5);
+        }

@@ -1,0 +1,36 @@
+    <!-- Tier 4 — Performance Tracking -->
+    <h3 class="section-title">Performance Tracking</h3>
+    <div class="row g-3">
+      <div class="col-12 col-md-4">
+        <div class="box-card h-100" data-bs-toggle="tooltip" title="Completed / (Completed + Abandoned). In-progress excluded.">
+          <div class="box-header"><i class="bi bi-speedometer"></i> Overall Success Rate <span class="text-muted small">— Completion efficiency</span></div>
+          <div class="position-relative">
+            <canvas id="chartSuccessGauge"></canvas>
+            <div id="gaugeCenter" class="position-absolute top-50 start-50 translate-middle text-center fw-bold" style="pointer-events:none"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="box-card h-100" data-bs-toggle="tooltip" title="Progress between 80–99%.">
+          <div class="box-header"><i class="bi bi-lightning-charge"></i> Almost There (80–99%) <span class="text-muted small">— Nudge these users</span></div>
+          <ul class="vlist live-list" id="listAlmost"></ul>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="box-card h-100">
+          <div class="box-header"><i class="bi bi-award"></i> 100% Completed <span class="text-muted small">— Shout-outs</span></div>
+          <ul class="vlist live-list" id="listCompleted"></ul>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="box-card" data-bs-toggle="tooltip" title="Inactive threshold = no update ≥ X days.">
+          <div class="box-header"><i class="bi bi-exclamation-triangle"></i> Abandoned & Inactive <span class="text-muted small">— Needs attention</span></div>
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead><tr><th>User</th><th>Goal</th><th>Category</th><th>Last Update</th><th class="text-end">Days Inactive</th></tr></thead>
+              <tbody id="tblInactive"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>

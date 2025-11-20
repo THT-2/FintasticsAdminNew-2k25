@@ -1,0 +1,24 @@
+    <!-- Tier 2 — Category Insights (Charts) -->
+    <h3 class="section-title">Category Insights</h3>
+    <div class="row g-3">
+      <div class="col-12 col-lg-4">
+        <div class="box-card h-100" data-bs-toggle="tooltip" title="% of total goals created, by category.">
+          <div class="box-header"><i class="bi bi-pie-chart"></i> Top Goal Categories <span class="text-muted small">— Share by category</span></div>
+          <canvas #chartTopCategories id="chartTopCategories"></canvas>
+
+
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="box-card h-100" data-bs-toggle="tooltip" title="Success Rate = Completed / (Completed + Abandoned).">
+          <div class="box-header"><i class="bi bi-bar-chart-steps"></i> Category Success vs Fail <span class="text-muted small">— Completion vs Abandon</span></div>
+          <canvas #chartCatSuccess ></canvas>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="box-card h-100" data-bs-toggle="tooltip" title="Amount = median target ₹; Duration = median days from start to completion.">
+          <div class="box-header"><i class="bi bi-graph-up"></i> Avg Amount & Duration <span class="text-muted small">— by Category</span></div>
+          <canvas #chartAmountDuration id="chartAmountDuration"></canvas>
+        </div>
+      </div>
+    </div>

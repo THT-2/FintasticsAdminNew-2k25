@@ -1,0 +1,162 @@
+  * {
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --panel: #eef0ff;
+    --border: #e6e8ef;
+    --menu-hover: #ede6f7;
+    --ink: #0f1222;
+    --muted: #6b7280;
+    --card: var(--surface);
+    --header-height: 60px;
+  }
+
+  [data-theme="dark"] {
+    --bg: #0b0e14;
+    --surface: #111827;
+    --panel: #0f172a;
+    --border: #1f2937;
+    --menu-hover: rgba(255,255,255,0.06);
+    --ink: #e5e7eb;
+    --muted: #9ca3af;
+    --card: var(--surface);
+  }
+
+.cat-card{
+    background: #ffffff;
+    border: 2px solid #e6e8ef;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom:12px;
+    box-shadow: var(--shadow);
+  }
+
+  .cat-card .cat-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:12px;
+  }
+  .cat-card .cat-header h5{
+    margin:0;
+    font-weight:800;
+    letter-spacing:.2px;
+   }
+
+  .cat-search{
+    border-radius:10px;
+     border:1px solid #e6e8ef;
+     background:#ffffff;
+    }
+
+  .cat-search::placeholder{
+     color: #6b7280;
+    }
+  .cat-table thead th{
+     font-size:.8rem;
+     text-transform:uppercase;
+     color: #6b7280;
+     background: #eef0ff;
+    border-bottom:1px solid #e6e8ef !important;
+  }
+  .cat-table tbody tr{
+    border-bottom:1px solid #e6e8ef;
+  }
+  .cat-table tbody tr:hover{
+    background: #ede6f7;
+   }
+
+  .table-actions .btn{
+    border:0;
+    background:transparent;
+  }
+  .table-actions .btn:hover{
+    background: rgba(0,0,0,.06);
+   }
+
+  [data-theme="dark"] .table-actions .btn:hover{
+    background: rgba(255,255,255,.06);
+  }
+
+.icon-image{
+  width: 40px !important;
+}
+.head-text{
+  text-align: center;
+}
+.cat-table thead th {
+  text-align: center;
+}
+
+.cat-table tbody td {
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.cat-table .table-actions {
+  text-align: center !important;
+}
+
+.cat-table td a {
+  color: #333; // Default color for the icons
+  transition: color 0.3s ease; // Smooth transition for hover effect
+
+  // Hover effect for each icon
+  &:hover bi.bi-eye {
+    color: #33c5ff; // Eye icon color on hover
+  }
+
+  &:hover bi.bi-pencil-square {
+    color: #33ffb1; // Pencil icon color on hover
+  }
+
+  &:hover bi.bi-trash {
+    color: #ff5733; // Trash icon color on hover
+  }
+}
+
+  .mat-slide-toggle {
+    &.mat-checked {
+      ::ng-deep.mat-slide-toggle-bar::after {
+        content: 'Yes';
+        font-size: 45%;
+        font-weight: 700;
+        color: black;
+        position: absolute;
+        left: 4px;
+        top: -5px;
+      }
+    }
+    &:not(.mat-checked) {
+      ::ng-deep.mat-slide-toggle-bar::after {
+        content: 'No';
+        font-size: 45%;
+        font-weight: 700;
+        color: white;
+        position: absolute;
+        left: 21px;
+        top: -5px;
+      }
+    }
+  }
+.sendbtn{
+  cursor: pointer;
+}
+.btn-cta {
+  background: linear-gradient(90deg, #7c3aed, #22c1c3);
+  color: #fff;
+  border: none;
+  box-shadow: 0 10px 20px rgba(0,0,0,.12);
+  padding: 0.5rem 1.2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.btn-cta:hover {
+  filter: brightness(1.05);
+}
+
+.btn-cta-wide {
+  min-width: 180px;
+}

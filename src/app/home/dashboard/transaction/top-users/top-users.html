@@ -1,0 +1,62 @@
+<!-- Row 4: User Activity & Top Users -->
+<div class="row g-3 mt-1" id="row-activity">
+  <div class="col-12 col-xl-6">
+    <div class="box-card h-100">
+      <div class="box-header"><i class="bi bi-activity"></i> Live User Transactions</div>
+      <div class="live-viewport">
+        <ul class="vlist live-list small ticker" style="--dist: 379.5px; --dur: 32s;">
+          <li *ngFor="let tx of displayedItems">
+            <span class="label">
+              <strong class="name">{{ tx.name }}</strong>
+              <span class="type-badge" [ngClass]="badgeClass(tx.type)">{{ tx.type }}</span>
+            </span>
+            <span class="amount">
+              {{ tx.amount | currency: 'INR':'symbol':'1.0-0':'en-IN' }}
+              <span class="method-badge ms-2">
+                <i [class]="methodIcon(tx.through)"></i>{{ tx.through }}
+              </span>
+            </span>
+          </li>
+          <!-- Duplicate items for smooth ticker -->
+          <li *ngFor="let tx of displayedItems">
+            <span class="label">
+              <strong class="name">{{ tx.name }}</strong>
+              <span class="type-badge" [ngClass]="badgeClass(tx.type)">{{ tx.type }}</span>
+            </span>
+            <span class="amount">
+              {{ tx.amount | currency: 'INR':'symbol':'1.0-0':'en-IN' }}
+              <span class="method-badge ms-2">
+                <i [class]="methodIcon(tx.through)"></i>{{ tx.through }}
+              </span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-6">
+    <div class="box-card h-100">
+      <div class="box-header"><i class="bi bi-trophy"></i> Top Users Added Transaction</div>
+      <div class="table-responsive">
+        <table class="table table-sm align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Total Txns</th>
+              <th>Income</th>
+              <th>Expense</th>
+              <th>Transfer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Asha Patil</td><td>56</td><td>12</td><td>38</td><td>6</td></tr>
+            <tr><td>Rohan Mehta</td><td>44</td><td>28</td><td>12</td><td>4</td></tr>
+            <tr><td>Priya Nair</td><td>37</td><td>6</td><td>27</td><td>4</td></tr>
+            <tr><td>Vikram Shah</td><td>25</td><td>18</td><td>5</td><td>2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+    <!-- Tier 5 — Real-Time Monitoring -->
+    <h3 class="section-title">Real-Time Monitoring</h3>
+    <div class="row g-3">
+      <div class="col-12 col-lg-4">
+        <div class="box-card h-100" data-bs-toggle="tooltip" title="Streams create/update/complete/abandon events.">
+          <div class="box-header"><i class="bi bi-activity"></i> Live Activity <span class="text-muted small">— Latest goal events</span></div>
+          <ul class="vlist live-list" id="feedLive"></ul>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="box-card h-100" data-bs-toggle="tooltip" title="Regions by goals created (or active users) in period.">
+          <div class="box-header"><i class="bi bi-globe"></i> Goal Hotspots <span class="text-muted small">— Top regions</span></div>
+          <canvas #chartHotspots></canvas>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="box-card h-100" data-bs-toggle="tooltip" title="Events aggregated by hour of day (local time).">
+          <div class="box-header"><i class="bi bi-clock-history"></i> When Goals Happen <span class="text-muted small">— Time-of-day pattern</span></div>
+          <canvas #chartHourly></canvas>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,104 @@
+        * {
+            --primary-blue: #5a54c9;
+            --primary-purple: #7b4dd2;
+            --light-blue: #a8b1ff;
+            --light-purple: #c5a8ff;
+            --pastel-blue: #d4dcff;
+            --pastel-purple: #e5d5ff;
+            --dark-text: #2a2755;
+            --medium-text: #4a4678;
+            --light-text: #6c63a0;
+            --success: #3da8c9;
+            --warning: #e52d73;
+            --excellent: #4cc9f0;
+            --good: #7b4dd2;
+            --average: #ff9e44;
+            --poor: #e52d73;
+            --gray: #7a759f;
+            --light-gray: #ececf4;
+            --white: #ffffff;
+            --card-shadow: 0 5px 15px rgba(90, 84, 201, 0.15);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--pastel-blue) 0%, var(--pastel-purple) 100%);
+            color: var(--dark-text);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .chat-container {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 0;
+            max-width: 2000px;
+            height: 89vh;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 18px;
+            overflow: hidden;
+        }
+//--->height of chat
+.chat-switch-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.chat-switch-modal {
+  background: linear-gradient(135deg, #4f46e5, #ec4899);
+  color: #fff;
+  padding: 24px 28px;
+  border-radius: 16px;
+  max-width: 360px;
+  width: 90%;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+.chat-switch-modal h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.chat-switch-modal p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.chat-switch-modal .buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.chat-switch-modal .btn {
+  flex: 1;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 0;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.chat-switch-modal .btn-cancel {
+  background: rgba(255, 255, 255, 0.16);
+  color: #f9fafb;
+}
+
+.chat-switch-modal .btn-confirm {
+  background: #fbbf24;
+  color: #111827;
+}

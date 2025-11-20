@@ -1,0 +1,49 @@
+<div class="col-12">
+  <div class="date-toolbar" id="kpiToolbar">
+    <div class="toolbar-left d-flex flex-wrap align-items-center gap-2">
+      <span class="toolbar-title">
+        <i class="bi bi-funnel-fill text-primary"></i> Filter
+      </span>
+
+      <div class="btn-segment" role="group" aria-label="Quick ranges">
+        <button class="btn kpi-range" [class.active]="activeKey==='today'" (click)="onQuick('today')">
+          Today
+        </button>
+        <button class="btn kpi-range" [class.active]="activeKey==='yesterday'" (click)="onQuick('yesterday')">
+          Yesterday
+        </button>
+        <button class="btn kpi-range" [class.active]="activeKey==='7d'" (click)="onQuick('7d')">
+          7D
+        </button>
+        <button class="btn kpi-range" [class.active]="activeKey==='30d'" (click)="onQuick('30d')">
+          30D
+        </button>
+        <button class="btn kpi-range" [class.active]="activeKey==='ytd'" (click)="onQuick('ytd')">
+          YTD
+        </button>
+      </div>
+    </div>
+
+    <div class="toolbar-right d-flex align-items-center gap-2 ms-auto">
+      <div class="input-group input-group-sm range-input flex-nowrap">
+        <span class="input-group-text" role="button" aria-label="Open calendar" (click)="onOpenPicker()">
+          <i class="bi bi-calendar2-week"></i>
+        </span>
+        <input #kpiRangeInput id="kpiRange" class="form-control" placeholder="Pick a date range" />
+        <button class="btn btn-light" type="button" aria-label="Clear" (click)="onClearPicker()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <button class=" btn btn-primary btn-sm "id="kpiApply" (click)="onApplyClick()">
+        <i class="bi bi-check2"></i> Apply
+      </button>
+      <button class="kpi-apply btn btn-outline-secondary btn-sm"id="kpiReset" (click)="onResetClick()">
+        <i class="bi bi-arrow-counterclockwise"></i> Reset
+      </button>
+
+      <span #kpiRangeLabel class="kpi-label small" id="kpiRangeLabel">Showing: Last 30 days</span>
+    </div>
+  </div>
+
+</div>

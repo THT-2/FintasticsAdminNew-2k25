@@ -1,0 +1,44 @@
+<!-- <app-layout (NavCollapse)="toggleoutlet()"></app-layout>
+<main class="main-content" [class.collapsed]="isCollapsed" id="mainContent">
+<div class="outlet" [class.collapsed]="NavCollapse">
+<router-outlet ></router-outlet>
+</div>
+</main> -->
+<app-layout (NavCollapse)="toggleoutlet()"></app-layout>
+
+<main class="main-content"
+      [class.collapsed]="isCollapsed"
+      [class.chat-history]="isChatHistoryPage"
+      id="mainContent">
+  <div class="outlet" [class.collapsed]="NavCollapse">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+
+
+<!-- <app-footer [isCollapsed]="isCollapsed"></app-footer> -->
+
+<!-- <app-layout (NavCollapse)="toggleoutlet()"></app-layout> -->
+
+<!-- <div class="app-container"> -->
+  <!-- Sidebar -->
+  <!-- <aside class="sidebar" [class.collapsed]="isCollapsed">
+
+  </aside> -->
+
+  <!-- Main Content Area -->
+  <!-- <div class="main-container" [class.collapsed]="isCollapsed"> -->
+    <!-- Header -->
+    <!-- <header class="header"> -->
+      <!-- header content -->
+    <!-- </header> -->
+
+    <!-- Page Content -->
+    <!-- <main class="main-content" id="mainContent">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div> -->
+
+
+

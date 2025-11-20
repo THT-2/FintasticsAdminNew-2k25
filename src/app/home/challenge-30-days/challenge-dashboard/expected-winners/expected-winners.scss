@@ -1,0 +1,291 @@
+ /* Tables */
+    .table-container {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-light);
+      overflow: hidden;
+      margin-bottom: 24px;
+      border: 1px solid var(--border-color);
+    }
+
+    .table-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .table-action-btn {
+      padding: 8px 16px;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .table-action-btn:hover {
+      background: var(--gradient-primary);
+      color: white;
+      border-color: var(--brand-primary);
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th {
+      background: rgba(94, 53, 177, 0.05);
+      padding: 16px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .table td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table tr:hover {
+      background: rgba(94, 53, 177, 0.03);
+    }
+
+    .user-avatar-small {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .status-active {
+      background: rgba(0, 200, 83, 0.1);
+      color: var(--success);
+    }
+
+    .status-dropped {
+      background: rgba(255, 82, 82, 0.1);
+      color: var(--danger);
+    }
+
+    .status-pending {
+      background: rgba(255, 171, 0, 0.1);
+      color: var(--warning);
+    }
+
+    .action-button {
+      padding: 6px 12px;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-secondary);
+    }
+
+    .action-button:hover {
+      background: rgba(94, 53, 177, 0.05);
+      border-color: var(--brand-primary);
+      color: var(--brand-primary);
+    }
+/* Winners Section */
+    .winners-section {
+      margin-top: 24px;
+    }
+
+    .winners-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .winner-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-light);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .winner-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .winner-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-warning);
+    }
+
+    .winner-rank {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gradient-warning);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 8px rgba(255, 171, 0, 0.3);
+    }
+
+    .winner-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 1.4rem;
+      margin: 0 auto 16px;
+      box-shadow: 0 6px 12px rgba(94, 53, 177, 0.3);
+    }
+
+    .winner-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0 0 8px;
+    }
+
+    .winner-days {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .winner-metrics {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .winner-metric {
+      text-align: center;
+    }
+
+    .winner-metric-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--brand-primary);
+    }
+
+    .winner-metric-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .winner-probability {
+      background: rgba(255, 171, 0, 0.1);
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--warning);
+    }
+
+  /* Responsive */
+    @media (max-width: 1200px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .challenge-progress {
+        grid-template-columns: 1fr;
+      }
+
+      .winners-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 80px;
+      }
+
+      .sidebar .logo-text, .nav-text {
+        display: none;
+      }
+
+      .main-content {
+        margin-left: 80px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filters-row {
+        flex-direction: column;
+      }
+
+      .winners-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+

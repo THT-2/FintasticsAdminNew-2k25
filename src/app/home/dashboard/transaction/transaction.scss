@@ -1,0 +1,18 @@
+
+ :root{ --bg:#f6f7fb;
+  --surface:#ffffff;
+  --panel:#eef0ff;
+  --border:#e6e8ef;
+  --menu-hover:#ede6f7;
+  --ink:#0f1222;
+  --muted:#6b7280;
+  --card:var(--surface);
+  --header-height:60px;
+  --header-grad-1:#6A4C93;
+  --header-grad-2:#2B88D8;
+  --header-fg:#ffffff;
+ }
+    body{
+      background:var(--bg);
+      color:var(--ink);
+     }

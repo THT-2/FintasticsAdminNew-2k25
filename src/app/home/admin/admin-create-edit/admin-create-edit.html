@@ -1,0 +1,87 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card
+      [cardTitle]="userFormControl['_id'].value ? GlobalConstant['EDIT'] + ' User' : GlobalConstant['ADD'] + ' User'"
+      blockClass="pc-component"
+      route_button="">
+
+      <section class="container-xxl">
+        <div class="form-card p-3 p-md-4">
+          <form [formGroup]="userForm" (ngSubmit)="submit()" class="needs-validation" novalidate>
+            <div class="row g-3">
+
+              <!-- Role -->
+              <div class="col-md-6">
+                <label class="form-label">Role <span class="req">*</span></label>
+                <select class="form-select" formControlName="userRole">
+                  <option value="" disabled>Choose...</option>
+                  @for (item of adminData; track item) {
+                    <option value="{{item._id}}">{{item.title}}</option>
+                  }
+                </select>
+                <div *ngIf="userForm.get('userRole')?.touched && userForm.get('userRole')?.invalid" class="text-danger">
+                  Role is required.
+                </div>
+              </div>
+
+              <!-- First Name -->
+              <div class="col-md-6">
+                <label class="form-label">First Name <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-person"></i></span>
+                  <input type="text" class="form-control" formControlName="userName" placeholder="Enter first name..." />
+                </div>
+                <div *ngIf="userForm.get('userName')?.touched && userForm.get('userName')?.invalid" class="text-danger">
+                  User Name is required.
+                </div>
+              </div>
+
+              <!-- User ID -->
+              <div class="col-md-6">
+                <label class="form-label">User ID <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                  <input type="text" class="form-control" formControlName="userID" placeholder="Enter user ID..." />
+                </div>
+                <div *ngIf="userForm.get('userID')?.touched && userForm.get('userID')?.invalid" class="text-danger">
+                  User ID is required.
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="col-md-6">
+                <label class="form-label">Email <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                  <input type="email" class="form-control" formControlName="userMail" placeholder="Enter email..." />
+                </div>
+                <div *ngIf="userForm.get('userMail')?.touched && userForm.get('userMail')?.invalid" class="text-danger">
+                  User Email is required.
+                </div>
+              </div>
+
+              <!-- Password -->
+              <div class="col-md-6">
+                <label class="form-label">Password <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                  <input type="password" class="form-control" formControlName="PassWord" placeholder="Enter password..." />
+                </div>
+                <div *ngIf="userForm.get('PassWord')?.touched && userForm.get('PassWord')?.invalid" class="text-danger">
+                  Password is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-flex justify-content-end gap-2 mt-4">
+              <button type="submit" class="btn btn-cta btn-cta-wide">
+                {{ userFormControl['_id'].value ? 'Update' : 'Submit' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </app-card>
+  </div>
+</div>

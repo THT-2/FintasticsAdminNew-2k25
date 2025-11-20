@@ -1,0 +1,123 @@
+ <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card primary" id="totalUsersCard">
+          <div class="stat-header">
+            <div>
+              <div class="stat-label">Total Participants</div>
+              <div class="stat-value" id="totalUsers">1,247</div>
+              <div class="stat-change positive"><i class="fas fa-arrow-up"></i> <span id="totalChange">12%</span> from last week</div>
+            </div>
+            <div class="stat-icon primary">
+              <i class="fas fa-users"></i>
+            </div>
+          </div>
+        </div>
+        <div class="stat-card success" id="activeUsersCard">
+          <div class="stat-header">
+            <div>
+              <div class="stat-label">Active Users</div>
+              <div class="stat-value" id="activeUsers">892</div>
+              <div class="stat-change positive"><i class="fas fa-arrow-up"></i> <span id="activeChange">8%</span> from yesterday</div>
+            </div>
+            <div class="stat-icon success">
+              <i class="fas fa-user-check"></i>
+            </div>
+          </div>
+        </div>
+        <div class="stat-card danger" id="droppedUsersCard">
+          <div class="stat-header">
+            <div>
+              <div class="stat-label">Dropped Users</div>
+              <div class="stat-value" id="droppedUsers">128</div>
+              <div class="stat-change negative"><i class="fas fa-arrow-up"></i> <span id="droppedChange">3%</span> from yesterday</div>
+            </div>
+            <div class="stat-icon danger">
+              <i class="fas fa-user-times"></i>
+            </div>
+          </div>
+        </div>
+        <div class="stat-card info" id="winnersCard">
+          <div class="stat-header">
+            <div>
+              <div class="stat-label">Expected Winners</div>
+              <div class="stat-value" id="expectedWinners">312</div>
+              <div class="stat-change positive"><i class="fas fa-arrow-up"></i> <span id="winnersChange">5%</span> from last week</div>
+            </div>
+            <div class="stat-icon info">
+              <i class="fas fa-trophy"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+            <!-- Challenge Progress Section -->
+      <div class="challenge-progress">
+        <div class="progress-card">
+          <div class="progress-card-header">
+            <h3 class="progress-title"><i class="fas fa-chart-line"></i> Challenge Progress</h3>
+            <span class="progress-badge success">On Track</span>
+          </div>
+          <div class="progress-content">
+            <div class="progress-metric">
+              <span class="metric-label"><i class="fas fa-calendar-alt"></i> Days Completed</span>
+              <span class="metric-value">18/30</span>
+            </div>
+            <div class="progress-metric">
+              <span class="metric-label"><i class="fas fa-wallet"></i> Average Limit</span>
+              <span class="metric-value">₹900</span>
+            </div>
+            <div class="progress-metric">
+              <span class="metric-label"><i class="fas fa-money-bill-wave"></i> Today's Avg Spending</span>
+              <span class="metric-value" id="avgSpending">₹815</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-label">
+                <span>Overall Progress</span>
+                <span id="overallProgress">60%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill success" id="overallProgressBar" style="width: 60%"></div>
+              </div>
+            </div>
+            <div class="progress-alert success">
+              <i class="fas fa-check-circle"></i>
+              <span>Challenge is 60% complete with good participation</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-card">
+          <div class="progress-card-header">
+            <h3 class="progress-title"><i class="fas fa-exclamation-triangle"></i> Spending Compliance</h3>
+            <span class="progress-badge warning">Attention Needed</span>
+          </div>
+          <div class="progress-content">
+            <div class="progress-metric">
+              <span class="metric-label"><i class="fas fa-user-times"></i> Users Over Limit</span>
+              <span class="metric-value" id="overLimitUsers">47</span>
+            </div>
+            <div class="progress-metric">
+              <span class="metric-label"><i class="fas fa-money-bill-wave"></i> Average Overspend</span>
+              <span class="metric-value" id="avgOverspend" style="color: var(--warning);">₹120</span>
+            </div>
+            <div class="progress-metric">
+              <span class="metric-label"><i class="fas fa-chart-pie"></i> % of Total Users</span>
+              <span class="metric-value" id="overspendPercentage">5.3%</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-label">
+                <span>Limit Compliance</span>
+                <span id="compliancePercentage">94.7%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill warning" id="complianceProgressBar" style="width: 94.7%"></div>
+              </div>
+            </div>
+            <div class="progress-alert warning">
+              <i class="fas fa-exclamation-circle"></i>
+              <span id="violationMessage">47 users have exceeded their spending limits today</span>
+            </div>
+          </div>
+        </div>
+      </div>

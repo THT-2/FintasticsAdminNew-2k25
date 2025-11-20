@@ -1,0 +1,24 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  transition: all 0.3s ease;
+}
+
+.sidebar {
+      width: var(--sidebar-width);
+      background: #fff;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .sidebar .logo {
+      text-align: center;
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }

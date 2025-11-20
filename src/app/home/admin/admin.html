@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!-- {{buttondata.routingView}} -->
+     <app-card cardTitle="Admin" blockClass="pc-component" [buttondata]="buttondata">
+      @defer () {
+      <app-table [tableData]="adminData" [loader]="loader"
+      [columnHeader]="columnDefinition" (getActionTable)="getActions($event)"  [buttondata]="buttondata"></app-table>
+    }
+      </app-card>
+  </div>
+</div>
+

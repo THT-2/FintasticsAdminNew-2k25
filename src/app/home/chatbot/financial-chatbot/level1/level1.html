@@ -1,0 +1,7 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Level 1" blockClass="pc-component" [buttondata]="buttondata" >
+      <app-table [tableData]="tableData" [loader]="loader" (getActionTable)="getActions($event)" [columnHeader]="columnDefinition" [buttondata]="buttondata"></app-table>
+    </app-card>
+  </div>
+</div>

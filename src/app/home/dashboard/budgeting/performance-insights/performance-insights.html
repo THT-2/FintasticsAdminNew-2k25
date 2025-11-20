@@ -1,0 +1,20 @@
+    <!-- ROW 4: Performance Insights -->
+    <div class="row g-3 align-items-stretch mt-2">
+      <div class="col-12"><h5 class="section-title">Performance Insights</h5></div>
+      <div class="col-md-3">
+        <div class="kpi-card kpi-total h-100">
+          <div class="meta">
+            <div class="label">Avg Budget Success Rate</div>
+            <div class="value" id="kpi-success-rate">—%</div>
+            <div class="delta text-muted">users within budget</div>
+          </div>
+          <div class="icon"><i class="bi bi-percent"></i></div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="box-card h-100">
+          <div class="box-header"><i class="bi bi-exclamation-triangle"></i> Near / Exceeded / Under Budget</div>
+          <canvas id="statusStackedChart" height="100"></canvas>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,86 @@
+ @if (!chatSelected) {
+    <div class="empty-chat-state">
+      <div class="empty-icon">
+        <img class="logo-compact" src="../../../../assets/favicon.ico" alt="Compact logo">
+      </div>
+      <h2>Welcome to Fin-Expert Chat</h2>
+      <p>Select a conversation from the left panel to view messages here.</p>
+      <p class="empty-hint">
+        You can see online users, recent chats and reply to their queries in real time.
+      </p>
+    </div>
+  }
+
+ @if (chatSelected) {
+       <div class="chat-area">
+            <div class="chat-header">
+                <div class="current-chat-info">
+                    <div class="back-button">
+                      <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="current-chat-avatar">{{ chatName?.[0] || 'F' }}</div>
+                    <div class="current-chat-details">
+                    <h4>
+  {{ chatName || "Fin-Expert Chat Area" }}
+  <span class="status" >
+
+  </span>
+</h4>
+
+                      <!-- <h4>{{chatName ||"Fin-Expert Chat Area"}} <span class="status online">{{activeStatus}}</span></h4> -->
+                      <p>Query: Tax Filing for Freelancers | Registered User</p>
+                    </div>
+                </div>
+                <div class="header-icons">
+                    <i class="fas fa-video"></i>
+                    <i class="fas fa-phone"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
+            </div>
+
+
+            <!-- <div class="chat-messages">
+              @for (item of userChat; track item._id) {
+                <div class="message client">
+                  <p>{{item.messages.text}}</p>
+                </div>
+              }
+            </div> -->
+
+           <!-- <div class="chat-messages">
+  @for (msg of userChat; track msg._id) {
+    <div class="message" [ngClass]="msg.senderRole === 'user' ? 'client' : 'agent'">
+      <span>{{ msg.text }}</span>
+      <span class="message-time">{{ msg.createdAt | date:'shortTime' }}</span>
+    </div>
+  }
+</div> -->
+
+<div class="chat-messages" #chatContainer (scroll)="onChatScroll()">
+  @for (msg of userChat; track msg) {
+    <div class="message" [ngClass]="msg.senderRole === 'user' ? 'client' : 'agent'">
+      <span>{{ msg.text }}</span>
+      <span class="message-time">{{ msg.createdAt | date:'shortTime' }}</span>
+    </div>
+  }
+</div>
+
+
+
+
+<div class="chat-footer">
+  <div class="chat-input-container">
+    <div class="chat-input-actions">
+      <i class="fa-solid fa-smile"></i>
+      <i class="fa-solid fa-paperclip"></i>
+    </div>
+
+    <textarea #msg type="text" class="chat-input" placeholder="Type your message here..."
+    (keyup.enter)="agentReply(msg.value); msg.value=''" ></textarea>
+    <button class="chat-arrow" (click)="agentReply(msg.value); msg.value=''">
+      <i class="fa-solid fa-paper-plane"></i>
+    </button>
+  </div>
+</div>
+</div>
+ }

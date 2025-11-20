@@ -1,0 +1,130 @@
+<main class="main-content" id="mainContent">
+  <app-card>
+    <section class="container-xxl">
+      <h2 class="section-title">
+        {{ ProductsFormControl['_id'].value ? GlobalConstant['EDIT'] + ' Products' : GlobalConstant['ADD'] + ' Products' }}
+      </h2>
+      <div class="form-card p-3 p-md-4">
+        <form [formGroup]="ProductsForm" (ngSubmit)="submit()" class="needs-validation" novalidate>
+          <div class="row g-3">
+
+            <!-- Product Name -->
+            <div class="col-md-6">
+              <label class="form-label">Product Name <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-box-seam"></i></span>
+                <input type="text" class="form-control" placeholder="Product Name" formControlName="productName" />
+              </div>
+              <div *ngIf="ProductsForm.get('productName')?.touched && ProductsForm.get('productName')?.invalid" class="text-danger">
+                Product Name is required.
+              </div>
+            </div>
+
+            <!-- Category -->
+            <div class="col-md-6">
+              <label class="form-label">Category</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                <select class="form-select" formControlName="shoppingcatid">
+                  <option value disabled>Choose...</option>
+                  <option *ngFor="let item of tableData" [value]="item._id">{{ item.shoppingcatname }}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Price -->
+            <div class="col-md-6">
+              <label class="form-label">Price <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+                <input type="number" class="form-control" placeholder="Price" formControlName="price" />
+              </div>
+              <div *ngIf="ProductsForm.get('price')?.touched && ProductsForm.get('price')?.invalid" class="text-danger">
+                Price is required.
+              </div>
+            </div>
+
+            <!-- Offer Percentage -->
+            <div class="col-md-6">
+              <label class="form-label">Offer Percentage</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-percent"></i></span>
+                <input type="number" class="form-control" placeholder="ex: 20" formControlName="offerPrice" />
+              </div>
+            </div>
+
+            <!-- Reward Points -->
+            <div class="col-md-6">
+              <label class="form-label">Offer Reward Points <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-star"></i></span>
+                <input type="number" class="form-control" placeholder="ex: 1500" formControlName="rewardOfferPoints" />
+              </div>
+              <div *ngIf="ProductsForm.get('rewardOfferPoints')?.touched && ProductsForm.get('rewardOfferPoints')?.invalid" class="text-danger">
+                Offer Reward Points is required.
+              </div>
+            </div>
+
+            <!-- Stock Quantity -->
+            <div class="col-md-6">
+              <label class="form-label">Stock Quantity <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-boxes"></i></span>
+                <input type="number" class="form-control" placeholder="ex: 200" formControlName="stockQuantity" />
+              </div>
+              <div *ngIf="ProductsForm.get('stockQuantity')?.touched && ProductsForm.get('stockQuantity')?.invalid" class="text-danger">
+                Stock Quantity is required.
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="col-md-6">
+              <label class="form-label">Description <span class="req">*</span></label>
+              <textarea class="form-control" placeholder="Enter description..." formControlName="description"></textarea>
+              <div *ngIf="ProductsForm.get('description')?.touched && ProductsForm.get('description')?.invalid" class="text-danger">
+                Description is required.
+              </div>
+            </div>
+
+            <!-- Product Image -->
+            <div class="col-md-6">
+              <label class="form-label">Product Image <span class="req">*</span></label>
+              <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
+              <div *ngIf="ProductsFormControl['imageUrl']?.value" class="mt-2">
+                <app-file-preview [filePath]="ProductsFormControl['imageUrl'].value"></app-file-preview>
+              </div>
+              <div *ngIf="ProductsForm.get('imageUrl')?.touched && ProductsForm.get('imageUrl')?.invalid" class="text-danger">
+                Product Image is required.
+              </div>
+            </div>
+
+            <!-- Is Available Checkbox -->
+            <div class="col-md-6 d-flex align-items-center">
+              <div class="form-check mt-4">
+                <input class="form-check-input" type="checkbox" formControlName="isAvailable" id="isAvailable">
+                <label class="form-check-label" for="isAvailable">
+                  Is Available
+                </label>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="col-12 d-flex justify-content-end pt-2">
+              <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+                <ng-container *ngIf="btnLoader; else btnText">
+                  <div class="spinner-border text-white" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </ng-container>
+                <ng-template #btnText>
+                  {{ ProductsFormControl['_id'].value ? 'Update' : 'Submit' }}
+                </ng-template>
+              </button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </section>
+  </app-card>
+</main>

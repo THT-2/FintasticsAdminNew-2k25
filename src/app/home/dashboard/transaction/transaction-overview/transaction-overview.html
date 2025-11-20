@@ -1,0 +1,51 @@
+      <!-- Row 1: Transaction Overview + Date Filters -->
+
+      <div class="row g-3" id="row-trans-overview">
+        <div class="col-12 d-flex align-items-center">
+          <h5 class="section-caption mb-0">Transaction Overview</h5>
+        </div>
+
+        <!-- filter -->
+        <app-filter></app-filter>
+
+        <div class="col-12 col-md-6 col-xl-3">
+          <div class="kpi-card kpi-expense">
+            <div class="meta">
+              <div class="label">Expense</div>
+              <div class="value" id="kpi-expense">742</div>
+              <div class="delta text-danger" id="delta-expense"><i class="bi bi-arrow-down"></i> 1.8%</div>
+            </div>
+            <div class="icon"><i class="bi bi-cash-coin"></i></div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-3">
+          <div class="kpi-card kpi-income">
+            <div class="meta">
+              <div class="label">Income</div>
+              <div class="value" id="kpi-income">528</div>
+              <div class="delta text-success" id="delta-income"><i class="bi bi-arrow-up"></i> 3.2%</div>
+            </div>
+            <div class="icon"><i class="bi bi-graph-up-arrow"></i></div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-3">
+          <div class="kpi-card kpi-total">
+            <div class="meta">
+              <div class="label">Total Transactions</div>
+              <div class="value" id="kpi-total">1,284</div>
+              <div class="delta text-success" id="delta-total"><i class="bi bi-arrow-up"></i> 2.1%</div>
+            </div>
+            <div class="icon"><i class="bi bi-receipt"></i></div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-3">
+          <div class="kpi-card kpi-transfer">
+            <div class="meta">
+              <div class="label">Transfers</div>
+              <div class="value" id="kpi-transfer">189</div>
+              <div class="delta text-success" id="delta-transfer"><i class="bi bi-arrow-up"></i> 0.9%</div>
+            </div>
+            <div class="icon"><i class="bi bi-arrow-left-right"></i></div>
+          </div>
+        </div>
+      </div>

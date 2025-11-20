@@ -1,0 +1,71 @@
+   /* Date Range Selector */
+        .date-range-selector {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 20px;
+        }
+
+        .date-range-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .date-range-header h3 {
+            color: var(--primary-purple);
+            font-size: 19px;
+        }
+
+        .date-presets {
+            display: flex;
+            gap: 10px;
+        }
+
+        .date-preset-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--light-blue);
+            background: var(--white);
+            color: var(--medium-text);
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .date-preset-btn:hover, .date-preset-btn.active {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+
+        .custom-date-range {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .date-input {
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid var(--light-blue);
+            color: var(--dark-text);
+            font-size: 14px;
+        }
+
+        .apply-btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            background: var(--primary-blue);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .apply-btn:hover {
+            background: var(--primary-purple);
+        }

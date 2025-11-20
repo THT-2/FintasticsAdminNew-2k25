@@ -1,0 +1,161 @@
+           <!-- Chat Section -->
+            <!-- <div class="chat-section">
+                Active Chats -->
+                <!-- <div class="active-chats">
+                    <div class="section-header">
+                        <h3>Waiting Chats</h3>
+                        <span>16</span>
+                    </div> -->
+
+                    <!-- Filters -->
+                    <!-- <div class="filters">
+                        <button class="filter-btn active">All</button>
+                        <button class="filter-btn">Registered</button>
+                        <button class="filter-btn">Subscribed</button>
+                        <button class="filter-btn">Repeat</button>
+                    </div> -->
+
+                    <!-- <div class="chat-list">
+                        <div class="chat-item active">
+                            <div class="chat-avatar">RS</div>
+                            <div class="chat-info">
+                                <h4>Rahul Sharma <span>10:25 AM</span></h4>
+                                <p>Hello, I have questions about tax filing for freelancers...</p>
+                                <span class="user-badge registered">Registered</span>
+                            </div>
+                        </div>
+                        <div class="chat-item">
+                            <div class="chat-avatar">PM</div>
+                            <div class="chat-info">
+                                <h4>Priya Mehta <span>10:18 AM</span></h4>
+                                <p>Which investment would you recommend for long-term...</p>
+                                <span class="user-badge subscribed">Subscribed</span>
+                            </div>
+                        </div>
+                        <div class="chat-item">
+                            <div class="chat-avatar">AK</div>
+                            <div class="chat-info">
+                                <h4>Amit Kumar <span>10:05 AM</span></h4>
+                                <p>I need advice on retirement planning options...</p>
+                                <span class="user-badge repeated">Repeat Client</span>
+                            </div>
+                        </div>
+                        <div class="chat-item">
+                            <div class="chat-avatar">SM</div>
+                            <div class="chat-info">
+                                <h4>Sunita Mishra <span>09:45 AM</span></h4>
+                                <p>What documents are needed for home loan tax benefits...</p>
+                                <span class="user-badge subscribed">Subscribed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- Chat Window -->
+                <!-- <div class="chat-window">
+                    <div class="chat-header">
+                        <div class="client-info">
+                            <div class="chat-avatar">RS</div>
+                            <div class="client-details">
+                                <h4>Rahul Sharma <span class="status online"></span></h4>
+                                <p>Query: Tax Filing for Freelancers | Registered User</p>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="assign-btn">
+                                <i class="fas fa-user-check"></i> Assign to Me
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages">
+                        <div class="message client">
+                            <p>Hello, I started freelancing this year and I'm confused about tax filing. What documents do I need to maintain?</p>
+                            <div class="message-time">10:25 AM</div>
+                        </div>
+
+                        <div class="message agent">
+                            <p>Hello Rahul! For freelancers, you need to maintain records of all your income and expenses. Key documents include bank statements, invoices raised, expense receipts, and if applicable, Form 16A from clients who deducted TDS.</p>
+                            <div class="message-time">10:27 AM</div>
+                        </div>
+
+                        <div class="message client">
+                            <p>Thanks! Should I file ITR-3 or ITR-4? My annual income is around ₹8 lakhs.</p>
+                            <div class="message-time">10:28 AM</div>
+                        </div>
+
+                        <div class="message agent">
+                            <p>Since your income is above ₹5 lakhs and you're a freelancer, ITR-3 would be appropriate as you're required to maintain detailed books of accounts. Have you considered opting for the presumptive taxation scheme under Section 44ADA?</p>
+                            <div class="message-time">10:30 AM</div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input">
+                        <input type="text" placeholder="Type your message here...">
+                        <button><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div> -->
+
+
+            <div class="chat-section">
+  <!-- Active Chats -->
+  <div class="active-chats">
+    <div class="section-header">
+      <h3>Waiting Chats</h3>
+      <span>{{ chats.length }}</span>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Registered</button>
+      <button class="filter-btn">Subscribed</button>
+      <button class="filter-btn">Repeat</button>
+    </div>
+
+    <div class="chat-list">
+      <div *ngFor="let chat of chats"
+           class="chat-item"
+           [class.active]="chat.active"
+           (click)="selectChat(chat)">
+        <div class="chat-avatar">{{ chat.initials }}</div>
+        <div class="chat-info">
+          <h4>{{ chat.name }} <span>{{ chat.time }}</span></h4>
+          <p>{{ chat.message }}</p>
+          <span class="user-badge" [ngClass]="chat.type">{{ chat.type | titlecase }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat Window -->
+  <div class="chat-window" *ngIf="activeChat">
+    <div class="chat-header">
+      <div class="client-info">
+        <div class="chat-avatar">{{ activeChat.initials }}</div>
+        <div class="client-details">
+          <h4>{{ activeChat.name }} <span class="status online"></span></h4>
+          <p>Query: {{ activeChat.message }} | {{ activeChat.type | titlecase }} User</p>
+        </div>
+      </div>
+      <div>
+        <button class="assign-btn" (click)="assignChat()">
+          <i class="fas fa-user-check"></i> Assign to Me
+        </button>
+      </div>
+    </div>
+
+    <div class="chat-messages">
+      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender">
+        <p>{{ msg.text }}</p>
+        <div class="message-time">{{ msg.time }}</div>
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input type="text" [(ngModel)]="newMessage" placeholder="Type your message here..." />
+      <button (click)="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>

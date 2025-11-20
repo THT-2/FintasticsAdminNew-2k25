@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [cardTitle]="categoryFormControl['_id'].value ? GlobalConstant['EDIT'] + ' Goal Type' : GlobalConstant['ADD'] + ' Goal Type'" blockClass="pc-component" route_button="">
+      <section class="container-xxl">
+        <div class="form-card p-3 p-md-4">
+          <form [formGroup]="categoryForm" (ngSubmit)="submit()" class="needs-validation" novalidate>
+            <div class="row g-3">
+
+              <!-- Financial Goal Type -->
+              <div class="col-md-6">
+                <label class="form-label">Financial Goal Type <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-bullseye"></i></span>
+                  <input type="text" class="form-control" formControlName="catagory_type" placeholder="Financial Goals Type" />
+                </div>
+                <div *ngIf="categoryForm.get('catagory_type')?.touched && categoryForm.get('catagory_type')?.invalid" class="text-danger">
+                  Financial goal is required.
+                </div>
+              </div>
+
+              <!-- Icon -->
+              <div class="col-md-6">
+                <label class="form-label">Icon <span class="req">*</span></label>
+                <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
+                @if(categoryFormControl['icon'].value) {
+                  <!-- <div class="mt-2">
+                    <app-file-preview [filePath]="categoryFormControl['icon'].value"></app-file-preview>
+                  </div> -->
+                  <div class="position-relative d-inline-block">
+                      <img width="100px" [src]="categoryFormControl['icon'].value" />
+                      <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('icon')">X</span>
+                    </div>
+                }
+                <div *ngIf="categoryForm.get('icon')?.touched && categoryForm.get('icon')?.invalid" class="text-danger">
+                  Icon is required.
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Submit -->
+            <div class="d-flex justify-content-end gap-2 mt-4">
+              <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+                @if(btnLoader) {
+                  <div class="spinner-border text-white" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                } @else {
+                  {{categoryFormControl['_id'].value ? 'Update' : 'Submit'}}
+                }
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </section>
+    </app-card>
+  </div>
+</div>

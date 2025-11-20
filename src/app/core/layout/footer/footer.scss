@@ -1,0 +1,18 @@
+.footer {
+  position: fixed;       /* Fix it relative to viewport */
+  bottom: 0;             /* Stick to bottom */
+  left: 0;               /* Full width */
+  width: 100%;           /* Span entire width */
+  padding: 12px 48px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 -1px 4px rgba(0,0,0,0.05);
+  z-index: 995;
+  transition: margin-left 0.3s, left 0.3s;
+
+}
+.footer.collapsed {
+  margin-left: var(--sidebar-collapsed-width);
+}
+
+

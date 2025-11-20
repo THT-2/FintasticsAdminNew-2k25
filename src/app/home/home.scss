@@ -1,0 +1,37 @@
+.outlet{
+  margin-left: 220px;
+  padding-left: 0px;
+  transition: margin-left 0.3s;
+  overflow: hidden;
+  // flex: 1;
+}
+
+.outlet.collapsed {
+  margin-left: 60px;
+}
+
+.main-content{
+  padding: 5rem 1.5rem 4rem;
+  cursor: pointer;
+  height: 100vh;
+  margin-left: 10px;
+  padding-left: 0px;
+  transition: margin-left 0.3s;
+}
+
+.main-content.chats {
+  background: white;
+  padding: 5rem 1.5rem 4rem;
+  height: 200vh;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 0 !important;
+  overflow-y: hidden;
+  margin-bottom: 0 !important;
+}
+
+// app-chat-left{
+//   overflow-y: auto;
+//   margin-bottom: 0 !important;
+// }
+

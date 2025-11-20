@@ -1,0 +1,120 @@
+        /* Top Performers */
+        .top-performers {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .performers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .performer-card {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+
+        .performer-card:hover {
+            background: var(--pastel-blue);
+            transform: translateY(-3px);
+        }
+
+        .performer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .performer-details {
+            flex: 1;
+        }
+
+        .performer-name {
+            font-weight: 600;
+            color: var(--primary-purple);
+            margin-bottom: 5px;
+        }
+
+        .performer-role {
+            font-size: 13px;
+            color: var(--medium-text);
+            margin-bottom: 8px;
+        }
+
+        .performer-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .performer-rating i {
+            color: #ff9f43;
+            font-size: 14px;
+        }
+
+        .chart-option-btn:hover, .chart-option-btn.active {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+   .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-header h3 {
+            color: var(--primary-purple);
+            font-size: 19px;
+        }
+
+        .chart-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chart-option-btn {
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--light-blue);
+            background: var(--white);
+            color: var(--medium-text);
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .chart-option-btn:hover, .chart-option-btn.active {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+
+        .chart-placeholder {
+            height: 300px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--medium-text);
+            font-size: 16px;
+        }

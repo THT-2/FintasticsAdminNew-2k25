@@ -1,0 +1,409 @@
+<main class="main-content" id="mainContent">
+  <app-card>
+    <section class="container-xxl">
+      <!--  Use precomputed pageTitle -->
+      <h5 class="section-title">{{ pageTitle }}</h5>
+
+      <div class="form-card p-3 p-md-4">
+        <form [formGroup]="subscriptionForm" (ngSubmit)="submit()" class="needs-validation" novalidate>
+          <div class="row g-3">
+
+
+            <!-- Product ID -->
+            <div class="col-md-6">
+              <label class="form-label">Product ID <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                <select class="form-select" formControlName="iosproductId">
+      <option value="" disabled selected>Select Product ID</option>
+      <option *ngFor="let item of iosProducts" [value]="item.productId">{{ item.reviewNote || item.name }}</option>
+    </select>
+
+              </div>
+              <div *ngIf="subscriptionForm.get('iosproductId')?.touched && subscriptionForm.get('iosproductId')?.invalid" class="text-danger">
+                Product ID is required.
+              </div>
+            </div>
+
+            <!-- Currency -->
+            <div class="col-md-6">
+              <label class="form-label">Currency <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-cash-coin"></i></span>
+                <input type="text" class="form-control" formControlName="currency" placeholder="Currency" />
+              </div>
+              <div *ngIf="subscriptionForm.get('currency')?.touched && subscriptionForm.get('currency')?.invalid" class="text-danger">
+                Currency is required.
+              </div>
+            </div>
+
+            <!-- Currency Symbol -->
+            <div class="col-md-6">
+              <label class="form-label">Currency Symbol <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-currency-rupee"></i></span>
+                <input type="text" class="form-control" formControlName="currency_symbol" placeholder="Currency Symbol" />
+              </div>
+              <div *ngIf="subscriptionForm.get('currency_symbol')?.touched && subscriptionForm.get('currency_symbol')?.invalid" class="text-danger">
+                Currency Symbol is required.
+              </div>
+            </div>
+
+
+            <!-- Type -->
+            <!-- <div class="col-md-6">
+              <label class="form-label">Type <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-award"></i></span>
+                <input type="text" class="form-control" formControlName="type" placeholder="Type" />
+              </div>
+              <div *ngIf="subscriptionForm.get('type')?.touched && subscriptionForm.get('type')?.invalid" class="text-danger">
+                Type is required.
+              </div>
+            </div> -->
+
+
+            <!-- Type -->
+<div class="col-md-6">
+  <label class="form-label">Type <span class="req">*</span></label>
+  <div class="input-group">
+    <span class="input-group-text"><i class="bi bi-award"></i></span>
+    <select class="form-select" formControlName="type">
+      <option value="" disabled selected>Select Type</option>
+      <option *ngFor="let item of subscriptionTypes" [value]="item">{{ item }}</option>
+    </select>
+  </div>
+  <div *ngIf="subscriptionForm.get('type')?.touched && subscriptionForm.get('type')?.invalid" class="text-danger">
+    Type is required.
+  </div>
+</div>
+
+
+
+             <!-- Title -->
+            <div class="col-md-6">
+              <label class="form-label">Title <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-type"></i></span>
+                <input type="text" class="form-control" formControlName="title" placeholder="Title" />
+              </div>
+              <div *ngIf="subscriptionForm.get('title')?.touched && subscriptionForm.get('title')?.invalid" class="text-danger">
+                Title is required.
+              </div>
+            </div>
+
+            <!-- Months -->
+            <div class="col-md-6">
+              <label class="form-label">Months <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-calendar-week"></i></span>
+                <input type="number" class="form-control" formControlName="months" placeholder="Months" />
+              </div>
+              <div *ngIf="subscriptionForm.get('months')?.touched && subscriptionForm.get('months')?.invalid" class="text-danger">
+                Months is required.
+              </div>
+            </div>
+
+            <!-- Total Days -->
+            <div class="col-md-6">
+              <label class="form-label">Total Number Days <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-alarm"></i></span>
+                <input type="number" class="form-control" formControlName="totaldays" placeholder="Total days" />
+              </div>
+              <div *ngIf="subscriptionForm.get('totaldays')?.touched && subscriptionForm.get('totaldays')?.invalid" class="text-danger">
+                Total days is required.
+              </div>
+            </div>
+
+            <!-- Referral Points -->
+            <div class="col-md-6">
+              <label class="form-label">Total Number Of Referral Points <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-people"></i></span>
+                <input type="number" class="form-control" formControlName="referralPoints" placeholder="Referral Points" />
+              </div>
+              <div *ngIf="subscriptionForm.get('referralPoints')?.touched && subscriptionForm.get('referralPoints')?.invalid" class="text-danger">
+                Referral Points is required.
+              </div>
+            </div>
+
+            <!-- Banner Image -->
+            <div class="col-md-6">
+              <label class="form-label">Banner Image <span class="req">*</span></label>
+              <app-file-upload (getFilePath)="onFilePathbannerReceived($event)"></app-file-upload>
+              @if(subscriptionFormControl['bannerImg'].value) {
+                <div class="mt-2">
+                  <app-file-preview [filePath]="subscriptionFormControl['bannerImg'].value"></app-file-preview>
+                </div>
+              }
+              <div *ngIf="subscriptionForm.get('bannerImg')?.touched && subscriptionForm.get('bannerImg')?.invalid" class="text-danger">
+                Banner Image is required.
+              </div>
+            </div>
+
+
+            <!-- Icon Image -->
+            <div class="col-md-6">
+              <label class="form-label">Icon Image <span class="req">*</span></label>
+              <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
+              @if(subscriptionFormControl['icon'].value) {
+                <div class="mt-2">
+                  <app-file-preview [filePath]="subscriptionFormControl['icon'].value"></app-file-preview>
+                </div>
+              }
+              <div *ngIf="subscriptionForm.get('icon')?.touched && subscriptionForm.get('icon')?.invalid" class="text-danger">
+                Icon is required.
+              </div>
+            </div>
+
+            <!-- Duration -->
+            <div class="col-md-6">
+              <label class="form-label">Duration <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                <input type="text" class="form-control" formControlName="duration" placeholder="Duration" />
+              </div>
+              <div *ngIf="subscriptionForm.get('duration')?.touched && subscriptionForm.get('duration')?.invalid" class="text-danger">
+                Duration is required.
+              </div>
+            </div>
+
+            <!-- Plan Tag -->
+            <div class="col-md-6">
+              <label class="form-label">Plan Tag <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                <input type="text" class="form-control" formControlName="plan_tag" placeholder="Plan Tag" />
+              </div>
+              <!-- <div *ngIf="subscriptionForm.get('plan_tag')?.touched && subscriptionForm.get('plan_tag')?.invalid" class="text-danger">
+                Tag is required.
+              </div> -->
+            </div>
+
+            <!-- Amounts -->
+            <div class="col-md-6">
+              <label class="form-label">Original Amount <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                <input type="text" class="form-control" formControlName="amount" placeholder="Original Amount" />
+              </div>
+              <div *ngIf="subscriptionForm.get('amount')?.touched && subscriptionForm.get('amount')?.invalid" class="text-danger">
+                Amount is required.
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Offer Amount <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-ticket-perforated"></i></span>
+                <input type="text" class="form-control" formControlName="offerAmount" placeholder="Offer Amount" />
+              </div>
+              <div *ngIf="subscriptionForm.get('offerAmount')?.touched && subscriptionForm.get('offerAmount')?.invalid" class="text-danger">
+                Offer Amount is required (Only Numbers).
+              </div>
+            </div>
+
+            <!-- Background Color -->
+            <div class="col-md-6">
+              <label class="form-label">Background Color <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text p-0">
+                  <input type="color" formControlName="colorCode" style="width:42px;height:38px;border:0;border-radius:8px;overflow:hidden">
+                </span>
+                <input type="text" class="form-control" formControlName="colorCode" placeholder="Color Code" />
+              </div>
+              <div *ngIf="subscriptionForm.get('colorCode')?.touched && subscriptionForm.get('colorCode')?.invalid" class="text-danger">
+                Background Color is required.
+              </div>
+            </div>
+
+            <!-- Index -->
+            <div class="col-md-6">
+              <label class="form-label">Plan Index Order Number <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-list-ol"></i></span>
+                <input type="number" class="form-control" formControlName="index" placeholder="Index" />
+              </div>
+              <div *ngIf="subscriptionForm.get('index')?.touched && subscriptionForm.get('index')?.invalid" class="text-danger">
+                Index is required.
+              </div>
+            </div>
+
+            <!-- Offers -->
+             <div class="col-md-6">
+              <div class="card shadow-sm p-3 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <label class="form-label mb-0">Offers Include <span class="req">*</span></label>
+                  <button
+                  id="offersAdd"
+                  class="btn btn-plus"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#benefitModal"
+                  (click)="openModal('offer')">
+                  <i class="bi bi-plus-lg"></i>
+                </button>
+              </div>
+
+              <div id="offersContainer" class="mt-2">
+                <div *ngFor="let o of OffersIncludes; let i = index" class="benefit-card">
+                  <div class="d-flex align-items-start justify-content-between">
+                    <div class="d-flex align-items-start">
+                      <span class="benefit-index me-2">{{ i + 1 }}</span>
+                      <div>
+                     <h5 class="benefit-title mb-1 d-flex align-items-center gap-2">
+  <img *ngIf="o.icon" [src]="o.icon" alt="icon" width="24" height="24" class="rounded" />
+  {{ o?.title ?? o }}
+</h5>
+              <p class="benefit-desc mb-0 text-muted">{{ o?.description || '' }}</p>
+            </div>
+          </div>
+          <div class="benefit-actions ms-2">
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary"
+              data-bs-toggle="modal"
+              data-bs-target="#benefitModal"
+              (click)="openModal('offer', i)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-danger"
+              (click)="removeBenefits(i,'benefitContent')">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Benefits (uses shared modal) -->
+            <!-- <div class="col-md-6">
+              <div class="card shadow-sm p-3 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <label class="form-label mb-0">Benefits <span class="req">*</span></label>
+                  <button
+                    id="benefitsAdd"
+                    class="btn btn-plus"
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#benefitModal"
+                    (click)="openModal('benefit')">
+                    <i class="bi bi-plus-lg"></i>
+                  </button>
+                </div>
+
+                <div id="benefitsContainer" class="mt-2">
+                  <div *ngFor="let b of BenefitsDatas; let i = index" class="benefit-card">
+                    <div class="d-flex align-items-start justify-content-between">
+                      <div class="d-flex align-items-start">
+                        <span class="benefit-index me-2">{{ i + 1 }}</span>
+                        <div>
+                          <h5 class="benefit-title mb-1">{{ b?.title ?? b }}</h5>
+                          <p class="benefit-desc mb-0 text-muted">{{ b?.description || '' }}</p>
+                        </div>
+                      </div>
+                      <div class="benefit-actions ms-2">
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-secondary"
+                          data-bs-toggle="modal"
+                          data-bs-target="#benefitModal"
+                          (click)="openModal('benefit', i)">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeBenefits(i,'Benefits')">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <!-- Shared Modal (for both Benefits & Offers) -->
+<div
+  class="modal fade"
+  id="benefitModal"
+  tabindex="-1"
+  aria-labelledby="benefitModalTitle"
+  aria-hidden="true"
+  data-bs-backdrop="false"
+  data-bs-keyboard="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="benefitModalTitle">{{ modalTitle }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+
+                  <div class="modal-body">
+                    <!-- Benefit fields -->
+                    <ng-container *ngIf="modalType === 'benefit'; else offerFields">
+                      <div class="mb-3">
+                        <label class="form-label">Heading <span class="req">*</span></label>
+                        <input type="text" class="form-control" [(ngModel)]="newBenefit.title" [ngModelOptions]="{ standalone: true }" />
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" rows="3" [(ngModel)]="newBenefit.description" [ngModelOptions]="{ standalone: true }"></textarea>
+                      </div>
+                    </ng-container>
+
+
+                    <ng-template #offerFields>
+                      <div class="mb-3">
+                        <label class="form-label">Heading <span class="req">*</span></label>
+                        <input type="text" class="form-control" [(ngModel)]="newOffer.title" [ngModelOptions]="{ standalone: true }" />
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label">Icon Image <span class="req">*</span></label>
+                        <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
+                        <div class="mt-2" *ngIf="newOffer.icon">
+                          <app-file-preview ></app-file-preview>
+                  </div>
+                  <div *ngIf="subscriptionForm.get('icon')?.touched && subscriptionForm.get('icon')?.invalid" class="text-danger">
+                    Icon is required.
+                   </div>
+                  </div>
+                      <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" rows="3" [(ngModel)]="newOffer.description" [ngModelOptions]="{ standalone: true }"></textarea>
+                      </div>
+                    </ng-template>
+            </div>
+
+                  <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="button" (click)="saveModal()" data-bs-dismiss="modal">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Submit -->
+          <div class="d-flex justify-content-end gap-2 mt-4">
+            <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+              @if(btnLoader) {
+                <div class="spinner-border text-white" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              } @else {
+                {{ isEditMode ? 'Update' : 'Submit' }}
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </app-card>
+</main>

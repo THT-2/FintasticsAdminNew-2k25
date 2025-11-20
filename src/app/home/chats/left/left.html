@@ -1,0 +1,81 @@
+<!-- Left Sidebar -->
+        <div #sidebar class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-info">
+                    <div class="user-avatar">F
+
+                    </div>
+                    <div>
+                        <h4>Fin-Expert Chat List</h4>
+                        <!-- <p>Investment Advisor</p> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search or start new chat">
+                </div>
+            </div>
+            <div class="chat-list">
+
+               <!-- <div class="filters">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Registered</button>
+      <button class="filter-btn">Subscribed</button>
+      <button class="filter-btn">Repeat</button>
+    </div> -->
+                <!-- Chat 1 -->
+              <!-- <div class="chat-body">
+  @for (item of chatList; track $index) {
+    <div class="chat-item"
+         [class.active]="item === selectedChat"
+         (click)="selectChat(item)">
+      <div class="chat-avatar">{{ item.name?.[0] || 'U' }}</div>
+      <div class="chat-info">
+        <div class="chat-info-top">
+          <div class="chat-name">{{ item.name }}</div>
+          <div class="chat-time">{{ item.lastMessageAt }}</div>
+        </div>
+        <div class="chat-preview">{{ item.text }}</div>
+        <span class="chat-status status-active">Last seen : {{ item.date }} </span>
+      </div>
+    </div>
+  }
+</div> -->
+
+<div class="chat-body">
+  @for (item of chatList; track $index) {
+    <div class="chat-item"
+         [class.active]="item === selectedChat"
+         (click)="selectChat(item)">
+
+      <div class="chat-avatar">{{ item.name?.[0] || 'U' }}</div>
+
+      <div class="chat-info">
+        <div class="chat-info-top">
+          <div class="chat-name">{{ item.name }}</div>
+
+          <div class="chat-meta">
+            <div class="chat-time">
+              {{ item.lastMsgAt || item.lastMessageAt  }}
+            </div>
+
+            @if (item.isRead > 0) {
+              <span class="unread-badge">{{ item.isRead }}</span>
+            }
+          </div>
+        </div>
+
+        <div class="chat-preview">{{ item.text }}</div>
+        <span class="chat-status status-active">
+          Last seen : {{ item.date }}
+        </span>
+      </div>
+    </div>
+  }
+</div>
+
+</div>
+</div>

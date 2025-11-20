@@ -1,0 +1,48 @@
+          <!-- Platform Row -->
+      <h3 class="section-title">Subscribers by Platform — Sample Data</h3>
+      <div class="row g-3 mt-1">
+        <!-- iOS -->
+        <div class="col-12 col-lg-6" *ngFor="let plan of platform; trackBy:trackByIndex">
+          <div class="box-card pastel-ios border">
+            <!-- <button class="btn btn-sm btn-outline-secondary widget-export" id="export-ios"><i class="bi bi-download me-1"></i>Export</button> -->
+            <div class="box-header d-flex justify-content-between align-items-center flex-wrap">
+              <div><i class="bi bi-apple"></i> {{plan.platform}} Subscribers</div>
+              <div class="d-flex flex-wrap gap-2" *ngFor="let item of plan.plans;trackBy:trackByIndex">
+                <span class="badge-soft" id="ios-89">{{item.amount}}: {{item.count}} (₹{{item.revenue}})</span>
+              </div>
+            </div>
+            <div class="text-muted small mb-2">Name • Registered • Location • Plan</div>
+            <div class="table-responsive live-list">
+              <table class="table table-sm align-middle mb-0">
+                <thead>
+                  <tr><th>Name</th><th>Registered</th><th>Location</th><th>Plan</th></tr>
+                </thead>
+                <tbody>
+          <ng-container  *ngIf="plan.totals">
+            <tr *ngFor="let user of plan.totals.users" >
+              <td>{{ user.name ?(user.name):'-'}}</td>
+              <td>{{ user.registered ? (user.registered | date:'yyyy/MM/dd') : '—' }}</td>
+              <td>{{ user.location ?(user.location):'-'}}</td>
+              <td>-</td>
+              <!-- <td>{{ user.location ?(user.name):'-'}}</td> -->
+            </tr>
+            <tr *ngIf="!plan.totals.users || plan.totals.users.length === 0">
+              <td colspan="3" class="text-muted">No data</td>
+            </tr>
+          </ng-container>
+          </tbody>
+              </table>
+
+            </div>
+             <div class="d-flex justify-content-end mt-2">
+          <button class="btn btn-sm btn-outline-secondary widget-export"
+          type="button"
+          [routerLink]="['/admin/subscribed']"
+          >
+    View more
+  </button>
+        </div>
+          </div>
+        </div>
+
+      </div>

@@ -1,0 +1,67 @@
+
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Whatsapp Notfication" blockClass="pc-component" >
+      <div class="card ">
+        <div class="card-body">
+         <div class="row">
+          <form [formGroup]="pushNotficationForm" (ngSubmit)="submit()">
+            <div class="row">
+              <!-- <div class="form-group mb-3 col-md-6">
+                  <label class="form-label" for="other">Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    formControlName="title"
+                    placeholder="Title..."
+                  />
+                  <div *ngIf="pushNotficationForm.get('title')?.touched && pushNotficationForm.get('title')?.invalid" class="text-danger">
+                    Title is required.
+                  </div>
+              </div> -->
+
+              <div class="form-group mb-3 col-md-12">
+                <label class="form-label" for="body">Enter data</label>
+                <textarea
+                  type="text"
+                  class="form-control"
+                  id="body"
+                  formControlName="body"
+                  placeholder="Enter data..."></textarea>
+                <div *ngIf="pushNotficationForm.get('body')?.touched && pushNotficationForm.get('body')?.invalid" class="text-danger">
+                  Data is required.
+                </div>
+              </div>
+
+              <!-- <div class="form-group mb-3 col-md-6">
+                <label class="form-label" for="image">Image url</label>
+
+                  <input type="file" #imgType (change)="fileuploadAnyProof($event)" name="anyProof" id="anyProof"
+                              accept=".jpg,.jpeg,.png" class="form-control"
+
+
+                                     placeholder="User type image">
+                                     <div class="mt-4 ">
+                                   <div class="parent" *ngIf="pushNotficationForm.value.image">
+                                    <img class="img-fluid " width="100px" [src]="pushNotficationForm.value.image?pushNotficationForm.value.image:''" [alt]="pushNotficationForm.value.image?pushNotficationForm.value.image:''">
+                                    <div class="child">
+                                     <span class="badge badge-danger" (click)="removeImages()">X</span>
+                                    </div>
+                                   </div>
+                                    </div>
+
+              </div> -->
+            </div>
+            <div class="d-grid mt-4">
+              <button type="submit" class="btn btn-cta btn-cta-wide">
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>

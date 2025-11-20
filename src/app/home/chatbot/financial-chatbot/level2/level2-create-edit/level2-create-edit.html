@@ -1,0 +1,137 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card
+      [cardTitle]="Level2FormControl['_id'].value ? 'Level 2 Edit' : 'Level 2 Create'"
+      blockClass="pc-component"
+      route_button="">
+
+      <section class="container-xxl">
+        <div class="form-card p-3 p-md-4">
+          <form [formGroup]="Level2Form" (ngSubmit)="submit()" class="needs-validation" novalidate>
+            <div class="row g-3">
+
+              <!-- Level 1 Type -->
+              <!-- <div class="col-md-6">
+                <label class="form-label">Level 1 Type <span class="req">*</span></label>
+                <select class="form-select" formControlName="level1">
+                  <option hidden [value]="null">Please Select</option>
+                  @for (item of tableData1; track $index) {
+                    <option [value]="item._id">{{item.name}}</option>
+                  }
+                </select>
+                <div *ngIf="Level2Form.get('level1')?.touched && Level2Form.get('level1')?.invalid" class="text-danger">
+                  Level 1 Type is required.
+                </div>
+              </div> -->
+
+           <div class="col-md-6">
+  <label class="form-label">Level 1 Question <span class="req">*</span></label>
+  <select class="form-select" formControlName="level1">
+    <option hidden [value]="null">Please Select</option>
+    <option *ngFor="let item of tableData1" [value]="item._id">{{item.name}}</option>
+  </select>
+  <div *ngIf="Level2Form.get('level1')?.touched && Level2Form.get('level1')?.invalid" class="text-danger">
+    Level 1 Question is required.
+  </div>
+</div>
+
+              <!-- Level 2 Name -->
+              <div class="col-md-6">
+                <label class="form-label">Level 2 Question <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-list"></i></span>
+                  <input type="text" class="form-control" formControlName="name" placeholder="Enter name..." />
+                </div>
+                <div *ngIf="Level2Form.get('name')?.touched && Level2Form.get('name')?.invalid" class="text-danger">
+                  Question is required.
+                </div>
+              </div>
+
+
+               <!-- Message -->
+              <div class="col-md-6">
+                <label class="form-label">Answer<span class="req">*</span></label>
+                <textarea class="form-control" formControlName="message" placeholder="Enter Level 2..."></textarea>
+                <div *ngIf="Level2Form.get('message')?.touched && Level2Form.get('message')?.invalid" class="text-danger">
+              Answer is required.
+            </div>
+              </div>
+
+              <!-- Level Stop Toggle -->
+ <div class="col-md-6">
+  <label class="form-label d-block mb-2 fw-bold">
+    Level Stop
+    <i
+      class="fa-solid fa-circle-info"
+      data-bs-toggle="tooltip"
+      data-bs-placement="right"
+      title="By enabling this button you are ending this Level"
+    ></i>
+  </label>
+
+  <div
+    class="level-toggle d-flex align-items-center justify-content-between p-2 px-3 rounded"
+    [ngClass]="{
+      'active-toggle': Level2Form.get('levelStop')?.value,
+      'inactive-toggle': !Level2Form.get('levelStop')?.value
+    }"
+
+  >
+
+    <span class="toggle-status me-2">
+      {{ Level2Form.get('levelStop')?.value ? 'Continue' : 'Stop' }}
+    </span>
+
+    <div class="form-check form-switch m-0">
+
+      <input
+        class="form-check-input level-switch"
+        type="checkbox"
+        formControlName="levelStop"
+        id="levelStopToggle"
+      />
+      <label class="form-check-label visually-hidden" for="levelStopToggle">
+        Toggle Level Stop
+      </label>
+    </div>
+  </div>
+</div>
+            </div>
+
+                    <!-- Icon Image -->
+          <div class="col-md-6">
+            <label class="form-label">Icon Image <span class="req">*</span></label>
+            <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
+            @if(Level2FormControl['icon'].value) {
+              <!-- <div class="mt-2">
+                <app-file-preview [filePath]="Level2FormControl['icon'].value"></app-file-preview>
+              </div> -->
+              <div class="position-relative d-inline-block">
+                <img width="100px" [src]="Level2FormControl['icon'].value" />
+                  <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('icon')">X</span>
+              </div>
+            }
+            <div *ngIf="Level2Form.get('icon')?.touched && Level2Form.get('icon')?.invalid" class="text-danger">
+              Icon is required.
+            </div>
+          </div>
+            <!-- Submit -->
+            <div class="d-flex justify-content-end gap-2 mt-4">
+              <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+                @if(btnLoader) {
+                  <div class="spinner-border text-white" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                } @else {
+                  {{Level2FormControl['_id'].value ? 'Update' : 'Submit'}}
+                }
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </section>
+
+    </app-card>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<h2 class="section-title">Subscription Insights</h2>
+
+     <app-filter
+  [config]="initialServerFilter"
+  (applied)="onRangeApplied($event)">
+</app-filter>
+
+      <!-- KPI Row -->
+<div class="row g-3 kpi-grid">
+        <!-- ₹89 Subscription -->
+<div class="col-12 col-sm-6 col-xl-3" *ngFor="let plan of plans; trackBy: trackByIndex">
+  <div class="kpi-card pastel-89 border d-flex align-items-center justify-content-between">
+    <div class="meta">
+      <div class="label">₹{{ plan.offerAmount ??0}} Subscription</div>
+      <div class="value" id="kpi-89-count">{{ plan.totalSubscribers ??0 }}</div>
+      <div class="delta text-muted">
+        <span class="badge-soft">Total Amount</span>
+        <strong id="kpi-89-amt">₹{{ plan.totalRevenue ??0}}</strong>
+      </div>
+    </div>
+    <div class="icon">
+      <i class="bi bi-people"></i>
+    </div>
+  </div>
+</div>
+<!-- Total Revenue -->
+<div class="col-12 col-sm-6 col-xl-3">
+  <div class="kpi-card pastel-ios border d-flex align-items-center justify-content-between">
+    <div class="meta">
+      <div class="label">Total Revenue</div>
+      <div class="value" id="kpi-revenue">₹{{overAll_amount}}</div>
+      <div class="delta text-muted"><span class="badge-soft">From ₹89/₹499/₹719</span></div>
+    </div>
+    <div class="icon"><i class="bi bi-currency-rupee"></i></div>
+  </div>
+</div>
+</div>

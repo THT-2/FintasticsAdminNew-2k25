@@ -1,0 +1,21 @@
+<div class="chat-container">
+  <main class="main-content" id="mainContent">
+    <div class="container-fluid py-3">
+      <div class="row">
+        <!-- Left chat -->
+        <div class="col-md-4">
+          <app-chat-left (chatSelected)="selectedChatId = $event"
+          (ticket)="onTicketSelected($event)"></app-chat-left>
+        </div>
+
+        <!-- Right chat -->
+        <div class="col-md-8 text-end">
+          <app-chat-right [chatSelected]="selectedChatId"
+           [ticket]="selectedTicketId"></app-chat-right>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+

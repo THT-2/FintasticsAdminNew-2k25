@@ -1,0 +1,52 @@
+
+        <div class="chat-area">
+            <div class="chat-header">
+                <div class="current-chat-info">
+                    <div class="back-button">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="current-chat-avatar">RS</div>
+                    <div class="current-chat-details">
+                        <h4>Rahul Sharma  <span class="status online"></span></h4>
+                        <p>Query: Tax Filing for Freelancers | Registered User</p>
+                    </div>
+                </div>
+                <div class="header-icons">
+                    <i class="fas fa-video"></i>
+                    <i class="fas fa-phone"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
+            </div>
+
+
+            <!-- <div class="chat-messages">
+              @for (item of userChat; track item._id) {
+                <div class="message client">
+                  <p>{{item.messages.text}}</p>
+                </div>
+              }
+            </div> -->
+
+            <div class="chat-messages">
+  @for (msg of userChat; track msg._id) {
+    <div class="message" [ngClass]="msg.senderRole === 'user' ? 'client' : 'agent'">
+      <span>{{ msg.text }}</span>
+      <span class="message-time">{{ msg.createdAt | date:'shortTime' }}</span>
+    </div>
+  }
+</div>
+
+          <div class="chat-footer">
+  <div class="chat-input-container">
+    <div class="chat-input-actions">
+      <i class="far fa-smile"></i>
+      <i class="fas fa-paperclip"></i>
+    </div>
+    <textarea #msg type="text" class="chat-input" placeholder="Type your message here..."
+           (keyup.enter)="agentReply(msg.value); msg.value=''" ></textarea>
+    <button class="chat-send-btn" (click)="agentReply(msg.value); msg.value=''">
+      <i class="fas fa-paper-plane"></i>
+    </button>
+  </div>
+</div>
+</div>

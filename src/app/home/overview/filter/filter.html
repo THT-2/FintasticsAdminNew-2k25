@@ -1,0 +1,24 @@
+        <div class="col-12">
+          <div class="date-toolbar" id="kpiToolbar">
+            <div class="toolbar-left d-flex flex-wrap align-items-center gap-2">
+              <span class="toolbar-title"><i class="bi bi-funnel-fill text-primary"></i> Filter</span>
+              <div class="btn-segment" role="group" aria-label="Quick ranges">
+                <button class="btn kpi-range" data-range="today">Today</button>
+                <button class="btn kpi-range" data-range="yesterday">Yesterday</button>
+                <button class="btn kpi-range" data-range="7d">7D</button>
+                <button class="btn kpi-range active" data-range="30d">30D</button>
+                <button class="btn kpi-range" data-range="ytd">YTD</button>
+              </div>
+            </div>
+            <div class="toolbar-right d-flex align-items-center gap-2 ms-auto">
+              <div class="input-group input-group-sm range-input flex-nowrap">
+                <span class="input-group-text" id="openPicker" role="button" aria-label="Open calendar"><i class="bi bi-calendar2-week"></i></span>
+                <input id="kpiRange" class="form-control" placeholder="Pick a date range" />
+                <button class="btn btn-light" id="kpiClear" type="button" aria-label="Clear"><i class="bi bi-x-lg"></i></button>
+              </div>
+              <button class="btn btn-primary btn-sm" id="kpiApply"><i class="bi bi-check2"></i> Apply</button>
+              <button class="btn btn-outline-secondary btn-sm" id="kpiReset"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+              <span class="kpi-label small" id="kpiRangeLabel">Showing: Last 30 days</span>
+            </div>
+          </div>
+        </div>

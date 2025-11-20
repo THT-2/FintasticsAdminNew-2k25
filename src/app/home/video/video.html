@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!-- {{buttondata.routingView}} -->
+     <app-card cardTitle="Categories" blockClass="pc-component" [buttondata]="buttondata">
+      <app-table [tableData]="videoData" [loader]="loader"
+      [columnHeader]="columnDefinition" (getActionTable)="getActions($event)"  [buttondata]="buttondata"></app-table>
+      </app-card>
+  </div>
+</div>
+

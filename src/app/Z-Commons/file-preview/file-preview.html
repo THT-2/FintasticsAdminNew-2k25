@@ -1,0 +1,35 @@
+<div class="parent">
+  <!-- Render Image -->
+   @if(isImage(filePath)){
+    <ng-container>
+      <img
+        class="img-fluid"
+        width="100px"
+        [src]="filePath || ''"
+        [alt]="filePath || ''"
+      >
+    </ng-container>
+   }@else {
+    <ng-container>
+      <video
+        class="video-fluid"
+        width="100px"
+        controls
+        [src]="filePath || ''">
+        Your browser does not support the video tag.
+      </video>
+
+
+    </ng-container>
+   }
+
+
+  <!-- Render Video -->
+
+
+  <div class="child">
+    <span class="badge bg-danger pointer" (click)="removeImages()">x</span>
+    <!-- <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages()">X</span> -->
+
+  </div>
+</div>

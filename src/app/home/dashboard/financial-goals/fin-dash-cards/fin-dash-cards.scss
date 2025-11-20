@@ -1,0 +1,45 @@
+    h5.section-title { margin-bottom: 15px; font-weight: 800;
+       letter-spacing:.2px; }
+    /* Cards & KPIs */
+    .kpi-card, .box-card{
+      position:relative;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:16px;
+      box-shadow:var(--shadow);
+    }
+    .kpi-card .meta .label{
+      font-size:.8rem;
+      color:var(--muted)
+    }
+    .kpi-card .meta .value{
+      font-size:1.6rem;
+      font-weight:800
+    }
+    .kpi-card .delta{
+      font-size:.78rem
+    }
+    .kpi-card .icon{
+      width:46px;
+      height:46px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg, color-mix(in oklab, var(--grad-1),
+      white 80%), color-mix(in oklab, var(--grad-2), white 80%));
+      color:#3b0764;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.6);
+    }
+    .kpi-card::before, .box-card::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:3px;
+      background:linear-gradient(90deg,var(--grad-1),var(--grad-2));
+      opacity:.45
+    }
+
+
+

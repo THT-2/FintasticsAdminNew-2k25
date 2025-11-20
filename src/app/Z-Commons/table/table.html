@@ -1,0 +1,192 @@
+
+    <!-- Search -->
+    <input
+      type="search"
+      class="form-control cat-search mb-3"
+      placeholder="Search..."
+      aria-label="Search categories"
+      [(ngModel)]="searchText"
+      name="searchText"
+    />
+
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0 cat-table">
+        <thead>
+          <tr>
+            <th style="width:72px">S.No</th>
+            @for (column of columnHeader; track column) {
+              <th>{{ column.displayName }}</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          <!-- @if (loader) {
+            <tr>
+              <td colspan="20">
+                <div class="d-flex align-items-center justify-content-center mt-3 mb-3">
+                  <div class="spinner-grow text-primary" style="width: 2rem; height: 2rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <p class="mb-0 ms-2">Loading...</p>
+                </div>
+              </td>
+            </tr>
+
+          } -->
+            @if (loader)
+            {
+    <tr>
+        <td colspan="20">
+            <div class="shimmer-wrapper mt-3 mb-3">
+                <div class="shimmer-line" style="width: 80%; height: 20px;"></div>
+                <div class="shimmer-line" style="width: 90%; height: 20px;"></div>
+                <div class="shimmer-line" style="width: 70%; height: 20px;"></div>
+            </div>
+        </td>
+    </tr>
+}
+           @else {
+
+            @for (item of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); track item; let i = $index) {
+              <tr>
+                <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+
+                @for (column of columnHeader; track column) {
+                  @if (column.name == "icon" || column.name == "sub_icon" || column.name == "tamp_img" || column.name == "video_img") {
+                    <td>
+                      <a href="{{ item[column.name] }}" target="_blank">
+                        <img src="{{ item[column.name] }}" class="icon-image" alt="icon">
+                      </a>
+                    </td>
+                  } @else if (column.name == "videolink") {
+                    <td>
+                      <iframe class="embed-responsive-item" style="width: 200px; height: 150px"
+                              [src]="sanitizeVideoLink(item[column.name])"></iframe>
+                    </td>
+                  } @else if (column.name == "mediaUrl") {
+                    <td *ngIf="isImage(item[column.name])">
+                      <a [href]="item[column.name]" target="_blank">
+                        <img [src]="item[column.name]" class="icon-image" alt="icon">
+                      </a>
+                    </td>
+                    <td *ngIf="isVideo(item[column.name])">
+                      <iframe class="embed-responsive-item" style="width: 200px; height: 150px"
+                        [src]="sanitizeVideoLink(item[column.name])"></iframe>
+                    </td>
+                  } @else if (column.name == "Activestatus") {
+                    <td>
+                      <mat-slide-toggle
+                      [(ngModel)]="item[column.name]"
+                      name="activestatus{{i}}"
+                        (click)="getActions(buttondata?.routingUpdateStatus, item)">
+                      </mat-slide-toggle>
+                    </td>
+                  } @else if (column.name == "type" && column.displayName == "Button") {
+                    <td class="sendbtn">
+                      <button class="btn btn-primary"
+                        [disabled]="item['Activestatus'] === false"
+                        (click)="getActions(buttondata?.routingSendNow, item)">
+                        Send Now
+                      </button>
+                    </td>
+                  }
+                  @else if (column.type === 'status') {
+          <td class="text-end">
+            <ng-container *ngIf="item.subsById?.[column.name] as sub; else noPlan">
+              <select
+                class="form-select"
+                [ngModel]="sub.status"
+                (ngModelChange)="onStatusChange(item, column.name, $event)"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <option *ngFor="let s of subs_status" [value]="s">{{ s }}</option>
+              </select>
+            </ng-container>
+            <ng-template #noPlan>—</ng-template>
+          </td>
+                  }@else if (column.name == "actions") {
+                    <td class="text-end table-actions">
+                      @if (buttondata?.routingView) {
+                        <button class="btn btn-sm rounded" (click)="getActions(buttondata?.routingView, item,$event)" aria-label="View">
+                          <i class="bi bi-eye"></i>
+                        </button>
+                      }
+                      @if (buttondata?.routingEdit) {
+                        <button class="btn btn-sm rounded" (click)="getActions(buttondata?.routingEdit, item,$event)" aria-label="Edit">
+                          <i class="bi bi-pencil-square"></i>
+                        </button>
+                      }
+                      @if (buttondata?.routingDelete) {
+                        <button class="btn btn-sm rounded" (click)="getActions(buttondata?.routingDelete, item,$event)" aria-label="Delete">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      }
+                    </td>
+                  } @else {
+                    <td>{{ item[column.name] ? item[column.name] : "-" }}</td>
+                  }
+                }
+              </tr>
+            }
+
+            <tr *ngIf="filteredData.length === 0">
+              <td colspan="20" class="text-center text-muted">No categories found.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+
+<div class="d-flex align-items-center justify-content-between mt-3" *ngIf="filteredData.length">
+  <div class="text-muted small">
+    Showing
+    {{ (currentPage - 1) * itemsPerPage + 1 }}
+    -
+    {{ Math.min(currentPage * itemsPerPage, filteredData.length) }}
+    of {{ filteredData.length }}
+  </div>
+  <ul class="pagination pagination-sm mb-0">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" href="#" (click)="currentPage = currentPage - 1; $event.preventDefault()">Previous</a>
+    </li>
+    <li class="page-item disabled">
+      <span class="page-link">Page {{ currentPage }} / {{ totalPages }}</span>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a class="page-link" href="#" (click)="currentPage = currentPage + 1; $event.preventDefault()">Next</a>
+    </li>
+  </ul>
+</div>
+
+    <!-- <div class="d-flex justify-content-between align-items-center mt-3">
+      <button class="btn btn-primary" [disabled]="currentPage === 1" (click)="currentPage = currentPage - 1">Previous</button>
+      <span>Page {{ currentPage ? currentPage : 0 }} of {{ totalPages ? totalPages : 0 }}</span>
+      <button class="btn btn-primary" [disabled]="currentPage === totalPages" (click)="currentPage = currentPage + 1">Next</button>
+    </div>
+  </div>
+</div> -->
+
+<!--
+  <div class="d-flex align-items-center justify-content-between mt-3" *ngIf="filteredCategories.length">
+    <div class="text-muted small">
+      Showing
+      {{ (state.page - 1) * state.pageSize + 1 }}
+      -
+      {{ Math.min(state.page * state.pageSize, filteredCategories.length) }}
+      of {{ filteredCategories.length }}
+    </div>
+    <ul class="pagination pagination-sm mb-0">
+      <li class="page-item" [class.disabled]="state.page === 1">
+        <a class="page-link" href="#" (click)="onPageChange('prev'); $event.preventDefault()">Previous</a>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">Page {{ state.page }} / {{ totalPages }}</span>
+      </li>
+      <li class="page-item" [class.disabled]="state.page === totalPages">
+        <a class="page-link" href="#" (click)="onPageChange('next'); $event.preventDefault()">Next</a>
+      </li>
+    </ul>
+  </div> -->

@@ -1,0 +1,58 @@
+    *{
+      --primary:#6A4C93;
+      --sidebar-width:220px;
+      --sidebar-collapsed-width:60px;
+      --bg:#f6f7fb;
+      --surface:#ffffff;
+      --panel:#eef0ff;
+      --border:#e6e8ef;
+      --menu-hover:#ede6f7;
+      --ink:#0f1222;
+      --muted:#6b7280;
+      --card:var(--surface);
+      --header-height:60px;
+      /* modern accents */
+      --grad-1:#7c3aed;
+      --grad-2:#22c1c3;
+      --success:#16a34a;
+      --danger:#ef4444;
+      --info:#0ea5e9;
+      --shadow:0 10px 24px rgba(0,0,0,.05);
+      box-sizing:border-box;
+      margin:0;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+    }
+ /* Animations & focus */
+    @keyframes fadeUp{ from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)} }
+    .kpi-card, .box-card{ animation:fadeUp .35s ease both }
+    .btn, .form-control{ outline:none; box-shadow:none }
+    .btn:focus, .form-control:focus{
+      box-shadow:0 0 0 3px color-mix(in oklab,
+      var(--grad-1), transparent 70%);
+      border-color: color-mix(in oklab,
+      var(--grad-1), var(--border)); }
+
+    /* Live list */
+    .live-list{ max-height:240px; overflow:auto; scroll-behavior:smooth; overscroll-behavior:contain }
+    .live-list li{ transition: background .3s ease }
+    .live-list li.highlight{
+      background: color-mix(in oklab,
+      var(--grad-1), white 85%); }
+
+    /* chart sizing */
+    :root{ --chart-h-sm:160px; --chart-h-md:200px; --chart-h-lg:260px }
+    .box-card canvas{ height: var(--chart-h-md) !important }
+    @media (min-width:1200px){ .box-card canvas{ height: var(--chart-h-lg) !important } }
+
+  /* place export icon at top-right of any widget */
+    .widget-export{ position:absolute; top:12px; right:12px; z-index:2 }
+
+    body{ font-family:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight:300; }
+    h1,h2,h3,h4,h5,h6,.section-title,.box-header{ font-weight:600; letter-spacing:.2px }
+    .kpi-card{ padding:14px; border-radius:16px }
+    .kpi-card .value{ font-weight:800; font-size:1.8rem; letter-spacing:-0.3px }
+    .kpi-card .delta{ font-weight:500 }
+    .range-btn.active{ background:linear-gradient(90deg,var(--grad-1),var(--grad-2)); color:#fff; border-color:transparent }
+    .table-sm td,.table-sm th{ padding:.4rem .5rem }

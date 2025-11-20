@@ -1,0 +1,43 @@
+    <!-- ROW 6: Admin Controls -->
+    <div class="row g-3 align-items-stretch mt-2">
+      <div class="col-12"><h5 class="section-title">Admin Controls</h5></div>
+      <div class="col-md-4">
+        <div class="box-card h-100">
+          <div class="box-header"><i class="bi bi-download"></i> Export Reports</div>
+          <div class="d-grid gap-2">
+            <button class="btn btn-outline-primary" id="export-excel">Export Excel</button>
+            <button class="btn btn-outline-primary" id="export-pdf">Export PDF</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="box-card h-100">
+          <div class="box-header"><i class="bi bi-bell"></i> Automated Alerts</div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="alert-big-budgets" checked>
+            <label class="form-check-label" for="alert-big-budgets">Unusual activity (sudden big budgets)</label>
+          </div>
+          <div class="form-check form-switch mt-2">
+            <input class="form-check-input" type="checkbox" role="switch" id="alert-exceeded" checked>
+            <label class="form-check-label" for="alert-exceeded">Exceeded budgets</label>
+          </div>
+          <div class="form-check form-switch mt-2">
+            <input class="form-check-input" type="checkbox" role="switch" id="alert-inactive">
+            <label class="form-check-label" for="alert-inactive">Highlight inactive users</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="box-card h-100">
+          <div class="box-header"><i class="bi bi-sliders"></i> Compare Periods</div>
+          <div class="input-group input-group-sm mb-2">
+            <span class="input-group-text">A</span>
+            <input type="month" class="form-control" id="periodA">
+            <span class="input-group-text">B</span>
+            <input type="month" class="form-control" id="periodB">
+            <button class="btn btn-outline-secondary" id="compareBtn">Compare</button>
+          </div>
+          <canvas id="compareChart" height="90"></canvas>
+        </div>
+      </div>
+    </div>

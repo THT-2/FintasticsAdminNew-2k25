@@ -1,0 +1,320 @@
+/* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-light);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .stat-card.active {
+      border: 2px solid var(--brand-primary);
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .stat-card.primary::before {
+      background: var(--gradient-primary);
+    }
+
+    .stat-card.danger::before {
+      background: var(--gradient-danger);
+    }
+
+    .stat-card.success::before {
+      background: var(--gradient-success);
+    }
+
+    .stat-card.warning::before {
+      background: var(--gradient-warning);
+    }
+
+    .stat-card.info::before {
+      background: var(--gradient-info);
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .stat-icon.primary {
+      background: var(--gradient-primary);
+    }
+
+    .stat-icon.success {
+      background: var(--gradient-success);
+    }
+
+    .stat-icon.danger {
+      background: var(--gradient-danger);
+    }
+
+    .stat-icon.info {
+      background: var(--gradient-info);
+    }
+
+    .stat-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 8px 0 4px;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .stat-change {
+      font-size: 0.8rem;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stat-change.positive {
+      color: var(--success);
+    }
+
+    .stat-change.negative {
+      color: var(--danger);
+    }
+
+    /* Challenge Progress Section */
+    .challenge-progress {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .progress-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-light);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .progress-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .progress-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .progress-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .progress-badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .progress-badge.success {
+      background: rgba(0, 200, 83, 0.1);
+      color: var(--success);
+    }
+
+    .progress-badge.warning {
+      background: rgba(255, 171, 0, 0.1);
+      color: var(--warning);
+    }
+
+    .progress-badge.danger {
+      background: rgba(255, 82, 82, 0.1);
+      color: var(--danger);
+    }
+
+    .progress-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .progress-metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .progress-metric:last-child {
+      border-bottom: none;
+    }
+
+    .metric-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .progress-container {
+      margin-top: 8px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #f1f5f9;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.5s ease;
+    }
+
+    .progress-fill.success {
+      background: var(--gradient-success);
+    }
+
+    .progress-fill.warning {
+      background: var(--gradient-warning);
+    }
+
+    .progress-fill.danger {
+      background: var(--gradient-danger);
+    }
+
+    .progress-alert {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .progress-alert.success {
+      background: rgba(0, 200, 83, 0.1);
+      color: var(--success);
+      border-left: 4px solid var(--success);
+    }
+
+    .progress-alert.warning {
+      background: rgba(255, 171, 0, 0.1);
+      color: var(--warning);
+      border-left: 4px solid var(--warning);
+    }
+
+    .progress-alert.danger {
+      background: rgba(255, 82, 82, 0.1);
+      color: var(--danger);
+      border-left: 4px solid var(--danger);
+    }
+
+     /* Responsive */
+    @media (max-width: 1200px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .challenge-progress {
+        grid-template-columns: 1fr;
+      }
+
+      .winners-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 80px;
+      }
+
+      .sidebar .logo-text, .nav-text {
+        display: none;
+      }
+
+      .main-content {
+        margin-left: 80px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filters-row {
+        flex-direction: column;
+      }
+
+      .winners-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+

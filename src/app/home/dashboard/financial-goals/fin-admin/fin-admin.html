@@ -1,0 +1,56 @@
+    <!-- Tier 6 — Admin Controls & Exports -->
+    <h3 class="section-title">Admin Controls & Exports</h3>
+    <div class="row g-3">
+      <div class="col-12 col-lg-6">
+        <div class="box-card h-100">
+          <div class="box-header"><i class="bi bi-download"></i> Exports <span class="text-muted small">— Excel • PDF</span></div>
+          <div class="d-flex flex-wrap gap-2 align-items-center">
+            <div class="btn-group" role="group">
+              <button class="btn btn-outline-secondary" id="btnExportCurrent">Current view (Excel)</button>
+              <button class="btn btn-outline-secondary" id="btnExportFull">Full dataset (Excel)</button>
+            </div>
+            <button class="btn btn-outline-secondary" id="btnExportPDF">Export PDF</button>
+            <div class="ms-auto small text-muted" id="exportNameHint"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="box-card h-100">
+          <div class="box-header"><i class="bi bi-bell"></i> Automated Alerts</div>
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="alertNearCompletion">
+                <label class="form-check-label" for="alertNearCompletion">Near Completion (≥80%) — send nudge</label>
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="alertAbandoned">
+                <label class="form-check-label" for="alertAbandoned">Abandoned (≥X days inactive) — notify owner</label>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label">Channel</label>
+              <div class="d-flex gap-2">
+                <div class="form-check"><input class="form-check-input" type="radio" name="alertChannel" id="chEmail" value="Email" checked><label class="form-check-label" for="chEmail">Email</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="alertChannel" id="chWhatsApp" value="WhatsApp"><label class="form-check-label" for="chWhatsApp">WhatsApp</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="alertChannel" id="chInApp" value="In-app"><label class="form-check-label" for="chInApp">In-app</label></div>
+              </div>
+              <div class="mt-2 d-flex align-items-center gap-2">
+                <label for="inactiveDays" class="form-label m-0">Inactive threshold (days):</label>
+                <input id="inactiveDays" type="number" min="7" value="30" class="form-control form-control-sm" style="max-width:100px" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Definitions helper -->
+    <div class="mt-4 text-muted small">
+      <strong>Data Definitions:</strong>
+      <ul>
+        <li>Progress% = current_amount / target_amount × 100 (or task-based completion, if applicable).</li>
+        <li>Abandoned = no update ≥ X days (set X in Admin Controls).</li>
+        <li>Success Rate = completed / (completed + abandoned).</li>
+      </ul>
+    </div>

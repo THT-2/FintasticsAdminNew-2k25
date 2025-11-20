@@ -1,0 +1,114 @@
+ .date-toolbar{
+   display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: .35rem 24px;
+  background: #eef0ff;
+  border: 1px solid #e6e8ef;
+  padding: 12px 14px;
+  border-radius: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+    @media (max-width: 768px){ .date-toolbar{ flex-direction: column;
+    align-items: flex-start; } }
+    .date-toolbar .toolbar-title{
+      font-weight:900;
+      font-size:.9rem;
+      color:#1f220f;
+      display:flex;
+      align-items:center;
+      gap:.4rem;
+    }
+    .btn-segment{
+      display:flex;
+      border:1px solid #e6e8ef;
+      border-radius:999px;
+      overflow:hidden;
+      background:#ffffff;
+    }
+    .btn-segment .btn{
+      border:0;
+      padding:.45rem .9rem;
+      background:transparent;
+      color:#22220f;
+      font-weight:600;
+    }
+    .btn-segment .btn + .btn{
+      border-left:1px solid #e6e8ef;
+     }
+    .btn-segment .btn.active{
+      background:#6A4C93;
+      color:#fff;
+    }
+    .date-toolbar .range-input{
+       min-width:280px;
+       max-width:420px;
+        }
+    .date-toolbar .range-input input{
+      font-weight:600;
+    }
+    .date-toolbar .kpi-label{
+       margin-left:0;
+       font-size:.82rem;
+       color:#6b7280;
+       background:#ffffff;
+       border:1px dashed #e6e8ef;
+       padding:.35rem .65rem;
+       border-radius:999px;
+       white-space:nowrap;
+       }
+.section-caption{
+  font-size:.82rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#6b7280;
+  margin:.25rem 0 .25rem .25rem;
+}
+#kpiApply {
+  background-color: #6A4C93;
+  border: none;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.3s ease;
+}
+
+#kpiApply:hover {
+  background-color: #0b5ed7; /* Darker on hover */
+}
+
+#kpiApply i {
+  font-size: 1rem;
+}
+#kpiReset {
+  background-color: #ffffff;
+  border: none;
+  color: #000000;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.3s ease;
+}
+
+#kpiReset:hover {
+  background-color: #c9cefc; /* Darker on hover */
+}
+
+#kpiReset i {
+  font-size: 1rem;
+}
+
+#kpiRange{
+  font-size:  0.9rem;
+}

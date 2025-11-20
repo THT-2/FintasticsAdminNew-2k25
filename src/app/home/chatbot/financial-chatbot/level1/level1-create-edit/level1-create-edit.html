@@ -1,0 +1,108 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [cardTitle]="cardTitle" blockClass="pc-component" route_button="">
+      <section class="container-xxl">
+        <div class="form-card p-3 p-md-4">
+          <form [formGroup]="Level1Form" (ngSubmit)="submit()" class="needs-validation" novalidate>
+            <div class="row g-3">
+
+              <!-- Level 1 Question -->
+              <div class="col-md-6">
+                <label class="form-label">Level 1 Question <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-list"></i></span>
+                  <input type="text" class="form-control" formControlName="name" placeholder="Enter name..." />
+                </div>
+                <div *ngIf="Level1Form.get('name')?.touched && Level1Form.get('name')?.invalid" class="text-danger">
+                  Question is required.
+                </div>
+              </div>
+
+              <!-- Answer -->
+              <div class="col-md-6">
+                <label class="form-label">Answer <span class="req">*</span></label>
+                <textarea class="form-control" formControlName="message" placeholder="Enter Level 2..."></textarea>
+                <div *ngIf="Level1Form.get('message')?.touched && Level1Form.get('message')?.invalid" class="text-danger">
+                  Answer is required.
+                </div>
+              </div>
+
+               <!-- Level Stop Toggle (right side) -->
+              <div class="col-md-6 d-flex align-items-start justify-content-md-end">
+                <div class="w-100 w-md-auto" style="max-width: 620px;">
+                  <label class="form-label d-block mb-2 fw-bold">
+                    Level Stop
+                    <i class="fa-solid fa-circle-info"
+                       data-bs-toggle="tooltip"
+                       data-bs-placement="right"
+                       title="By enabling this button you are ending this Level"></i>
+                  </label>
+
+                  <div
+                    class="level-toggle d-flex align-items-center justify-content-between p-2 px-3 rounded"
+                    [ngClass]="{
+                      'active-toggle': Level1Form.get('levelStop')?.value,
+                      'inactive-toggle': !Level1Form.get('levelStop')?.value
+                    }"
+                  >
+                    <span class="toggle-status me-2">
+                      {{ Level1Form.get('levelStop')?.value ? 'Continue' : 'Stop' }}
+                    </span>
+
+                    <div class="form-check form-switch m-0">
+                      <input
+                        class="form-check-input level-switch"
+                        type="checkbox"
+                        formControlName="levelStop"
+                        id="levelStopToggle"
+                        (change)="toggleLevelStop()"
+                      />
+                      <label class="form-check-label visually-hidden" for="levelStopToggle">
+                        Toggle Level Stop
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Icon Image -->
+              <div class="col-md-6">
+                <label class="form-label">Icon Image <span class="req">*</span></label>
+
+                <!-- File Upload -->
+                <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
+
+                <!-- Preview -->
+                <div class="position-relative d-inline-block mt-2" *ngIf="Level1FormControl['icon'].value">
+                  <img width="100" [src]="Level1FormControl['icon'].value" alt="Icon preview" />
+                  <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer"
+                        (click)="removeImages('icon')">X</span>
+                </div>
+
+                <!-- Validation -->
+                <div *ngIf="Level1Form.get('icon')?.touched && Level1Form.get('icon')?.invalid" class="text-danger">
+                  Icon is required.
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Submit -->
+            <div class="d-flex justify-content-end gap-2 mt-4">
+              <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+                <ng-container *ngIf="btnLoader; else submitText">
+                  <div class="spinner-border text-white" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </ng-container>
+                <ng-template #submitText>
+                  {{ Level1FormControl['_id'].value ? 'Update' : 'Submit' }}
+                </ng-template>
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </app-card>
+  </div>
+</div>

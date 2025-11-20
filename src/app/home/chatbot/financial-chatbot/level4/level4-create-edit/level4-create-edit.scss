@@ -1,0 +1,127 @@
+/* Container for input fields */
+.form-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 1rem; /* optional if not inherited */
+}
+
+/* Label styling */
+.form-card .form-label {
+  font-weight: 700;
+}
+
+/* Required asterisk */
+.form-card .req {
+  color: var(--danger);
+}
+
+/* Input group (text with icon) */
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.input-group-text {
+  background: var(--panel);
+  border-color: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Input fields */
+.form-control {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.375rem 0.75rem;
+}
+
+/* File upload input */
+.form-control[type=file] {
+  border-style: dashed;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+/* File preview spacing */
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.btn-cta {
+  background: linear-gradient(90deg, #7c3aed, #22c1c3);
+  color: #fff;
+  border: none;
+  box-shadow: 0 10px 20px rgba(0,0,0,.12);
+  padding: 0.5rem 1.2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.btn-cta:hover {
+  filter: brightness(1.05);
+}
+
+.btn-cta-wide {
+  min-width: 280px;
+}
+
+
+
+
+/* --- Level Stop Toggle Card --- */
+.level-toggle {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  min-height: 50px;
+  cursor: pointer;
+}
+
+.level-toggle:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.2);
+}
+
+/* --- Toggle State Colors --- */
+.active-toggle {
+  background: rgba(124, 58, 237, 0.08);
+  border-color: #7c3aed;
+}
+
+.inactive-toggle {
+  background: var(--panel);
+  border-color: var(--border);
+}
+
+.toggle-status {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+/* --- Custom Switch --- */
+.level-switch {
+  width: 2.8rem;
+  height: 1.4rem;
+  background-color: #ccc;
+  border: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.level-switch:checked {
+  background-color: #7c3aed;
+  box-shadow: 0 0 8px rgba(124, 58, 237, 0.4);
+}
+
+.level-switch:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.25);
+}

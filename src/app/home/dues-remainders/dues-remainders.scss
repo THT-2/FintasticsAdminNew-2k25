@@ -1,0 +1,38 @@
+
+li {
+  padding-left: 10px;
+}
+
+label {
+  cursor: pointer;
+}
+.card {
+  border-radius: 8px;
+  height: auto;
+}
+
+
+.form-check-label {
+  cursor: pointer;
+}
+
+ul ul {
+  margin-top: 5px;
+}
+.card-header{
+  background-color: #7b44d6;
+}
+.form-check-input {
+  transition: transform 0.2s ease ;
+}
+
+.form-check-input:checked {
+  transform: scale(1.2);
+background-color: #7b44d6;
+  border-color: #7b44d6
+}
+.card-body{
+  // padding-bottom: 20px;
+  width: 100%; /* Make card body full width */
+  padding: 1rem !important;
+}

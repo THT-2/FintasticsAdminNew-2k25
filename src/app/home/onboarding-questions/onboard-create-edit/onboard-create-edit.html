@@ -1,0 +1,158 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card
+      [cardTitle]="(questionFormControl['_id'].value ? GlobalConstant['EDIT'] : GlobalConstant['ADD']) + ' Question'"
+      blockClass="pc-component"
+      route_button="">
+
+      <section class="container-xxl">
+        <div class="form-card p-3 p-md-4">
+          <div class="row">
+
+            <!-- Left: Form (8 columns) -->
+            <div class="col-md-8">
+              <form [formGroup]="questionForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+
+                <!-- Question Text -->
+                <div class="mb-3">
+                  <label class="form-label">Question Text <span class="req">*</span></label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-question-circle"></i></span>
+                    <input type="text" class="form-control" formControlName="questionText" placeholder="Enter question..." />
+                  </div>
+                  <div *ngIf="questionForm.get('questionText')?.touched && questionForm.get('questionText')?.invalid" class="text-danger">
+                    Question Text is required.
+                  </div>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                  <label class="form-label">Description</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                    <input type="text" class="form-control" formControlName="description" placeholder="Enter description..." />
+                  </div>
+                </div>
+
+                <!-- Type -->
+                <div class="mb-3">
+                  <label class="form-label">Type <span class="req">*</span></label>
+                  <select class="form-select" formControlName="type">
+                    <option value="single-choice">Single Choice</option>
+                    <option value="multi-choice">Multi Choice</option>
+                    <option value="input">Input</option>
+                    <option value="currency">Currency</option>
+                  </select>
+                </div>
+
+                <!-- Display Order -->
+                <div class="mb-3">
+                  <label class="form-label">Display Order</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-list-ol"></i></span>
+                    <input type="number" class="form-control" formControlName="order" placeholder="Enter order..." />
+                  </div>
+                </div>
+
+                <!-- Checkboxes -->
+                <div class="form-check mb-2">
+                  <input type="checkbox" class="form-check-input" formControlName="isRequired" />
+                  <label class="form-check-label">Required</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input type="checkbox" class="form-check-input" formControlName="allowSkip" />
+                  <label class="form-check-label">Allow Skip</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input type="checkbox" class="form-check-input" formControlName="allowCustomInput" />
+                  <label class="form-check-label">Allow Custom Input</label>
+                </div>
+
+                <!-- Input / Placeholder -->
+                <div *ngIf="questionForm.value.type === 'input' || questionForm.value.type === 'currency'" class="mb-3">
+                  <label class="form-label">Placeholder</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-type"></i></span>
+                    <input type="text" class="form-control" formControlName="placeholder" placeholder="Enter placeholder..." />
+                  </div>
+                  <label class="mt-2">Input Type</label>
+                  <select class="form-select" formControlName="inputType">
+                    <option value="text">Text</option>
+                    <option value="number">Number</option>
+                  </select>
+                </div>
+
+                <!-- Options Array -->
+                <div formArrayName="options" class="mb-3" *ngIf="questionForm.value.type.includes('choice')">
+                  <label class="form-label">Options</label>
+                  <div *ngFor="let opt of options.controls; let i = index" [formGroupName]="i" class="row mb-2 align-items-center">
+                    <div class="col">
+                      <label class="form-label">Label <span class="req">*</span></label>
+                      <input type="text" class="form-control" formControlName="label" placeholder="Label" />
+                    </div>
+                    <div class="col">
+                      <label class="form-label">Value <span class="req">*</span></label>
+                      <input type="text" class="form-control" formControlName="value" placeholder="Value" />
+                    </div>
+                    <div class="col">
+                      <label class="form-label">Icon <span class="req">*</span></label>
+                      <app-file-upload (getFilePath)="onFilePathReceived($event, i)"></app-file-upload>
+                      <div class="mt-2" *ngIf="options.at(i).get('icon')?.value">
+                        <app-file-preview [filePath]="options.at(i).get('icon')?.value"></app-file-preview>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeOption(i)">✕</button>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="addOption()">+ Add Option</button>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                  <button type="submit" [disabled]="!questionForm.valid" class="btn btn-cta btn-cta-wide">
+                    {{ questionFormControl['_id'].value ? 'Update' : 'Create' }} Question
+                  </button>
+                </div>
+
+              </form>
+            </div>
+
+            <!-- Right: Preview (4 columns) -->
+            <div class="col-md-4 border-start ps-4">
+              <h5 class="fw-bold mb-3">Preview</h5>
+              <div *ngIf="questionForm.value.type">
+                <p class="fw-semibold">{{ questionForm.value.questionText }}</p>
+                <p class="text-muted">{{ questionForm.value.description }}</p>
+
+                <ng-container [ngSwitch]="questionForm.value.type">
+                  <div *ngSwitchCase="'single-choice'">
+                    <div *ngFor="let opt of questionForm.value.options">
+                      <label><input type="radio" name="preview" disabled /> {{ opt.label }}</label><br />
+                    </div>
+                  </div>
+
+                  <div *ngSwitchCase="'multi-choice'">
+                    <div *ngFor="let opt of questionForm.value.options">
+                      <label><input type="checkbox" disabled /> {{ opt.label }}</label><br />
+                    </div>
+                  </div>
+
+                  <div *ngSwitchCase="'input'">
+                    <input class="form-control" [placeholder]="questionForm.value.placeholder" disabled />
+                  </div>
+
+                  <div *ngSwitchCase="'currency'">
+                    <input class="form-control" type="number" [placeholder]="questionForm.value.placeholder" disabled />
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </app-card>
+  </div>
+</div>
