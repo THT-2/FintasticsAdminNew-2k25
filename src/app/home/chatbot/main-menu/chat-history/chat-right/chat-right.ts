@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@
 import { ApiRoutesConstants } from '../../../../../constants/api-route-constants';
 import { Data } from '../../../../../Service/data';
 import { CommonModule } from '@angular/common';
+import { Socketservice } from '../../../../../Service/socketservice';
+import { Authguard } from '../../../../../constants/authguard';
 
 @Component({
   selector: 'app-chat-right',
@@ -15,16 +17,27 @@ export class ChatRight implements OnChanges {
   userChat: any[] = [];
 items: any;
  ticketId: string | null = null;
+ messages: any[] = [];
+  input = '';
 
-  constructor(private navService: Data, private cd:ChangeDetectorRef) {}
-  // ngOnChanges(): void {
-  //   if (this.chatSelected) {
-  //     console.log("selected",this.chatSelected);
-  //     this.getUserchatById(this.chatSelected);
-  //   }
-  //   console.log("tic",this.ticket);
 
-  // }
+
+  constructor(private navService: Data, private cd:ChangeDetectorRef,
+    private socketService: Socketservice
+  ) {}
+
+
+   ngOnInit() {
+    const token = localStorage.getItem("token");
+    console.log("token",token);
+
+
+    // this.socketService.connect(token);
+
+    // LISTEN FOR USER CHAT LIST
+   
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['chatSelected']?.currentValue) {
       this.getUserchatById(this.chatSelected!);

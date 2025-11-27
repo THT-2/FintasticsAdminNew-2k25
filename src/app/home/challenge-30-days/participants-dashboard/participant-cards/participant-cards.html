@@ -1,0 +1,80 @@
+      <div class="header">
+        <h1 class="page-title">Participants Management</h1>
+        <div class="user-info">
+          <div class="user-avatar">AD</div>
+          <div>
+            <div style="font-weight: 600;">Challenge Manager</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Administrator</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card primary" id="totalUsersCard">
+          <div class="stat-header">
+            <div>
+              <div class="stat-label">Total Participants</div>
+              <div class="stat-value" id="totalUsers">1,247</div>
+              <div class="stat-change positive"><i class="fas fa-arrow-up"></i> <span id="totalChange">12%</span> from last week</div>
+            </div>
+            <div class="stat-icon primary">
+              <i class="fas fa-users"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card success" id="activeUsersCard">
+          <div class="stat-header">
+            <div>
+              <div class="stat-label">Active Users</div>
+              <div class="stat-value" id="activeUsers">892</div>
+              <div class="stat-change positive"><i class="fas fa-arrow-up"></i> <span id="activeChange">8%</span> from yesterday</div>
+            </div>
+            <div class="stat-icon success">
+              <i class="fas fa-user-check"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card danger" id="droppedUsersCard">
+          <div class="stat-header">
+            <div>
+              <div class="stat-label">Dropped Users</div>
+              <div class="stat-value" id="droppedUsers">128</div>
+              <div class="stat-change negative"><i class="fas fa-arrow-up"></i> <span id="droppedChange">3%</span> from yesterday</div>
+            </div>
+            <div class="stat-icon danger">
+              <i class="fas fa-user-times"></i>
+            </div>
+          </div>
+        </div>
+        <div class="stat-card info" id="completedUsersCard">
+          <div class="stat-header">
+            <div>
+              <div class="stat-label">Completed Challenge</div>
+              <div class="stat-value" id="completedUsers">227</div>
+              <div class="stat-change positive"><i class="fas fa-arrow-up"></i> <span id="completedChange">15%</span> from last week</div>
+            </div>
+            <div class="stat-icon info">
+              <i class="fas fa-trophy"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="action-button primary" id="addParticipantBtn">
+          <i class="fas fa-user-plus"></i> Add Participant
+        </button>
+        <button class="action-button secondary" id="exportDataBtn">
+          <i class="fas fa-download"></i> Export Data
+        </button>
+        <button class="action-button secondary" id="sendMessageBtn">
+          <i class="fas fa-envelope"></i> Send Message
+        </button>
+        <button class="action-button secondary" id="bulkActionsBtn">
+          <i class="fas fa-cog"></i> Bulk Actions
+        </button>
+      </div>

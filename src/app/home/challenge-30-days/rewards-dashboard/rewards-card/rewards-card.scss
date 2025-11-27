@@ -1,0 +1,564 @@
+ /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .action-button {
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      font-size: 0.9rem;
+    }
+
+    .action-button.primary {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .action-button.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(94, 53, 177, 0.4);
+    }
+
+    .action-button.secondary {
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    .action-button.secondary:hover {
+      background: rgba(94, 53, 177, 0.05);
+      color: var(--brand-primary);
+      border-color: var(--brand-primary);
+    }
+
+    /* Tabs */
+    .tabs-container {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-light);
+      margin-bottom: 24px;
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+    }
+
+    .tabs-header {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      background: rgba(94, 53, 177, 0.02);
+    }
+
+    .tab {
+      padding: 16px 24px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: var(--transition);
+      border-bottom: 3px solid transparent;
+    }
+
+    .tab:hover {
+      background: rgba(94, 53, 177, 0.05);
+    }
+
+    .tab.active {
+      color: var(--brand-primary);
+      border-bottom-color: var(--brand-primary);
+      background: rgba(94, 53, 177, 0.08);
+    }
+
+    .tab-content {
+      display: none;
+      padding: 24px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Rewards Grid */
+    .rewards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .reward-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-light);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .reward-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .reward-card.featured {
+      border: 2px solid var(--brand-primary);
+    }
+
+    .reward-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-featured {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .badge-digital {
+      background: rgba(94, 53, 177, 0.1);
+      color: var(--brand-primary);
+    }
+
+    .badge-physical {
+      background: rgba(255, 171, 0, 0.1);
+      color: var(--warning);
+    }
+
+    .reward-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .reward-icon.primary {
+      background: var(--gradient-primary);
+    }
+
+    .reward-icon.success {
+      background: var(--gradient-success);
+    }
+
+    .reward-icon.warning {
+      background: var(--gradient-warning);
+    }
+
+    .reward-icon.info {
+      background: var(--gradient-info);
+    }
+
+    .reward-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0 0 8px;
+    }
+
+    .reward-description {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0 0 16px;
+      line-height: 1.5;
+    }
+
+    .reward-details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .reward-detail {
+      text-align: center;
+    }
+
+    .reward-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--brand-primary);
+    }
+
+    .reward-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .reward-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .reward-button {
+      flex: 1;
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .reward-button.primary {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .reward-button.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(94, 53, 177, 0.4);
+    }
+
+    .reward-button.secondary {
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    .reward-button.secondary:hover {
+      background: rgba(94, 53, 177, 0.05);
+      color: var(--brand-primary);
+      border-color: var(--brand-primary);
+    }
+
+    /* Winners Section */
+    .winners-section {
+      margin-bottom: 24px;
+    }
+
+    .winners-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .winner-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-light);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .winner-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .winner-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-warning);
+    }
+
+    .winner-rank {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gradient-warning);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 8px rgba(255, 171, 0, 0.3);
+    }
+
+    .winner-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 1.4rem;
+      margin: 0 auto 16px;
+      box-shadow: 0 6px 12px rgba(94, 53, 177, 0.3);
+    }
+
+    .winner-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0 0 8px;
+    }
+
+    .winner-days {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .winner-reward {
+      background: rgba(94, 53, 177, 0.1);
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--brand-primary);
+      margin-bottom: 16px;
+    }
+
+    .winner-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .winner-button {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    .winner-button.primary {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .winner-button.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(94, 53, 177, 0.4);
+    }
+
+    .winner-button.secondary {
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    .winner-button.secondary:hover {
+      background: rgba(94, 53, 177, 0.05);
+      color: var(--brand-primary);
+      border-color: var(--brand-primary);
+    }
+
+    /* Tables */
+    .table-container {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-light);
+      overflow: hidden;
+      margin-bottom: 24px;
+      border: 1px solid var(--border-color);
+    }
+
+    .table-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .table-action-btn {
+      padding: 8px 16px;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .table-action-btn:hover {
+      background: var(--gradient-primary);
+      color: white;
+      border-color: var(--brand-primary);
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th {
+      background: rgba(94, 53, 177, 0.05);
+      padding: 16px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .table td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table tr:hover {
+      background: rgba(94, 53, 177, 0.03);
+    }
+
+    .user-avatar-small {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .status-pending {
+      background: rgba(255, 171, 0, 0.1);
+      color: var(--warning);
+    }
+
+    .status-delivered {
+      background: rgba(0, 200, 83, 0.1);
+      color: var(--success);
+    }
+
+    .status-shipped {
+      background: rgba(94, 53, 177, 0.1);
+      color: var(--brand-primary);
+    }
+
+    .action-button-small {
+      padding: 6px 12px;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-secondary);
+    }
+
+    .action-button-small:hover {
+      background: rgba(94, 53, 177, 0.05);
+      border-color: var(--brand-primary);
+      color: var(--brand-primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .rewards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+
+      .winners-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 80px;
+      }
+
+      .sidebar .logo-text, .nav-text {
+        display: none;
+      }
+
+      .main-content {
+        margin-left: 80px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+      }
+
+      .tabs-header {
+        flex-direction: column;
+      }
+
+      .tab {
+        text-align: center;
+      }
+
+      .table-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .table-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+

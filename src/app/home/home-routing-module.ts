@@ -80,6 +80,10 @@ import { BenifitsBannerCreateEdit } from './subscription-features/benifits-banne
 import { Chats } from './chats/chats';
 import { chatBlockGuard } from '../Service/chat-block-guard';
 import { ChallengeDashboard } from './challenge-30-days/challenge-dashboard/challenge-dashboard';
+import { AnalyticsDashboard } from './challenge-30-days/analytics-dashboard/analytics-dashboard';
+import { ParticipantsDashboard } from './challenge-30-days/participants-dashboard/participants-dashboard';
+import { RewardsDashboard } from './challenge-30-days/rewards-dashboard/rewards-dashboard';
+import { UserActivityDashboard } from './challenge-30-days/user-activity-dashboard/user-activity-dashboard';
 
 const routes: Routes = [
 {
@@ -240,6 +244,26 @@ const routes: Routes = [
           {path:'challenge-dashboard',
             children:[
               {path:'',component:ChallengeDashboard}
+            ]
+          },
+          {path:'analytics-dashboard',
+            children:[
+              {path:'',component:AnalyticsDashboard}
+            ]
+          },
+          {path:'participant-dashboard',
+            children:[
+              {path:'',component:ParticipantsDashboard}
+            ]
+          },
+          {path:'rewards-dashboard',
+            children:[
+              {path:'',component:RewardsDashboard}
+            ]
+          },
+          {path:'user-activity-dashboard',
+            children:[
+              {path:'',component:UserActivityDashboard}
             ]
           },
           {path:'payment-details',

@@ -25,6 +25,7 @@ export class Login {
     private navService: Data,
     private router: Router,
     private fb: FormBuilder,
+    // private chatService:ChatService,
     private alertService: AlertService
   ) {
     this.loginForm = this.fb.group({
@@ -49,6 +50,7 @@ togglePassword() {
     if (res.code === 200) {
 
       localStorage.setItem('token', res.data);
+      // this.chatService.tryConnect();
 
       let tokenData: any = jwtDecode(res.data);
       console.log("tokenData", tokenData);

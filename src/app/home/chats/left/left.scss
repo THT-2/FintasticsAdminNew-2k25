@@ -116,7 +116,7 @@
             justify-content: space-between;
             align-items: center;
             position: sticky;
-  top: 0;                  /* header at top */
+  top: 0;
   z-index: 2;
         }
 
@@ -198,7 +198,7 @@
         // }
         .chat-list {
   flex: 1;
-  max-height:60%;           /* important: lets overflow work inside flex */
+  max-height:100%;           /* important: lets overflow work inside flex */
   overflow-y: hidden;        /* enables scrolling */
   background-color: var(--white);
   padding: 0 0 10px;

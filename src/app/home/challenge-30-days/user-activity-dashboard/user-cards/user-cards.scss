@@ -1,0 +1,192 @@
+ /* Main Content */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding: 16px 24px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-light);
+    }
+
+    .page-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .page-title::before {
+      content: '';
+      width: 4px;
+      height: 24px;
+      background: var(--gradient-primary);
+      border-radius: 4px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 4px 8px rgba(94, 53, 177, 0.3);
+    }
+
+    /* Back Button */
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      margin-bottom: 20px;
+    }
+
+    .back-button:hover {
+      background: rgba(94, 53, 177, 0.05);
+      color: var(--brand-primary);
+      border-color: var(--brand-primary);
+    }
+
+    /* User Profile Header */
+    .user-profile-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-light);
+      margin-bottom: 24px;
+      border: 1px solid var(--border-color);
+    }
+
+    .user-profile-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.8rem;
+      box-shadow: 0 6px 12px rgba(94, 53, 177, 0.3);
+    }
+
+    .user-profile-info h2 {
+      margin: 0 0 8px;
+      font-size: 1.6rem;
+    }
+
+    .user-profile-info p {
+      margin: 0;
+      color: var(--text-muted);
+    }
+
+    .user-status-badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-left: auto;
+    }
+
+    .status-active {
+      background: rgba(0, 200, 83, 0.1);
+      color: var(--success);
+    }
+
+       /* Dashboard Cards */
+    .dashboard-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .dashboard-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-light);
+      transition: var(--transition);
+      border: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .dashboard-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .dashboard-card-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .dashboard-card.primary .dashboard-card-icon {
+      background: var(--gradient-primary);
+    }
+
+    .dashboard-card.success .dashboard-card-icon {
+      background: var(--gradient-success);
+    }
+
+    .dashboard-card.warning .dashboard-card-icon {
+      background: var(--gradient-warning);
+    }
+
+    .dashboard-card.info .dashboard-card-icon {
+      background: var(--gradient-info);
+    }
+
+    .dashboard-card-value {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 8px 0 4px;
+    }
+
+    .dashboard-card-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+    @media (max-width: 480px) {
+      .weekly-days {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .calendar-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }

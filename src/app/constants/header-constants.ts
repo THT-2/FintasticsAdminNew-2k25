@@ -109,6 +109,55 @@ export class HeaderConstants {
       'disableSorting': false,
     },
   ]
+  public static ChallengeHeader = [
+    {
+      'name': 'title',
+      'displayName': 'Participant',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'page_name',
+      'displayName': 'Day',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'page_name',
+      'displayName': 'Status',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'page_name',
+      'displayName': 'Daily-Limit',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'page_name',
+      'displayName': 'Todays Spend',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'page_name',
+      'displayName': 'Platform',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'page_name',
+      'displayName': 'Join Date',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'actions',
+      'displayName': 'Action',
+      'disableSorting': false,
+    },
+  ]
 
   public static paymentTypeListHeader = [
     {

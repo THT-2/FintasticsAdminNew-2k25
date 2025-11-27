@@ -17,11 +17,30 @@ import { Subscription, filter } from 'rxjs';
 import { Data } from '../../../Service/data';
 import { ApiRoutesConstants } from '../../../constants/api-route-constants';
 import { Chatservice } from '../../../Service/chatservice';
+import { Socketservice } from '../../../Service/socketservice';
+import { jwtDecode } from 'jwt-decode';
 
-interface selectedStatus {
-  isActive: "Online" | "Offline" | "Waiting";
+// Define interfaces for better type safety
+// interface ChatMessage {
+//   _id?: string;
+//   text?: string;
+//   createdAt?: string;
+//   sender?: 'user' | 'agent';
+//   // Add other message properties as needed
+// }
+
+interface ChatPayload {
+  msg?: any[];
+  name?: any;
+  userId?: string;
+  user?: { _id: string };
+  lastTicket?: { _id: string };
+  // Add other payload properties as needed
 }
 
+interface SelectedStatus {
+  isActive: 'Online' | 'Offline' | 'Waiting';
+}
 
 @Component({
   selector: 'app-right',
@@ -38,189 +57,142 @@ export class Right implements OnChanges, OnInit, OnDestroy {
   @ViewChild('chatContainer') chatContainer!: ElementRef;
 
   // scroll helpers
-  private userAtBottom = true; // is user currently near bottom?
+  private userAtBottom = true;
   private initialLoadForChat = true;
 
   userChat: any[] = [];
-  items: any;
   ticketId: string | null = null;
-  chatName: any;
+  chat: any;
 
-
-  private roomName?: string;
   private adminGetSub?: Subscription;
+  private userRoomSub?: Subscription;
   private connectedSub?: Subscription;
 
   // Track last known message to avoid duplicate updates
   private lastMsgId: string | null = null;
   private lastMsgCount = 0;
+finMessage: any[] = [];
+  isActive: boolean = false;
 
+  token = localStorage.getItem("token")!;
+  userId = localStorage.getItem("userid")!;
   constructor(
     private navService: Data,
     private cd: ChangeDetectorRef,
-    private chatService: Chatservice
-  ) {}
+    private chatService: Socketservice
+  ) { }
 
- // In Right component - Replace the current subscription
-ngOnInit(): void {
-  console.log('[Right] ngOnInit');
+  ngOnInit() {
+    const token = localStorage.getItem('token');
+    console.log("token");
+    this.initSocketListener();
 
-  // Subscribe to room-specific events when chat is selected
-  this.setupRoomSubscription();
+  }
+initSocketListener() {
+   let tokenData: any = jwtDecode(this.token);
+        console.log("tokenData", tokenData);
+        this.userId=tokenData.user_id;
+    Socketservice.instance.initSocket({
+      token: this.token,
+      userId: this.userId,
+      joinroom: `finexpertchat:user:${this.userId}`,
+      eventName: "chat:adminget",
 
-  // When socket connects/reconnects, re-setup subscription
-  this.connectedSub = this.chatService.connected$
-    .pipe(filter((isConnected) => isConnected))
-    .subscribe(() => {
-      console.log('[Right] Socket connected$ => true');
-      if (this.roomName) {
-        console.log('[Right] (Re)joining room after connection:', this.roomName);
-        this.chatService.joinRoom(this.roomName);
-        this.setupRoomSubscription(); // Resubscribe on reconnect
 
-        const userId = this.chatSelected;
-        if (userId) {
-          this.getUserchatById(userId, true);
-        }
+      onData: (data) => {
+        console.log("🔥 Angular Chat Updated:", data);
+
+         const msgs = Array.isArray(data.msg) ? data.msg : [];
+
+          const newCount = msgs.length;
+          const newLastId = newCount ? msgs[newCount - 1]._id ?? null : null;
+
+          // Avoid re-setting identical data
+          if (
+            this.userChat.length === newCount &&
+            this.lastMsgId &&
+            newLastId &&
+            this.lastMsgId === newLastId
+          ) {
+            return;
+          }
+
+          if (!this.ticketId) {
+            this.ticketId = data.lastTicket?._id ?? null;
+          }
+
+          this.userChat = msgs;
+          this.lastMsgCount = newCount;
+          this.lastMsgId = newLastId;
+
+          // if (log) {
+          //   console.log(
+          //     '[Right] userChat updated from API, length:',
+          //     this.userChat.length
+          //   );
+          // }
+
+          this.cd.detectChanges();
+          this.scrollToBottom(this.initialLoadForChat);
+          this.initialLoadForChat = false;
+      }
+    });
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    const token = localStorage.getItem('token');
+    console.log("token 2321312");
+ this.initSocketListener();
+    if (changes['chatSelected']?.currentValue) {
+      const userId = this.chatSelected!;
+      console.log('[Right] chatSelected changed, userId:', userId);
+
+      // Reset state for new chat
+      this.userChat = [];
+      this.lastMsgId = null;
+      this.lastMsgCount = 0;
+      this.initialLoadForChat = true;
+
+      if (this.ticket) {
+        this.ticketId = this.ticket;
       }
-    });
-}
 
-private setupRoomSubscription(): void {
-  // Clean up previous subscription
-  if (this.adminGetSub) {
-    this.adminGetSub.unsubscribe();
-  }
+      // Initial load of history via API ONLY
+      this.getUserchatById(userId, true);
 
-  if (this.chatSelected) {
-    // Listen to room-specific events
-    this.adminGetSub = this.chatService
-      .listenToUserRoom(this.chatSelected)
-      .subscribe((payload) => {
-        console.log('[Right] Room-specific event payload:', payload);
-        this.handleIncomingPayload(payload);
-      });
-  }
-}
-
-ngOnChanges(changes: SimpleChanges): void {
-  if (changes['chatSelected']?.currentValue) {
-    const userId = this.chatSelected!;
-    console.log('[Right] chatSelected changed, userId:', userId);
-
-    // Leave previous room if there was one
-    if (this.roomName) {
-      console.log('[Right] Leaving previous room:', this.roomName);
-      this.chatService.leaveRoom(this.roomName);
+      // Join room and listen for updates
+      // if (this.chatService.isConnected()) {
+      //   this.joinAndSubscribeToUserRoom(userId);
+      // }
     }
 
-    // Room name must match backend room
-    this.roomName = `finexpertchat:user:${userId}`;
-    console.log('[Right] New roomName:', this.roomName);
-
-    // Reset tracking
-    this.lastMsgId = null;
-    this.lastMsgCount = 0;
-    this.userChat = [];
-    this.ticketId = this.ticket ?? null;
-
-    this.initialLoadForChat = true;
-    this.userAtBottom = true;
-
-    // Setup room subscription FIRST
-    this.setupRoomSubscription();
-
-    if (this.chatService.isConnected) {
-      this.chatService.joinRoom(this.roomName);
-    } else {
-      console.log(
-        '[Right] Socket not connected yet; will join when connected$ emits'
-      );
+    if (changes['ticket']?.currentValue !== undefined) {
+      this.ticketId = this.ticket;
+      console.log('[Right] ticketId changed:', this.ticketId);
     }
-    // Initial load via REST
-    this.getUserchatById(userId, true);
   }
-
-  if (changes['ticket']?.currentValue !== undefined) {
-    this.ticketId = this.ticket;
-    console.log('[Right] ticketId changed:', this.ticketId);
-  }
-}
 
   ngOnDestroy(): void {
     if (this.adminGetSub) {
       this.adminGetSub.unsubscribe();
       this.adminGetSub = undefined;
     }
+    if (this.userRoomSub) {
+      this.userRoomSub.unsubscribe();
+      this.userRoomSub = undefined;
+    }
     if (this.connectedSub) {
       this.connectedSub.unsubscribe();
       this.connectedSub = undefined;
     }
-    if (this.roomName) {
-      this.chatService.leaveRoom(this.roomName);
-    }
   }
 
-  // ------------- SOCKET: FULL PAYLOAD -------------
 
-
-  private handleIncomingPayload(payload: any) {
-    try {
-      const msgs = Array.isArray(payload?.msg) ? payload.msg : [];
-      if (!msgs.length) return;
-
-      const newLast = msgs[msgs.length - 1];
-      const newLastId = newLast?._id ?? null;
-      const newCount = msgs.length;
-
-      // Ignore duplicate broadcasts
-      if (
-        this.lastMsgCount === newCount &&
-        this.lastMsgId &&
-        newLastId &&
-        this.lastMsgId === newLastId
-      ) {
-        return;
-      }
-
-      this.lastMsgCount = newCount;
-      this.lastMsgId = newLastId;
-
-      if (payload?.name) {
-        this.chatName = payload.name;
-      }
-      if (!this.ticketId && payload?.lastTicket?._id) {
-        this.ticketId = payload.lastTicket._id;
-      }
-
-      this.userChat = msgs;
-      console.log('[Right] userChat updated from socket, length:', this.userChat.length);
-
-      // Tell Left about the new last message
-      if (this.chatSelected && newLast) {
-        this.chatService.updateLastMsg(
-          this.chatSelected,
-          newLast.text || '',
-          newLast.createdAt || new Date().toISOString()
-        );
-      }
-
-      this.cd.detectChanges();
-      this.scrollToBottom(false);
-    } catch (err) {
-      console.error('[Right] Error handling incoming payload:', err);
-    }
-  }
-
-  // ------------- UI ACTIONS -------------
-
-  endChat() {
+  endChat(): void {
     this.chatEnded.emit(); // tells parent chat ended
   }
 
-  // ------------- API: HISTORY -------------
 
-  getUserchatById(id: string, log: boolean = false) {
+  getUserchatById(id: string, log: boolean = false): void {
     const apiUrl =
       ApiRoutesConstants.BASE_URL +
       ApiRoutesConstants.userchats +
@@ -241,7 +213,7 @@ ngOnChanges(changes: SimpleChanges): void {
           console.log('[Right] datalist', data);
         }
 
-        this.chatName = data?.name?.username || data?.name || 'User';
+        this.chat = data?.name?.username || data?.name || 'User';
 
         if (res?.code === 200) {
           const msgs = Array.isArray(data.msg) ? data.msg : [];
@@ -249,6 +221,7 @@ ngOnChanges(changes: SimpleChanges): void {
           const newCount = msgs.length;
           const newLastId = newCount ? msgs[newCount - 1]._id ?? null : null;
 
+          // Avoid re-setting identical data
           if (
             this.userChat.length === newCount &&
             this.lastMsgId &&
@@ -267,18 +240,9 @@ ngOnChanges(changes: SimpleChanges): void {
           this.lastMsgId = newLastId;
 
           if (log) {
-            console.log('[Right] userChat updated from API, length:', this.userChat.length);
-          }
-
-          if (newCount && this.chatSelected) {
-            const lastMsgObj = msgs[newCount - 1];
-            const lastText = lastMsgObj?.text || '';
-            const lastCreated = lastMsgObj?.createdAt || new Date().toISOString();
-
-            this.chatService.updateLastMsg(
-              this.chatSelected,
-              lastText,
-              lastCreated
+            console.log(
+              '[Right] userChat updated from API, length:',
+              this.userChat.length
             );
           }
 
@@ -297,13 +261,7 @@ ngOnChanges(changes: SimpleChanges): void {
     });
   }
 
-  // ------------- API: STATUS -------------
-
-
-
-  // ------------- API: AGENT REPLY (with optimistic update) -------------
-
-  agentReply(text: string) {
+  agentReply(text: string): void {
     console.log('[Right] agentReply called');
 
     const message = text.trim();
@@ -318,7 +276,8 @@ ngOnChanges(changes: SimpleChanges): void {
 
     const nowIso = new Date().toISOString();
 
-    const tempMsg = {
+    // Optimistic local message so agent sees it immediately
+    const tempMsg: any = {
       _id: 'temp-' + nowIso,
       text: message,
       createdAt: nowIso,
@@ -326,23 +285,18 @@ ngOnChanges(changes: SimpleChanges): void {
     };
 
     this.userChat = [...this.userChat, tempMsg];
-    this.lastMsgId = tempMsg._id;
+    // this.lastMsgId = tempMsg._id;
     this.lastMsgCount = this.userChat.length;
     this.cd.detectChanges();
     this.scrollToBottom(true);
-
-    this.chatService.updateLastMsg(
-      this.chatSelected,
-      message,
-      nowIso
-    );
 
     const body = { text: message };
 
     this.navService.postData(apiUrl, body).subscribe({
       next: (res: any) => {
         console.log('[Right] Reply Response:', res);
-        // backend will emit chat:adminget again
+        // Backend will emit chat:adminget again,
+        // and socket handler will refresh the full chat.
       },
       error: (err: any) => {
         console.error('[Right] Error sending reply:', err);
@@ -350,9 +304,8 @@ ngOnChanges(changes: SimpleChanges): void {
     });
   }
 
-  // ------------- SCROLL HELPERS -------------
 
-  onChatScroll() {
+  onChatScroll(): void {
     if (!this.chatContainer) return;
 
     const el = this.chatContainer.nativeElement as HTMLElement;

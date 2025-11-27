@@ -38,6 +38,7 @@ export class Chatservice {
     console.log('[ChatService] Initializing chat service');
     this.tryConnect();
   }
+  
 
   // ---------- PUBLIC HELPERS ----------
 

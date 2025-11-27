@@ -1,0 +1,42 @@
+      <!-- Participants Table -->
+      <div class="table-container">
+        <div class="table-header">
+          <h3 class="table-title"><i class="fas fa-users"></i> Participants List</h3>
+          <div class="table-actions">
+            <button class="table-action-btn" id="refreshTable"><i class="fas fa-sync"></i> Refresh</button>
+            <button class="table-action-btn" id="selectAll"><i class="fas fa-check-square"></i> Select All</button>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 40px;">
+                <input type="checkbox" id="selectAllCheckbox">
+              </th>
+              <th>Participant</th>
+              <th>Day</th>
+              <th>Status</th>
+              <th>Daily Limit</th>
+              <th>Today's Spend</th>
+              <th>Platform</th>
+              <th>Join Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="participantsTableBody">
+            <!-- Participants data will be populated by JavaScript -->
+          </tbody>
+        </table>
+        <div class="pagination">
+          <div class="pagination-info" id="paginationInfo">Showing 1-10 of 1,247 participants</div>
+          <div class="pagination-controls">
+            <button class="pagination-btn" id="prevPage" disabled><i class="fas fa-chevron-left"></i></button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <button class="pagination-btn">4</button>
+            <button class="pagination-btn">5</button>
+            <button class="pagination-btn" id="nextPage"><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>

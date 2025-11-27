@@ -131,6 +131,57 @@ NavItems: any[]=[
     path: ''
   },
   {
+    id: 'challenge',
+    title: '30 Days Challenge',
+    status: false,
+    checked: false,
+    color:'#00897B',
+    subtitle: [
+      {
+        id: 'challenge-dash',
+        title: 'Challenge Dashboard',
+        icon: 'fas fa-user-shield',
+        status: false,
+        checked: false,
+        path: '/admin/challenge-dashboard'
+      },
+      {
+        id: 'analytics-dash',
+        title: 'Analytics Dashboard',
+        icon: 'fas fa-user',
+        status: false,
+        checked: false,
+        path: '/admin/analytics-dashboard'
+      },
+      {
+        id: 'participants-dash',
+        title: 'Participants Dashboard',
+        icon: 'fas fa-users',
+        status: false,
+        checked: false,
+        path: '/admin/participant-dashboard'
+      },
+      {
+        id: 'rewards-dash',
+        title: 'Rewards Dashboard',
+        icon: 'fas fa-user-plus',
+        status: false,
+        checked: false,
+        path: '/admin/rewards-dashboard'
+      },
+      {
+        id: 'user-activity-dash',
+        title: 'User Activity Dashboard',
+        icon: 'fas fa-users-cog',
+        status: false,
+        checked: false,
+        path: '/admin/user-activity-dashboard',
+      },
+    ],
+    icon: '',
+    path: ''
+  },
+  {
     id: 'subscribe',
     title: 'Subscriptions',
     status: false,

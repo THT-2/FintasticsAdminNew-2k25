@@ -16,7 +16,7 @@ export class Chats implements ChatCanDeactivate{
   selectedChatId: string | null = null;
   selectedTicketId: string | null = null;
   chatActive = false;
-switchCancelled = false;
+  switchCancelled = false;
 
 showSwitchPopup = false;          // controls the colorful popup
 pendingChatId: string | null = null; // which chat user is trying to switch to
