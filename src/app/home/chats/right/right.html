@@ -31,12 +31,28 @@
                 </div>
 
                 <div class="header-icons">
-                    <i class="fas fa-video"></i>
-                    <i class="fas fa-phone"></i>
-                    <i class="fas fa-ellipsis-v"></i>
+                  <button class="chat-arrow" (click)="agentReply('', 'end')">
+                    <img class="stop" src="https://cdn-icons-png.flaticon.com/512/6040/6040210.png">
+                  </button>
+                  </div>
                 </div>
-            </div>
 
+
+<!-- <div class="chat-switch-backdrop" *ngIf="showPopup">
+  <div class="chat-switch-modal">
+    <h3>End Chat?</h3>
+    <p>You have an active chat. Do you really want to end this chat?</p>
+
+    <div class="buttons">
+      <button class="btn btn-cancel" (click)="endChat()">
+        Continue chat
+      </button>
+      <button class="btn btn-confirm" (click)="closePopup()">
+        End anyway
+      </button>
+    </div>
+  </div>
+</div> -->
             <!-- <div class="chat-messages">
               @for (item of userChat; track item._id) {
                 <div class="message client">
@@ -54,27 +70,106 @@
   }
 </div> -->
 
-<div class="chat-messages" #chatContainer (scroll)="onChatScroll()">
+<!-- <div class="chat-messages" #chatContainer>
   @for (msg of userChat; track msg) {
     <div class="message" [ngClass]="msg?.senderRole === 'user' ? 'client' : 'agent'">
       <span>{{ msg.text }}</span>
       <span class="message-time">{{ msg.createdAt | date:'shortTime' }}</span>
     </div>
   }
+</div> -->
+
+
+<div class="chat-messages" #chatContainer>
+  @for (msg of userChat; track msg) {
+    <div class="message" [ngClass]="msg?.senderRole === 'user' ? 'client' : 'agent'">
+
+
+
+     @if(isImageurl(msg.attachments)){
+    <ng-container>
+      <img
+        class="img-fluid"
+        width="100px"
+        [src]="msg.attachments[0] || ''"
+        [alt]="msg.attachments[0] || ''"
+        (click)="openInNewTab(msg.attachments[0])"
+      >
+    </ng-container>
+   }
+
+      @if (isPdf(msg.attachments)) {
+        <ng-container>
+        <a class="file-link" [href]="msg.attachments[0] || ''" target="_blank">
+          <img class="pdf" src="https://cdn-icons-png.flaticon.com/512/2965/2965335.png " alt=""> View PDF</a>
+          </ng-container>
+      }
+
+
+      @if (isOtherFile(msg.text)) {
+        <a class="file-link" [href]="msg.text" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/2965/2965335.png" alt="">
+        </a>
+      }
+
+
+
+    <span>{{ msg.text }}</span>
+      <span class="message-time">{{ msg.createdAt | date:'shortTime' }}</span>
+    </div>
+  }
 </div>
+
+
+<div class="wa-attachment-wrapper" *ngIf="selectedFile">
+  <div class="wa-attachment-box">
+
+    <div class="wa-file-thumb">
+      <img *ngIf="isImage(selectedFile)" [src]="filePreview" class="wa-img" />
+      <div *ngIf="!isImage(selectedFile)" class="wa-doc-icon">📄</div>
+    </div>
+
+    <div class="wa-file-info">
+      <p class="wa-file-name">{{ selectedFile.name }}</p>
+      <p class="wa-file-size">{{ selectedFile.size / 1024 | number:'1.0-1' }} KB</p>
+    </div>
+
+    <button class="wa-remove-btn" (click)="removeSelectedFile()">✖</button>
+  </div>
+</div>
+
+
+<div *ngIf="isOtherTyping" class="typing-indicator">
+  <h1>type</h1>
+      <span></span><span></span><span></span>
+    </div>
 
 
 <div class="chat-footer">
   <div class="chat-input-container">
+
     <div class="chat-input-actions">
-      <i class="fa-solid fa-smile"></i>
-      <i class="fa-solid fa-paperclip"></i>
+      <img class="pin"
+           src="https://cdn-icons-png.flaticon.com/512/8377/8377269.png"
+           (click)="triggerFileUpload()" />
+
+      <input type="file"
+             #fileInput
+             (change)="onFileSelected($event)"
+             style="display:none">
     </div>
-    <textarea #msg type="text" class="chat-input" placeholder="Type your message here..."
-    (keyup.enter)="agentReply(msg.value); msg.value=''" ></textarea>
-    <button class="chat-arrow" (click)="agentReply(msg.value); msg.value=''">
-      <i class="fa-solid fa-paper-plane"></i>
-    </button>
+
+    <textarea #msg
+  class="chat-input"
+  placeholder="Type message"
+  (input)="onTyping()"
+  (keyup.enter)="agentReply(msg.value, 'text'); msg.value=''">
+</textarea>
+
+
+<button class="chat-arrow" (click)="agentReply(msg.value, 'text'); msg.value=''">
+  <img class="icon" src="https://cdn-icons-png.flaticon.com/512/3536/3536661.png">
+</button>
   </div>
 </div>
 </div>

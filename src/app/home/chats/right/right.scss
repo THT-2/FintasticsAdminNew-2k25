@@ -93,6 +93,7 @@
             display: flex;
             gap: 15px;
             color: var(--gray);
+            margin-left: 50px;
         }
 
         .header-icons i {
@@ -290,7 +291,24 @@
   color: #2a2755;
 }
 
-
+ .icon {
+  width: 45px;   /* change to 18px or 20px if you want smaller */
+  height: 45px;
+  object-fit: contain;
+  color: white;
+}
+ .stop {
+  width: 55px;   /* change to 18px or 20px if you want smaller */
+  height: 55px;
+  object-fit: contain;
+  color: white;
+}
+ .pin {
+  width: 22px;   /* change to 18px or 20px if you want smaller */
+  height: 22px;
+  object-fit: contain;
+  color: white;
+}
 // .chat-input-container {
 //             padding: 15px 20px;
 //             background-color: var(--light-gray);
@@ -523,4 +541,179 @@
 .empty-chat-state .empty-hint {
   font-size: 0.9rem;
   color: #808080;
+}
+
+
+
+
+/* === WRAPPER ABOVE FOOTER === */
+.wa-attachment-wrapper {
+  padding: 10px 14px;
+  display: flex;
+  justify-content: flex-start; /* LEFT SIDE */
+}
+
+
+.wa-attachment-box {
+  display: flex;
+  align-items: center;
+  background: #f1f1f1;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border-left: 4px solid #5a54c9;
+  gap: 10px;
+  max-width: 280px;
+}
+
+/* Thumbnail */
+.wa-file-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wa-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.wa-doc-icon {
+  font-size: 30px;
+}
+
+/* File info */
+.wa-file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.wa-file-name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wa-file-size {
+  margin: 0;
+  color: #777;
+  font-size: 12px;
+}
+
+/* Remove button */
+.wa-remove-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #555;
+}
+
+.chat-switch-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.chat-switch-modal {
+  background: linear-gradient(135deg, #4f46e5, #ec4899);
+  color: #fff;
+  padding: 24px 28px;
+  border-radius: 16px;
+  max-width: 360px;
+  width: 90%;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+.chat-switch-modal h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.chat-switch-modal p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.chat-switch-modal .buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.chat-switch-modal .btn {
+  flex: 1;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 0;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.chat-switch-modal .btn-cancel {
+  background: rgba(255, 255, 255, 0.16);
+  color: #f9fafb;
+}
+
+.chat-switch-modal .btn-confirm {
+  background: #fbbf24;
+  color: #111827;
+}
+
+.chat-image {
+  max-width: 160px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+}
+
+
+.chat-image {
+  max-width: 180px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  margin: 5px 0;
+}
+
+.file-link {
+  display: inline-block;
+  padding: 8px 12px;
+
+  background: #eef2ff;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+}
+
+.pdf{
+
+    width: 100px;
+
+}
+
+.text-msg {
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.text-msg a {
+  color: #0066ff;
+  text-decoration: underline;
 }

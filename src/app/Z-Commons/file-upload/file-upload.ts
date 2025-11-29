@@ -60,7 +60,6 @@ export class FileUpload {
   // }
 
 
-
 onFileSelect(event: any) {
   if (event.target.files && event.target.files.length > 0) {
     const formData = new FormData();

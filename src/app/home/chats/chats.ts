@@ -34,11 +34,13 @@ confirmLeaveChat(): Promise<boolean> {
   return new Promise<boolean>((resolve) => {
     this.leaveResolver = resolve;
   });
+
 }
 
 onLeavePopupAnswer(confirmed: boolean) {
+
   if (this.leaveResolver) {
-    this.leaveResolver(confirmed);  // true = leave, false = stay
+    this.leaveResolver(confirmed);
     this.leaveResolver = undefined;
   }
 
@@ -108,6 +110,5 @@ onTicketSelected(ticketId: string) {
   this.pendingChatId = null;
   this.showSwitchPopup = false;
 }
-
 
 }

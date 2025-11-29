@@ -38,7 +38,7 @@ export class Chatservice {
     console.log('[ChatService] Initializing chat service');
     this.tryConnect();
   }
-  
+
 
   // ---------- PUBLIC HELPERS ----------
 
@@ -194,6 +194,7 @@ export class Chatservice {
   listenToUserLastMsg(): Observable<any> {
     return this.fromEvent<any>('chat:userlastMsg');
   }
+  
   // Add to Chatservice class
 listenToUserChatGet(): Observable<any> {
   console.log('[ChatService] Setting up listener for userchatget');
