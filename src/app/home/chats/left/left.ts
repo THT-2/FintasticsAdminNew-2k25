@@ -161,11 +161,11 @@ initSocketListener() {
       payload?.timestamp ||
       new Date().toISOString();
 
-  this.updateChatPreview(userId, text, createdAt);
+  this.updateChatPreview(userId, text, createdAt, payload.isRead);
 }
 
 
-  private updateChatPreview(userId: string, text: string, createdAt: string) {
+  private updateChatPreview(userId: string, text: string, createdAt: string, isRead:any) {
     if (!this.chatList || !this.chatList.length) {
       return;
     }
@@ -176,6 +176,7 @@ initSocketListener() {
     const updated = {
       ...this.chatList[idx],
       text: text,
+      isRead: isRead,
       lastMsgAt: createdAt,
       updatedAt: new Date().toISOString()
     };

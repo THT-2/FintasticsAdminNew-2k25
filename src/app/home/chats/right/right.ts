@@ -108,6 +108,13 @@ showPopup: boolean = false;
     }
   }
 
+  ngAfterViewInit() {
+  setTimeout(() => {
+    this.scrollToBottomInstant();
+  }, 0);
+}
+
+
   ngOnDestroy(): void {
     this.adminGetSub?.unsubscribe();
     this.userRoomSub?.unsubscribe();
@@ -158,7 +165,9 @@ showPopup: boolean = false;
         });
 
         this.cd.detectChanges();
-        this.scrollToBottom();
+        this.scrollToBottomInstant();
+
+
       }
     });
   }
@@ -196,7 +205,7 @@ showPopup: boolean = false;
           }
 
           this.cd.detectChanges();
-          this.scrollToBottom(); // Jump straight to bottom
+
         }
       },
       error: (err: any) => {
@@ -236,7 +245,6 @@ toggleDropdown() {
 }
 
 
-
   agentReply(text: string, type: 'text' | 'end' | 'questions'): void {
 
 
@@ -273,7 +281,7 @@ toggleDropdown() {
   this.lastMsgCount = this.userChat.length;
 
   this.cd.detectChanges();
-  this.scrollToBottom(true);
+ this.scrollToBottomInstant();
 
   this.triggerLastMessageUpdate(this.chatSelected, message, nowIso);
 
@@ -282,7 +290,7 @@ toggleDropdown() {
 
   const body = {
     text: message,
-    type: "Predefined"
+    // type: "text"
   };
  this.dropdownOpen = false;
   this.navService.postData(apiUrl, body).subscribe({
@@ -297,7 +305,7 @@ toggleDropdown() {
         this.triggerLastMessageUpdate(this.chatSelected, message, nowIso);
 
         this.cd.detectChanges();
-        this.scrollToBottom(true);
+        this.scrollToBottomInstant();
       }
     },
     error: (err: any) => {
@@ -341,7 +349,7 @@ toggleDropdown() {
   this.lastMsgCount = this.userChat.length;
 
   this.cd.detectChanges();
-  this.scrollToBottom(true);
+  this.scrollToBottomInstant();
 
   // Update left-side "last message"
   this.triggerLastMessageUpdate(this.chatSelected, message, nowIso);
@@ -361,7 +369,7 @@ toggleDropdown() {
         this.triggerLastMessageUpdate(this.chatSelected, message, nowIso);
 
         this.cd.detectChanges();
-        this.scrollToBottom(true);
+        this.scrollToBottomInstant();
       }
     },
     error: (err: any) => {
@@ -389,18 +397,16 @@ toggleDropdown() {
   this.userAtBottom = scrollHeight - scrollPosition < threshold;
 }
 
-private async scrollToBottom(force: boolean = false): Promise<void> {
-  if (!this.chatContainer) return;
-
-  if (!force && !this.userAtBottom) return;
-
-  // ⬇⬇⬇ Important part — instant scroll without animation
-  await Promise.resolve();
-  await new Promise(r => setTimeout(r, 0));
-
-  const el = this.chatContainer.nativeElement as HTMLElement;
-  el.scrollTop = el.scrollHeight;
+private scrollToBottomInstant() {
+  setTimeout(() => {
+    if (this.chatContainer?.nativeElement) {
+      const el = this.chatContainer.nativeElement;
+      el.scrollTop = el.scrollHeight;
+    }
+  }, 50);
 }
+
+
 
 
 triggerFileUpload() {
@@ -466,6 +472,16 @@ removeSelectedFile() {
 
 isImage(file: File): boolean {
   return file.type.startsWith("image/");
+}
+
+makeClickable(text: string) {
+  if (!text) return text;
+
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+  return text.replace(urlRegex, url =>
+    `<a href="${url}" target="_blank">${url}</a>`
+  );
 }
 
 

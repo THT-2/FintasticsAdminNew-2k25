@@ -36,12 +36,11 @@
                   </div>
                 </div>
 
-<div class="chat-messages" #chatContainer>
 
+<div class="chat-messages" #chatContainer>
 
   @for (msg of userChat; track msg) {
     <div class="message" [ngClass]="msg?.senderRole === 'user' ? 'client' : 'agent'">
-
 
 
      @if(isImageurl(msg.attachments)){
@@ -71,8 +70,8 @@
       }
 
 
+    <span [innerHTML]="makeClickable(msg.text)"></span>
 
-    <span>{{ msg.text }}</span>
       <span class="message-time">{{ msg.createdAt | date:'shortTime' }}</span>
     </div>
   }
@@ -126,20 +125,21 @@
 </textarea>
 
 
-<!-- <button class="chat-arrow" > -->
+
   <img class="icon" (click)="agentReply(msg.value, 'text'); msg.value=''" src="https://cdn-icons-png.flaticon.com/512/9068/9068837.png ">
-<!-- </button> -->
+
   <div class="dropdown" (click)="toggleDropdown()">
 
-      <img class="stop" src="https://cdn-icons-png.flaticon.com/512/5907/5907980.png ">
+      <img class="stop" src="https://cdn-icons-png.flaticon.com/512/9423/9423700.png ">
 
 
     <div class="dropdown-menu" *ngIf="dropdownOpen">
-      <button *ngFor="let q of predefinedQuestions"
-              (click)="agentReply(q, 'questions')">
+      <button type="radio" *ngFor="let q of predefinedQuestions"
+        (click)="agentReply(q, 'questions')">
         {{ q }}
       </button>
     </div>
+
 
   </div>
 
