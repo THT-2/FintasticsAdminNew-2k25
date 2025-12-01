@@ -26,24 +26,6 @@
       <button class="filter-btn">Subscribed</button>
       <button class="filter-btn">Repeat</button>
     </div> -->
-                <!-- Chat 1 -->
-              <!-- <div class="chat-body">
-  @for (item of chatList; track $index) {
-    <div class="chat-item"
-         [class.active]="item === selectedChat"
-         (click)="selectChat(item)">
-      <div class="chat-avatar">{{ item.name?.[0] || 'U' }}</div>
-      <div class="chat-info">
-        <div class="chat-info-top">
-          <div class="chat-name">{{ item.name }}</div>
-          <div class="chat-time">{{ item.lastMessageAt }}</div>
-        </div>
-        <div class="chat-preview">{{ item.text }}</div>
-        <span class="chat-status status-active">Last seen : {{ item.date }} </span>
-      </div>
-    </div>
-  }
-</div> -->
 
 <div class="chat-body">
   @for (item of chatList; track $index) {

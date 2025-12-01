@@ -22,6 +22,7 @@ export class Data {
   postData(url: any, data: any) {
     return this.http.post(url, data);
   }
+  
 
   updateData(url:any,data:any) {
     return this.http.put(url,data);

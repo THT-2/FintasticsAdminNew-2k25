@@ -29,58 +29,16 @@
                       <p>Query: Tax Filing for Freelancers | Registered User</p>
                     </div>
                 </div>
-
-                <div class="header-icons">
-                  <button class="chat-arrow" (click)="agentReply('', 'end')">
-                    <img class="stop" src="https://cdn-icons-png.flaticon.com/512/6040/6040210.png">
-                  </button>
+        <div class="header-icons"  (click)="agentReply('', 'end')">
+                  <!-- <button class="chat-arrow"> -->
+                    <img class="stop" src="https://cdn-icons-png.flaticon.com/512/13312/13312989.png">
+                  <!-- </button> -->
                   </div>
                 </div>
 
-
-<!-- <div class="chat-switch-backdrop" *ngIf="showPopup">
-  <div class="chat-switch-modal">
-    <h3>End Chat?</h3>
-    <p>You have an active chat. Do you really want to end this chat?</p>
-
-    <div class="buttons">
-      <button class="btn btn-cancel" (click)="endChat()">
-        Continue chat
-      </button>
-      <button class="btn btn-confirm" (click)="closePopup()">
-        End anyway
-      </button>
-    </div>
-  </div>
-</div> -->
-            <!-- <div class="chat-messages">
-              @for (item of userChat; track item._id) {
-                <div class="message client">
-                  <p>{{item.messages.text}}</p>
-                </div>
-              }
-            </div> -->
-
-          <!-- <div class="chat-messages">
-  @for (msg of userChat; track msg._id) {
-    <div class="message" [ngClass]="msg.senderRole === 'user' ? 'client' : 'agent'">
-      <span>{{ msg.text }}</span>
-      <span class="message-time">{{ msg.createdAt | date:'shortTime' }}</span>
-    </div>
-  }
-</div> -->
-
-<!-- <div class="chat-messages" #chatContainer>
-  @for (msg of userChat; track msg) {
-    <div class="message" [ngClass]="msg?.senderRole === 'user' ? 'client' : 'agent'">
-      <span>{{ msg.text }}</span>
-      <span class="message-time">{{ msg.createdAt | date:'shortTime' }}</span>
-    </div>
-  }
-</div> -->
-
-
 <div class="chat-messages" #chatContainer>
+
+
   @for (msg of userChat; track msg) {
     <div class="message" [ngClass]="msg?.senderRole === 'user' ? 'client' : 'agent'">
 
@@ -141,16 +99,17 @@
 
 <div *ngIf="isOtherTyping" class="typing-indicator">
   <h1>type</h1>
-      <span></span><span></span><span></span>
-    </div>
+    <span></span><span></span><span></span>
+  </div>
 
 
 <div class="chat-footer">
+
   <div class="chat-input-container">
 
     <div class="chat-input-actions">
       <img class="pin"
-           src="https://cdn-icons-png.flaticon.com/512/8377/8377269.png"
+           src="https://cdn-icons-png.flaticon.com/512/14464/14464403.png "
            (click)="triggerFileUpload()" />
 
       <input type="file"
@@ -167,10 +126,26 @@
 </textarea>
 
 
-<button class="chat-arrow" (click)="agentReply(msg.value, 'text'); msg.value=''">
-  <img class="icon" src="https://cdn-icons-png.flaticon.com/512/3536/3536661.png">
-</button>
+<!-- <button class="chat-arrow" > -->
+  <img class="icon" (click)="agentReply(msg.value, 'text'); msg.value=''" src="https://cdn-icons-png.flaticon.com/512/9068/9068837.png ">
+<!-- </button> -->
+  <div class="dropdown" (click)="toggleDropdown()">
+
+      <img class="stop" src="https://cdn-icons-png.flaticon.com/512/5907/5907980.png ">
+
+
+    <div class="dropdown-menu" *ngIf="dropdownOpen">
+      <button *ngFor="let q of predefinedQuestions"
+              (click)="agentReply(q, 'questions')">
+        {{ q }}
+      </button>
+    </div>
+
   </div>
+
+
 </div>
+</div>
+
 </div>
 }

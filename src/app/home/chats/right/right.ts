@@ -10,7 +10,8 @@ import {
   Output,
   SimpleChanges,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
+  HostListener
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -120,7 +121,6 @@ showPopup: boolean = false;
   }
 
 
-
   initSocketListener() {
     Socketservice.instance.initSocket({
       token: this.token,
@@ -151,8 +151,8 @@ showPopup: boolean = false;
             this.triggerLastMessageUpdate(this.chatSelected, lastMessage.text, lastMessage.createdAt);
           }
         }
-         // Listen typing
-   this.subTyping = Socketservice.instance.typing$.subscribe((status) => {
+        // Listen typing
+          this.subTyping = Socketservice.instance.typing$.subscribe((status) => {
           this.isOtherTyping = status;
           this.cd.detectChanges();
         });
@@ -205,7 +205,39 @@ showPopup: boolean = false;
     });
   }
 
-  agentReply(text: string, type: 'text' | 'end'): void {
+dropdownOpen = false;
+
+predefinedQuestions: string[] = [
+"How may I help you today?",
+"Happy to assist you with Fintastics!",
+"What can I do for you right now?",
+"Need help with expense tracking or budgets?",
+"Would you like support with account setup?",
+"Are you facing any issue with automatic SMS tracking?",
+"Do you want to know how the 30-Day Challenge works?",
+"Want to understand how to create customized budgets?",
+"Would you like to explore premium features and rewards?",
+"Need help with subscription or billing?",
+"Want to learn how to categorize your expenses?",
+"Looking for help with data backup or restore?",
+"Do you need guidance on bank transaction sync?",
+"Would you like insights on saving habits?",
+"Want help in tracking family/group expenses?",
+"Need assistance with your expense reports or exporting data?",
+"Do you want to set financial goals in the app?",
+"Have questions about security or data privacy?",
+"How is your experience with Fintastics so far?",
+"How would you rate our conversation today?",
+"Any suggestions to improve your experience?"
+];
+
+toggleDropdown() {
+  this.dropdownOpen = !this.dropdownOpen;
+}
+
+
+
+  agentReply(text: string, type: 'text' | 'end' | 'questions'): void {
 
 
   if (type === 'end') {
@@ -223,6 +255,60 @@ showPopup: boolean = false;
 
     return;
   }
+  if (type === 'text') {
+     this.dropdownOpen = false;
+
+  const message = text;
+  const nowIso = new Date().toISOString();
+
+
+  const tempMsg: any = {
+    _id: 'temp-' + nowIso,
+    text: message,
+    createdAt: nowIso,
+    sender: 'agent'
+  };
+
+  this.userChat = [...this.userChat, tempMsg];
+  this.lastMsgCount = this.userChat.length;
+
+  this.cd.detectChanges();
+  this.scrollToBottom(true);
+
+  this.triggerLastMessageUpdate(this.chatSelected, message, nowIso);
+
+
+  const apiUrl = `${ApiRoutesConstants.BASE_URL}${ApiRoutesConstants.AgentReply}/${this.ticketId}/reply`;
+
+  const body = {
+    text: message,
+    type: "Predefined"
+  };
+ this.dropdownOpen = false;
+  this.navService.postData(apiUrl, body).subscribe({
+    next: (res: any) => {
+      if (res.data) {
+        const realMsg = res.data;
+
+        this.userChat = this.userChat.map(m =>
+          m._id === tempMsg._id ? realMsg : m
+        );
+
+        this.triggerLastMessageUpdate(this.chatSelected, message, nowIso);
+
+        this.cd.detectChanges();
+        this.scrollToBottom(true);
+      }
+    },
+    error: (err: any) => {
+      console.error("Predefined question error:", err);
+    }
+  });
+
+
+  return;
+}
+
 
   const message = text.trim();
 
@@ -394,12 +480,8 @@ onTyping() {
 }
 
 
-// isPdf(url: string): boolean {
-//   return typeof url === 'string' && /\.pdf$/i.test(url);
-// }
-
 isPdf(filePath: string | string[]): boolean {
-    console.log("filePath", filePath);
+    // console.log("filePath", filePath);
 
     if (!filePath) return false;
 
@@ -415,10 +497,10 @@ isPdf(filePath: string | string[]): boolean {
     const imageExtensions = ['pdf','doc','docx','xls','xlsx','zip','rar'];
     return imageExtensions.includes(fileExtension || '');
 }
+
 isOtherFile(url: string): boolean {
   return typeof url === 'string' && /\.(doc|docx|xls|xlsx|zip|rar)$/i.test(url);
 }
-
 
 openInNewTab(url: string) {
   window.open(url, "_blank");
@@ -436,7 +518,7 @@ formatMessage(text: string): string {
 }
 
   isImageurl(filePath: string | string[]): boolean {
-    console.log("filePath", filePath);
+    // console.log("filePath", filePath);
 
     if (!filePath) return false;
 
@@ -452,5 +534,6 @@ formatMessage(text: string): string {
     const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
     return imageExtensions.includes(fileExtension || '');
   }
+
 
 }

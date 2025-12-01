@@ -292,20 +292,21 @@
 }
 
  .icon {
-  width: 45px;   /* change to 18px or 20px if you want smaller */
-  height: 45px;
+  width: 40px;   /* change to 18px or 20px if you want smaller */
+  height: 40px;
   object-fit: contain;
   color: white;
 }
  .stop {
-  width: 55px;   /* change to 18px or 20px if you want smaller */
-  height: 55px;
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
   object-fit: contain;
   color: white;
 }
  .pin {
-  width: 22px;   /* change to 18px or 20px if you want smaller */
-  height: 22px;
+  width: 40px;   /* change to 18px or 20px if you want smaller */
+  height: 40px;
   object-fit: contain;
   color: white;
 }
@@ -716,4 +717,54 @@
 .text-msg a {
   color: #0066ff;
   text-decoration: underline;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  position: absolute;
+  bottom: 35px;      /* show above the button */
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  padding: 5px 0;
+  z-index: 999;
+  min-width: 450px;
+  max-height: 400px;
+
+  // max-height: 200px;
+  overflow-y: auto;
+}
+
+
+.dropdown-menu button {
+
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-menu button:hover {
+  background: #f1f1f1;
+}
+.dropdown-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }

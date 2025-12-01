@@ -20,6 +20,7 @@ import { CommonModule } from '@angular/common';
 import { Socketservice } from '../../../Service/socketservice';
 import { jwtDecode } from 'jwt-decode';
 import { Subscription } from 'rxjs';
+import { log } from 'node:console';
 
 type StatusValue = 'Online' | 'Offline' | 'Waiting';
 
@@ -43,6 +44,7 @@ export class Left implements OnInit, AfterViewInit, OnDestroy {
   selectedChat: any = null;
   selectedStatus: StatusValue = 'Online';
   currentTicketId: string | null = null;
+  selectedticketId:any
 
   @Output() chatSelected = new EventEmitter<string>();
   @Output() ticket = new EventEmitter<string>();
@@ -112,6 +114,8 @@ initSocketListener() {
       next: (res: any) => {
         if (res.code === 200) {
           this.chatList = res.data;
+          console.log("Left data",this.chatList);
+
           this.cdr.detectChanges();
         } else {
           this.alertService.toast('error', true, res.message);
@@ -126,6 +130,7 @@ initSocketListener() {
  private handleLastMessageUpdate(data: any) {
 
   console.log("🔥 RAW SOCKET DATA:", data);
+
 
 
   const payload = Array.isArray(data?.data) ? data.data[0] : data;
@@ -183,6 +188,8 @@ initSocketListener() {
 
   isActive() {
     if (!this.currentTicketId) return;
+    console.log("currentId",this.currentTicketId);
+
 
     const apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.activeStatus + this.currentTicketId;
 
@@ -198,14 +205,20 @@ initSocketListener() {
     });
   }
 
-  selectChat(item: any) {
+selectChat(item: any) {
   this.selectedChat = item;
+
   this.currentTicketId = item.ticketId || null;
+
+  item.isRead = 0;
 
   this.chatSelected.emit(item._id);
   this.ticket.emit(item.ticketId);
+
   this.openChat.emit();
+  this.isActive();
 }
+
 
 
   ngAfterViewInit(): void {
