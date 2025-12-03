@@ -57,6 +57,7 @@ togglePassword() {
 
       localStorage.setItem('username', tokenData?.username || '');
       localStorage.setItem('role', tokenData?.role || '');
+      
 
       const roleId =  tokenData?.role || '';
       if (roleId) {

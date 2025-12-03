@@ -14,6 +14,20 @@
 
     <div class="top-right d-flex align-items-center gap-2">
       <a
+  href="javascript:void(0)"
+  class="icon-btn position-relative"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="Messages"
+  (click)="onChatsClick($event)"
+>
+  <i class="bi bi-chat-dots"></i>
+  <span class="badge position-absolute rounded-pill bg-danger">
+    2
+  </span>
+</a>
+
+      <!-- <a
   routerLink="/admin/chats"
   class="icon-btn position-relative"
   data-bs-toggle="tooltip"
@@ -23,12 +37,12 @@
   <i class="bi bi-chat-dots"></i>
   <span class="badge position-absolute rounded-pill bg-danger">
     2
-  </span>
+  </span> -->
   <!-- <i class="bi bi-chat-dots"></i>
   <span class="badge position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">
     2
   </span> -->
-</a>
+<!-- </a> -->
       <button class="icon-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Notifications"><i class="bi bi-bell"></i><span class="badge">3</span></button>
 
       <div class="dropdown">

@@ -243,7 +243,7 @@ const routes: Routes = [
           },
           {path:'challenge-dashboard',
             children:[
-              {path:'',component:ChallengeDashboard}
+              {path:'',component:ChallengeDashboard},
             ]
           },
           {path:'analytics-dashboard',
@@ -261,7 +261,7 @@ const routes: Routes = [
               {path:'',component:RewardsDashboard}
             ]
           },
-          {path:'user-activity-dashboard',
+          {path:'user-activity-dashboard/:id',
             children:[
               {path:'',component:UserActivityDashboard}
             ]

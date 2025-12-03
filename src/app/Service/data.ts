@@ -11,6 +11,12 @@ export class Data {
   readonly NavItems = this.navItems.asReadonly();
   constructor(private http:HttpClient){}
 
+  selectedUserId = signal<string | null>(null);
+
+  setSelectedUser(id: string) {
+    this.selectedUserId.set(id);
+  }
+
   setNavItems(items: any[]) {
     this.navItems.set(items);
   }
@@ -22,7 +28,7 @@ export class Data {
   postData(url: any, data: any) {
     return this.http.post(url, data);
   }
-  
+
 
   updateData(url:any,data:any) {
     return this.http.put(url,data);

@@ -20,6 +20,8 @@ export class SideNav implements OnInit {
   NavItems: any[] = [];
   pageLoader: boolean = false;
   GlobalConstant: any = GlobalConstant;
+  showChatsScreen: boolean = false;
+  newkey:any
 
   constructor(private navService: Data, private cd: ChangeDetectorRef,private router: Router) {}
 
@@ -46,40 +48,45 @@ export class SideNav implements OnInit {
     item.open = !item.open;
   }
 
-loadPermissions() {
-  const roleId = localStorage.getItem('role');
+ loadPermissions() {
+    const roleId = localStorage.getItem('role');
 
-  if (!roleId) {
-    console.error("No roleId found in localStorage");
-    this.NavItems = [];
-    return;
-  }
-
-  this.pageLoader = true;
-  const apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.Roles_get_id + roleId;
-
-  this.navService.getData(apiUrl).subscribe({
-    next: (res: any) => {
-      if (res.code === 200 && res.data) {
-        this.NavItems = (res.data.permissions || [])
-          .map((item: any) => ({
-            ...item,
-            subtitle: (item.subtitle || []).filter((sub: any) => sub.checked)
-          }))
-          .filter((item: any) => item.subtitle.length > 0);
-
-        console.log("SideNav loaded NavItems:", this.NavItems);
-        this.cd.detectChanges();
-      }
-
-      this.pageLoader = false;
-    },
-    error: (err: any) => {
-      console.error("Error fetching role permissions:", err);
-      this.pageLoader = false;
+    if (!roleId) {
+      console.error("No roleId found in localStorage");
+      this.NavItems = [];
+      return;
     }
-  });
-}
+
+    this.pageLoader = true;
+    const apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.Roles_get_id + roleId;
+
+    this.navService.getData(apiUrl).subscribe({
+      next: (res: any) => {
+        if (res.code === 200 && res.data) {
+          this.NavItems = (res.data.permissions || [])
+            .map((item: any) => ({
+              ...item,
+              subtitle: (item.subtitle || []).filter((sub: any) => sub.checked)
+            }))
+            .filter((item: any) => item.subtitle.length > 0);
+
+          this.newkey = this.NavItems[4].subtitle[2].id;
+
+
+          this.showChatsScreen = this.newkey === 'chats';
+
+          console.log("SideNav loaded NavItems:", this.NavItems);
+          
+          this.cd.detectChanges();
+        }
+        this.pageLoader = false;
+      },
+      error: (err: any) => {
+        console.error("Error fetching role permissions:", err);
+        this.pageLoader = false;
+      }
+    });
+  }
 }
 
 

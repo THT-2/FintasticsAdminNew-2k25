@@ -140,6 +140,31 @@
       background: rgba(94, 53, 177, 0.1);
       border: 1px solid rgba(94, 53, 177, 0.3);
     }
+
+
+    /* RED */
+.over-limit {
+  background: rgba(255, 82, 82, 0.1);
+    color: var(--danger);
+}
+
+/* GRAY */
+.up-coming  {
+    background: rgba(148, 163, 184, 0.1);
+    color: var(--text-muted);
+
+}
+.under-limit{
+background: rgba(0, 200, 83, 0.1);
+    color: var(--success);
+}
+
+/* GREEN */
+.no-spending{
+  background: rgba(240, 250, 93, 0.1);
+    color: var(--warning);
+}
+
     @media (max-width: 480px) {
       .weekly-days {
         grid-template-columns: repeat(2, 1fr);

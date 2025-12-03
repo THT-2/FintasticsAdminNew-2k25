@@ -17,10 +17,10 @@ import { AlertService } from '../../../constants/alertservice';
 import { ApiRoutesConstants } from '../../../constants/api-route-constants';
 import { Data } from '../../../Service/data';
 import { CommonModule } from '@angular/common';
-import { Socketservice } from '../../../Service/socketservice';
 import { jwtDecode } from 'jwt-decode';
 import { Subscription } from 'rxjs';
 import { log } from 'node:console';
+import { Socketservice } from '../../../Service/socketservice';
 
 type StatusValue = 'Online' | 'Offline' | 'Waiting';
 
@@ -115,6 +115,7 @@ initSocketListener() {
         if (res.code === 200) {
           this.chatList = res.data;
           console.log("Left data",this.chatList);
+
 
           this.cdr.detectChanges();
         } else {

@@ -140,6 +140,36 @@
       background: rgba(94, 53, 177, 0.1);
       border: 1px solid rgba(94, 53, 177, 0.3);
     }
+
+    .calendar-day {
+  padding: 12px;
+  border-radius: 8px;
+}
+
+/* RED */
+.over-limit {
+  background: rgba(255, 82, 82, 0.1);
+    border: 1px solid rgba(255, 82, 82, 0.3);
+}
+
+
+.no-spending {
+  background: rgba(190, 200, 0, 0.1);
+    border: 1px solid rgba(187, 200, 0, 0.3);
+}
+
+.under-limit{
+  background: rgba(0, 200, 83, 0.1);
+    border: 1px solid rgb(0 200 60 / 30%);
+}
+
+/* GREEN */
+.up-coming {
+      background: rgba(148, 163, 184, 0.1);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+
     @media (max-width: 480px) {
       .weekly-days {
         grid-template-columns: repeat(2, 1fr);

@@ -169,14 +169,6 @@ NavItems: any[]=[
         checked: false,
         path: '/admin/rewards-dashboard'
       },
-      {
-        id: 'user-activity-dash',
-        title: 'User Activity Dashboard',
-        icon: 'fas fa-users-cog',
-        status: false,
-        checked: false,
-        path: '/admin/user-activity-dashboard',
-      },
     ],
     icon: '',
     path: ''

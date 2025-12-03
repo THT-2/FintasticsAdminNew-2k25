@@ -29,6 +29,21 @@ export class Navbar {
     this.toggleSidebar.emit();
 
   }
+  onChatsClick(event: MouseEvent) {
+    event.preventDefault();
+
+    // Navigate to chats
+    this.router.navigate(['/admin/chats']);
+
+    // Collapse sidebar so main content becomes "full screen"
+    if (!this.isCollapsed) {                 // only toggle if it's open
+      this.isCollapsed = true;
+      this.toggleSidebar.emit();             // parent hides sidebar
+    }
+  }
+
+
+
 
    toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;

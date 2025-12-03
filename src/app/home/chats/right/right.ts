@@ -50,6 +50,7 @@ export class Right implements OnChanges, OnInit, OnDestroy {
   @Output() getFilePath = new EventEmitter();
 
   userChat: any[] = [];
+  phone:any;
   ticketId: string | null = null;
   chat: any;
   userAtBottom: boolean = true;
@@ -69,8 +70,9 @@ showPopup: boolean = false;
   message = '';
   typing = false;
   isOtherTyping = false;
-  typingTimeout: any;
 
+  typingTimeout: any;
+  mobile: any;
   subTyping!: Subscription;
 
   token = localStorage.getItem("token")!;
@@ -112,6 +114,7 @@ showPopup: boolean = false;
   setTimeout(() => {
     this.scrollToBottomInstant();
   }, 0);
+  this.cd.detectChanges();
 }
 
 
@@ -119,6 +122,7 @@ showPopup: boolean = false;
     this.adminGetSub?.unsubscribe();
     this.userRoomSub?.unsubscribe();
     this.connectedSub?.unsubscribe();
+    this.subTyping?.unsubscribe();
   }
 
   endChat(): void {
@@ -178,8 +182,12 @@ showPopup: boolean = false;
       next: (res: any) => {
         const data = res?.data;
         if (!data) return;
+        console.log(data);
 
         this.chat = data?.name?.username || data?.name || 'User';
+        console.log(this.chat);
+        this.mobile =data.mobile_num;
+        console.log(this.mobile);
 
         if (res?.code === 200) {
           const msgs = Array.isArray(data.msg) ? data.msg : [];
@@ -486,12 +494,12 @@ makeClickable(text: string) {
 
 
 onTyping() {
-    Socketservice.instance.sendTyping(true, `finexpertchat:user:${this.userId}`);
+    Socketservice.instance.sendTyping(true);
 
     if (this.typingTimeout) clearTimeout(this.typingTimeout);
 
     this.typingTimeout = setTimeout(() => {
-      Socketservice.instance.sendTyping(false, `finexpertchat:user:${this.userId}`);
+      Socketservice.instance.sendTyping(false);
     }, 1000);
 }
 

@@ -2,6 +2,22 @@
       <div class="calendar-section">
         <h3 class="section-title"><i class="fas fa-calendar-alt"></i> 30-Day Challenge Calendar</h3>
         <div class="calendar-grid" id="calendarGrid">
-          <!-- Calendar days will be populated by JavaScript -->
+          @for (item of calender; track $index) {
+            <div
+      class="calendar-day"
+      [ngClass]="{
+        'over-limit': item.status === 'overLimit',
+        'no-spending': item.status === 'noSpending',
+        'up-coming': item.status === 'upComing',
+        'under-limit':item.status === 'underLimit'
+      }"
+    >
+              <div class="calendar-day-number">{{item.day}}</div>
+              <div class="calendar-day-spending">₹{{item.totalSpent}}</div>
+            </div>
+          }
         </div>
       </div>
+
+
+

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Card } from "../../../../Z-Commons/card/card";
 import { Table } from "../../../../Z-Commons/table/table";
 import { ChangeDetectorRef } from '@angular/core';
@@ -20,8 +20,8 @@ import { GlobalConstant } from '../../../../constants/global-constants';
   providers:[AlertService]
 })
 export class ParticipantOverview implements OnInit{
+  public apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.challenge_dashboard;
 
-  public apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.Banners_getlist;
   public loader:boolean = true;
   buttondata= {
     buttonName : 'Add New Banner',
@@ -30,7 +30,8 @@ export class ParticipantOverview implements OnInit{
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }
-  bannerData: any;
+  userdata: any;
+  userId:any;
   columnDefinition: any[];
   responseMessage: any;
 
@@ -39,43 +40,52 @@ export class ParticipantOverview implements OnInit{
     this.columnDefinition = HeaderConstants.ChallengeHeader;
   }
   ngOnInit(): void {
-    this.getdata();
+    this.getparticipantslist();
   }
-    getdata(){
+  getparticipantslist() {
     this.loader = true;
-    this.bannerData = [];
-    this.navService.getData(this.apiUrl).subscribe({
-      next:(res:any)=> {
-        console.log('banner',res);
-
+    this.userdata = [];
+    this.navService.postData(this.apiUrl, {}).subscribe({
+      next: (res: any) => {
+        console.log('user', res);
         if (res.code === 200) {
-          this.bannerData = res.data;
-          console.log('banner2',this.bannerData);
-          this.buttondata = this.buttondata;
-
+          this.userdata = res.user_detail;
+          console.log('usertable', this.userdata);
+        } else {
+          this.alertService.toast('error', true, res.message);
         }
-        else {
-          this.alertService.toast("error",true,res.message);
-        }
-        this.loader=false;
+        this.loader = false;
         this.cdr.detectChanges();
       },
-      error: (error:any) => {
+      error: (error: any) => {
         console.log(error);
-        this.alertService.toast("error",true,error);
+        this.alertService.toast('error', true, error);
+        this.loader = false;
       },
       complete: () => {
         this.loader = false;
-      }
-    })
+      },
+    });
   }
+
+
+
+
+
 
     getActions(event:any){
     console.log("data",event);
     if (event.actions === 'Edit') {
       this.router.navigate(['/admin/banners/edit',event.data._id]);
     }else if (event.actions === 'View'){
-      // this.router.navigate(['/beta/clientView'], { queryParams: { id: event.data.clientId,type:"client" }, relativeTo: this.route });
+
+
+    // store the user id in signal
+    this.navService.setSelectedUser(event.data._id);
+
+    // navigate to user activity module
+      this.router.navigate(['/admin/user-activity-dashboard',event.data._id]);
+      
     }else if (event.actions === 'Delete'){
       const dialogRef = this.dialog.open(MessageDialogue, {
         data: {
@@ -93,7 +103,7 @@ export class ParticipantOverview implements OnInit{
             next: (res: any) => {
               if (res['status'] == true) {
                 this.alertService.toast("success",true,res.message);
-                this.getdata();
+                this.getparticipantslist();
               }
               window.location.reload();
             },

@@ -1,6 +1,21 @@
-      <div class="weekly-activity">
-        <h3 class="section-title"><i class="fas fa-chart-bar"></i> Weekly Activity (Last 7 Days)</h3>
-        <div class="weekly-days" id="weeklyDays">
-          <!-- Weekly days will be populated by JavaScript -->
+<div class="weekly-activity">
+  <h3 class="section-title">
+    <i class="fas fa-chart-bar"></i> Weekly Activity (Last 7 Days)</h3>
+    <div class="weekly-days" id="weeklyDays">
+      @for (item of days; track $index) {
+        <div class="day-card">
+        <div class="day-name">Mon</div>
+        <div class="day-date">{{ item.date | date:'dd MMM' }}</div>
+        <div class="day-spending">₹{{item.totalSpent}}</div>
+        <div class="day-status status-no-spend" [ngClass]="{
+        'over-limit': item.status === 'overLimit',
+        'no-spending': item.status === 'noSpending',
+        'up-coming': item.status === 'upComing',
+        'under-limit':item.status === 'underLimit'
+      }">
+          {{item.status}}
         </div>
       </div>
+    }
+  </div>
+</div>

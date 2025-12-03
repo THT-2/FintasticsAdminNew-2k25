@@ -11,75 +11,82 @@ export class Socketservice {
   private static _instance: Socketservice;
   private socket!: Socket;
 
-  // Add subjects for different events
   private lastMessageSubject = new Subject<any>();
   public lastMessage$ = this.lastMessageSubject.asObservable();
   private typingSubject = new BehaviorSubject<boolean>(false);
-  typing$ = this.typingSubject.asObservable();
+  public typing$ = this.typingSubject.asObservable();
+
+  private currentUserId: any;   // <-- store userId so we know who is typing
 
   static get instance(): Socketservice {
-    console.log("socketdata", this._instance);
     if (!this._instance) this._instance = new Socketservice();
     return this._instance;
   }
 
-  initSocket({token, userId, joinroom, eventName, onData}:
-    {token: string; userId: string; joinroom: string; eventName: string; onData: (data: any) => void;}) {
+  initSocket({
+    token,
+    userId,
+    joinroom,
+    eventName,
+    onData
+  }: {
+    token: string;
+    userId: string;
+    joinroom: string;
+    eventName: string;
+    onData: (data: any) => void;
+  }) {
+
+    this.currentUserId = userId; // <---- save for later comparison
 
     this.socket = io(this.socketUrl, {
       transports: ['websocket'],
-      autoConnect: true,
-      reconnection: true,
       query: { token, userId }
     });
 
     this.socket.on("connect", () => {
-      console.log("Angular Socket Connected:", this.socket.id);
+  console.log("Angular Socket Connected:", this.socket.id);
+  this.socket.emit("join", joinroom);   // ✅ must be "join"
+});
 
-      // existing join
-      this.socket.emit("join_room", joinroom);
 
-    });
-
-    // existing dynamic listener
+    // main data listener
     this.socket.on(eventName, (data: any) => {
-      console.log("🔥 Socket Data Received (Angular):", data);
       onData(data);
     });
 
-        this.socket.on('presence:online', (data) => {
-      console.log("PRESENCE ONLINE", data);
-      if (data.typing !== undefined) {
-        this.typingSubject.next(data.typing);
+    // 🔥🔥 LISTEN FOR TYPING FROM SERVER USING YOUR EXACT BACKEND EVENT
+    this.socket.on("chat:typing", (payload: any) => {
+      console.log("📩 chat:typing received", payload);
+
+      if (!payload) return;
+
+      // ❌ Ignore my own typing event
+      if (String(payload.userId) === String(this.currentUserId)) {
+        return;
       }
+
+      // ✔ Show other user typing
+      this.typingSubject.next(payload.isTyping === true);
     });
-
-    this.socket.on('presence:offline', (data) => {
-      console.log("PRESENCE OFFLINE", data);
-      this.typingSubject.next(false);
-    });
-  
-this.socket.on('typing-status', (payload: any) => {
-      this.typingSubject.next(payload.isTyping);
-    });
-
   }
-  sendTyping(isTyping: boolean,userId: any, ) {
-      this.socket.emit("typing", { userId, typing: isTyping });
-    }
 
+  // 🔥🔥 EMIT TYPING EXACTLY AS BACKEND EXPECTS
+  sendTyping(isTyping: boolean) {
+    if (!this.socket) return;
+
+    console.log("📤 sending chat:typing", { isTyping });
+
+    this.socket.emit("chat:typing", {
+      isTyping: isTyping
+    });
+  }
 
   emit(eventName: string, payload?: any) {
-    if (this.socket) {
-      this.socket.emit(eventName, payload);
-    }
+    this.socket?.emit(eventName, payload);
   }
 
-
-
-  // Method to manually trigger last message updates
   public triggerLastMessageUpdate(data: any) {
     this.lastMessageSubject.next(data);
   }
-
 }

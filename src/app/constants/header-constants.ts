@@ -111,43 +111,43 @@ export class HeaderConstants {
   ]
   public static ChallengeHeader = [
     {
-      'name': 'title',
+      'name': 'username',
       'displayName': 'Participant',
       'disableSorting': false,
       'class': "text-transform"
     },
     {
-      'name': 'page_name',
+      'name': 'day',
       'displayName': 'Day',
       'disableSorting': false,
       'class': "text-transform"
     },
     {
-      'name': 'page_name',
+      'name': 'status',
       'displayName': 'Status',
       'disableSorting': false,
       'class': "text-transform"
     },
     {
-      'name': 'page_name',
+      'name': 'dailyLimit',
       'displayName': 'Daily-Limit',
       'disableSorting': false,
       'class': "text-transform"
     },
     {
-      'name': 'page_name',
+      'name': 'todaySpent',
       'displayName': 'Todays Spend',
       'disableSorting': false,
       'class': "text-transform"
     },
     {
-      'name': 'page_name',
+      'name': 'mobile_type',
       'displayName': 'Platform',
       'disableSorting': false,
       'class': "text-transform"
     },
     {
-      'name': 'page_name',
+      'name': 'startDate',
       'displayName': 'Join Date',
       'disableSorting': false,
       'class': "text-transform"

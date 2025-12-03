@@ -179,11 +179,15 @@ export class ApiRoutesConstants {
 
   //Fin-expert Chats
   public static chatlist= "finexpertchatBot/admin/chats/list";
-  
+
   public static agentchatlist= "finexpertchatBot/agents/me/chats/list";
   public static userchats= "finexpertchatBot/users";
   public static AgentReply= "finexpertchatBot/tickets";
   public static activeStatus= "finexpertchatBot/admin/active_status/";
+
+  //30-days challenge dashboard
+  public static participantdata = "adminPanel/userdetails_Dashboard";
+  public static challenge_dashboard = "adminPanel/challengeDashboard";
 
   // Common routes
   public static GET_LIST = "/getlist";

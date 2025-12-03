@@ -19,12 +19,21 @@
                       <i class="fas fa-arrow-left"></i>
                     </div>
                     <div class="current-chat-avatar">{{ chat?.[0] || 'F' }}</div>
+
                     <div class="current-chat-details">
                     <h4>
-                      {{ chat || "Fin-Expert Chat Area" }}
+                      {{ chat || "Fin-Expert Chat Area" }} <span>{{mobile}}</span>
                       <span class="status" >
                       </span>
                     </h4>
+
+
+                    <div class="usertyping" *ngIf="isOtherTyping">
+                      typing....
+  <!-- <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span> -->
+</div>
                       <!-- <h4>{{chatName ||"Fin-Expert Chat Area"}} <span class="status online">{{activeStatus}}</span></h4> -->
                       <p>Query: Tax Filing for Freelancers | Registered User</p>
                     </div>
@@ -41,7 +50,6 @@
 
   @for (msg of userChat; track msg) {
     <div class="message" [ngClass]="msg?.senderRole === 'user' ? 'client' : 'agent'">
-
 
      @if(isImageurl(msg.attachments)){
     <ng-container>
@@ -96,10 +104,19 @@
 </div>
 
 
-<div *ngIf="isOtherTyping" class="typing-indicator">
-  <h1>type</h1>
-    <span></span><span></span><span></span>
-  </div>
+<!-- messages list here -->
+
+<!-- Typing indicator -->
+<!-- <div class="typing-indicator" *ngIf="isOtherTyping">
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+</div> -->
+<!-- <div class="typing-indicator" >
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+</div> -->
 
 
 <div class="chat-footer">

@@ -1,11 +1,15 @@
  <!-- Stats Cards -->
+ <app-challenge-filter (filtersChange)="onFiltersChanged($event)"></app-challenge-filter>
       <div class="stats-grid">
         <div class="stat-card primary" id="totalUsersCard">
+
           <div class="stat-header">
             <div>
               <div class="stat-label">Total Participants</div>
-              <div class="stat-value" id="totalUsers">1,247</div>
+
+              <div class="stat-value" id="totalUsers">{{challenge?.totalparticipations ?? 0}}</div>
               <div class="stat-change positive"><i class="fas fa-arrow-up"></i> <span id="totalChange">12%</span> from last week</div>
+
             </div>
             <div class="stat-icon primary">
               <i class="fas fa-users"></i>
@@ -16,7 +20,7 @@
           <div class="stat-header">
             <div>
               <div class="stat-label">Active Users</div>
-              <div class="stat-value" id="activeUsers">892</div>
+              <div class="stat-value" id="activeUsers">{{challenge?.ActiveUser ?? 0}}</div>
               <div class="stat-change positive"><i class="fas fa-arrow-up"></i> <span id="activeChange">8%</span> from yesterday</div>
             </div>
             <div class="stat-icon success">
@@ -28,7 +32,7 @@
           <div class="stat-header">
             <div>
               <div class="stat-label">Dropped Users</div>
-              <div class="stat-value" id="droppedUsers">128</div>
+              <div class="stat-value" id="droppedUsers">0</div>
               <div class="stat-change negative"><i class="fas fa-arrow-up"></i> <span id="droppedChange">3%</span> from yesterday</div>
             </div>
             <div class="stat-icon danger">
@@ -40,7 +44,7 @@
           <div class="stat-header">
             <div>
               <div class="stat-label">Expected Winners</div>
-              <div class="stat-value" id="expectedWinners">312</div>
+              <div class="stat-value" id="expectedWinners">{{challenge?.completedUser ?? 0}}</div>
               <div class="stat-change positive"><i class="fas fa-arrow-up"></i> <span id="winnersChange">5%</span> from last week</div>
             </div>
             <div class="stat-icon info">

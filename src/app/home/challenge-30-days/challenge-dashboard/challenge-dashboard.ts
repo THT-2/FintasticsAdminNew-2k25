@@ -6,7 +6,7 @@ import { ExpectedWinners } from "./expected-winners/expected-winners";
 
 @Component({
   selector: 'app-challenge-dashboard',
-  imports: [ChallengeFilter, StatCards, ParticipantOverview, ExpectedWinners],
+  imports: [ StatCards, ParticipantOverview, ExpectedWinners],
   templateUrl: './challenge-dashboard.html',
   styleUrl: './challenge-dashboard.scss'
 })

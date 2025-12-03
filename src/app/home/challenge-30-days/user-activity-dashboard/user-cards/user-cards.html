@@ -9,16 +9,16 @@
         </div>
       </div>
 
-      <a href="deepseek_html_20251119_65caa9.html" class="back-button">
+      <a routerLink="/admin/challenge-dashboard" class="back-button">
         <i class="fas fa-arrow-left"></i> Back to Dashboard
       </a>
 
       <!-- User Profile Header -->
       <div class="user-profile-header">
-        <div class="user-profile-avatar" id="userAvatar">RJ</div>
+        <div class="user-profile-avatar" id="userAvatar">{{ participants?.username?.[0] || 'U' }}</div>
         <div class="user-profile-info">
-          <h2 id="userName">Rahul Joshi</h2>
-          <p id="userEmail">rj@example.com • Day 18/30</p>
+          <h2 id="userName">{{participants?.username}}</h2>
+          <p id="userEmail">{{participants?.user_email}} • Day {{participants?.challenge_progress}}</p>
         </div>
         <div class="user-status-badge status-active" id="userStatus">Within Limit</div>
       </div>
@@ -29,7 +29,7 @@
           <div class="dashboard-card-icon">
             <i class="fas fa-percentage"></i>
           </div>
-          <div class="dashboard-card-value" id="todayLimitPercent">0%</div>
+          <div class="dashboard-card-value" id="todayLimitPercent">{{participants?.today_percentage}}%</div>
           <div class="dashboard-card-label">of today's limit</div>
           <div id="limitStatus">No spending yet 🎉</div>
         </div>
@@ -38,7 +38,7 @@
           <div class="dashboard-card-icon">
             <i class="fas fa-money-bill-wave"></i>
           </div>
-          <div class="dashboard-card-value" id="monthlyIncome">₹30,000</div>
+          <div class="dashboard-card-value" id="monthlyIncome">₹{{participants?.monthlyIncomde}}</div>
           <div class="dashboard-card-label">Monthly income</div>
         </div>
 
@@ -46,7 +46,7 @@
           <div class="dashboard-card-icon">
             <i class="fas fa-calendar-day"></i>
           </div>
-          <div class="dashboard-card-value" id="dailyLimit">₹970</div>
+          <div class="dashboard-card-value" id="dailyLimit">₹{{participants?.dailyLimit}}</div>
           <div class="dashboard-card-label">Daily spending limit</div>
         </div>
 
@@ -54,7 +54,7 @@
           <div class="dashboard-card-icon">
             <i class="fas fa-wallet"></i>
           </div>
-          <div class="dashboard-card-value" id="todaySpending">₹0</div>
+          <div class="dashboard-card-value" id="todaySpending">₹0{{participants?.todaySpending}}</div>
           <div class="dashboard-card-label">Today's spending</div>
         </div>
       </div>
