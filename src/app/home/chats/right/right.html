@@ -36,8 +36,11 @@
 </div>
                       <!-- <h4>{{chatName ||"Fin-Expert Chat Area"}} <span class="status online">{{activeStatus}}</span></h4> -->
                       <p>Query: Tax Filing for Freelancers | Registered User</p>
+
                     </div>
                 </div>
+
+
         <div class="header-icons"  (click)="agentReply('', 'end')">
                   <!-- <button class="chat-arrow"> -->
                     <img class="stop" src="https://cdn-icons-png.flaticon.com/512/13312/13312989.png">
@@ -119,9 +122,11 @@
 </div> -->
 
 
+
 <div class="chat-footer">
 
   <div class="chat-input-container">
+   
 
     <div class="chat-input-actions">
       <img class="pin"
@@ -134,16 +139,30 @@
              style="display:none">
     </div>
 
-    <textarea #msg
+    <!-- <textarea #msg
   class="chat-input"
   placeholder="Type message"
   (input)="onTyping()"
   (keyup.enter)="agentReply(msg.value, 'text'); msg.value=''">
-</textarea>
+</textarea> -->
+<textarea #msg
+  class="chat-input"
+  placeholder="Type message"
+  (input)="onTyping()"
+  (keyup.enter)="onEnter(msg)"
+></textarea>
+
+<img
+  class="icon"
+  (click)="onEnter(msg)"
+  src="https://cdn-icons-png.flaticon.com/512/9068/9068837.png "
+/>
 
 
 
-  <img class="icon" (click)="agentReply(msg.value, 'text'); msg.value=''" src="https://cdn-icons-png.flaticon.com/512/9068/9068837.png ">
+
+
+  <!-- <img class="icon" (click)="agentReply(msg.value, 'text'); msg.value=''" src="https://cdn-icons-png.flaticon.com/512/9068/9068837.png "> -->
 
   <div class="dropdown" (click)="toggleDropdown()">
 

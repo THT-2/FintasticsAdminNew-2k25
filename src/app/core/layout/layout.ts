@@ -19,23 +19,23 @@ export class Layout {
 
   constructor(private router: Router){}
 
- ngOnInit(): void {
-    this.router.events
-      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
-      .subscribe((e: NavigationEnd) => {
-        const url = e.urlAfterRedirects;
+//  ngOnInit(): void {
+//     this.router.events
+//       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+//       .subscribe((e: NavigationEnd) => {
+//         const url = e.urlAfterRedirects;
 
-        // ✅ Whenever you're on chats (/admin/chats) → collapse sidebar
-        if (url.startsWith('/admin/chats')) {
-          this.isCollapsed = true;
-        } else {
-          // Optional: auto-expand on all non-chat pages
-          this.isCollapsed = false;
-        }
+//         // ✅ Whenever you're on chats (/admin/chats) → collapse sidebar
+//         if (url.startsWith('/admin/chats')) {
+//           this.isCollapsed = true;
+//         } else {
+//           // Optional: auto-expand on all non-chat pages
+//           this.isCollapsed = false;
+//         }
 
-        console.log('Route changed:', url, 'isCollapsed:', this.isCollapsed);
-      });
-  }
+//         console.log('Route changed:', url, 'isCollapsed:', this.isCollapsed);
+//       });
+//   }
 
 toggleSidebar() {
   this.isCollapsed = !this.isCollapsed;

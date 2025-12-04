@@ -34,9 +34,14 @@ export class Data {
     return this.http.put(url,data);
   }
 
-  getData(url:any) {
-    return this.http.get(url);
-  }
+  // getData(url:any) {
+  //   return this.http.get(url);
+  // }
+
+  getData(url: string, params?: any) {
+  return this.http.get(url, { params });
+}
+
 
 getuserData<T>(url: string, params?: Record<string, any>) {
   let httpParams = new HttpParams();

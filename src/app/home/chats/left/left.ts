@@ -21,6 +21,7 @@ import { jwtDecode } from 'jwt-decode';
 import { Subscription } from 'rxjs';
 import { log } from 'node:console';
 import { Socketservice } from '../../../Service/socketservice';
+import { HttpClient } from '@angular/common/http';
 
 type StatusValue = 'Online' | 'Offline' | 'Waiting';
 
@@ -62,7 +63,8 @@ export class Left implements OnInit, AfterViewInit, OnDestroy {
     private navService: Data,
     private alertService: AlertService,
     private cdr: ChangeDetectorRef,
-    private socketService: Socketservice
+    private socketService: Socketservice,
+
   ) {}
 
   ngOnInit(): void {
@@ -108,9 +110,12 @@ initSocketListener() {
     );
   }
 
-  getchatList() {
+  getchatList(search: string = '') {
     this.chatList = [];
-    this.navService.getData(this.apiUrl).subscribe({
+
+    const params = { q: search || '' };
+
+    this.navService.getData(this.apiUrl,params).subscribe({
       next: (res: any) => {
         if (res.code === 200) {
           this.chatList = res.data;
@@ -269,18 +274,6 @@ selectChat(item: any) {
             statusText.textContent = 'Online';
             this.selectedStatus = 'Online';
           }
-        });
-      }
-
-      if (this.searchInput) {
-        this.searchInput.nativeElement.addEventListener('input', () => {
-          const searchTerm = this.searchInput.nativeElement.value.toLowerCase();
-
-          chatItems.forEach((item) => {
-            const name = item.querySelector<HTMLElement>('.chat-name')?.textContent?.toLowerCase() || '';
-            const preview = item.querySelector<HTMLElement>('.chat-preview')?.textContent?.toLowerCase() || '';
-            item.style.display = name.includes(searchTerm) || preview.includes(searchTerm) ? 'flex' : 'none';
-          });
         });
       }
     }, 0);

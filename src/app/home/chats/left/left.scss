@@ -294,17 +294,12 @@
             color: var(--excellent);
         }
 .chat-body {
-  height: 100%;
+  height: 85%;
   overflow-y: auto;             /* scroll only the chat body */
   -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: var(--light-blue) transparent;
 }
-
-
-
-
-
 
 
 .chat-info-top {

@@ -15,7 +15,13 @@
             <div class="search-container">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search or start new chat">
+                    <!-- <input type="text" placeholder="Search or start new chat"> -->
+                     <input
+  #searchInput
+  type="text"
+  placeholder="Search or start new chat"
+  (input)="getchatList(searchInput.value)">
+
                 </div>
             </div>
             <div class="chat-list">

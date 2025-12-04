@@ -22,6 +22,7 @@ import { jwtDecode } from 'jwt-decode';
 import { AlertService } from '../../../constants/alertservice';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
+import { NotificationService } from '../../../Service/notification-service';
 
 // interface ChatPayload {
 //   msg?: any[];
@@ -82,12 +83,14 @@ showPopup: boolean = false;
     private navService: Data,
     private cd: ChangeDetectorRef,
     private chatService: Socketservice,
-    private alertService:AlertService
+    private alertService:AlertService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit() {
     const tokenData: any = jwtDecode(this.token);
     this.userId = tokenData.user_id;
+    this.notificationService.requestPermission();
     this.initSocketListener();
   }
 
@@ -132,49 +135,141 @@ showPopup: boolean = false;
   }
 
 
-  initSocketListener() {
-    Socketservice.instance.initSocket({
-      token: this.token,
-      userId: this.userId,
-      joinroom: `finexpertchat:user:${this.userId}`,
-      eventName: "chat:adminget",
-      onData: (data) => {
-        const msgs = Array.isArray(data.msg) ? data.msg : [];
-        const newCount = msgs.length;
-        const newLastId = newCount ? msgs[newCount - 1]._id ?? null : null;
+//   initSocketListener() {
+//     Socketservice.instance.initSocket({
+//       token: this.token,
+//       userId: this.userId,
+//       joinroom: `finexpertchat:user:${this.userId}`,
+//       eventName: "chat:adminget",
+//       onData: (data) => {
+//         const msgs = Array.isArray(data.msg) ? data.msg : [];
+//         const newCount = msgs.length;
+//         const newLastId = newCount ? msgs[newCount - 1]._id ?? null : null;
 
-        if (this.userChat.length === newCount && this.lastMsgId && newLastId && this.lastMsgId === newLastId) {
-          return;
-        }
+//         if (this.userChat.length === newCount && this.lastMsgId && newLastId && this.lastMsgId === newLastId) {
+//           return;
+//         }
 
-        if (!this.ticketId) {
-          this.ticketId = data.lastTicket?._id ?? null;
-        }
+//         if (!this.ticketId) {
+//           this.ticketId = data.lastTicket?._id ?? null;
+//         }
 
-        this.userChat = msgs;
-        this.lastMsgCount = newCount;
-        this.lastMsgId = newLastId;
-
-
-        if (newCount > 0 && this.chatSelected) {
-          const lastMessage = msgs[newCount - 1];
-          if (lastMessage.sender === 'user') {
-            this.triggerLastMessageUpdate(this.chatSelected, lastMessage.text, lastMessage.createdAt);
-          }
-        }
-        // Listen typing
-          this.subTyping = Socketservice.instance.typing$.subscribe((status) => {
-          this.isOtherTyping = status;
-          this.cd.detectChanges();
-        });
-
-        this.cd.detectChanges();
-        this.scrollToBottomInstant();
+//         this.userChat = msgs;
+//         this.lastMsgCount = newCount;
+//         this.lastMsgId = newLastId;
 
 
+//         if (newCount > 0 && this.chatSelected) {
+//   const lastMessage = msgs[newCount - 1];
+
+//   if (lastMessage.sender === 'user') {
+//     this.triggerLastMessageUpdate(
+//       this.chatSelected,
+//       lastMessage.text,
+//       lastMessage.createdAt
+//     );
+
+//     // 🔔 Show desktop notification when tab is not visible (like WhatsApp Web)
+//     if (document.visibilityState === 'hidden') {
+//       this.notificationService.showNotification(
+//         this.chat || 'New message',
+//         {
+//           body: lastMessage.text || 'New message',
+//           icon: 'assets/favicon.ico'  // this loads from /assets/favicon.ico
+//         }
+//       );
+//     }
+//   }
+// }
+
+//         // Listen typing
+//           this.subTyping = Socketservice.instance.typing$.subscribe((status) => {
+//           this.isOtherTyping = status;
+//           this.cd.detectChanges();
+//         });
+
+//         this.cd.detectChanges();
+//         this.scrollToBottomInstant();
+
+//       }
+//     });
+//   }
+initSocketListener() {
+  Socketservice.instance.initSocket({
+    token: this.token,
+    userId: this.userId,
+    joinroom: `finexpertchat:user:${this.userId}`,
+    eventName: "chat:adminget",
+    onData: (data) => {
+      console.log('[Right] Socket data received:', data);
+
+      const msgs = Array.isArray(data.msg) ? data.msg : [];
+      const newCount = msgs.length;
+      const newLastId = newCount ? msgs[newCount - 1]._id ?? null : null;
+
+      // Avoid duplicate updates
+      if (this.userChat.length === newCount && this.lastMsgId && newLastId && this.lastMsgId === newLastId) {
+        console.log('[Right] No new messages, skipping');
+        return;
       }
-    });
+
+      if (!this.ticketId) {
+        this.ticketId = data.lastTicket?._id ?? null;
+      }
+
+      this.userChat = msgs;
+      this.lastMsgCount = newCount;
+      this.lastMsgId = newLastId;
+
+      if (newCount > 0) {
+  const lastMessage = msgs[newCount - 1];
+  console.log('[Right] Last message:', lastMessage);
+
+  const isFromUser =
+    lastMessage.sender === 'user' ||
+    lastMessage.senderRole === 'user';
+
+  if (isFromUser) {
+    if (this.chatSelected) {
+      this.triggerLastMessageUpdate(
+        this.chatSelected,
+        lastMessage.text,
+        lastMessage.createdAt
+      );
+    }
+
+
+    const userName =
+      this.chat ||
+      data?.name?.username ||
+      data?.name ||
+      lastMessage.userName ||
+      'New message';
+
+    console.log('[Right] New user message from:', userName);
+
+    this.notificationService.showNotification(
+      userName,
+      {
+        body: lastMessage.text || 'New message',
+        icon: 'assets/favicon.ico'
+      }
+    );
   }
+}
+
+      // Listen typing
+      this.subTyping = Socketservice.instance.typing$.subscribe((status) => {
+        this.isOtherTyping = status;
+        this.cd.detectChanges();
+      });
+
+      this.cd.detectChanges();
+      this.scrollToBottomInstant();
+    }
+  });
+}
+
 
   getUserchatById(id: string, log: boolean = false): void {
     const apiUrl = `${ApiRoutesConstants.BASE_URL}${ApiRoutesConstants.userchats}/${id}/chats`;
@@ -253,14 +348,20 @@ toggleDropdown() {
 }
 
 
-  agentReply(text: string, type: 'text' | 'end' | 'questions'): void {
+agentReply(text: string, type: 'text' | 'end' | 'questions'): void {
+  const trimmed = (text || '').trim();
 
+  // Don't send empty messages unless there's a file or it's 'end'
+  if (type !== 'end' && !trimmed && !this.selectedFile) {
+    return;
+  }
 
+  // 1) If it's an END TEMPLATE message
   if (type === 'end') {
     const apiUrl = `${ApiRoutesConstants.BASE_URL}${ApiRoutesConstants.AgentReply}/${this.ticketId}/reply`;
 
     const body = {
-      text: "I’m happy to assist! Is there anything else I can help you with?",
+      text: "I’m happy to assist! Is there anything else I can help you with?",
       type: "Template"
     };
 
@@ -271,120 +372,70 @@ toggleDropdown() {
 
     return;
   }
-  if (type === 'text') {
-     this.dropdownOpen = false;
 
-  const message = text;
-  const nowIso = new Date().toISOString();
-
-
-  const tempMsg: any = {
-    _id: 'temp-' + nowIso,
-    text: message,
-    createdAt: nowIso,
-    sender: 'agent'
-  };
-
-  this.userChat = [...this.userChat, tempMsg];
-  this.lastMsgCount = this.userChat.length;
-
-  this.cd.detectChanges();
- this.scrollToBottomInstant();
-
-  this.triggerLastMessageUpdate(this.chatSelected, message, nowIso);
-
-
-  const apiUrl = `${ApiRoutesConstants.BASE_URL}${ApiRoutesConstants.AgentReply}/${this.ticketId}/reply`;
-
-  const body = {
-    text: message,
-    // type: "text"
-  };
- this.dropdownOpen = false;
-  this.navService.postData(apiUrl, body).subscribe({
-    next: (res: any) => {
-      if (res.data) {
-        const realMsg = res.data;
-
-        this.userChat = this.userChat.map(m =>
-          m._id === tempMsg._id ? realMsg : m
-        );
-
-        this.triggerLastMessageUpdate(this.chatSelected, message, nowIso);
-
-        this.cd.detectChanges();
-        this.scrollToBottomInstant();
-      }
-    },
-    error: (err: any) => {
-      console.error("Predefined question error:", err);
-    }
-  });
-
-
-  return;
-}
-
-
-  const message = text.trim();
-
-
-
+  // 2) If there is a selected file, send it first
   if (this.selectedFile) {
     this.sendAttachment(this.selectedFile);
-    console.log("url",this.selectedFile);
+    console.log("url", this.selectedFile);
 
     this.removeSelectedFile();
-    return;
+
+    // If there is NO text along with the file, we are done
+    if (!trimmed) {
+      return;
+    }
+    // If there IS text too, we continue and send the text as a normal message
   }
 
+  // 3) Handle predefined question text
+  if (type === 'text' || type === 'questions') {
+    this.dropdownOpen = false;
 
-  if (!message || !this.ticketId || !this.chatSelected) return;
+    const message = type === 'questions' ? text : trimmed; // for questions we trust the predefined text
+    const nowIso = new Date().toISOString();
 
-  const apiUrl = `${ApiRoutesConstants.BASE_URL}${ApiRoutesConstants.AgentReply}/${this.ticketId}/reply`;
-  const nowIso = new Date().toISOString();
+    const tempMsg: any = {
+      _id: 'temp-' + nowIso,
+      text: message,
+      createdAt: nowIso,
+      sender: 'agent'
+    };
 
+    this.userChat = [...this.userChat, tempMsg];
+    this.lastMsgCount = this.userChat.length;
 
-  const tempMsg: any = {
-    _id: 'temp-' + nowIso,
-    text: message,
-    createdAt: nowIso,
-    sender: 'agent'
-  };
+    this.cd.detectChanges();
+    this.scrollToBottomInstant();
 
-  // Push temp message
-  this.userChat = [...this.userChat, tempMsg];
-  this.lastMsgCount = this.userChat.length;
+    this.triggerLastMessageUpdate(this.chatSelected, message, nowIso);
 
-  this.cd.detectChanges();
-  this.scrollToBottomInstant();
+    const apiUrl = `${ApiRoutesConstants.BASE_URL}${ApiRoutesConstants.AgentReply}/${this.ticketId}/reply`;
+    const body = { text: message };
 
-  // Update left-side "last message"
-  this.triggerLastMessageUpdate(this.chatSelected, message, nowIso);
+    this.navService.postData(apiUrl, body).subscribe({
+      next: (res: any) => {
+        if (res.data) {
+          const realMsg = res.data;
 
-  // API call
-  const body = { text: message };
-  this.navService.postData(apiUrl, body).subscribe({
-    next: (res: any) => {
-      if (res.data) {
-        const realMsg = res.data;
-        console.log("realmsg",realMsg);
+          this.userChat = this.userChat.map(m =>
+            m._id === tempMsg._id ? realMsg : m
+          );
 
-        this.userChat = this.userChat.map(m =>
-          m._id === tempMsg._id ? realMsg : m
-        );
+          this.triggerLastMessageUpdate(this.chatSelected, message, nowIso);
 
-        this.triggerLastMessageUpdate(this.chatSelected, message, nowIso);
-
-        this.cd.detectChanges();
-        this.scrollToBottomInstant();
+          this.cd.detectChanges();
+          this.scrollToBottomInstant();
+        }
+      },
+      error: (err: any) => {
+        console.error("Predefined question / text send error:", err);
       }
-    },
-    error: (err: any) => {
-      console.error('[Right] Error sending reply:', err);
-    }
-  });
+    });
+
+    return;
+  }
 }
+
 
 
   private triggerLastMessageUpdate(userId: string | null, text: string, createdAt: string) {
@@ -420,6 +471,7 @@ private scrollToBottomInstant() {
 triggerFileUpload() {
   this.fileInput.nativeElement.click();
 }
+
 sendAttachment(file: File) {
   if (!file) return;
 
@@ -436,14 +488,65 @@ sendAttachment(file: File) {
     next: (event: HttpEvent<any>) => {
       if (event.type === HttpEventType.UploadProgress) {
         const percentDone = Math.round((100 * event.loaded) / (event.total || 1));
-        console.log(`File is ${percentDone}% uploaded.`,formData);
+        console.log(`File is ${percentDone}% uploaded.`, formData);
 
       } else if (event.type === HttpEventType.Response) {
         clearTimeout(timeout);
         const res: any = event.body;
+
         if (res?.Status === 'Success') {
-          this.getFilePath.emit(res.Data);
+          const fileUrl = res.Data; // assume backend returns URL or path string
+          console.log('Uploaded file URL:', fileUrl);
+
+          // 1) Push a temp message into chat so it’s visible immediately
+          const nowIso = new Date().toISOString();
+          const tempMsg: any = {
+            _id: 'temp-' + nowIso,
+            text: '',                 // or file.name if you want
+            attachments: [fileUrl],   // IMPORTANT: matches your template
+            createdAt: nowIso,
+            sender: 'agent'
+          };
+
+          this.userChat = [...this.userChat, tempMsg];
+          this.lastMsgCount = this.userChat.length;
+
+          this.cd.detectChanges();
+          this.scrollToBottomInstant();
+
+          // 2) Optionally send as a real chat message to backend
+          if (this.ticketId) {
+            const apiUrl =
+              `${ApiRoutesConstants.BASE_URL}${ApiRoutesConstants.AgentReply}/${this.ticketId}/reply`;
+
+            const body: any = {
+              attachments: [fileUrl]
+              // you can also send text: file.name or type: 'file' if your API expects it
+            };
+
+            this.navService.postData(apiUrl, body).subscribe({
+              next: (replyRes: any) => {
+                if (replyRes.data) {
+                  const realMsg = replyRes.data;
+
+                  this.userChat = this.userChat.map(m =>
+                    m._id === tempMsg._id ? realMsg : m
+                  );
+
+                  this.cd.detectChanges();
+                  this.scrollToBottomInstant();
+                }
+              },
+              error: (err: any) => {
+                console.error('[Right] Error sending attachment message:', err);
+              }
+            });
+          }
+
+          // 3) Keep your existing emitter/toast if parent needs the URL
+          this.getFilePath.emit(fileUrl);
           this.alertService.toast("success", true, res.Message);
+
         } else {
           this.alertService.toast("error", true, res.Message);
         }
@@ -454,6 +557,18 @@ sendAttachment(file: File) {
       this.alertService.toast("error", true, error?.error?.Message || 'Upload failed.');
     }
   });
+}
+
+onEnter(msg: HTMLTextAreaElement) {
+  const value = msg.value || '';
+  const trimmed = value.trim();
+
+  if (!trimmed && !this.selectedFile) {
+    return;
+  }
+
+  this.agentReply(value, 'text');
+  msg.value = '';
 }
 
 
@@ -558,6 +673,8 @@ formatMessage(text: string): string {
     const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
     return imageExtensions.includes(fileExtension || '');
   }
+
+
 
 
 }
