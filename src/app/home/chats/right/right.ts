@@ -78,6 +78,7 @@ showPopup: boolean = false;
 
   token = localStorage.getItem("token")!;
   userId = localStorage.getItem("userid")!;
+  username = localStorage.getItem("username")!;
 
   constructor(
     private navService: Data,
@@ -92,6 +93,9 @@ showPopup: boolean = false;
     this.userId = tokenData.user_id;
     this.notificationService.requestPermission();
     this.initSocketListener();
+    console.log(this.userId);
+    console.log(this.username);
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -221,6 +225,7 @@ initSocketListener() {
       this.lastMsgCount = newCount;
       this.lastMsgId = newLastId;
 
+
       if (newCount > 0) {
   const lastMessage = msgs[newCount - 1];
   console.log('[Right] Last message:', lastMessage);
@@ -259,8 +264,14 @@ initSocketListener() {
 }
 
       // Listen typing
-      this.subTyping = Socketservice.instance.typing$.subscribe((status) => {
-        this.isOtherTyping = status;
+      this.subTyping = Socketservice.instance.typing$.subscribe((data) => {
+        console.log('newdatesocket',data);
+
+        if(this.chatSelected===data?.userId){
+
+
+          this.isOtherTyping = data.isTyping;
+        }
         this.cd.detectChanges();
       });
 
@@ -609,12 +620,12 @@ makeClickable(text: string) {
 
 
 onTyping() {
-    Socketservice.instance.sendTyping(true);
+    Socketservice.instance.sendTyping(true,this.chatSelected);
 
     if (this.typingTimeout) clearTimeout(this.typingTimeout);
 
     this.typingTimeout = setTimeout(() => {
-      Socketservice.instance.sendTyping(false);
+      Socketservice.instance.sendTyping(false,this.chatSelected);
     }, 1000);
 }
 

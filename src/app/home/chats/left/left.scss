@@ -190,15 +190,9 @@
             color: var(--dark-text);
         }
 
-        // .chat-list {
-        //     flex: 1;
-        //     overflow-y: auto;
-        //     background-color: var(--white);
-        //     padding: 10px 0;
-        // }
         .chat-list {
   flex: 1;
-  max-height:56%;           /* important: lets overflow work inside flex */
+  max-height:50%;           /* important: lets overflow work inside flex */
   overflow-y: hidden;        /* enables scrolling */
   background-color: var(--white);
   padding: 0 0 10px;

@@ -266,14 +266,14 @@ NavItems: any[]=[
         checked: false,
         path: '/admin/agent'
       },
-      {
-        id: 'chats',
-        title: 'Chat',
-        icon: 'fas fa-history',
-        status: false,
-        checked: false,
-        path: '/admin/chats'
-      },
+      // {
+      //   id: 'chats',
+      //   title: 'Chat',
+      //   icon: 'fas fa-history',
+      //   status: false,
+      //   checked: false,
+      //   path: '/admin/chats'
+      // },
       {
         id: 'performance',
         title: 'Performace History',

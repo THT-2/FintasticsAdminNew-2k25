@@ -18,6 +18,7 @@ export class Navbar {
   @Input() isCollapsed: boolean = false;
   @Output() toggleSidebar = new EventEmitter<void>();
   isDarkMode = false;
+  username = localStorage.getItem("username")!;
 
   constructor(private dialog:MatDialog,private renderer: Renderer2,
     private router: Router, private alertService : AlertService,){}

@@ -13,7 +13,7 @@ export class Socketservice {
 
   private lastMessageSubject = new Subject<any>();
   public lastMessage$ = this.lastMessageSubject.asObservable();
-  private typingSubject = new BehaviorSubject<boolean>(false);
+  private typingSubject = new BehaviorSubject<any>({});
   public typing$ = this.typingSubject.asObservable();
 
   private currentUserId: any;   // <-- store userId so we know who is typing
@@ -52,6 +52,8 @@ export class Socketservice {
 
     // main data listener
     this.socket.on(eventName, (data: any) => {
+      console.log("data",data);
+
       onData(data);
     });
 
@@ -67,17 +69,19 @@ export class Socketservice {
       }
 
       // ✔ Show other user typing
-      this.typingSubject.next(payload.isTyping === true);
+      this.typingSubject.next(payload);
+
     });
   }
 
   // 🔥🔥 EMIT TYPING EXACTLY AS BACKEND EXPECTS
-  sendTyping(isTyping: boolean) {
+  sendTyping(isTyping: boolean,userIds:any) {
     if (!this.socket) return;
 
-    console.log("📤 sending chat:typing", { isTyping });
+    console.log("📤 sending chat:typing", { isTyping ,userIds});
 
     this.socket.emit("chat:typing", {
+      userId:userIds,
       isTyping: isTyping
     });
   }
