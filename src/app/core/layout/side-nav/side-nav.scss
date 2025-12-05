@@ -74,7 +74,7 @@ margin-left: 10px; }
 }
 
 .submenu {
-  padding-left: 20px;
+  padding-left: 2px;
   display: flex;
   flex-direction: column;
 }
@@ -144,6 +144,7 @@ margin-left: 10px; }
     .sidebar.collapsed .menu-heading {
       display: none;
     }
+    
 
 /* Dashboard icons */
 .fa-tachometer-alt { color: #5a4fcf; }
@@ -310,6 +311,8 @@ margin-left: 10px; }
   padding: 12px 14px;
   border: 0;
   background: transparent;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
   cursor: pointer;
   font-weight: 600;
 }
@@ -366,3 +369,468 @@ margin-left: 10px; }
   padding: 8px 16px;
   opacity: 0.7;
 }
+
+
+
+
+/* ========== TOKENS ========== */
+// :root {
+//   --sidebar-width: 260px;
+//   --sidebar-collapsed-width: 80px;
+
+//   --clr-purple-deep: #1b1135;
+//   --clr-purple-main: #7c3aed;
+//   --clr-purple-soft: #ede9fe;
+//   --clr-pink: #ec4899;
+//   --clr-cyan: #22d3ee;
+
+//   --clr-text-strong: #f9f5ff;
+//   --clr-text-soft: #d1c8ff;
+// }
+
+// /* Make logo fixed at the top and NOT part of the scrollable area */
+// .logo {
+//   position: sticky;
+//   top: 0;
+//   z-index: 10;
+//   background: inherit;   /* keep gradient or bg */
+//   padding: 14px 16px;
+//   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+// }
+
+
+// /* ========== SIDEBAR CONTAINER ========== */
+
+// .sidebar {
+//   width: var(--sidebar-width);
+//   height: 100vh;
+//   position: fixed;
+//   inset-block: 0;
+//   left: 0;
+//   z-index: 1000;
+
+//   display: flex;
+//   flex-direction: column;
+
+//   /* rich, layered gradient */
+//   background:
+//     radial-gradient(circle at top left, #a855f76b, transparent 60%),
+//     radial-gradient(circle at bottom right, #22d3ee66, transparent 55%),
+//     linear-gradient(200deg, #1f1038 0%, #2c1344 40%, #3b174f 100%);
+//   border-right: 1px solid rgba(148, 163, 253, 0.4);
+//   // box-shadow: 16px 0 45px rgba(10, 6, 30, 0.9);
+
+//   overflow-y: auto;
+//   overflow-x: hidden;
+//   -webkit-overflow-scrolling: touch;
+//   scrollbar-width: thin;
+//   scrollbar-color: #6d28d9 transparent;
+
+//   transition: width 0.25s ease, transform 0.25s ease;
+// }
+
+// /* collapsed */
+// .sidebar.collapsed {
+//   width: var(--sidebar-collapsed-width);
+// }
+
+// /* scrollbar */
+// .sidebar::-webkit-scrollbar {
+//   width: 5px;
+// }
+// .sidebar::-webkit-scrollbar-thumb {
+//   background: #6d28d9;
+//   border-radius: 999px;
+// }
+// .sidebar::-webkit-scrollbar-track {
+//   background: transparent;
+// }
+
+// /* ========== LOGO ========== */
+
+// .logo {
+//   flex-shrink: 0;
+//   padding: 14px 16px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+
+//   position: sticky;
+//   top: 0;
+
+//   background: linear-gradient(90deg, #2a1744, #3b214f);
+//   border-bottom: 1px solid rgba(148, 163, 253, 0.4);
+//   z-index: 10;
+// }
+
+// .logo img {
+//   max-width: 170px;
+//   height: auto;
+// }
+
+// .logo-compact {
+//   width: 30px;
+// }
+
+// /* hide/show logos based on collapsed state */
+// .sidebar.collapsed .logo-full {
+//   display: none;
+// }
+// .sidebar:not(.collapsed) .logo-compact {
+//   display: none;
+// }
+
+// /* ========== NAV SCROLL AREA ========== */
+
+
+// .nav-scroll {
+//   flex: 1;
+//   overflow-y: auto;
+//   overflow-x: hidden;
+//   padding: 0px;
+//   scrollbar-width: thin;     /* makes it thin */
+//   scrollbar-color: rgba(255,255,255,0.35) transparent;
+// }
+
+
+// .nav-scroll::-webkit-scrollbar {
+//   width: 4px;        /* thinner */
+// }
+
+// .nav-scroll::-webkit-scrollbar-track {
+//   background: transparent;
+// }
+
+// .nav-scroll::-webkit-scrollbar-thumb {
+//   background: rgba(255, 255, 255, 0.35);
+//   border-radius: 20px;          /* round shape */
+// }
+
+// .nav-scroll::-webkit-scrollbar-thumb:hover {
+//   background: rgba(255, 255, 255, 0.6);
+// }
+
+// /* ========== SECTION HEADING (CHIP WITH GLOW) ========== */
+
+// .menu-heading {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   /* this is important so text can shrink instead of overflowing */
+//   min-width: 0;
+// }
+
+// .section-title {
+//   flex: 1;              /* take the available space */
+//   min-width: 0;         /* allow flexbox to shrink this */
+//   white-space: nowrap;  /* keep on one line */
+//   overflow: hidden;     /* hide the extra text */
+//   text-overflow: ellipsis; /* show "..." */
+// }
+
+// .menu-item {
+//   display: flex;
+//   align-items: center;
+//   gap: 10px;
+//   min-width: 0;          /* crucial for ellipsis inside flex */
+// }
+
+// .menu-label {
+//   flex: 1;               /* let text fill remaining space */
+//   min-width: 0;
+//   white-space: nowrap;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+// }
+
+// .menu-heading {
+//   width: 100%;
+//   border: 1;
+//   cursor: pointer;
+
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+
+//   margin-top: 14px;
+//   padding: 8px 11px;
+
+//   border-radius: 999px;
+//   background: linear-gradient(90deg, #312260, #3f255f);
+//   color: white;
+//   font-size: 11px;
+//   letter-spacing: 0.16em;
+//   text-transform: uppercase;
+//   font-weight: 600;
+
+//   box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.35),
+//               0 10px 25px rgba(15, 23, 42, 0.9);
+
+//   transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease,
+//               color 0.2s ease;
+// }
+
+// .menu-heading:hover {
+//   background: linear-gradient(90deg, #43318a, #4b2f7b);
+//   transform: translateY(-1px);
+//   box-shadow: 0 14px 30px rgba(15, 23, 42, 1);
+//   color: #e5e7eb;
+// }
+
+// .section-title {
+//   white-space: nowrap;
+// }
+
+// .chevron {
+//   font-size: 11px;
+//   color: var(--clr-text-soft);
+//   transition: transform 0.2s ease, color 0.2s ease;
+// }
+
+// /* draw the actual chevron if you don't use an icon font */
+// .chevron::before {
+//   content: '▸';
+// }
+// .chevron.rotate {
+//   transform: rotate(90deg);
+//   color: #a5b4fc;
+// }
+
+// /* collapsed: centre just the chevron pill */
+// .sidebar.collapsed .section-title {
+//   display: none;
+// }
+// .sidebar.collapsed .menu-heading {
+//   justify-content: center;
+// }
+
+// /* ========== SUBMENU WRAPPER (ANIMATED OPEN) ========== */
+
+// .submenu-wrapper {
+//   max-height: 0;
+//   opacity: 0;
+//   overflow: hidden;
+//   transition: max-height 0.35s ease, opacity 0.25s ease;
+// }
+
+// .submenu-wrapper.open {
+//   max-height: 600px;
+//   opacity: 1;
+// }
+
+// /* ========== SUBMENU & MENU ITEMS (GLASS CARDS) ========== */
+
+// .submenu {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 6px;
+//   padding: 6px 3px 8px 6px;
+//   margin-top: 4px;
+// }
+
+// /* core item */
+// .menu-item {
+//   position: relative;
+//   display: flex;
+//   align-items: center;
+//   gap: 10px;
+
+//   padding: 8px 11px;
+//   margin: 1px 2px;
+
+//   border-radius: 16px;
+//   text-decoration: none;
+
+//   color: whitesmoke;
+//   font-size: 13px;
+//   font-weight: 500;
+
+//   background: rgba(15, 23, 42, 0.35);
+//   border: 3px solid rgba(148, 163, 253, 0.35);
+//   backdrop-filter: blur(18px);
+
+//   box-shadow: 0 10px 26px rgba(15, 23, 42, 0.9);
+
+//   transition: background 0.2s ease, color 0.2s ease,
+//               box-shadow 0.2s ease, transform 0.2s ease,
+//               border-color 0.2s ease;
+// }
+
+// /* inner colorful stripe using gradient */
+// .menu-item::before {
+//   content: '';
+//   position: absolute;
+//   inset: 0;
+//   border-radius: inherit;
+//   padding: 1px;
+//   background: linear-gradient(120deg, rgba(236, 72, 153, 0.4),
+//                                        rgba(129, 140, 248, 0.5),
+//                                        rgba(45, 212, 191, 0.4));
+//   -webkit-mask:
+//     linear-gradient(#000 0 0) content-box,
+//     linear-gradient(#000 0 0);
+//   -webkit-mask-composite: xor;
+//           mask-composite: exclude;
+//   opacity: 0.4;
+//   pointer-events: none;
+// }
+
+// /* icon pill */
+// .menu-icon {
+//   width: 28px;
+//   height: 28px;
+//   border-radius: 999px;
+//   display: inline-flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: 14px;
+
+//   background: radial-gradient(circle at 20% 0%, #f9fafb, #e0e7ff);
+//   color: #4f46e5;
+//   box-shadow: 0 8px 18px rgba(15, 23, 42, 0.8);
+// }
+
+// .menu-label {
+//   white-space: nowrap;
+// }
+
+// /* hover state = slight lift + brighter */
+// .menu-item:hover {
+//   background: rgba(30, 64, 175, 0.85);
+//   border-color: rgba(191, 219, 254, 0.9);
+//   color: #f9fafb;
+//   transform: translateX(5px) translateY(-1px);
+//   box-shadow: 0 16px 34px rgba(15, 23, 42, 1);
+// }
+
+// /* active route = bright glass chip */
+// .menu-item.active {
+//   background: linear-gradient(120deg, #f9fafb, #fdf2ff);
+//   color: #111827;
+//   border-color: #e879f9;
+//   box-shadow: 0 18px 40px rgba(236, 72, 153, 0.75);
+// }
+
+// /* stronger border gradient on active */
+// .menu-item.active::before {
+//   opacity: 1;
+// }
+
+// /* active icon */
+// .menu-item.active .menu-icon {
+//   background: conic-gradient(from 160deg,
+//     #6366f1,
+//     #ec4899,
+//     #22d3ee,
+//     #6366f1
+//   );
+//   color: #f9fafb;
+// }
+
+// /* ========== COLLAPSED STATE ========== */
+
+// /* 🌙 COLLAPSED SIDEBAR = ICON DOCK */
+
+// .sidebar.collapsed {
+//   width: var(--sidebar-collapsed-width);
+//   /* keeps your height/position same */
+// }
+
+// /* Hide long text when collapsed */
+// .sidebar.collapsed .section-title,
+// .sidebar.collapsed .menu-label {
+//   display: none;
+// }
+
+// /* Make section headings small round chips with just a dot or subtle separation */
+// .sidebar.collapsed .menu-heading {
+//   width: 40px;
+//   height: 40px;
+//   border-radius: 999px;
+//   padding: 0;
+//   margin: 10px auto 4px;
+//   justify-content: center;
+//   background: transparent;
+//   box-shadow: none;
+//   border: none;
+// }
+
+// /* hide chevron completely in collapsed */
+// .sidebar.collapsed .chevron {
+//   display: none;
+// }
+
+// /* Let submenu always be visible in collapsed (no accordion feeling) */
+// .sidebar.collapsed .submenu-wrapper {
+//   max-height: none;
+//   opacity: 1;
+// }
+
+// /* Center icons in a column */
+// .sidebar.collapsed .submenu {
+//   padding: 4px 0 8px 0;
+//   margin: 0;
+//   border-left: none;
+//   align-items: center;
+// }
+
+// /* Menu items become circular icon buttons */
+// .sidebar.collapsed .menu-item {
+//   width: 44px;
+//   height: 44px;
+//   border-radius: 999px;
+//   padding: 0;
+//   margin: 4px 0;
+//   justify-content: center;
+// }
+
+// /* If you're using .menu-icon span */
+// .sidebar.collapsed .menu-icon {
+//   margin: 0;
+// }
+
+// /* Slightly tone down border/glow in collapsed mode for cleaner look */
+// .sidebar.collapsed .menu-item::before {
+//   opacity: 0.4;
+// }
+
+// /* Hover/active still look good in small form */
+// .sidebar.collapsed .menu-item:hover {
+//   transform: translateY(-1px);
+// }
+
+// .sidebar.collapsed .menu-item.active {
+//   transform: translateY(-2px);
+// }
+
+// .sidebar.collapsed .menu-label {
+//   display: none;
+// }
+
+// .sidebar.collapsed .submenu {
+//   padding-left: 0;
+//   align-items: center;
+// }
+
+// .sidebar.collapsed .menu-item {
+//   justify-content: center;
+//   padding-inline: 8px;
+// }
+
+
+// /* ========== RESPONSIVE ========== */
+
+// @media (max-width: 1024px) {
+//   .sidebar {
+//     width: 230px;
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .sidebar {
+//     transform: translateX(-100%);
+//   }
+//   .sidebar.show {
+//     transform: translateX(0);
+//   }
+// }

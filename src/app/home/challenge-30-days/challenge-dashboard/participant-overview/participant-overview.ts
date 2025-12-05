@@ -76,8 +76,9 @@ export class ParticipantOverview implements OnInit{
     getActions(event:any){
     console.log("data",event);
     if (event.actions === 'Edit') {
-      this.router.navigate(['/admin/banners/edit',event.data._id]);
-    }else if (event.actions === 'View'){
+      // this.router.navigate(['/admin/banners/edit',event.data._id]);
+    }
+    else if (event.actions === 'View'){
 
 
     // store the user id in signal
@@ -85,40 +86,41 @@ export class ParticipantOverview implements OnInit{
 
     // navigate to user activity module
       this.router.navigate(['/admin/user-activity-dashboard',event.data._id]);
-      
-    }else if (event.actions === 'Delete'){
-      const dialogRef = this.dialog.open(MessageDialogue, {
-        data: {
-          message: 'Do you want to delete this Event ?',
-          buttonText: {
-            ok: 'Ok',
-            cancel: 'Close'
-          }
-        }
-      });
-      dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-        if (confirmed) {
-          let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.Banners_delete+"/"+event.data._id;
-          this.navService.postData(apiUrl,{}).subscribe({
-            next: (res: any) => {
-              if (res['status'] == true) {
-                this.alertService.toast("success",true,res.message);
-                this.getparticipantslist();
-              }
-              window.location.reload();
-            },
-            error: (error: any) => {
-              console.log(error);
-              if (error.error?.message) {
-                this.responseMessage = error.error.message;
-              } else {
-                this.responseMessage = GlobalConstant.genericError;
-              }
-            }
-          })
-        }
-      })
+
     }
+    // else if (event.actions === 'Delete'){
+    //   const dialogRef = this.dialog.open(MessageDialogue, {
+    //     data: {
+    //       message: 'Do you want to delete this Event ?',
+    //       buttonText: {
+    //         ok: 'Ok',
+    //         cancel: 'Close'
+    //       }
+    //     }
+    //   });
+    //   dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+    //     if (confirmed) {
+    //       let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.Banners_delete+"/"+event.data._id;
+    //       this.navService.postData(apiUrl,{}).subscribe({
+    //         next: (res: any) => {
+    //           if (res['status'] == true) {
+    //             this.alertService.toast("success",true,res.message);
+    //             this.getparticipantslist();
+    //           }
+    //           window.location.reload();
+    //         },
+    //         error: (error: any) => {
+    //           console.log(error);
+    //           if (error.error?.message) {
+    //             this.responseMessage = error.error.message;
+    //           } else {
+    //             this.responseMessage = GlobalConstant.genericError;
+    //           }
+    //         }
+    //       })
+    //     }
+    //   })
+    // }
   }
 }
 

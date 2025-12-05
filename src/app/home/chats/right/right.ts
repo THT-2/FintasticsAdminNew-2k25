@@ -23,6 +23,7 @@ import { AlertService } from '../../../constants/alertservice';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 import { NotificationService } from '../../../Service/notification-service';
+import { log } from 'node:console';
 
 // interface ChatPayload {
 //   msg?: any[];
@@ -47,6 +48,8 @@ export class Right implements OnChanges, OnInit, OnDestroy {
   @Output() chatEnded = new EventEmitter<void>();
   @ViewChild('chatContainer') chatContainer!: ElementRef;
   @ViewChild('fileInput') fileInput!: ElementRef;
+   @ViewChild('dropdownContainer') dropdownContainer!: ElementRef;
+  dropdownOpen = false;
   fileUploadControl!: FormControl;
   @Output() getFilePath = new EventEmitter();
 
@@ -139,65 +142,97 @@ showPopup: boolean = false;
   }
 
 
-//   initSocketListener() {
-//     Socketservice.instance.initSocket({
-//       token: this.token,
-//       userId: this.userId,
-//       joinroom: `finexpertchat:user:${this.userId}`,
-//       eventName: "chat:adminget",
-//       onData: (data) => {
-//         const msgs = Array.isArray(data.msg) ? data.msg : [];
-//         const newCount = msgs.length;
-//         const newLastId = newCount ? msgs[newCount - 1]._id ?? null : null;
 
-//         if (this.userChat.length === newCount && this.lastMsgId && newLastId && this.lastMsgId === newLastId) {
-//           return;
-//         }
+// initSocketListener() {
+//   Socketservice.instance.initSocket({
+//     token: this.token,
+//     userId: this.userId,
+//     joinroom: `finexpertchat:user:${this.userId}`,
+//     eventName: "chat:adminget",
+//     onData: (data) => {
+//       console.log('[Right] Socket data received:', data);
 
-//         if (!this.ticketId) {
-//           this.ticketId = data.lastTicket?._id ?? null;
-//         }
-
-//         this.userChat = msgs;
-//         this.lastMsgCount = newCount;
-//         this.lastMsgId = newLastId;
+//       const msgs = Array.isArray(data.msg) ? data.msg : [];
+//       const newCount = msgs.length;
+//       const newLastId = newCount ? msgs[newCount - 1]._id ?? null : null;
 
 
-//         if (newCount > 0 && this.chatSelected) {
+
+//       // Avoid duplicate updates
+//       if (this.userChat.length === newCount && this.lastMsgId && newLastId && this.lastMsgId === newLastId) {
+//         console.log('[Right] No new messages, skipping');
+//         return;
+//       }
+
+//       if (!this.ticketId) {
+//         this.ticketId = data.lastTicket?._id ?? null;
+//       }
+
+//       this.userChat = msgs;
+//       this.lastMsgCount = newCount;
+//       this.lastMsgId = newLastId;
+
+
+//       if (newCount > 0) {
 //   const lastMessage = msgs[newCount - 1];
+//   console.log('[Right] Last message:', lastMessage);
 
-//   if (lastMessage.sender === 'user') {
-//     this.triggerLastMessageUpdate(
-//       this.chatSelected,
-//       lastMessage.text,
-//       lastMessage.createdAt
-//     );
+//   const isFromUser =
+//     lastMessage.sender === 'user' ||
+//     lastMessage.senderRole === 'user';
 
-//     // 🔔 Show desktop notification when tab is not visible (like WhatsApp Web)
-//     if (document.visibilityState === 'hidden') {
-//       this.notificationService.showNotification(
-//         this.chat || 'New message',
-//         {
-//           body: lastMessage.text || 'New message',
-//           icon: 'assets/favicon.ico'  // this loads from /assets/favicon.ico
-//         }
+//   if (isFromUser) {
+//     if (this.chatSelected) {
+//       this.triggerLastMessageUpdate(
+//         this.chatSelected,
+//         lastMessage.text,
+//         lastMessage.createdAt
 //       );
 //     }
+
+
+//     const userName =
+//       this.chat ||
+//       data?.name?.username ||
+//       data?.name ||
+//       lastMessage.userName ||
+//       'New message';
+
+//     console.log('[Right] New user message from:', userName);
+
+//     this.notificationService.showNotification(
+//       userName,
+//       {
+//         body: lastMessage.text || 'New message',
+//         icon: 'assets/favicon.ico'
+//       }
+//     );
 //   }
 // }
 
-//         // Listen typing
-//           this.subTyping = Socketservice.instance.typing$.subscribe((status) => {
-//           this.isOtherTyping = status;
-//           this.cd.detectChanges();
-//         });
+//       // Listen typing
+//       this.subTyping = Socketservice.instance.typing$.subscribe((data) => {
+//         console.log('newdatesocket',data);
 
+//         if(this.chatSelected===data?.userId){
+
+//           this.isOtherTyping = data.isTyping;
+//           console.log("other",this.isOtherTyping);
+
+//           console.log("chatselectedd",this.chatSelected);
+//           console.log("useridnewdsalkhfksa",data.userId);
+
+
+//         }
 //         this.cd.detectChanges();
-//         this.scrollToBottomInstant();
+//       });
 
-//       }
-//     });
-//   }
+//       this.cd.detectChanges();
+//       this.scrollToBottomInstant();
+//     }
+//   });
+// }
+
 initSocketListener() {
   Socketservice.instance.initSocket({
     token: this.token,
@@ -211,6 +246,30 @@ initSocketListener() {
       const newCount = msgs.length;
       const newLastId = newCount ? msgs[newCount - 1]._id ?? null : null;
 
+      // 🔍 Identify which user this payload belongs to (by name/mobile)
+      const incomingName   = data?.name || null;
+      const incomingMobile = data?.mobile_num || null;
+
+      // These are the currently opened chat's values
+      const currentName   = this.chat || null;
+      const currentMobile = this.mobile || null;
+
+      const isDifferentUser =
+        (!!currentMobile && !!incomingMobile && currentMobile !== incomingMobile) ||
+        (!!currentName && !!incomingName && currentName !== incomingName);
+
+      if (isDifferentUser) {
+        console.log(
+          '[Right] Message is for another user. Not updating open chat body.',
+          { incomingName, incomingMobile, currentName, currentMobile }
+        );
+        // 👇 IMPORTANT: do NOT touch this.userChat here.
+        // Your left side is already updating via its own socket / stream.
+        return;
+      }
+
+      // 👇 From here on, this payload is for the *opened* chat
+
       // Avoid duplicate updates
       if (this.userChat.length === newCount && this.lastMsgId && newLastId && this.lastMsgId === newLastId) {
         console.log('[Right] No new messages, skipping');
@@ -218,59 +277,55 @@ initSocketListener() {
       }
 
       if (!this.ticketId) {
-        this.ticketId = data.lastTicket?._id ?? null;
+        this.ticketId = data.lastTicket?._id ?? data.lastTicket ?? null;
       }
 
       this.userChat = msgs;
       this.lastMsgCount = newCount;
       this.lastMsgId = newLastId;
 
-
       if (newCount > 0) {
   const lastMessage = msgs[newCount - 1];
   console.log('[Right] Last message:', lastMessage);
 
-  const isFromUser =
-    lastMessage.sender === 'user' ||
-    lastMessage.senderRole === 'user';
+  // 🔹 Build a preview from text + attachments (works for agent + user)
+  const previewText = this.getPreviewFromMessage(lastMessage);
 
-  if (isFromUser) {
-    if (this.chatSelected) {
-      this.triggerLastMessageUpdate(
-        this.chatSelected,
-        lastMessage.text,
-        lastMessage.createdAt
-      );
-    }
-
-
-    const userName =
-      this.chat ||
-      data?.name?.username ||
-      data?.name ||
-      lastMessage.userName ||
-      'New message';
-
-    console.log('[Right] New user message from:', userName);
-
-    this.notificationService.showNotification(
-      userName,
-      {
-        body: lastMessage.text || 'New message',
-        icon: 'assets/favicon.ico'
-      }
+  // 🔹 Notify Left for this conversation (open chat: guarded earlier by user filter)
+  if (this.chatSelected && previewText !== undefined) {
+    this.triggerLastMessageUpdate(
+      this.chatSelected,
+      previewText,
+      lastMessage.createdAt
     );
   }
+
+  // 🔹 Preserve your notification logic, but use previewText as body
+  const userName =
+    this.chat ||
+    data?.name?.username ||
+    data?.name ||
+    lastMessage.userName ||
+    'New message';
+
+  this.notificationService.showNotification(
+    userName,
+    {
+      body: previewText || lastMessage.text || 'New message',
+      icon: 'assets/favicon.ico'
+    }
+  );
 }
 
-      // Listen typing
+
+      // ⚠️ Subscribe to typing ONCE, ideally move this out of onData
       this.subTyping = Socketservice.instance.typing$.subscribe((data) => {
-        console.log('newdatesocket',data);
+        console.log('newdatesocket', data);
 
-        if(this.chatSelected===data?.userId){
-
-
+        if (this.chatSelected === data?.userId) {
           this.isOtherTyping = data.isTyping;
+        } else {
+          this.isOtherTyping = false;
         }
         this.cd.detectChanges();
       });
@@ -279,6 +334,66 @@ initSocketListener() {
       this.scrollToBottomInstant();
     }
   });
+}
+
+
+private getPreviewFromMessage(msg: any): string {
+  // 1. If there's normal text, use it
+  const baseText = (msg?.text || '').toString().trim();
+  if (baseText) return baseText;
+
+  // 2. No text → check attachments
+  const attachments: any[] = Array.isArray(msg?.attachments)
+    ? msg.attachments
+    : [];
+
+  if (!attachments.length) {
+    // 3. Fallback to type if available
+    const type = (msg?.type || '').toString().toLowerCase();
+
+    if (type.includes('image') || type === 'photo') return '📷 Photo';
+    if (type.includes('file') || type.includes('doc')) return '📄 Document';
+    if (type.includes('attach')) return '📎 Attachment';
+
+    return ''; // nothing usable
+  }
+
+  const first = attachments[0];
+  const url =
+    typeof first === 'string'
+      ? first
+      : first?.url || first?.path || '';
+
+  const ext = url.split('.').pop()?.toLowerCase() || '';
+
+  const imageExt = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
+  const docExt   = ['pdf', 'doc', 'docx', 'txt'];
+  const sheetExt = ['xls', 'xlsx', 'csv'];
+  const zipExt   = ['zip', 'rar', '7z'];
+
+  if (imageExt.includes(ext)) {
+    return attachments.length > 1
+      ? `📷 ${attachments.length} photos`
+      : '📷 Photo';
+  }
+
+  if (docExt.includes(ext)) {
+    return ext === 'pdf'
+      ? '📄 PDF document'
+      : '📄 Document';
+  }
+
+  if (sheetExt.includes(ext)) {
+    return '📊 Spreadsheet';
+  }
+
+  if (zipExt.includes(ext)) {
+    return '🗜️ Compressed file';
+  }
+
+  return attachments.length > 1
+    ? `📎 ${attachments.length} attachments`
+    : '📎 Attachment';
 }
 
 
@@ -328,7 +443,7 @@ initSocketListener() {
     });
   }
 
-dropdownOpen = false;
+
 
 predefinedQuestions: string[] = [
 "How may I help you today?",
@@ -354,10 +469,22 @@ predefinedQuestions: string[] = [
 "Any suggestions to improve your experience?"
 ];
 
-toggleDropdown() {
+toggleDropdown(event?: MouseEvent) {
+  event?.stopPropagation();
   this.dropdownOpen = !this.dropdownOpen;
 }
 
+onQuestionClick(q: string, event: MouseEvent) {
+  event.stopPropagation();
+  this.agentReply(q, 'questions');
+  this.dropdownOpen = false;
+}
+@HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event) {
+    if (!this.dropdownContainer.nativeElement.contains(event.target)) {
+      this.dropdownOpen = false;
+    }
+  }
 
 agentReply(text: string, type: 'text' | 'end' | 'questions'): void {
   const trimmed = (text || '').trim();

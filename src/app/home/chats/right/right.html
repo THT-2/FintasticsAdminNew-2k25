@@ -50,8 +50,9 @@
 
 
 <div class="chat-messages" #chatContainer>
+  <!-- <div *ngFor="let msg of userChat; trackBy: trackByMsgId"> -->
 
-  @for (msg of userChat; track msg) {
+  @for (msg of userChat; track msg._id) {
     <div class="message" [ngClass]="msg?.senderRole === 'user' ? 'client' : 'agent'">
 
      @if(isImageurl(msg.attachments)){
@@ -69,7 +70,7 @@
       @if (isPdf(msg.attachments)) {
         <ng-container>
         <a class="file-link" [href]="msg.attachments[0] || ''" target="_blank">
-          <img class="pdf" src="https://cdn-icons-png.flaticon.com/512/2965/2965335.png " alt=""> View PDF</a>
+          <img class="pdf" src="https://cdn-icons-png.flaticon.com/512/2965/2965335.png " alt=""> View Doc</a>
           </ng-container>
       }
 
@@ -86,6 +87,7 @@
       <span class="message-time">{{ msg.createdAt | date:'shortTime' }}</span>
     </div>
   }
+<!-- </div> -->
 </div>
 
 
@@ -126,7 +128,7 @@
 <div class="chat-footer">
 
   <div class="chat-input-container">
-   
+
 
     <div class="chat-input-actions">
       <img class="pin"
@@ -164,20 +166,27 @@
 
   <!-- <img class="icon" (click)="agentReply(msg.value, 'text'); msg.value=''" src="https://cdn-icons-png.flaticon.com/512/9068/9068837.png "> -->
 
-  <div class="dropdown" (click)="toggleDropdown()">
+  <div class="dropdown" #dropdownContainer>
 
-      <img class="stop" src="https://cdn-icons-png.flaticon.com/512/9423/9423700.png ">
+  <img
+    class="stop"
+    src="https://cdn-icons-png.flaticon.com/512/9423/9423700.png"
+    (click)="toggleDropdown($event)"
+  >
 
-
-    <div class="dropdown-menu" *ngIf="dropdownOpen">
-      <button type="radio" *ngFor="let q of predefinedQuestions"
-        (click)="agentReply(q, 'questions')">
-        {{ q }}
-      </button>
-    </div>
-
-
+  <div class="dropdown-menu" *ngIf="dropdownOpen" (click)="$event.stopPropagation()">
+    <button
+      type="button"
+      *ngFor="let q of predefinedQuestions"
+      (click)="onQuestionClick(q, $event)"
+    >
+      {{ q }}
+    </button>
   </div>
+
+</div>
+
+
 
 
 </div>

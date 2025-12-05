@@ -9,11 +9,9 @@
   }
 </div>
 
-@if (newkey=='chats') {
 
-}
 
-  <div class="nav-scroll">
+  <!-- <div class="nav-scroll">
     @for (navItem of NavItems; track navItem) {
       @if (navItem.checked === true) {
         <div class="menu-heading dashboard" [style.backgroundColor]="navItem.color">
@@ -52,13 +50,14 @@
         }
       }
     }
-  </div>
+  </div> -->
 
  <!-- side-nav.html -->
-<!-- <div class="nav-scroll">
+<div class="nav-scroll">
 
-  <div class="nav-section" *ngFor="let nav of NavItems">
-
+  <!-- <div class="nav-section" *ngFor="let nav of NavItems"> -->
+  <div class="nav-section" >
+    @for (nav of NavItems; track nav) {
     <button
       type="button"
       class="menu-heading dashboard"
@@ -82,11 +81,56 @@
         </a>
       </div>
     </div>
+  }
   </div>
-</div> -->
-
-
-
-
+</div>
 
 </nav>
+
+<!-- <nav class="sidebar" [class.collapsed]="isCollapsed" id="sidebar">
+
+  <div class="logo">
+    @if (!isCollapsed) {
+      <img class="logo-full" src="../../../../assets/Fintastics-new-logo.jpg" alt="Full logo">
+    } @else {
+      <img class="logo-compact" src="../../../../assets/favicon.ico" alt="Compact logo">
+    }
+  </div>
+
+
+  <div class="nav-scroll">
+    <div class="nav-section">
+      @for (nav of NavItems; track nav) {
+
+        <button
+          type="button"
+          class="menu-heading"
+          (click)="toggleSection(nav)"
+          [attr.aria-expanded]="!!nav.open">
+          <span class="section-title">
+            {{ nav.title }}
+          </span>
+          <i class="chevron" [class.rotate]="nav.open"></i>
+        </button>
+
+        <div class="submenu-wrapper" [class.open]="nav.open">
+  <div class="submenu">
+    <a class="menu-item"
+       *ngFor="let item of nav.subtitle"
+       [routerLink]="item.path"
+       routerLinkActive="active"
+       [routerLinkActiveOptions]="{ exact: true }">
+      <span class="menu-icon">
+        <i class="{{ item.icon }}"></i>
+      </span>
+      <span class="menu-label">
+        {{ item.title }}
+      </span>
+    </a>
+  </div>
+</div>
+
+      }
+    </div>
+  </div>
+</nav> -->

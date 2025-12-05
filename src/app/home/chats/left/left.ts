@@ -81,6 +81,7 @@ export class Left implements OnInit, AfterViewInit, OnDestroy {
     this.getchatList();
     this.initSocketListener();
     this.subscribeToLastMessages();
+    
   }
 
 initSocketListener() {

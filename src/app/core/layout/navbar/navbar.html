@@ -1,7 +1,7 @@
 <header class="header" [class.collapsed]="isCollapsed" id="header">
   <div class="toggle-btn" id="toggleBtn" (click)="onToggleClick()">
     <i class="fas fa-bars"></i>
-    <span> {{username}}</span>
+
   </div>
 
     <div class="top-center d-none d-md-flex flex-grow-1 justify-content-center px-2">
@@ -75,7 +75,7 @@
 
       <div class="dropdown">
         <button class="btn btn-light d-flex align-items-center gap-2 px-2 py-1" data-bs-toggle="dropdown" aria-expanded="false" title="Account">
-          <span class="d-none d-sm-inline fw-semibold">Admin</span>
+          <span class="d-none d-sm-inline fw-semibold"><span> {{username}}</span></span>
           <i class="bi bi-caret-down-fill small"></i>
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
