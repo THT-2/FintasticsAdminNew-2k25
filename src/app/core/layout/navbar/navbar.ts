@@ -6,10 +6,15 @@ import { MessageDialogue } from '../../../Z-Commons/message-dialogue/message-dia
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HomeRoutingModule } from "../../../home/home-routing-module";
 
+
+function isTrue(v: any): boolean {
+  return v === true || v === 'true' || v === 1 || v === '1';
+}
+
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, HomeRoutingModule],
+  imports: [CommonModule, HomeRoutingModule, MatDialogModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
   providers:[AlertService]
@@ -17,49 +22,89 @@ import { HomeRoutingModule } from "../../../home/home-routing-module";
 export class Navbar {
   @Input() isCollapsed: boolean = false;
   @Output() toggleSidebar = new EventEmitter<void>();
+
   isDarkMode = false;
-  username = localStorage.getItem("username")!;
 
-  constructor(private dialog:MatDialog,private renderer: Renderer2,
-    private router: Router, private alertService : AlertService,){}
+  get username(): string {
+    return localStorage.getItem('username') || '';
+  }
 
+  /**
+   * Show chat icon only if:
+   *  - permissions contain parent id === 'mainmenu'
+   *  - AND that parent has checked === true
+   *  - (optional) AND chats submenu checked === true
+   */
+ get canShowChatIcon(): boolean {
+  const permStr = localStorage.getItem('permissions');
+  if (!permStr) return false;
+
+  try {
+    const permissions = JSON.parse(permStr);
+    // console.log('[Navbar] permissions:', permissions);
+
+    // Find the Fin Expert Chat parent (id: mainmenu)
+    const finExpert = permissions.find((p: any) => p.id === 'mainmenu');
+    if (!finExpert) {
+      // console.log('[Navbar] No mainmenu in permissions');
+      return false;
+    }
+
+    // parent checked (tolerant to true / "true" / 1)
+    const parentChecked = isTrue(finExpert.checked);
+
+    // check if "chats" submenu is checked
+    let chatsChecked = false;
+    if (Array.isArray(finExpert.subtitle)) {
+      chatsChecked = finExpert.subtitle.some(
+        (s: any) => s.id === 'chats' && isTrue(s.checked)
+      );
+    }
+
+    const result = parentChecked || chatsChecked;
+    // console.log('[Navbar] parentChecked:', parentChecked, 'chatsChecked:', chatsChecked, '=> canShowChatIcon:', result);
+
+    return result;
+
+  } catch (e) {
+    console.error('[Navbar] Error parsing permissions from localStorage', e);
+    return false;
+  }
+}
+
+  constructor(
+    private dialog: MatDialog,
+    private renderer: Renderer2,
+    private router: Router,
+    private alertService : AlertService,
+  ){}
 
   onToggleClick() {
-    console.log('toggle click');
     this.isCollapsed = !this.isCollapsed;
     this.toggleSidebar.emit();
-
   }
+
   onChatsClick(event: MouseEvent) {
     event.preventDefault();
-
-    // Navigate to chats
     this.router.navigate(['/admin/chats']);
 
-    // Collapse sidebar so main content becomes "full screen"
-    if (!this.isCollapsed) {                 // only toggle if it's open
+    if (!this.isCollapsed) {
       this.isCollapsed = true;
-      this.toggleSidebar.emit();             // parent hides sidebar
+      this.toggleSidebar.emit();
     }
   }
 
-
-
-
-   toggleDarkMode() {
+  toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
 
     if (this.isDarkMode) {
-      console.log('Dark mode ON');
       this.renderer.addClass(document.body, 'dark-mode');
     } else {
-      console.log('Dark mode OFF');
       this.renderer.removeClass(document.body, 'dark-mode');
     }
   }
-    logout(){
-      console.log('logout click');
 
+  logout(){
     const dialogRef = this.dialog.open(MessageDialogue, {
       data: {
         message: 'Do you want to logout ?',
@@ -69,13 +114,13 @@ export class Navbar {
         }
       }
     });
+
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
         localStorage.clear();
         this.router.navigate(['/admin/login']);
         this.alertService.toast("success",true,"Logout Successfully");
       }
-    })
+    });
   }
-
 }

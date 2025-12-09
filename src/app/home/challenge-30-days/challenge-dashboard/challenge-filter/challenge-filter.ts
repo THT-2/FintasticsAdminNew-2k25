@@ -17,7 +17,7 @@ export interface ChallengeFilterPayload {
 })
 export class ChallengeFilter {
   filters: ChallengeFilterPayload = {
-    filter_type: 'Thisweek',
+    filter_type: 'Today',
     status: 'active',
     type: 'all',
   };

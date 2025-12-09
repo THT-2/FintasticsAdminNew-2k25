@@ -47,7 +47,9 @@
 
           <div class="chat-meta">
             <div class="chat-time">
-              {{ item.lastMsgAt || item.lastMessageAt  }}
+              {{ item.lastMessageAt | date:'yyyy-MM-dd hh:mm:ss a':'Asia/Kolkata' }}
+
+
             </div>
 
             @if (item.isRead > 0) {

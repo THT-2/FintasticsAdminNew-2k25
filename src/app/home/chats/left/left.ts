@@ -81,7 +81,7 @@ export class Left implements OnInit, AfterViewInit, OnDestroy {
     this.getchatList();
     this.initSocketListener();
     this.subscribeToLastMessages();
-    
+
   }
 
 initSocketListener() {
@@ -121,8 +121,6 @@ initSocketListener() {
         if (res.code === 200) {
           this.chatList = res.data;
           console.log("Left data",this.chatList);
-
-
           this.cdr.detectChanges();
         } else {
           this.alertService.toast('error', true, res.message);
@@ -170,7 +168,6 @@ initSocketListener() {
 
   this.updateChatPreview(userId, text, createdAt, payload.isRead);
 }
-
 
   private updateChatPreview(userId: string, text: string, createdAt: string, isRead:any) {
     if (!this.chatList || !this.chatList.length) {

@@ -33,7 +33,7 @@
                                 </div>
                                  <!-- Subtitles (Normal Checkboxes) -->
                                  <ul class="list-unstyled ms-3 mt-2">
-                                   <li *ngFor="let sub of item.subtitle">
+                                   <li *ngFor="let sub of item.subtitle ||[]">
                                     <div class="form-check mb-1">
                                        <input class="form-check-input"
                                         type="checkbox" id="{{ item.title }}-{{ sub.title }}" [(ngModel)]="sub.checked"

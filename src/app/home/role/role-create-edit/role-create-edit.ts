@@ -135,7 +135,7 @@ NavItems: any[]=[
     title: '30 Days Challenge',
     status: false,
     checked: false,
-    color:'#00897B',
+    color:'#E91E63',
     subtitle: [
       {
         id: 'challenge-dash',
@@ -744,13 +744,27 @@ getById(id: any) {
       }
 
       //  Add any new parent from API that doesn't exist locally
-      for (let i = 0; i < this.roleData.permissions.length; i++) {
-        const apiParent = this.roleData.permissions[i];
-        const exists = mergedNavItems.some((p: any) => p.id === apiParent.id);
-        if (!exists) {
-          mergedNavItems.push({ ...apiParent });
-        }
-      }
+      // for (let i = 0; i < this.roleData.permissions.length; i++) {
+      //   const apiParent = this.roleData.permissions[i];
+      //   const exists = mergedNavItems.some((p: any) => p.id === apiParent.id);
+      //   if (!exists) {
+      //     mergedNavItems.push({ ...apiParent });
+      //   }
+      // }
+
+      //  Add any new parent from API that doesn't exist locally
+for (let i = 0; i < this.roleData.permissions.length; i++) {
+  const apiParent = this.roleData.permissions[i];
+  const exists = mergedNavItems.some((p: any) => p.id === apiParent.id);
+
+  if (!exists) {
+    mergedNavItems.push({
+      ...apiParent,
+      subtitle: Array.isArray(apiParent.subtitle) ? apiParent.subtitle : []
+    });
+  }
+}
+
 
       // Update final NavItems list
       this.NavItems = [...mergedNavItems];
@@ -821,14 +835,34 @@ getById(id: any) {
 }
 
 toggleSelectAll(item: any): void {
-  const allSelected = this.areAllSubtitlesChecked(item);
-  item.subtitle.forEach((sub: any) => (sub.checked = !allSelected));
+  const subtitles = item?.subtitle;
+
+  if (!Array.isArray(subtitles) || subtitles.length === 0) {
+    return; // nothing to toggle
+  }
+
+  const allSelected = subtitles.every((sub: any) => !!sub.checked);
+  subtitles.forEach((sub: any) => (sub.checked = !allSelected));
 }
 
 areAllSubtitlesChecked(item: any): boolean {
-  return item.subtitle.every((sub: any) => sub.checked);
+  const subtitles = item?.subtitle;
+
+  if (!Array.isArray(subtitles) || subtitles.length === 0) {
+    return false;
+  }
+
+  return subtitles.every((sub: any) => !!sub.checked);
 }
 
+// toggleSelectAll(item: any): void {
+//   const allSelected = this.areAllSubtitlesChecked(item);
+//   item.subtitle.forEach((sub: any) => (sub.checked = !allSelected));
+// }
+
+// areAllSubtitlesChecked(item: any): boolean {
+//   return item.subtitle.every((sub: any) => sub.checked);
+// }
 
 }
 

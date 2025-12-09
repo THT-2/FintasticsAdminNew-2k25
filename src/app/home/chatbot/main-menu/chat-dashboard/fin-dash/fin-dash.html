@@ -6,7 +6,7 @@
   </div>
 
   <!-- filter -->
-  <app-filter></app-filter>
+  <app-filter (filterChange)="onFilterApplied($event)"></app-filter>
 
   <!-- Stats Cards -->
   <div class="stats-cards">
@@ -15,7 +15,7 @@
         <i class="fas fa-users"></i>
       </div>
       <div class="stat-info">
-        <h4>{{ activeUsers }}</h4>
+        <h4>{{ cards?.activeusers ||0 }}</h4>
         <p>Active Users</p>
       </div>
     </div>
@@ -24,7 +24,7 @@
         <i class="fas fa-comment-dots"></i>
       </div>
       <div class="stat-info">
-        <h4>{{ waitingChats }}</h4>
+        <h4>{{ cards?.waitChats|| 0 }}</h4>
         <p>Waiting Chats</p>
       </div>
     </div>
@@ -33,25 +33,25 @@
         <i class="fas fa-comments"></i>
       </div>
       <div class="stat-info">
-        <h4>{{ ongoingChats }}</h4>
+        <h4>{{ cards?.ongoingChats|| 0 }}</h4>
         <p>Ongoing Chats</p>
       </div>
     </div>
-    <div class="stat-card">
+    <!-- <div class="stat-card">
       <div class="stat-icon">
         <i class="fas fa-times-circle"></i>
       </div>
       <div class="stat-info">
-        <h4>{{ droppedChats }}</h4>
+        <h4>{{ cards.droppedChats }}</h4>
         <p>Dropped Chats</p>
       </div>
-    </div>
+    </div> -->
     <div class="stat-card">
       <div class="stat-icon">
         <i class="fas fa-check-circle"></i>
       </div>
       <div class="stat-info">
-        <h4>{{ resolvedToday }}</h4>
+        <h4>{{ cards?.resolved || 0}}</h4>
         <p>Resolved Today</p>
       </div>
     </div>
@@ -60,7 +60,7 @@
         <i class="fas fa-star"></i>
       </div>
       <div class="stat-info">
-        <h4>{{ satisfactionRate }}%</h4>
+        <h4>{{ cards?.satisfactionRate || 0}}%</h4>
         <p>Satisfaction Rate</p>
       </div>
     </div>

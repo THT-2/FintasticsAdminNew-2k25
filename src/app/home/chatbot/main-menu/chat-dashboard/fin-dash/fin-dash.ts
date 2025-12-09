@@ -1,33 +1,51 @@
-import { Component, OnInit } from '@angular/core';
-import { Filter } from "../../filter/filter";
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { Filter, FilterRequestBody } from "../../filter/filter";
+import { ApiRoutesConstants } from '../../../../../constants/api-route-constants';
+import { AlertService } from '../../../../../constants/alertservice';
+import { Data } from '../../../../../Service/data';
 
 @Component({
   selector: 'app-fin-dash',
   templateUrl: './fin-dash.html',
   styleUrls: ['./fin-dash.scss'],
-  imports: [Filter]
+  imports: [Filter],
+  providers:[AlertService]
 })
-export class FinDash implements OnInit {
+export class FinDash {
 
-  // Dashboard stats
-  activeUsers: number = 0;
-  waitingChats: number = 0;
-  ongoingChats: number = 0;
-  droppedChats: number = 0;
-  resolvedToday: number = 0;
-  satisfactionRate: number = 0;
+  public apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.dashboard_cards;
 
-  ngOnInit(): void {
-    this.loadDashboardStats();
+  cards: any = null;
+
+  constructor(
+    private navservice: Data,
+    private cd: ChangeDetectorRef,
+    private alertService: AlertService
+  ) {}
+
+  ngOnInit() {}
+
+  onFilterApplied(filterBody: FilterRequestBody) {
+    console.log("Filter applied:", filterBody);
+    this.getCardsData(filterBody);
   }
 
-  loadDashboardStats(): void {
-    // Mock data for now (replace with API later)
-    this.activeUsers = 23;
-    this.waitingChats = 16;
-    this.ongoingChats = 12;
-    this.droppedChats = 5;
-    this.resolvedToday = 42;
-    this.satisfactionRate = 92;
+
+  getCardsData(filterBody: any) {
+    this.navservice.postData(this.apiUrl, filterBody).subscribe({
+      next: (res: any) => {
+        console.log("cards", res);
+        if (res.code === 200) {
+          this.cards = res.chat_dashboard;
+          console.log("newcards", this.cards);
+        } else {
+          this.alertService.toast("error", true, res.message);
+        }
+        this.cd.detectChanges();
+      },
+      error: (error: any) => {
+        this.alertService.toast("error", true, error);
+      }
+    });
   }
 }

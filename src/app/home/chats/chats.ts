@@ -47,7 +47,6 @@ onLeavePopupAnswer(confirmed: boolean) {
   this.showLeavePopup = false;
 }
 
-
 onChatSelected(chatId: string) {
   // If a chat is already active and we are switching to a different chat
   if (

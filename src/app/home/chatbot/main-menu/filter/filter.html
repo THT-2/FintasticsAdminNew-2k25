@@ -1,18 +1,72 @@
-            <div class="date-range-selector">
-                <div class="date-range-header">
-                    <h3>Select Date Range</h3>
-                    <div class="date-presets">
-                        <button class="date-preset-btn">Today</button>
-                        <button class="date-preset-btn">Last 7 Days</button>
-                        <button class="date-preset-btn active">Last 30 Days</button>
-                        <button class="date-preset-btn">This Month</button>
-                        <button class="date-preset-btn">Last Month</button>
-                    </div>
-                </div>
-                <div class="custom-date-range">
-                    <input type="date" class="date-input" value="2023-10-01">
-                    <span>to</span>
-                    <input type="date" class="date-input" value="2023-10-31">
-                    <button class="apply-btn">Apply</button>
-                </div>
-            </div>
+<div class="date-range-selector">
+  <div class="date-range-header">
+    <h3>Select Date Range</h3>
+
+    <div class="date-presets">
+      <button
+        class="date-preset-btn"
+        [class.active]="filterType === 'Today'"
+        (click)="selectPreset('Today')">
+        Today
+      </button>
+
+      <button
+        class="date-preset-btn"
+        [class.active]="filterType === 'Last7days'"
+        (click)="selectPreset('Last7days')">
+        Last 7 Days
+      </button>
+
+      <button
+        class="date-preset-btn"
+        [class.active]="filterType === 'Last30days'"
+        (click)="selectPreset('Last30days')">
+        Last 30 Days
+      </button>
+
+      <button
+        class="date-preset-btn"
+        [class.active]="filterType === 'ThisMonth'"
+        (click)="selectPreset('ThisMonth')">
+        This Month
+      </button>
+
+      <button
+        class="date-preset-btn"
+        [class.active]="filterType === 'LastMonth'"
+        (click)="selectPreset('LastMonth')">
+        Last Month
+      </button>
+
+      <button
+        class="date-preset-btn"
+        [class.active]="filterType === 'Custom'"
+        (click)="selectPreset('Custom')">
+        Custom
+      </button>
+    </div>
+  </div>
+
+  <div class="custom-date-range">
+    <input
+      type="date"
+      class="date-input"
+      [(ngModel)]="startDate"
+      [disabled]="filterType !== 'Custom'">
+
+    <span>to</span>
+
+    <input
+      type="date"
+      class="date-input"
+      [(ngModel)]="endDate"
+      [disabled]="filterType !== 'Custom'">
+
+    <button
+      class="apply-btn"
+      [disabled]="filterType !== 'Custom'"
+      (click)="applyCustomRange()">
+      Apply
+    </button>
+  </div>
+</div>

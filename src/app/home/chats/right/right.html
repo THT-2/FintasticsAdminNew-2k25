@@ -1,196 +1,193 @@
- @if (!chatSelected) {
-    <div class="empty-chat-state">
-      <div class="empty-icon">
-        <img class="logo-compact" src="../../../../assets/favicon.ico" alt="Compact logo">
-      </div>
-      <h2>Welcome to Fin-Expert Chat</h2>
-      <p>Select a conversation from the left panel to view messages here.</p>
-      <p class="empty-hint">
-        You can see online users, recent chats and reply to their queries in real time.
-      </p>
-    </div>
-  }
-
- @if (chatSelected) {
-       <div class="chat-area">
-            <div class="chat-header">
-                <div class="current-chat-info">
-                    <div class="back-button">
-                      <i class="fas fa-arrow-left"></i>
-                    </div>
-                    <div class="current-chat-avatar">{{ chat?.[0] || 'F' }}</div>
-
-                    <div class="current-chat-details">
-                    <h4>
-                      {{ chat || "Fin-Expert Chat Area" }} <span>{{mobile}}</span>
-                      <span class="status" >
-                      </span>
-                    </h4>
-
-
-                    <div class="usertyping" *ngIf="isOtherTyping">
-                      typing....
-  <!-- <span class="dot"></span>
-  <span class="dot"></span>
-  <span class="dot"></span> -->
-</div>
-                      <!-- <h4>{{chatName ||"Fin-Expert Chat Area"}} <span class="status online">{{activeStatus}}</span></h4> -->
-                      <p>Query: Tax Filing for Freelancers | Registered User</p>
-
-                    </div>
-                </div>
-
-
-        <div class="header-icons"  (click)="agentReply('', 'end')">
-                  <!-- <button class="chat-arrow"> -->
-                    <img class="stop" src="https://cdn-icons-png.flaticon.com/512/13312/13312989.png">
-                  <!-- </button> -->
-                  </div>
-                </div>
-
-
-<div class="chat-messages" #chatContainer>
-  <!-- <div *ngFor="let msg of userChat; trackBy: trackByMsgId"> -->
-
-  @for (msg of userChat; track msg._id) {
-    <div class="message" [ngClass]="msg?.senderRole === 'user' ? 'client' : 'agent'">
-
-     @if(isImageurl(msg.attachments)){
-    <ng-container>
+@if (!chatSelected) {
+  <div class="empty-chat-state">
+    <div class="empty-icon">
       <img
-        class="img-fluid"
-        width="100px"
-        [src]="msg.attachments[0] || ''"
-        [alt]="msg.attachments[0] || ''"
-        (click)="openInNewTab(msg.attachments[0])"
-      >
-    </ng-container>
-   }
-
-      @if (isPdf(msg.attachments)) {
-        <ng-container>
-        <a class="file-link" [href]="msg.attachments[0] || ''" target="_blank">
-          <img class="pdf" src="https://cdn-icons-png.flaticon.com/512/2965/2965335.png " alt=""> View Doc</a>
-          </ng-container>
-      }
-
-
-      @if (isOtherFile(msg.text)) {
-        <a class="file-link" [href]="msg.text" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/2965/2965335.png" alt="">
-        </a>
-      }
-
-
-    <span [innerHTML]="makeClickable(msg.text)"></span>
-
-      <span class="message-time">{{ msg.createdAt | date:'shortTime' }}</span>
+        class="logo-compact"
+        src="../../../../assets/favicon.ico"
+        alt="Compact logo"
+      />
     </div>
-  }
-<!-- </div> -->
-</div>
-
-
-<div class="wa-attachment-wrapper" *ngIf="selectedFile">
-  <div class="wa-attachment-box">
-
-    <div class="wa-file-thumb">
-      <img *ngIf="isImage(selectedFile)" [src]="filePreview" class="wa-img" />
-      <div *ngIf="!isImage(selectedFile)" class="wa-doc-icon">📄</div>
-    </div>
-
-    <div class="wa-file-info">
-      <p class="wa-file-name">{{ selectedFile.name }}</p>
-      <p class="wa-file-size">{{ selectedFile.size / 1024 | number:'1.0-1' }} KB</p>
-    </div>
-
-    <button class="wa-remove-btn" (click)="removeSelectedFile()">✖</button>
+    <h2>Welcome to Fin-Expert Chat</h2>
+    <p>Select a conversation from the left panel to view messages here.</p>
+    <p class="empty-hint">
+      You can see online users, recent chats and reply to their queries in real
+      time.
+    </p>
   </div>
-</div>
+}
 
+@if (chatSelected) {
+  <div class="chat-area">
+    <div class="chat-header">
+      <div class="current-chat-info">
+        <div class="back-button">
+          <i class="fas fa-arrow-left"></i>
+        </div>
+        <div class="current-chat-avatar">
+          {{ chat?.[0] || 'F' }}
+        </div>
 
-<!-- messages list here -->
+        <div class="current-chat-details">
+          <h4>
+            {{ chat || 'Fin-Expert Chat Area' }}
+            <span>{{ mobile }}</span>
+            <span class="status"></span>
+          </h4>
 
-<!-- Typing indicator -->
-<!-- <div class="typing-indicator" *ngIf="isOtherTyping">
-  <span class="dot"></span>
-  <span class="dot"></span>
-  <span class="dot"></span>
-</div> -->
-<!-- <div class="typing-indicator" >
-  <span class="dot"></span>
-  <span class="dot"></span>
-  <span class="dot"></span>
-</div> -->
+          <div class="usertyping" *ngIf="isOtherTyping">
+            typing....
+          </div>
 
+          <p>Query: Tax Filing for Freelancers | Registered User</p>
+        </div>
+      </div>
 
-
-<div class="chat-footer">
-
-  <div class="chat-input-container">
-
-
-    <div class="chat-input-actions">
-      <img class="pin"
-           src="https://cdn-icons-png.flaticon.com/512/14464/14464403.png "
-           (click)="triggerFileUpload()" />
-
-      <input type="file"
-             #fileInput
-             (change)="onFileSelected($event)"
-             style="display:none">
+      <div class="header-icons" (click)="agentReply('', 'end')">
+        <img
+          class="stop"
+          src="https://cdn-icons-png.flaticon.com/512/13312/13312989.png"
+        />
+      </div>
     </div>
 
-    <!-- <textarea #msg
-  class="chat-input"
-  placeholder="Type message"
-  (input)="onTyping()"
-  (keyup.enter)="agentReply(msg.value, 'text'); msg.value=''">
-</textarea> -->
-<textarea #msg
-  class="chat-input"
-  placeholder="Type message"
-  (input)="onTyping()"
-  (keyup.enter)="onEnter(msg)"
-></textarea>
+    <div class="chat-messages" #chatContainer>
+      @for (msg of userChat; track msg) {
+        <div
+          class="message"
+          [ngClass]="msg?.senderRole === 'user' ? 'client' : 'agent'"
+        >
+          <!-- 🟢 TEXT ONLY when type is Message (or no type) -->
+          @if (msg?.type === 'Message' || !msg?.type) {
+            <span [innerHTML]="makeClickable(msg.text)"></span>
+          }
 
-<img
-  class="icon"
-  (click)="onEnter(msg)"
-  src="https://cdn-icons-png.flaticon.com/512/9068/9068837.png "
-/>
+          <!-- 🟣 ATTACHMENTS ONLY when type is Attachments -->
+          @if (msg?.type === 'Attachments') {
+            <!-- Image attachments -->
+            @if (isImageurl(msg.attachments)) {
+              <ng-container>
+                <img
+                  class="img-fluid"
+                  width="100px"
+                  [src]="msg.attachments?.[0] || ''"
+                  [alt]="msg.attachments?.[0] || ''"
+                  (click)="openInNewTab(msg.attachments?.[0])"
+                />
+              </ng-container>
+            }
 
+            <!-- PDF / DOC / XLS / ZIP / RAR -->
+            @if (isPdf(msg.attachments)) {
+              <ng-container>
+                <a
+                  class="file-link"
+                  [href]="msg.attachments?.[0] || ''"
+                  target="_blank"
+                >
+                  <img
+                    class="pdf"
+                    src="https://cdn-icons-png.flaticon.com/512/2965/2965335.png"
+                    alt=""
+                  />
+                  View Doc
+                </a>
+              </ng-container>
+            }
 
+            <!-- In case backend sends file URL as text instead of attachments -->
+            @if (isOtherFile(msg.text)) {
+              <a class="file-link" [href]="msg.text" target="_blank">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/2965/2965335.png"
+                  alt=""
+                />
+              </a>
+            }
+          }
 
+          <span class="message-time">
+            {{ msg.createdAt | date : 'shortTime' }}
+          </span>
+        </div>
+      }
+    </div>
 
+    <!-- Selected file preview (before sending) -->
+    <div class="wa-attachment-wrapper" *ngIf="selectedFile">
+      <div class="wa-attachment-box">
+        <div class="wa-file-thumb">
+          <img
+            *ngIf="isImage(selectedFile)"
+            [src]="filePreview"
+            class="wa-img"
+          />
+          <div *ngIf="!isImage(selectedFile)" class="wa-doc-icon">📄</div>
+        </div>
 
-  <!-- <img class="icon" (click)="agentReply(msg.value, 'text'); msg.value=''" src="https://cdn-icons-png.flaticon.com/512/9068/9068837.png "> -->
+        <div class="wa-file-info">
+          <p class="wa-file-name">{{ selectedFile.name }}</p>
+          <p class="wa-file-size">
+            {{ selectedFile.size / 1024 | number : '1.0-1' }} KB
+          </p>
+        </div>
 
-  <div class="dropdown" #dropdownContainer>
+        <button class="wa-remove-btn" (click)="removeSelectedFile()">✖</button>
+      </div>
+    </div>
 
-  <img
-    class="stop"
-    src="https://cdn-icons-png.flaticon.com/512/9423/9423700.png"
-    (click)="toggleDropdown($event)"
-  >
+    <div class="chat-footer">
+      <div class="chat-input-container">
+        <div class="chat-input-actions">
+          <img
+            class="pin"
+            src="https://cdn-icons-png.flaticon.com/512/14464/14464403.png"
+            (click)="triggerFileUpload()"
+          />
 
-  <div class="dropdown-menu" *ngIf="dropdownOpen" (click)="$event.stopPropagation()">
-    <button
-      type="button"
-      *ngFor="let q of predefinedQuestions"
-      (click)="onQuestionClick(q, $event)"
-    >
-      {{ q }}
-    </button>
+          <input
+            type="file"
+            #fileInput
+            (change)="onFileSelected($event)"
+            style="display: none"
+          />
+        </div>
+
+        <textarea
+          #msg
+          class="chat-input"
+          placeholder="Type message"
+          (input)="onTyping()"
+          (keyup.enter)="onEnter(msg)"
+        ></textarea>
+
+        <img
+          class="icon"
+          (click)="onEnter(msg)"
+          src="https://cdn-icons-png.flaticon.com/512/9068/9068837.png"
+        />
+
+        <div class="dropdown" #dropdownContainer>
+          <img
+            class="stop"
+            src="https://cdn-icons-png.flaticon.com/512/9423/9423700.png"
+            (click)="toggleDropdown($event)"
+          />
+
+          <div
+            class="dropdown-menu"
+            *ngIf="dropdownOpen"
+            (click)="$event.stopPropagation()"
+          >
+            <button
+              type="button"
+              *ngFor="let q of predefinedQuestions"
+              (click)="onQuestionClick(q, $event)"
+            >
+              {{ q }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-</div>
-
-
-
-
-</div>
-</div>
-
-</div>
 }

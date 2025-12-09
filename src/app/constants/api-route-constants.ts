@@ -185,6 +185,9 @@ export class ApiRoutesConstants {
   public static AgentReply= "finexpertchatBot/tickets";
   public static activeStatus= "finexpertchatBot/admin/active_status/";
 
+  //Fin-expert Chat Dashboard
+  public static dashboard_cards="adminPanel/finexpertChatDashboard";
+
   //30-days challenge dashboard
   public static participantdata = "adminPanel/userdetails_Dashboard";
   public static challenge_dashboard = "adminPanel/challengeDashboard";
