@@ -321,6 +321,20 @@
   margin-left: 30px;
   color: white;
 }
+ .copy {
+  width: 25px;
+  height: 18px;
+  object-fit: contain;
+  margin-left: 10px;
+  color: white;
+}
+.copied-msg {
+  color: #7b4dd2;
+  margin-left: 0px;
+  font-size: 14px;
+  animation: fade 0.3s ease-in-out;
+}
+
  .pin {
   width: 40px;   /* change to 18px or 20px if you want smaller */
   height: 40px;
@@ -507,7 +521,7 @@
 
 .empty-chat-state {
   // height: 99%;
-  min-height: 40%;
+  min-height: 60%;
   display: flex;
   border-left: 1px solid var(--light-blue);
   border-right: 1px solid var(--light-blue);

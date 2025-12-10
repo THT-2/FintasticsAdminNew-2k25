@@ -28,11 +28,30 @@
         </div>
 
         <div class="current-chat-details">
-          <h4>
-            {{ chat || 'Fin-Expert Chat Area' }}
-            <span>{{ mobile }}</span>
-            <span class="status"></span>
-          </h4>
+          <h4 class="chat-title">
+  <span class="chat-name">
+    {{ chat || 'Fin-Expert Chat Area' }}
+  </span>
+
+  <span class="chat-contact">
+    <span class="chat-mobile">{{ mobile }}</span>
+
+    <img
+      class="copy"
+      [src]="copied
+        ? 'https://cdn-icons-png.flaticon.com/512/3502/3502463.png'
+        : 'https://cdn-icons-png.flaticon.com/512/11238/11238291.png'"
+      (click)="copyMobile()"
+    />
+    <span class="copied-msg">
+      {{ copied ? 'Copied!' : 'Copy' }}
+    </span>
+  </span>
+
+  <span class="status"></span>
+</h4>
+
+
 
           <div class="usertyping" *ngIf="isOtherTyping">
             typing....

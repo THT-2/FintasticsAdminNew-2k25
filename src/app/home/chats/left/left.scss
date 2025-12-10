@@ -192,7 +192,7 @@
 
         .chat-list {
   flex: 1;
-  // max-height:50%;           /* important: lets overflow work inside flex */
+  max-height:58%;           /* important: lets overflow work inside flex */
   overflow-y: hidden;        /* enables scrolling */
   background-color: var(--white);
   padding: 0 0 10px;
@@ -288,8 +288,8 @@
             color: var(--excellent);
         }
 .chat-body {
-  height: 30%;
-  // height: 85%;
+  // height: 100%;
+  height: 75%;
   overflow-y: auto;             /* scroll only the chat body */
   -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;

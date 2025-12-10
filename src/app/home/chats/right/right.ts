@@ -24,6 +24,8 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 // import { NotificationService } from '../../../Service/notification-service';
 import { log } from 'node:console';
+import { Clipboard } from '@angular/cdk/clipboard';
+
 
 @Component({
   selector: 'app-right',
@@ -66,7 +68,7 @@ export class Right implements OnChanges, OnInit, OnDestroy {
   message = '';
   typing = false;
   isOtherTyping = false;
-
+  copied = false;
   typingTimeout: any;
   mobile: any;
   subTyping!: Subscription;
@@ -80,8 +82,12 @@ export class Right implements OnChanges, OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private chatService: Socketservice,
     private alertService: AlertService,
+    private clipboard: Clipboard,
     // private notificationService: NotificationService
   ) {}
+
+
+
 
   ngOnInit() {
     const tokenData: any = jwtDecode(this.token);
@@ -124,6 +130,19 @@ export class Right implements OnChanges, OnInit, OnDestroy {
     this.connectedSub?.unsubscribe();
     this.subTyping?.unsubscribe();
   }
+
+
+
+copyMobile() {
+  this.clipboard.copy(this.mobile);
+
+  this.copied = true;
+
+  setTimeout(() => {
+    this.copied = false;  
+  }, 2000); // 2 seconds
+}
+
 
   endChat(): void {
     this.chatEnded.emit();
@@ -191,7 +210,6 @@ export class Right implements OnChanges, OnInit, OnDestroy {
     this.triggerLastMessageUpdate(this.chatSelected, previewText, lastMessage.createdAt);
   }
 }
-
 
         // typing indicator
         this.subTyping = Socketservice.instance.typing$.subscribe((data) => {
