@@ -147,6 +147,12 @@ export class HeaderConstants {
       'class': "text-transform"
     },
     {
+      'name': 'mobile_num',
+      'displayName': 'Mobile Number',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
       'name': 'startDate',
       'displayName': 'Join Date',
       'disableSorting': false,

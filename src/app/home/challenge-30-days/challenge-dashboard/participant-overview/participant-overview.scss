@@ -176,3 +176,37 @@
       }
     }
 
+
+            .table-head {
+  display: flex;
+  justify-content: flex-end; /* Push button to right */
+  align-items: center;
+  margin-bottom: 10px; /* Space between button and table */
+}
+
+#export-excel {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+
+#export-excel {
+      padding: 12px 24px;
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      align-self: flex-end;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #export-excel:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(94, 53, 177, 0.4);
+    }

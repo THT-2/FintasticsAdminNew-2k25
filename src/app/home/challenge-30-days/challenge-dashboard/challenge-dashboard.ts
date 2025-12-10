@@ -4,6 +4,9 @@ import { StatCards } from "./stat-cards/stat-cards";
 import { ParticipantOverview } from "./participant-overview/participant-overview";
 import { ExpectedWinners } from "./expected-winners/expected-winners";
 
+
+
+
 @Component({
   selector: 'app-challenge-dashboard',
   imports: [ StatCards, ParticipantOverview, ExpectedWinners],
@@ -11,5 +14,6 @@ import { ExpectedWinners } from "./expected-winners/expected-winners";
   styleUrl: './challenge-dashboard.scss'
 })
 export class ChallengeDashboard {
+
 
 }

@@ -11,6 +11,7 @@ import { Data } from '../../../../Service/data';
 import { HeaderConstants } from '../../../../constants/header-constants';
 import { MessageDialogue } from '../../../../Z-Commons/message-dialogue/message-dialogue';
 import { GlobalConstant } from '../../../../constants/global-constants';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-participant-overview',
@@ -69,10 +70,6 @@ export class ParticipantOverview implements OnInit{
   }
 
 
-
-
-
-
     getActions(event:any){
     console.log("data",event);
     if (event.actions === 'Edit') {
@@ -122,6 +119,25 @@ export class ParticipantOverview implements OnInit{
     //   })
     // }
   }
+
+
+
+  fileName = 'participants.xlsx';
+
+exportExcel() {
+  if (!this.userdata || this.userdata.length === 0) {
+    console.error('No data to export');
+    return;
+  }
+
+  const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.userdata);
+
+  const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Participants');
+
+  XLSX.writeFile(wb, this.fileName);
+}
+
 }
 
 
