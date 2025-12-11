@@ -139,7 +139,7 @@ copyMobile() {
   this.copied = true;
 
   setTimeout(() => {
-    this.copied = false;  
+    this.copied = false;
   }, 2000); // 2 seconds
 }
 
@@ -150,84 +150,107 @@ copyMobile() {
     console.log('Chat ended');
   }
 
-  initSocketListener() {
-    Socketservice.instance.initSocket({
-      token: this.token,
-      userId: this.userId,
-      joinroom: `finexpertchat:user:${this.userId}`,
-      eventName: 'chat:adminget',
-      onData: (data) => {
-        console.log('[Right] Socket data received:', data);
+initSocketListener() {
+  // 1️⃣ Init socket and message handling (unchanged)
+  Socketservice.instance.initSocket({
+    token: this.token,
+    userId: this.userId,
+    joinroom: `finexpertchat:user:${this.userId}`,
+    eventName: 'chat:adminget',
+    onData: (data) => {
+      console.log('[Right] Socket data received:', data);
 
-        const msgs = Array.isArray(data.msg) ? data.msg : [];
-        const newCount = msgs.length;
-        const newLastId = newCount ? msgs[newCount - 1]._id ?? null : null;
+      const msgs = Array.isArray(data.msg) ? data.msg : [];
+      const newCount = msgs.length;
+      const newLastId = newCount ? msgs[newCount - 1]._id ?? null : null;
 
-        // 🔍 Identify which user this payload belongs to (by name/mobile)
-        const incomingName = data?.name || null;
-        const incomingMobile = data?.mobile_num || null;
+      const incomingName = data?.name || null;
+      const incomingMobile = data?.mobile_num || null;
 
-        // These are the currently opened chat's values
-        const currentName = this.chat || null;
-        const currentMobile = this.mobile || null;
+      const currentName = this.chat || null;
+      const currentMobile = this.mobile || null;
 
-        const isDifferentUser =
-          (!!currentMobile && !!incomingMobile && currentMobile !== incomingMobile) ||
-          (!!currentName && !!incomingName && currentName !== incomingName);
+      const isDifferentUser =
+        (!!currentMobile && !!incomingMobile && currentMobile !== incomingMobile) ||
+        (!!currentName && !!incomingName && currentName !== incomingName);
 
-        if (isDifferentUser) {
-          console.log('[Right] Message is for another user. Not updating open chat body.', {
-            incomingName,
-            incomingMobile,
-            currentName,
-            currentMobile
-          });
-          // 👇 IMPORTANT: do NOT touch this.userChat here.
-          return;
+      if (isDifferentUser) {
+        console.log('[Right] Message is for another user. Not updating open chat body.', {
+          incomingName,
+          incomingMobile,
+          currentName,
+          currentMobile
+        });
+        return;
+      }
+
+      if (this.userChat.length === newCount && this.lastMsgId && newLastId && this.lastMsgId === newLastId) {
+        console.log('[Right] No new messages, skipping');
+        return;
+      }
+
+      if (!this.ticketId) {
+        this.ticketId = data.lastTicket?._id ?? data.lastTicket ?? null;
+      }
+
+      this.userChat = msgs;
+      this.lastMsgCount = newCount;
+      this.lastMsgId = newLastId;
+
+      if (newCount > 0) {
+        const lastMessage = msgs[newCount - 1];
+        console.log('[Right] Last message:', lastMessage);
+
+        const previewText = this.getPreviewFromMessage(lastMessage);
+
+        if (this.chatSelected && previewText !== undefined) {
+          this.triggerLastMessageUpdate(this.chatSelected, previewText, lastMessage.createdAt);
         }
+      }
 
-        // Avoid duplicate updates
-        if (this.userChat.length === newCount && this.lastMsgId && newLastId && this.lastMsgId === newLastId) {
-          console.log('[Right] No new messages, skipping');
-          return;
-        }
+      this.cd.detectChanges();
+      this.scrollToBottomInstant();
+    }
+  });
 
-        if (!this.ticketId) {
-          this.ticketId = data.lastTicket?._id ?? data.lastTicket ?? null;
-        }
-
-        this.userChat = msgs;
-        this.lastMsgCount = newCount;
-        this.lastMsgId = newLastId;
-
-        if (newCount > 0) {
-  const lastMessage = msgs[newCount - 1];
-  console.log('[Right] Last message:', lastMessage);
-
-  const previewText = this.getPreviewFromMessage(lastMessage);
-
-  if (this.chatSelected && previewText !== undefined) {
-    this.triggerLastMessageUpdate(this.chatSelected, previewText, lastMessage.createdAt);
+  // 2️⃣ Typing indicator — subscribe ONCE, and tie it to chatSelected
+  if (this.subTyping) {
+    this.subTyping.unsubscribe();
   }
+
+  this.subTyping = Socketservice.instance.typing$.subscribe((data: any) => {
+    console.log(
+      'newdatesocket',
+      data,
+      'admin userId:',
+      this.userId,
+      'chatSelected:',
+      this.chatSelected
+    );
+
+    if (!data) return;
+
+    const typingUserId = String(data.userId || '');
+    const selectedUserId = String(this.chatSelected || '');
+    const isTyping = !!data.isTyping;
+
+    // ✅ Show typing ONLY if:
+    // 1. The event belongs to the currently opened chat user
+    if (typingUserId === selectedUserId && isTyping) {
+      this.isOtherTyping = true;
+    }
+    // ✅ Stop typing ONLY for that same user
+    else if (typingUserId === selectedUserId && !isTyping) {
+      this.isOtherTyping = false;
+    }
+
+    // Events for other users (typingUserId !== selectedUserId) are ignored
+
+    this.cd.detectChanges();
+  });
 }
 
-        // typing indicator
-        this.subTyping = Socketservice.instance.typing$.subscribe((data) => {
-          console.log('newdatesocket', data);
 
-          if (this.chatSelected === data?.userId) {
-            this.isOtherTyping = data.isTyping;
-          } else {
-            this.isOtherTyping = false;
-          }
-          this.cd.detectChanges();
-        });
-
-        this.cd.detectChanges();
-        this.scrollToBottomInstant();
-      }
-    });
-  }
 
   private getPreviewFromMessage(msg: any): string {
     // 1. If there's normal text, use it

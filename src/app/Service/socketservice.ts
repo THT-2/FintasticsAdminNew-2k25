@@ -58,33 +58,59 @@ export class Socketservice {
     });
 
     // 🔥🔥 LISTEN FOR TYPING FROM SERVER USING YOUR EXACT BACKEND EVENT
+    // this.socket.on("chat:typing", (payload: any) => {
+    //   console.log("📩 chat:typing received", payload);
+
+    //   if (!payload) return;
+
+    //   // ❌ Ignore my own typing event
+    //   if (String(payload.userId) === String(this.currentUserId)) {
+    //     return;
+    //   }
+
+    //   // ✔ Show other user typing
+    //   this.typingSubject.next(payload);
+
+    // });
+
     this.socket.on("chat:typing", (payload: any) => {
-      console.log("📩 chat:typing received", payload);
+  console.log("📩 chat:typing received", payload);
 
-      if (!payload) return;
+  if (!payload) return;
 
-      // ❌ Ignore my own typing event
-      if (String(payload.userId) === String(this.currentUserId)) {
-        return;
-      }
+  // ✅ Ignore my own typing events using fromId
+  // if (String(payload.fromId) === String(this.currentUserId)) {
+  //   return;
+  // }
 
-      // ✔ Show other user typing
-      this.typingSubject.next(payload);
+  // Pass through other side's typing
+  this.typingSubject.next(payload);
+});
 
-    });
   }
 
   // 🔥🔥 EMIT TYPING EXACTLY AS BACKEND EXPECTS
-  sendTyping(isTyping: boolean,userIds:any) {
-    if (!this.socket) return;
+  // sendTyping(isTyping: boolean,userIds:any) {
+  //   if (!this.socket) return;
 
-    console.log("📤 sending chat:typing", { isTyping ,userIds});
+  //   console.log("📤 sending chat:typing", { isTyping ,userIds});
 
-    this.socket.emit("chat:typing", {
-      userId:userIds,
-      isTyping: isTyping
-    });
-  }
+  //   this.socket.emit("chat:typing", {
+  //     userId:userIds,
+  //     isTyping: isTyping
+  //   });
+  // }
+// Socketservice
+sendTyping(isTyping: boolean, userIds: any) {
+  if (!this.socket) return;
+
+  console.log("📤 sending chat:typing", { isTyping, userIds });
+
+  this.socket.emit("chat:typing", {
+    userId: userIds,               // target user / room (unchanged) 
+    isTyping: isTyping
+  });
+}
 
   emit(eventName: string, payload?: any) {
     this.socket?.emit(eventName, payload);

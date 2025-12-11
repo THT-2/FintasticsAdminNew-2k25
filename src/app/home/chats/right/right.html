@@ -76,7 +76,7 @@
           [ngClass]="msg?.senderRole === 'user' ? 'client' : 'agent'"
         >
           <!-- 🟢 TEXT ONLY when type is Message (or no type) -->
-          @if (msg?.type === 'Message' || !msg?.type) {
+          @if (msg?.type === 'Message'|| 'AI' || !msg?.type) {
             <span [innerHTML]="makeClickable(msg.text)"></span>
           }
 

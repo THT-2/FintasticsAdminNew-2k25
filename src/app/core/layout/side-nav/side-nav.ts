@@ -119,13 +119,15 @@ export class SideNav implements OnInit {
     this.loadPermissions();
   }
 
-
-  toggleSection(section: any) {
-    section.open = !section.open;
-  }
-
-
-
+toggleSection(section: any) {
+  this.NavItems.forEach(nav => {
+    if (nav === section) {
+      nav.open = !nav.open;
+    } else {
+      nav.open = false;
+    }
+  });
+}
 
   loadPermissions() {
     const roleId = localStorage.getItem('role');
