@@ -141,7 +141,6 @@ copyMobile() {
   }, 2000); // 2 seconds
 }
 
-
   endChat(): void {
     this.chatEnded.emit();
     this.showPopup = false;

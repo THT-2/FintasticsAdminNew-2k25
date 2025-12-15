@@ -267,7 +267,7 @@ export class HeaderConstants {
       'class': "text-transform"
     },
       {
-      'name': 'budgetpercentage',
+      'name': 'budgetpersentage',
       'displayName': 'Budget Percentage',
       'disableSorting': false,
       'class': "text-transform"

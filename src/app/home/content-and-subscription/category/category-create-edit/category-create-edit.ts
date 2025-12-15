@@ -56,7 +56,7 @@ ngOnInit(): void {
     icon: [null, Validators.required],
     backgroundimage: [null, Validators.required],
     colorCode:[""],
-    budgetpercentage:[""],
+    budgetpersentage:[""],
     categoryType: ["",Validators.required],
     _id: [null],
   });
@@ -65,7 +65,7 @@ ngOnInit(): void {
   get categoryFormControl() {
     return this.categoryForm.controls;
   }
-  
+
   getById(id: any) {
     this.pageLoader = true;
     let apiUrl =
@@ -79,7 +79,7 @@ ngOnInit(): void {
           icon: this.categoryData.icon,
           backgroundimage: this.categoryData.backgroundimage,
           colorCode:this.categoryData.colorCode,
-          budgetpercentage:this.categoryData.budgetpercentage,
+          budgetpersentage:this.categoryData.budgetpersentage,
           categoryType: this.categoryData.categoryType,
           _id: this.categoryData._id,
         });
