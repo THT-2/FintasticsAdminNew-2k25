@@ -51,8 +51,6 @@
   <span class="status"></span>
 </h4>
 
-
-
           <div class="usertyping" *ngIf="isOtherTyping">
             typing....
           </div>
@@ -73,12 +71,12 @@
       @for (msg of userChat; track msg) {
         <div
           class="message"
-          [ngClass]="msg?.senderRole === 'user' ? 'client' : 'agent'"
-        >
+          [ngClass]="msg?.senderRole === 'user' ? 'client' : 'agent'">
           <!-- 🟢 TEXT ONLY when type is Message (or no type) -->
-          @if (msg?.type === 'Message'|| 'AI' || !msg?.type) {
-            <span [innerHTML]="makeClickable(msg.text)"></span>
+          @if (msg?.type === 'Message'||msg?.type === 'AI' || !msg?.type) {
+            <span [innerHTML]="makeClickable(msg.text||'')"></span>
           }
+
 
           <!-- 🟣 ATTACHMENTS ONLY when type is Attachments -->
           @if (msg?.type === 'Attachments') {

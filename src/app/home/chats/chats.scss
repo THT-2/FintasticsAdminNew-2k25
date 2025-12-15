@@ -33,11 +33,13 @@
         }
 
         .chat-container {
+  // height: calc(100vh - 5rem - 4rem); // match your .main-content padding top/bottom
+
             display: grid;
             grid-template-columns: 350px 1fr;
             gap: 0;
             max-width: 2000px;
-            height: 89vh;
+            height: 100%;
             margin: 0 auto;
             background: var(--white);
             border-radius: 18px;

@@ -76,73 +76,137 @@ export class Login {
       return;
     }
 
+    // const apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.login;
+
+    // const identifier: string = this.loginForm.value.identifier.trim();
+    // const password: string = this.loginForm.value.password;
+    // const payload = {
+    //   email: identifier,
+    //   password: password
+    // };
+
+    // this.navService.postData(apiUrl, payload).subscribe({
+    //   next: (res: any) => {
+    //     if (res.code === 200) {
+    //       // Save token
+    //       localStorage.setItem('token', res.data);
+
+    //       // Decode token
+    //       const tokenData: any = jwtDecode(res.data);
+    //       console.log('tokenData', tokenData);
+
+    //       // Basic user info
+    //       localStorage.setItem('username', tokenData?.username || '');
+    //       localStorage.setItem('role', tokenData?.role || '');
+
+    //       // ✅ Correct userId from token: user_id or sub
+    //       const userId: string = tokenData?.user_id || tokenData?.sub || '';
+    //       if (userId) {
+    //         localStorage.setItem('userid', userId);   // 👈 matches Home.ts
+    //       } else {
+    //         console.warn('No user_id/sub in token; userid not stored.');
+    //       }
+
+    //       // Role ID from token
+    //       const roleId: string = tokenData?.role || '';
+
+    //       if (roleId) {
+    //         localStorage.setItem('roleId', roleId);
+
+    //         // Fetch role details and store permissions for navbar / RBAC
+    //         const roleApiUrl =
+    //           ApiRoutesConstants.BASE_URL + ApiRoutesConstants.Roles_get_id + roleId;
+
+    //         this.navService.getData(roleApiUrl).subscribe({
+    //           next: (roleRes: any) => {
+    //             if (roleRes.code === 200 && roleRes.data?.permissions) {
+    //               localStorage.setItem(
+    //                 'permissions',
+    //                 JSON.stringify(roleRes.data.permissions)
+    //               );
+    //             }
+    //             // If this fails, user is still logged in; navbar just won't see permissions
+    //           },
+    //           error: (err: any) => {
+    //             console.error('Error fetching role permissions', err);
+    //           }
+    //         });
+
+    //       } else {
+    //         console.warn('Login token does not contain roleId');
+    //       }
+
+    //       // Success toast + redirect
+    //       this.alertService.toast('success', true, res.message);
+    //       this.router.navigate(['/admin/overview']);
+
+    //     } else {
+    //       this.alertService.toast('error', true, res.message);
+    //     }
+    //   },
+    //   error: (error: any) => {
+    //     console.log(error);
+    //     this.alertService.toast('error', true, 'Login failed. Please try again.');
+    //   }
+    // });
+
     const apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.login;
 
-    const identifier: string = this.loginForm.value.identifier.trim();
-    const password: string = this.loginForm.value.password;
+const identifier: string = this.loginForm.value.identifier.trim();
+const password: string = this.loginForm.value.password;
 
-    // Backend expects { "email": "...", "password": "..." }
-    // Here, "email" can be actual email OR userID string
-    const payload = {
-      email: identifier,
-      password: password
-    };
+this.navService.getIpAddress().subscribe({
+  next: (ipRes) => {
+  const ip = ipRes?.ip || '';
 
-    this.navService.postData(apiUrl, payload).subscribe({
+  console.log('IP from ipify:', ipRes);
+  console.log('User IP:', ip);
+
+  // ✅ store in localStorage
+  localStorage.setItem('user_ip', ip);
+
+  console.log('Stored IP:', localStorage.getItem('user_ip'));
+
+  const payload = {
+    email: identifier,
+    password: password,
+    ipAddress: ip
+  };
+
+  console.log('Login Payload:', payload);
+
+  this.navService.postData(apiUrl, payload).subscribe({
       next: (res: any) => {
+        // ✅ your existing success code
         if (res.code === 200) {
-          // Save token
           localStorage.setItem('token', res.data);
-
-          // Decode token
           const tokenData: any = jwtDecode(res.data);
-          console.log('tokenData', tokenData);
 
-          // Basic user info
           localStorage.setItem('username', tokenData?.username || '');
           localStorage.setItem('role', tokenData?.role || '');
 
-          // ✅ Correct userId from token: user_id or sub
           const userId: string = tokenData?.user_id || tokenData?.sub || '';
-          if (userId) {
-            localStorage.setItem('userid', userId);   // 👈 matches Home.ts
-          } else {
-            console.warn('No user_id/sub in token; userid not stored.');
-          }
+          if (userId) localStorage.setItem('userid', userId);
 
-          // Role ID from token
           const roleId: string = tokenData?.role || '';
-
           if (roleId) {
             localStorage.setItem('roleId', roleId);
 
-            // Fetch role details and store permissions for navbar / RBAC
             const roleApiUrl =
               ApiRoutesConstants.BASE_URL + ApiRoutesConstants.Roles_get_id + roleId;
 
             this.navService.getData(roleApiUrl).subscribe({
               next: (roleRes: any) => {
                 if (roleRes.code === 200 && roleRes.data?.permissions) {
-                  localStorage.setItem(
-                    'permissions',
-                    JSON.stringify(roleRes.data.permissions)
-                  );
+                  localStorage.setItem('permissions', JSON.stringify(roleRes.data.permissions));
                 }
-                // If this fails, user is still logged in; navbar just won't see permissions
               },
-              error: (err: any) => {
-                console.error('Error fetching role permissions', err);
-              }
+              error: (err: any) => console.error('Error fetching role permissions', err)
             });
-
-          } else {
-            console.warn('Login token does not contain roleId');
           }
 
-          // Success toast + redirect
           this.alertService.toast('success', true, res.message);
           this.router.navigate(['/admin/overview']);
-
         } else {
           this.alertService.toast('error', true, res.message);
         }
@@ -152,5 +216,24 @@ export class Login {
         this.alertService.toast('error', true, 'Login failed. Please try again.');
       }
     });
+  },
+  error: () => {
+    const payload = {
+      email: identifier,
+      password: password,
+      ipAddress: ''
+    };
+
+    this.navService.postData(apiUrl, payload).subscribe({
+              next: (roleRes: any) => {
+                if (roleRes.code === 200 && roleRes.data?.permissions) {
+                  localStorage.setItem('permissions', JSON.stringify(roleRes.data.permissions));
+                }
+              },
+              error: (err: any) => console.error('Error fetching role permissions', err)
+            });
+  }
+});
+
   }
 }

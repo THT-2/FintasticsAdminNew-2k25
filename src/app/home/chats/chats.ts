@@ -72,8 +72,6 @@ onTicketSelected(ticketId: string) {
   this.selectedTicketId = ticketId;
 }
 
-
-
   canLeaveChat(): boolean {
 
     return !this.chatActive;

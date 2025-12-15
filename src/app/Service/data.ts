@@ -74,4 +74,8 @@ getuserData<T>(url: string, params?: Record<string, any>) {
       observe: 'events'
     });
   }
+
+  getIpAddress() {
+    return this.http.get<{ ip: string }>('https://api.ipify.org?format=json');
+  }
 }

@@ -24,9 +24,13 @@ export class Navbar {
   @Output() toggleSidebar = new EventEmitter<void>();
 
   isDarkMode = false;
+user_ip: any;
 
   get username(): string {
     return localStorage.getItem('username') || '';
+  }
+  get ip(): string {
+    return localStorage.getItem('user_ip') || '';
   }
 
   /**

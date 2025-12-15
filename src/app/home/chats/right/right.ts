@@ -43,12 +43,10 @@ export class Right implements OnChanges, OnInit, OnDestroy {
   @ViewChild('chatContainer') chatContainer!: ElementRef;
   @ViewChild('fileInput') fileInput!: ElementRef;
   @ViewChild('dropdownContainer') dropdownContainer!: ElementRef;
-
   @Output() getFilePath = new EventEmitter();
 
   dropdownOpen = false;
   fileUploadControl!: FormControl;
-
   userChat: any[] = [];
   phone: any;
   ticketId: string | null = null;

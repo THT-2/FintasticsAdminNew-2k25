@@ -50,7 +50,6 @@ export class Left implements OnInit, AfterViewInit, OnDestroy {
   @Output() chatSelected = new EventEmitter<string>();
   @Output() ticket = new EventEmitter<string>();
   @Output() openChat = new EventEmitter<void>();
-
   @ViewChild('sidebar') sidebar!: ElementRef;
   @ViewChild('searchInput') searchInput!: ElementRef;
 
@@ -81,7 +80,6 @@ export class Left implements OnInit, AfterViewInit, OnDestroy {
     this.getchatList();
     this.initSocketListener();
     this.subscribeToLastMessages();
-
   }
 
 initSocketListener() {
@@ -238,14 +236,18 @@ selectChat(item: any) {
 
   private setupEventListeners(): void {
     setTimeout(() => {
-      const chatItems = document.querySelectorAll<HTMLDivElement>('.chat-item');
+      // const chatItems = document.querySelectorAll<HTMLDivElement>('.chat-item');
+      const root = this.sidebar.nativeElement as HTMLElement;
 
-      chatItems.forEach((item) => {
-        item.addEventListener('click', function () {
-          chatItems.forEach((chat) => chat.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
+const chatItems = root.querySelectorAll('.chat-item') as NodeListOf<HTMLDivElement>;
+
+chatItems.forEach((item: HTMLDivElement) => {
+  item.addEventListener('click', () => {
+    chatItems.forEach((chat: HTMLDivElement) => chat.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+
 
       const statusToggle = this.sidebar?.nativeElement.querySelector('.status-toggle');
 

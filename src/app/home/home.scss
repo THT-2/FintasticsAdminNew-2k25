@@ -19,16 +19,36 @@
   transition: margin-left 0.3s;
 }
 
-.main-content.chats {
-  background: white;
-  padding: 5rem 1.5rem 4rem;
-  height: 200vh;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-bottom: 0 !important;
-  overflow-y: hidden;
-  margin-bottom: 0 !important;
+// .main-content.chat-history {
+//   background: white;
+//   padding: 5rem 1.5rem 4rem;
+//   // height: 100vh;
+//   padding-left: 0px;
+//   padding-right: 0px;
+//   padding-bottom: 0 !important;
+//   overflow: hidden;
+//   margin-bottom: 0 !important;
+// }
+
+.main-content.chat-history {
+  overflow: hidden;   /* no page scroll, scroll inside panels */
+  padding: 5rem 1.5rem 1rem;         /* IMPORTANT: remove the 5rem/4rem padding for chat page */
+  display: flex;
+  flex-direction: column;
 }
+
+/* make outlet consume full height */
+.main-content.chat-history .outlet {
+  margin-left: 220px;   /* keep your sidebar spacing */
+  flex: 1;
+  min-height: 0;        /* IMPORTANT */
+  overflow: hidden;
+}
+
+.main-content.chat-history .outlet.collapsed {
+  margin-left: 60px;
+}
+
 
 // app-chat-left{
 //   overflow-y: auto;

@@ -86,8 +86,7 @@ export class Socketservice {
   // Pass through other side's typing
   this.typingSubject.next(payload);
 });
-
-  }
+}
 
   // 🔥🔥 EMIT TYPING EXACTLY AS BACKEND EXPECTS
   // sendTyping(isTyping: boolean,userIds:any) {
@@ -100,14 +99,13 @@ export class Socketservice {
   //     isTyping: isTyping
   //   });
   // }
+
 // Socketservice
 sendTyping(isTyping: boolean, userIds: any) {
   if (!this.socket) return;
-
   console.log("📤 sending chat:typing", { isTyping, userIds });
-
   this.socket.emit("chat:typing", {
-    userId: userIds,               // target user / room (unchanged) 
+    userId: userIds,
     isTyping: isTyping
   });
 }
