@@ -27,7 +27,7 @@ export class Bank implements OnInit{
   buttondata= {
     buttonName : 'Add New Bank',
     routingPath : '/admin/bank/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

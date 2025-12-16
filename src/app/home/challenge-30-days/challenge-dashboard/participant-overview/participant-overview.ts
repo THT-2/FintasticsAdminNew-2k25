@@ -28,8 +28,8 @@ export class ParticipantOverview implements OnInit{
     buttonName : 'Add New Banner',
     routingPath : '/admin/banners/create',
     routingView : 'View',
-    routingEdit : 'Edit',
-    routingDelete : 'Delete',
+    // routingEdit : 'Edit',
+    // routingDelete : 'Delete',
   }
   userdata: any;
   userId:any;

@@ -266,14 +266,14 @@ NavItems: any[]=[
         checked: false,
         path: '/admin/agent'
       },
-      // {
-      //   id: 'chats',
-      //   title: 'Chat',
-      //   icon: 'fas fa-history',
-      //   status: false,
-      //   checked: false,
-      //   path: '/admin/chats'
-      // },
+      {
+        id: 'chats',
+        title: 'Chat',
+        icon: 'fas fa-history',
+        status: false,
+        checked: false,
+        path: '/admin/chats'
+      },
       {
         id: 'performance',
         title: 'Performace History',
@@ -693,7 +693,6 @@ constructor(private navService: Data,private alertService:AlertService,private f
 
   get roleFormControl () {
     return this.roleForm.controls;
-
   }
 
 getById(id: any) {
@@ -751,8 +750,8 @@ getById(id: any) {
       //     mergedNavItems.push({ ...apiParent });
       //   }
       // }
-
       //  Add any new parent from API that doesn't exist locally
+
 for (let i = 0; i < this.roleData.permissions.length; i++) {
   const apiParent = this.roleData.permissions[i];
   const exists = mergedNavItems.some((p: any) => p.id === apiParent.id);
@@ -764,7 +763,6 @@ for (let i = 0; i < this.roleData.permissions.length; i++) {
     });
   }
 }
-
 
       // Update final NavItems list
       this.NavItems = [...mergedNavItems];

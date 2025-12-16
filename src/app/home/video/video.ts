@@ -27,7 +27,7 @@ export class Video implements OnInit{
   buttondata= {
     buttonName : 'Add New Video',
     routingPath : '/admin/video/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

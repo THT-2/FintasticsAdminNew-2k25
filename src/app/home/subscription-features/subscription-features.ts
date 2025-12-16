@@ -31,7 +31,7 @@ export class SubscriptionFeatures implements OnInit{
   buttondata= {
     buttonName : 'Add New Features',
     routingPath : '/admin/features/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

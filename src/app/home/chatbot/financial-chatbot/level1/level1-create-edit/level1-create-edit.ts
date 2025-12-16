@@ -7,9 +7,7 @@ import { Data } from '../../../../../Service/data';
 import { ApiRoutesConstants } from '../../../../../constants/api-route-constants';
 import { CommonModule, NgIf } from '@angular/common';
 import * as bootstrap from 'bootstrap';
-import { routes } from '../../../../../app.routes';
 import { FileUpload } from "../../../../../Z-Commons/file-upload/file-upload";
-import { FilePreview } from "../../../../../Z-Commons/file-preview/file-preview";
 
 @Component({
   selector: 'app-level1-create-edit',

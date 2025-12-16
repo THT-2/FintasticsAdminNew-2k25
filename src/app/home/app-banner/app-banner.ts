@@ -26,7 +26,7 @@ export class AppBanner implements OnInit{
   buttondata= {
     buttonName : 'Add New Banner',
     routingPath : '/admin/banners/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

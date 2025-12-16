@@ -27,7 +27,7 @@ export class Subcategory implements OnInit{
   buttondata= {
     buttonName : 'Add New Sub-Category',
     routingPath : '/admin/subcategory/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

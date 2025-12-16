@@ -26,7 +26,7 @@ export class SubscribedUsers {
   buttondata = {
     buttonName: 'Add New Subscriber',
     routingPath: '/admin/subscribed/create',
-    routingView: 'View',
+    // routingView: 'View',
     routingEdit: 'Edit',
     routingDelete: 'Delete',
   };

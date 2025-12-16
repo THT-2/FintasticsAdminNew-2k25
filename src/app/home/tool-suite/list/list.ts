@@ -25,7 +25,7 @@ public apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.ToolsSuites_getl
   buttondata= {
     buttonName : 'Add New Tool',
     routingPath : '/admin/list/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

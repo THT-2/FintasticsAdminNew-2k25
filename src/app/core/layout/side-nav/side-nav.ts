@@ -1,95 +1,3 @@
-// import { CommonModule, NgIf } from '@angular/common';
-// import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-// import { IsActiveMatchOptions, Router, RouterLink } from '@angular/router';
-// import { Data } from '../../../Service/data';
-// import { HttpClientModule } from '@angular/common/http';
-// import { ApiRoutesConstants } from '../../../constants/api-route-constants';
-// import { GlobalConstant } from '../../../constants/global-constants';
-// import { HomeRoutingModule } from "../../../home/home-routing-module";
-
-// @Component({
-//   selector: 'app-side-nav',
-//   imports: [RouterLink, CommonModule, HttpClientModule, HomeRoutingModule],
-//   templateUrl: './side-nav.html',
-//   styleUrls: ['./side-nav.scss']
-// })
-// export class SideNav implements OnInit {
-
-//   @Input() isCollapsed: boolean = false;
-
-//   NavItems: any[] = [];
-//   pageLoader: boolean = false;
-//   GlobalConstant: any = GlobalConstant;
-//   showChatsScreen: boolean = false;
-//   newkey:any
-
-//   constructor(private navService: Data, private cd: ChangeDetectorRef,private router: Router) {}
-
-//    hasActiveChild(item: any): boolean {
-//     if (!item?.children?.length) return false;
-
-//     const matchOpts: IsActiveMatchOptions = {
-//       paths: 'exact',
-//       queryParams: 'ignored',
-//       fragment: 'ignored',
-//       matrixParams: 'ignored',
-//     };
-
-//     return item.children.some((c: any) =>
-//       this.router.isActive(this.router.createUrlTree([c.url]), matchOpts)
-//     );
-//   }
-
-//   ngOnInit(): void {
-//     this.loadPermissions();
-//   }
-
-//   toggleDropdown(item: any) {
-//     item.open = !item.open;
-//   }
-
-//  loadPermissions() {
-//     const roleId = localStorage.getItem('role');
-
-//     if (!roleId) {
-//       console.error("No roleId found in localStorage");
-//       this.NavItems = [];
-//       return;
-//     }
-
-//     this.pageLoader = true;
-//     const apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.Roles_get_id + roleId;
-
-//     this.navService.getData(apiUrl).subscribe({
-//       next: (res: any) => {
-//         if (res.code === 200 && res.data) {
-//           this.NavItems = (res.data.permissions || [])
-//             .map((item: any) => ({
-//               ...item,
-//               subtitle: (item.subtitle || []).filter((sub: any) => sub.checked)
-//             }))
-//             .filter((item: any) => item.subtitle.length > 0);
-
-//           this.newkey = this.NavItems[4].subtitle[2].id;
-
-
-//           this.showChatsScreen = this.newkey === 'chats';
-
-//           console.log("SideNav loaded NavItems:", this.NavItems);
-
-//           this.cd.detectChanges();
-//         }
-//         this.pageLoader = false;
-//       },
-//       error: (err: any) => {
-//         console.error("Error fetching role permissions:", err);
-//         this.pageLoader = false;
-//       }
-//     });
-//   }
-// }
-
-
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -119,15 +27,11 @@ export class SideNav implements OnInit {
     this.loadPermissions();
   }
 
-toggleSection(section: any) {
-  this.NavItems.forEach(nav => {
-    if (nav === section) {
-      nav.open = !nav.open;
-    } else {
-      nav.open = false;
-    }
-  });
-}
+  toggleSection(section: any) {
+    this.NavItems.forEach(nav => {
+      nav.open = nav === section ? !nav.open : false;
+    });
+  }
 
   loadPermissions() {
     const roleId = localStorage.getItem('role');
@@ -137,31 +41,63 @@ toggleSection(section: any) {
     }
 
     this.pageLoader = true;
-    const apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.Roles_get_id + roleId;
+    const apiUrl =
+      ApiRoutesConstants.BASE_URL +
+      ApiRoutesConstants.Roles_get_id +
+      roleId;
 
     this.navService.getData(apiUrl).subscribe({
       next: (res: any) => {
         if (res?.code === 200 && res?.data?.permissions) {
-          this.NavItems = res.data.permissions
-            .map((nav: any, index: number) => ({
-              ...nav,
-              open: index === 0,
-              subtitle: (nav.subtitle || []).filter((sub: any) => sub?.checked)
-            }))
-            .filter((nav: any) => nav.subtitle.length > 0);
-            this.cd.detectChanges();
-        } else {
+
+  const permissions = res.data.permissions;
+
+  // 🔥 FIX INCONSISTENT DATA (THIS IS THE ANSWER TO "WHERE?")
+  const mainMenu = permissions.find((p: any) => p.id === 'mainmenu');
+  if (mainMenu) {
+    const anyChildChecked =
+      Array.isArray(mainMenu.subtitle) &&
+      mainMenu.subtitle.some(
+        (s: any) =>
+          s.checked === true || s.checked === 1 || s.checked === '1'
+      );
+
+    if (anyChildChecked) {
+      mainMenu.checked = true; // ✅ parent enforced
+    }
+  }
+
+  // ✅ NOW save corrected permissions
+  localStorage.setItem(
+    'permissions',
+    JSON.stringify(permissions)
+  );
+
+  this.NavItems = permissions
+    .map((nav: any, index: number) => ({
+      ...nav,
+      open: index === 0,
+      subtitle: (nav.subtitle || []).filter(
+        (sub: any) =>
+          sub?.checked === true ||
+          sub?.checked === 1 ||
+          sub?.checked === '1'
+      )
+    }))
+    .filter((nav: any) => nav.subtitle.length > 0);
+}
+
+        else {
           this.NavItems = [];
         }
-        this.pageLoader = false;
 
+        this.pageLoader = false;
+        this.cd.detectChanges();
       },
       error: () => {
         this.pageLoader = false;
         this.NavItems = [];
       }
-
     });
-    this.cd.detectChanges();
   }
 }

@@ -28,7 +28,7 @@ export class UserDetails implements OnInit{
   buttondata= {
     buttonName : 'Add New User',
     routingPath : '/admin/user-details/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

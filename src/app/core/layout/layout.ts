@@ -28,17 +28,18 @@ export class Layout {
         // ✅ Whenever you're on chats (/admin/chats) → collapse sidebar
         if (url.startsWith('/admin/chats')) {
           this.isCollapsed = true;
-        } else {
-          // Optional: auto-expand on all non-chat pages
-          this.isCollapsed = false;
         }
+        // else {
+        //   // Optional: auto-expand on all non-chat pages
+        //   this.isCollapsed = false;
+        // }
 
         console.log('Route changed:', url, 'isCollapsed:', this.isCollapsed);
       });
   }
 
-toggleSidebar() {
-  this.isCollapsed = !this.isCollapsed;
+toggleSidebar(nextState: boolean) {
+  this.isCollapsed = nextState;
   console.log('isCollapsed:', this.isCollapsed);
   this.NavCollapse.emit();
 }

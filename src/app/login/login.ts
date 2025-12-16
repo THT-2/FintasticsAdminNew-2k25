@@ -63,177 +63,85 @@ export class Login {
     this.showPassword = !this.showPassword;
   }
 
-  onSubmit() {
-    this.loginForm.markAllAsTouched();
-    this.loginForm.updateValueAndValidity();
+ onSubmit() {
+  this.loginForm.markAllAsTouched();
+  this.loginForm.updateValueAndValidity();
 
-    if (!this.loginForm.valid) {
-      this.alertService.toast(
-        'error',
-        true,
-        'Please check your email / user ID and password'
-      );
-      return;
-    }
+  if (!this.loginForm.valid) {
+    this.alertService.toast('error', true, 'Please check your email / user ID and password');
+    return;
+  }
 
-    // const apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.login;
+  const apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.login;
 
-    // const identifier: string = this.loginForm.value.identifier.trim();
-    // const password: string = this.loginForm.value.password;
-    // const payload = {
-    //   email: identifier,
-    //   password: password
-    // };
+  const identifier: string = this.loginForm.value.identifier.trim();
+  const password: string = this.loginForm.value.password;
 
-    // this.navService.postData(apiUrl, payload).subscribe({
-    //   next: (res: any) => {
-    //     if (res.code === 200) {
-    //       // Save token
-    //       localStorage.setItem('token', res.data);
-
-    //       // Decode token
-    //       const tokenData: any = jwtDecode(res.data);
-    //       console.log('tokenData', tokenData);
-
-    //       // Basic user info
-    //       localStorage.setItem('username', tokenData?.username || '');
-    //       localStorage.setItem('role', tokenData?.role || '');
-
-    //       // ✅ Correct userId from token: user_id or sub
-    //       const userId: string = tokenData?.user_id || tokenData?.sub || '';
-    //       if (userId) {
-    //         localStorage.setItem('userid', userId);   // 👈 matches Home.ts
-    //       } else {
-    //         console.warn('No user_id/sub in token; userid not stored.');
-    //       }
-
-    //       // Role ID from token
-    //       const roleId: string = tokenData?.role || '';
-
-    //       if (roleId) {
-    //         localStorage.setItem('roleId', roleId);
-
-    //         // Fetch role details and store permissions for navbar / RBAC
-    //         const roleApiUrl =
-    //           ApiRoutesConstants.BASE_URL + ApiRoutesConstants.Roles_get_id + roleId;
-
-    //         this.navService.getData(roleApiUrl).subscribe({
-    //           next: (roleRes: any) => {
-    //             if (roleRes.code === 200 && roleRes.data?.permissions) {
-    //               localStorage.setItem(
-    //                 'permissions',
-    //                 JSON.stringify(roleRes.data.permissions)
-    //               );
-    //             }
-    //             // If this fails, user is still logged in; navbar just won't see permissions
-    //           },
-    //           error: (err: any) => {
-    //             console.error('Error fetching role permissions', err);
-    //           }
-    //         });
-
-    //       } else {
-    //         console.warn('Login token does not contain roleId');
-    //       }
-
-    //       // Success toast + redirect
-    //       this.alertService.toast('success', true, res.message);
-    //       this.router.navigate(['/admin/overview']);
-
-    //     } else {
-    //       this.alertService.toast('error', true, res.message);
-    //     }
-    //   },
-    //   error: (error: any) => {
-    //     console.log(error);
-    //     this.alertService.toast('error', true, 'Login failed. Please try again.');
-    //   }
-    // });
-
-    const apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.login;
-
-const identifier: string = this.loginForm.value.identifier.trim();
-const password: string = this.loginForm.value.password;
-
-this.navService.getIpAddress().subscribe({
-  next: (ipRes) => {
-  const ip = ipRes?.ip || '';
-
-  console.log('IP from ipify:', ipRes);
-  console.log('User IP:', ip);
-
-  // ✅ store in localStorage
-  localStorage.setItem('user_ip', ip);
-
-  console.log('Stored IP:', localStorage.getItem('user_ip'));
+  // ✅ simplest: don’t call ipify, just store N/A
+  localStorage.setItem('user_ip', 'N/A');
 
   const payload = {
     email: identifier,
     password: password,
-    ipAddress: ip
+    ipAddress: '' // or 'N/A' if your backend accepts it
   };
 
-  console.log('Login Payload:', payload);
-
   this.navService.postData(apiUrl, payload).subscribe({
-      next: (res: any) => {
-        // ✅ your existing success code
-        if (res.code === 200) {
-          localStorage.setItem('token', res.data);
-          const tokenData: any = jwtDecode(res.data);
+    next: (res: any) => {
+      if (res.code !== 200) {
+        this.alertService.toast('error', true, res.message);
+        return;
+      }
 
-          localStorage.setItem('username', tokenData?.username || '');
-          localStorage.setItem('role', tokenData?.role || '');
+      // token
+      localStorage.setItem('token', res.data);
 
-          const userId: string = tokenData?.user_id || tokenData?.sub || '';
-          if (userId) localStorage.setItem('userid', userId);
+      // decode
+      const tokenData: any = jwtDecode(res.data);
 
-          const roleId: string = tokenData?.role || '';
-          if (roleId) {
-            localStorage.setItem('roleId', roleId);
+      localStorage.setItem('username', tokenData?.username || '');
+      localStorage.setItem('role', tokenData?.role || '');
 
-            const roleApiUrl =
-              ApiRoutesConstants.BASE_URL + ApiRoutesConstants.Roles_get_id + roleId;
+      const userId: string = tokenData?.user_id || tokenData?.sub || '';
+      if (userId) localStorage.setItem('userid', userId);
 
-            this.navService.getData(roleApiUrl).subscribe({
-              next: (roleRes: any) => {
-                if (roleRes.code === 200 && roleRes.data?.permissions) {
-                  localStorage.setItem('permissions', JSON.stringify(roleRes.data.permissions));
-                }
-              },
-              error: (err: any) => console.error('Error fetching role permissions', err)
-            });
+      const roleId: string = tokenData?.role || '';
+      if (!roleId) {
+        this.alertService.toast('error', true, 'Role not found in token');
+        return;
+      }
+
+      localStorage.setItem('roleId', roleId);
+
+      // ✅ fetch permissions BEFORE redirect to /admin/start
+      const roleApiUrl =
+        ApiRoutesConstants.BASE_URL + ApiRoutesConstants.Roles_get_id + roleId;
+
+      this.navService.getData(roleApiUrl).subscribe({
+        next: (roleRes: any) => {
+          if (roleRes?.code === 200 && roleRes?.data?.permissions) {
+            localStorage.setItem('permissions', JSON.stringify(roleRes.data.permissions));
+          } else {
+            localStorage.setItem('permissions', JSON.stringify([]));
           }
 
           this.alertService.toast('success', true, res.message);
-          this.router.navigate(['/admin/overview']);
-        } else {
-          this.alertService.toast('error', true, res.message);
+          this.router.navigate(['/admin/start']); // ✅ now start can redirect correctly
+        },
+        error: (err: any) => {
+          console.error('Error fetching role permissions', err);
+          localStorage.setItem('permissions', JSON.stringify([]));
+
+          this.alertService.toast('success', true, res.message);
+          this.router.navigate(['/admin/start']);
         }
-      },
-      error: (error: any) => {
-        console.log(error);
-        this.alertService.toast('error', true, 'Login failed. Please try again.');
-      }
-    });
-  },
-  error: () => {
-    const payload = {
-      email: identifier,
-      password: password,
-      ipAddress: ''
-    };
+      });
+    },
+    error: (error: any) => {
+      console.log(error);
+      this.alertService.toast('error', true, 'Login failed. Please try again.');
+    }
+  });
+}
 
-    this.navService.postData(apiUrl, payload).subscribe({
-              next: (roleRes: any) => {
-                if (roleRes.code === 200 && roleRes.data?.permissions) {
-                  localStorage.setItem('permissions', JSON.stringify(roleRes.data.permissions));
-                }
-              },
-              error: (err: any) => console.error('Error fetching role permissions', err)
-            });
-  }
-});
-
-  }
 }

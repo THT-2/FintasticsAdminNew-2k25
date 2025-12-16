@@ -28,7 +28,7 @@ export class NewsUpdate implements OnInit{
   buttondata= {
     buttonName : 'Add New News',
     routingPath : '/admin/news-update/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

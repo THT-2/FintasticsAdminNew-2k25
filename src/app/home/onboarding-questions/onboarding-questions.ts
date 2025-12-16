@@ -28,7 +28,7 @@ export class OnboardingQuestions implements OnInit{
   buttondata= {
     buttonName : 'Add New Question',
     routingPath : '/admin/questions/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }
@@ -95,7 +95,6 @@ export class OnboardingQuestions implements OnInit{
                 this.alertService.toast("success",true,res.Message);
                 this.getquestions();
               }
-
             },
             error: (error: any) => {
               console.log(error);

@@ -27,9 +27,9 @@ export class PaymentType implements OnInit{
   buttondata= {
     buttonName : 'Add New Payment-Type',
     routingPath : '/admin/payment-type-list/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
-    routingDelete : 'Delete',
+    // routingDelete : 'Delete',
   }
   ListData: any;
   columnDefinition: any[];

@@ -27,7 +27,7 @@ export class Category implements OnInit{
   buttondata= {
     buttonName : 'Add New Category',
     routingPath : '/admin/category/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

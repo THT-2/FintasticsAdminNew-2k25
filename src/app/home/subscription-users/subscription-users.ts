@@ -28,7 +28,7 @@ export class SubscriptionUsers implements OnInit{
   buttondata= {
     buttonName : 'Add New Payment-Type',
     routingPath : '/home/role/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

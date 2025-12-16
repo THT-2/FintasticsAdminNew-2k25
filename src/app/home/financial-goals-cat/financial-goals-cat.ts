@@ -26,7 +26,7 @@ export class FinancialGoalsCat implements OnInit{
   buttondata= {
     buttonName : 'Add New Goal',
     routingPath : '/admin/goals/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

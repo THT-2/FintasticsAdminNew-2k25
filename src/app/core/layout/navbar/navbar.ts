@@ -21,7 +21,7 @@ function isTrue(v: any): boolean {
 })
 export class Navbar {
   @Input() isCollapsed: boolean = false;
-  @Output() toggleSidebar = new EventEmitter<void>();
+  @Output() toggleSidebar = new EventEmitter<boolean>();
 
   isDarkMode = false;
 user_ip: any;
@@ -39,42 +39,25 @@ user_ip: any;
    *  - AND that parent has checked === true
    *  - (optional) AND chats submenu checked === true
    */
- get canShowChatIcon(): boolean {
+  get canShowChatIcon(): boolean {
   const permStr = localStorage.getItem('permissions');
   if (!permStr) return false;
 
   try {
     const permissions = JSON.parse(permStr);
-    // console.log('[Navbar] permissions:', permissions);
-
-    // Find the Fin Expert Chat parent (id: mainmenu)
-    const finExpert = permissions.find((p: any) => p.id === 'mainmenu');
-    if (!finExpert) {
-      // console.log('[Navbar] No mainmenu in permissions');
-      return false;
-    }
-
-    // parent checked (tolerant to true / "true" / 1)
-    const parentChecked = isTrue(finExpert.checked);
-
-    // check if "chats" submenu is checked
-    let chatsChecked = false;
-    if (Array.isArray(finExpert.subtitle)) {
-      chatsChecked = finExpert.subtitle.some(
-        (s: any) => s.id === 'chats' && isTrue(s.checked)
-      );
-    }
-
-    const result = parentChecked || chatsChecked;
-    // console.log('[Navbar] parentChecked:', parentChecked, 'chatsChecked:', chatsChecked, '=> canShowChatIcon:', result);
-
-    return result;
-
-  } catch (e) {
-    console.error('[Navbar] Error parsing permissions from localStorage', e);
+    const mainMenu = permissions.find((p: any) => p.id === 'mainmenu');
+    return !!mainMenu && (
+      mainMenu.checked === true ||
+      mainMenu.checked === 1 ||
+      mainMenu.checked === '1'
+    );
+  } catch {
     return false;
   }
 }
+
+
+
 
   constructor(
     private dialog: MatDialog,
@@ -85,7 +68,7 @@ user_ip: any;
 
   onToggleClick() {
     this.isCollapsed = !this.isCollapsed;
-    this.toggleSidebar.emit();
+    this.toggleSidebar.emit(this.isCollapsed);
   }
 
   onChatsClick(event: MouseEvent) {
@@ -94,7 +77,7 @@ user_ip: any;
 
     if (!this.isCollapsed) {
       this.isCollapsed = true;
-      this.toggleSidebar.emit();
+      this.toggleSidebar.emit(true);
     }
   }
 

@@ -19,7 +19,7 @@ export class PaymentDetails {
 buttondata= {
     buttonName : '',
     routingPath : '/admin/payment-details/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

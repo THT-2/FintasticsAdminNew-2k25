@@ -25,7 +25,7 @@ export class DuesRemainders implements OnInit{
   buttondata= {
     buttonName : 'Add New Due',
     routingPath : '/admin/due-remainder/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

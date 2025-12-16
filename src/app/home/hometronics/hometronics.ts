@@ -27,7 +27,7 @@ export class Hometronics implements OnInit{
   buttondata= {
     buttonName : 'Add New',
     routingPath : '/admin/hometronics/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

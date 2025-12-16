@@ -28,7 +28,7 @@ export class SubscriptionPlans implements OnInit{
   buttondata= {
     buttonName : 'Add New Plan',
     routingPath : '/admin/plans/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

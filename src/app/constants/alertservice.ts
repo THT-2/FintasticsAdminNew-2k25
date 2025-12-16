@@ -12,7 +12,6 @@ export class AlertService {
     });
   }
 
-
   toast(typeIcon:any, timerProgressBar: boolean = false, message:string) {
     Swal.fire({
       toast: true,

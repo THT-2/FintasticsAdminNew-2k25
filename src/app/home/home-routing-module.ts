@@ -84,13 +84,16 @@ import { AnalyticsDashboard } from './challenge-30-days/analytics-dashboard/anal
 import { ParticipantsDashboard } from './challenge-30-days/participants-dashboard/participants-dashboard';
 import { RewardsDashboard } from './challenge-30-days/rewards-dashboard/rewards-dashboard';
 import { UserActivityDashboard } from './challenge-30-days/user-activity-dashboard/user-activity-dashboard';
+import { StartRedirect } from './start-redirect';
 
 const routes: Routes = [
 {
   path: '',
-  redirectTo: '/overview',
+  redirectTo: 'start',
   pathMatch: 'full',
-  },
+},
+{ path: 'start', component:StartRedirect ,canActivate:[authguradGuard]},
+
     {path: 'overview', component: Overview,canActivate:[authguradGuard]},
           {path:'transaction',
             children:[

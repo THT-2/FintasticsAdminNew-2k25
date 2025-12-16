@@ -24,7 +24,7 @@ export class Level3 {
   buttondata= {
     buttonName : 'Add New Level 3',
     routingPath : '/admin/level3/create',
-    routingView : 'View',
+    // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }

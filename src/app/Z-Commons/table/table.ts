@@ -107,6 +107,9 @@ getActions( actions: string, data: any,event?: Event) {
     console.log("tableData", tableData);
     this.getActionTable.emit(tableData);
 }
+
+
+
 }
 
 
