@@ -7,7 +7,6 @@ import { AlertService } from '../../constants/alertservice';
 import { Data } from '../../Service/data';
 import { CommonModule } from '@angular/common';
 import { Insights } from "../revenue-insights/insights/insights";
-// import { Filter } from "./filter/filter";
 
 type QuickKey = 'today' | 'yesterday' | '7d' | '30d' | 'ytd' | 'custom';
 
@@ -35,7 +34,7 @@ export class Overview {
   plans: any;
   planData: any;
   overAll_amount: any;
-  initialServerFilter: any = { filter_type: 'Last30days' };
+  initialServerFilter: any = { filter_type: 'Today' };
  constructor(
     private navService: Data,
     private alertService: AlertService,
@@ -45,8 +44,8 @@ export class Overview {
     const today = this.trunc(new Date());
     const start = this.shiftDays(today, -29);
     this.getplans({
-      filter_type: 'Last30days',
-      startDate: this.toISO(start),
+      filter_type: 'Today',
+      startDate: this.toISO(today),
       endDate: this.toISO(today),
     });
 

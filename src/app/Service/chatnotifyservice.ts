@@ -47,6 +47,7 @@ export class ChatNotifyService {
           isFromUser
         );
 
+
         if (!isFromUser) return;
 
         // Compute a nice title (user name)

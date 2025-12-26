@@ -30,7 +30,7 @@ export class Insights {
   plans: any;
   planData: any;
   overAll_amount: any;
-  initialServerFilter: ServerFilterPayload = { filter_type: 'Last30days' };
+  initialServerFilter: ServerFilterPayload = { filter_type: 'Today' };
 
   constructor(
     private navService: Data,
@@ -42,8 +42,8 @@ export class Insights {
     const today = this.trunc(new Date());
     const start = this.shiftDays(today, -29);
     this.getplans({
-      filter_type: 'Last30days',
-      startDate: this.toISO(start),
+      filter_type: 'Today',
+      startDate: this.toISO(today),
       endDate: this.toISO(today),
     });
   }

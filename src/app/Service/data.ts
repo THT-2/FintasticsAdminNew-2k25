@@ -21,6 +21,8 @@ export class Data {
     this.navItems.set(items);
   }
 
+
+
   getNavItems() {
     return this.NavItems;
   }
@@ -78,6 +80,6 @@ getuserData<T>(url: string, params?: Record<string, any>) {
   getIpAddress() {
     return this.http.get<{ ip: string }>('https://api.ipify.org?format=json');
   }
-  
+
 
 }

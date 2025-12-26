@@ -56,9 +56,6 @@ user_ip: any;
   }
 }
 
-
-
-
   constructor(
     private dialog: MatDialog,
     private renderer: Renderer2,
@@ -89,6 +86,7 @@ user_ip: any;
     } else {
       this.renderer.removeClass(document.body, 'dark-mode');
     }
+    
   }
 
   logout(){

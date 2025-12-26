@@ -16,7 +16,7 @@ type ServerFilterType =
   | 'Last7days'
   | 'Last30days'
   | 'Lastyear'
-   
+
   | 'Custom';
 
 export interface ServerFilterPayload {
@@ -49,6 +49,7 @@ const SERVER_TO_KEY: Record<ServerFilterType, QuickKey> = {
   templateUrl: './filter.html',
   styleUrls: ['./filter.scss'],
 })
+
 export class Filter implements AfterViewInit, OnChanges {
   @Input() config?: ServerFilterPayload;
   @Output() applied = new EventEmitter<{ start: Date; end: Date; label: string; key: QuickKey }>();
@@ -62,7 +63,7 @@ export class Filter implements AfterViewInit, OnChanges {
   @ViewChild('kpiTransfer', { static: false }) kpiTransfer?: ElementRef<HTMLElement>;
   @ViewChild('kpiTotal', { static: false }) kpiTotal?: ElementRef<HTMLElement>;
 
-  activeKey: QuickKey = '30d';
+  activeKey: QuickKey = 'today';
   private fp!: any;
 
   private base30: Omit<Stats, 'total'> = {
@@ -84,7 +85,7 @@ export class Filter implements AfterViewInit, OnChanges {
     });
 
     if (this.config) this.applyFromServer(this.config);
-    else this.applyPreset('30d');
+    else this.applyPreset('today');
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -120,7 +121,7 @@ export class Filter implements AfterViewInit, OnChanges {
 
   onResetClick(): void {
     this.fp?.clear();
-    this.applyPreset('30d');
+    this.applyPreset('today');
   }
 
   onQuick(key: QuickKey): void {
@@ -132,13 +133,13 @@ export class Filter implements AfterViewInit, OnChanges {
 
     if (key === 'custom') {
       if (!payload.startDate || !payload.endDate) {
-        this.applyPreset('30d');
+        this.applyPreset('today');
         return;
       }
       const start = this.parseISO(payload.startDate);
       const end = this.parseISO(payload.endDate);
       if (!start || !end) {
-        this.applyPreset('30d');
+        this.applyPreset('today');
         return;
       }
       this.setCustomRange(start, end, 'Showing: Custom range');

@@ -52,9 +52,11 @@ export class SideNav implements OnInit {
 
   const permissions = res.data.permissions;
 
-  // 🔥 FIX INCONSISTENT DATA (THIS IS THE ANSWER TO "WHERE?")
+
+
   const mainMenu = permissions.find((p: any) => p.id === 'mainmenu');
   if (mainMenu) {
+    
     const anyChildChecked =
       Array.isArray(mainMenu.subtitle) &&
       mainMenu.subtitle.some(
@@ -63,11 +65,11 @@ export class SideNav implements OnInit {
       );
 
     if (anyChildChecked) {
-      mainMenu.checked = true; // ✅ parent enforced
+      mainMenu.checked = true; // parent enforced
     }
   }
 
-  // ✅ NOW save corrected permissions
+  // NOW save corrected permissions
   localStorage.setItem(
     'permissions',
     JSON.stringify(permissions)
