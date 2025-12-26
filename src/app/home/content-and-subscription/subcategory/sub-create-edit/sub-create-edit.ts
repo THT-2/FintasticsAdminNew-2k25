@@ -40,7 +40,7 @@ export class SubCreateEdit implements OnInit{
   editId: any;
   GlobalConstant: any = GlobalConstant;
   success_msg_data: any[]= [];
-
+categoryLoading = false;
   categoryTypes: any[] = ["Income", "Expense","Others"];
   constructor(
     private fb: FormBuilder,
@@ -59,7 +59,7 @@ export class SubCreateEdit implements OnInit{
   }
 ngOnInit(): void {
   this.subCategoryForm = this.fb.group({
-    // categoryType: [null, Validators.required],
+    // categoryType: ['income', Validators.required],
     desc_type_id: [null, Validators.required],
     // desc_type: ['', Validators.required],
     sub_desc_type: ["", Validators.required],
@@ -69,7 +69,7 @@ ngOnInit(): void {
     success_msg:[null],
     _id: [null],
   });
-
+  this.getCategoryDataForCreate();
 }
 
   get subCategoryFormControl() {
@@ -107,6 +107,29 @@ ngOnInit(): void {
     });
   }
 
+getCategoryDataForCreate() {
+  this.categoryLoading = true;
+
+  const apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.desc_type_getlist;
+  this.navService.postData(apiUrl, {}).subscribe({
+    next: (res: any) => {
+      if (res.Code === 200) {
+        this.categoryData = res.Data || [];
+      } else {
+        this.categoryData = [];
+        this.alertService.toast("error", true, res.Message);
+      }
+      this.categoryLoading = false;
+      this.cd.detectChanges();
+    },
+    error: (error: any) => {
+      this.categoryData = [];
+      this.categoryLoading = false;
+      this.cd.detectChanges();
+      this.alertService.toast("error", true, error);
+    },
+  });
+}
 
 private getCategoryDataForEdit(categoryType: string, descTypeIdToSelect?: string) {
   const apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.desc_type_getlist;

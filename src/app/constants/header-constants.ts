@@ -839,18 +839,6 @@ export class HeaderConstants {
       'disableSorting': false,
       'class': "text-transform"
     },
-    // {
-    //   'name': 'image',
-    //   'displayName': 'Image',
-    //   'disableSorting': false,
-    //   'class': "text-transform"
-    // },
-    // {
-    //   'name': 'icon',
-    //   'displayName': 'Icon',
-    //   'disableSorting': false,
-    //   'class': "text-transform"
-    // },
     {
       'name': 'Activestatus',
       'displayName': 'Active status',
@@ -869,4 +857,32 @@ export class HeaderConstants {
       'disableSorting': false,
     },
   ]
+
+   public static BadgeHeader = [
+    {
+      'name': 'title',
+      'displayName': 'Badge Name',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'points',
+      'displayName': 'Fin Coin Value',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'status',
+      'displayName': 'Status',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    
+    {
+      'name': 'actions',
+      'displayName': 'Action',
+      'disableSorting': false,
+    },
+  ]
+
 }

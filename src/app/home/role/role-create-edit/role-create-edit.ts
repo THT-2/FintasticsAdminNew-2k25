@@ -266,14 +266,14 @@ NavItems: any[]=[
         checked: false,
         path: '/admin/agent'
       },
-      {
-        id: 'chats',
-        title: 'Chat',
-        icon: 'fas fa-history',
-        status: false,
-        checked: false,
-        path: '/admin/chats'
-      },
+      // {
+      //   id: 'chats',
+      //   title: 'Chat',
+      //   icon: 'fas fa-history',
+      //   status: false,
+      //   checked: false,
+      //   path: '/admin/chats'
+      // },
       {
         id: 'performance',
         title: 'Performace History',
@@ -662,6 +662,26 @@ NavItems: any[]=[
     icon: '',
     path: ''
   },
+  {
+    id: 'settings',
+    title: 'Settings',
+    status: false,
+    checked: false,
+    subtitle: [
+      {
+        id: 'badge-settings',
+        title: 'Badge Settings',
+        icon: 'fas fa-newspaper',
+        status: false,
+        checked: false,
+        path: '/admin/badge-settings'
+      }
+    ],
+    color:'#3F51B5',
+    icon: '',
+    path: ''
+  },
+
 ]
 
 constructor(private navService: Data,private alertService:AlertService,private formbuild: FormBuilder, private router:Router, private acRouter:ActivatedRoute) {

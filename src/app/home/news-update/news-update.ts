@@ -94,7 +94,6 @@ export class NewsUpdate implements OnInit{
                 this.alertService.toast("success",true,res.Message);
                 this.getupdates();
               }
-
             },
             error: (error: any) => {
               console.log(error);

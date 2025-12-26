@@ -31,7 +31,8 @@
                 <select class="form-select" formControlName="desc_type_id">
                   <option hidden [value]="null">Please Select</option>
                    @for (item of categoryData; track item) {
-                    <option value="{{item._id}}">{{item.desc_type}}</option>
+                    <option [value]="item._id">{{ item.desc_type }}</option>
+
                   }
                   <!-- <option *ngFor="let item of categoryData" [value]="{{item._id}}">{{ item.desc_type }}</option> -->
                 </select>

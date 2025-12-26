@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!-- {{buttondata.routingView}} -->
+     <app-card cardTitle="App-Badges" blockClass="pc-component" [buttondata]="buttondata">
+      <app-table [tableData]="badge" [loader]="loader"
+      [columnHeader]="columnDefinition" (getActionTable)="getActions($event)"  [buttondata]="buttondata"></app-table>
+      </app-card>
+  </div>
+</div>
+
+<!-- Exchange Settings -->
+<div class="exchange-settings">
+  <div class="section-header">
+    <h3 class="section-title">Exchange Rate Settings</h3>
+
+    <div class="section-actions">
+      
+      <button class="action-button secondary" type="button" (click)="resetToDefault()">
+        Reset to Default
+      </button>
+
+      <button class="action-button primary" type="button" (click)="saveSettings()">
+        Save Settings
+      </button>
+    </div>
+  </div>
+
+  <!-- Exchange Rate Display -->
+  <div class="exchange-rate-display">
+    <div class="coin-icon"></div>
+
+    <div class="exchange-rate-value">
+      <h2 class="exchange-rate-main">
+        1 Fin Coin = ₹{{ exchangeRate | number:'1.2-2' }}
+      </h2>
+      <p class="exchange-rate-sub">
+        {{ exchangeRatePaise }} Paise Indian Rupee Only
+      </p>
+    </div>
+
+    <div class="rupee-icon"></div>
+  </div>
+
+  <!-- Exchange Rate Form -->
+  <div class="exchange-rate-form">
+    <div class="form-group">
+      <label class="form-label">Set Exchange Rate</label>
+
+      <div class="form-control">
+        <div class="currency-input-container">
+          <span class="currency-label">1 Fin Coin</span>
+          <span class="equals-sign">=</span>
+
+          <div class="rupee-input-container">
+            <span class="rupee-symbol">₹</span>
+
+            <input
+              type="number"
+              class="form-input"
+              name="exchangeRate"
+              [(ngModel)]="exchangeRateInput"
+              (ngModelChange)="onRateChange($event)"
+              min="0.01"
+              max="10"
+              step="0.01"
+              placeholder="0.50"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-control" style="margin-top: 20px; justify-content: center;">
+        <button class="save-rate-button" type="button" (click)="saveRate()">
+          Save Rate
+        </button>
+      </div>
+
+      <div class="currency-display">
+        Current value: {{ exchangeRate | number:'1.2-2' }} Indian Rupee ({{ exchangeRatePaise }} Paise)
+      </div>
+    </div>
+
+    <!-- Examples Grid -->
+    <div class="examples-grid">
+      <div class="example-card" *ngFor="let ex of examples">
+        <div class="example-title">{{ ex.coins }} Fin Coins</div>
+        <div class="example-value">₹{{ ex.rupees | number:'1.2-2' }}</div>
+        <div class="example-sub">{{ ex.paise }} Paise</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

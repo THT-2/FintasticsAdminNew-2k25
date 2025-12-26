@@ -192,6 +192,14 @@ export class ApiRoutesConstants {
   public static participantdata = "adminPanel/userdetails_Dashboard";
   public static challenge_dashboard = "adminPanel/challengeDashboard";
 
+
+  //Badge Settings
+  public static badgelist = "rewardsBadges/getlist";
+  public static badgelist_create = "rewardsBadges/create";
+  public static badgelist_edit = "rewardsBadges/edit";
+  public static badgelist_delete = "rewardsBadges/delete";
+  public static badgelist_byId = "rewardsBadges/getById";
+
   // Common routes
   public static GET_LIST = "/getlist";
   public static EDIT = "/edit";

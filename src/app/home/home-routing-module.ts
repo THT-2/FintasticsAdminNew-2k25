@@ -85,6 +85,9 @@ import { ParticipantsDashboard } from './challenge-30-days/participants-dashboar
 import { RewardsDashboard } from './challenge-30-days/rewards-dashboard/rewards-dashboard';
 import { UserActivityDashboard } from './challenge-30-days/user-activity-dashboard/user-activity-dashboard';
 import { StartRedirect } from './start-redirect';
+import { BadgeSettings } from './badge-settings/badge-settings';
+import { BadgeCreateEdit } from './badge-settings/badge-create-edit/badge-create-edit';
+
 
 const routes: Routes = [
 {
@@ -303,8 +306,7 @@ const routes: Routes = [
 
           { path: 'history', component:ChatHistory},
           { path: 'chats', component:Chats, canDeactivate: [chatBlockGuard],},
-              // {path:':id',component:ChatRight},
-
+          // {path:':id',component:ChatRight},
           // { path: 'level3/create', component: CreateEditLevel3Component },
           // { path: 'level3/edit/:id', component: CreateEditLevel3Component },
           { path: 'performance', component: PerformanceHistory },
@@ -314,7 +316,6 @@ const routes: Routes = [
           { path: 'analytics', component: Analytics },
           // { path: 'level4/create', component: CreateEditLevel4Component },
           // { path: 'level4/edit/:id', component: CreateEditLevel4Component }
-
           // { path: 'registered', component: RegisteredUsers },
           // { path: 'registered', component: RegisteredUsers },
           { path: 'registered', component: RegisteredUsers },
@@ -410,6 +411,15 @@ const routes: Routes = [
               {path:'',component:Hometronics},
               {path:'create',component:HometronicsCreateEdit},
               {path:'edit/:id',component:HometronicsCreateEdit},
+            ]
+          },
+          {
+            path:'badge-settings',
+            children:[
+              {path:'',component:BadgeSettings},
+              {path:'create',component:BadgeCreateEdit},
+              {path:'edit/:id',component:BadgeCreateEdit},
+
             ]
           }
     ];

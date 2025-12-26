@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubscriptionFeatures } from './subscription-features';
+import { BadgeCreateEdit } from './badge-create-edit';
 
-describe('SubscriptionFeatures', () => {
-  let component: SubscriptionFeatures;
-  let fixture: ComponentFixture<SubscriptionFeatures>;
+describe('BadgeCreateEdit', () => {
+  let component: BadgeCreateEdit;
+  let fixture: ComponentFixture<BadgeCreateEdit>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SubscriptionFeatures]
+      imports: [BadgeCreateEdit]
     })
     .compileComponents();
-    fixture = TestBed.createComponent(SubscriptionFeatures);
+
+    fixture = TestBed.createComponent(BadgeCreateEdit);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

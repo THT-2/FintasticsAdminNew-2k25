@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [cardTitle]="badgeFormControl['_id'].value ? GlobalConstant['EDIT'] + ' Badge' : GlobalConstant['ADD'] + ' Badge'" blockClass="pc-component" route_button="">
+      <section class="container-xxl">
+        <div class="form-card p-3 p-md-4">
+          <form [formGroup]="badgeForm" (ngSubmit)="submit()" class="needs-validation" novalidate>
+            <div class="row g-3">
+
+              <!-- Banner Title -->
+              <div class="col-md-6">
+                <label class="form-label">Badge Name <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-card-image"></i></span>
+                  <input type="text" class="form-control" formControlName="title" placeholder="Badge Title" />
+                </div>
+                <div *ngIf="badgeForm.get('title')?.touched && badgeForm.get('title')?.invalid" class="text-danger">
+                  Name is required.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Fin Coin Value <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-card-image"></i></span>
+                  <input type="number" class="form-control" formControlName="points" placeholder="Fin Coin Value" />
+                </div>
+                <div *ngIf="badgeForm.get('points')?.touched && badgeForm.get('points')?.invalid" class="text-danger">
+                  Fin Coin Value is required.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+              <label class="form-label">Status <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-list-ul"></i></span>
+                <select class="form-select" formControlName="status">
+                  <option hidden [value]="">Please Select</option>
+                  <option *ngFor="let item of statusOptions">{{ item }}</option>
+                </select>
+              </div>
+              <div *ngIf="badgeForm.get('status')?.touched && badgeForm.get('status')?.invalid" class="text-danger">
+                Status is required.
+              </div>
+            </div>
+           
+
+  <!-- Icon -->
+              <div class="col-md-6">
+                <label class="form-label">File Path <span class="req">*</span></label>
+                <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
+                @if(badgeFormControl['icon'].value) {
+                  <!-- <div class="mt-2">
+                    <app-file-preview [filePath]="categoryFormControl['icon'].value"></app-file-preview>
+                  </div> -->
+                   <div class="position-relative d-inline-block">
+                      <img width="100px" [src]="badgeFormControl['icon'].value" />
+                      <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('icon')">X</span>
+                    </div>
+                }
+                <div *ngIf="badgeForm.get('icon')?.touched && badgeForm.get('icon')?.invalid" class="text-danger">
+                  File Path  is required.
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Submit -->
+            <div class="d-flex justify-content-end gap-2 mt-4">
+              <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+                @if(btnLoader) {
+                  <div class="spinner-border text-white" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                } @else {
+                  {{badgeFormControl['_id'].value ? 'Update' : 'Submit'}}
+                }
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </section>
+    </app-card>
+  </div>
+</div>
