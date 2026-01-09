@@ -9,9 +9,6 @@ import { Filter } from './dashboard/filter/filter';
   imports: [Filter,
     CommonModule,
     HomeRoutingModule,
-    // RouterModule,
-    // RouterLink
-    // Layout
   ],
   exports:[Filter]
 })

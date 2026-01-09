@@ -1,0 +1,171 @@
+<!-- Main Content -->
+        <main class="admin-main">
+            <div class="admin-header">
+                <div class="page-title">
+                    <h1>Add New Post</h1>
+                    <p>Create a new blog post</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline" id="preview-btn">
+                        <i class="fas fa-eye"></i> Preview
+                    </button>
+                    <button class="btn btn-success" id="publish-btn">
+                        <i class="fas fa-paper-plane"></i> Publish
+                    </button>
+                </div>
+            </div>
+
+            <div class="d-flex" style="flex-wrap: wrap;">
+                <!-- Main Form Area -->
+                <div style="flex: 1; min-width: 300px;">
+                    <div class="form-container">
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 2;">
+                                <label for="post-title" class="required">Title</label>
+                                <input type="text" id="post-title" class="form-control" placeholder="Enter post title">
+                            </div>
+                            <div class="form-group">
+                                <label for="post-slug">Slug</label>
+                                <input type="text" id="post-slug" class="form-control" placeholder="URL-friendly version">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="post-subtitle">Subtitle (Optional)</label>
+                            <input type="text" id="post-subtitle" class="form-control" placeholder="Brief description of your post">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Content</label>
+                            <div class="editor-container">
+                                <div class="editor-toolbar">
+                                    <button type="button" class="editor-btn" data-command="bold"><i class="fas fa-bold"></i></button>
+                                    <button type="button" class="editor-btn" data-command="italic"><i class="fas fa-italic"></i></button>
+                                    <button type="button" class="editor-btn" data-command="underline"><i class="fas fa-underline"></i></button>
+                                    <button type="button" class="editor-btn" data-command="insertUnorderedList"><i class="fas fa-list-ul"></i></button>
+                                    <button type="button" class="editor-btn" data-command="insertOrderedList"><i class="fas fa-list-ol"></i></button>
+                                    <button type="button" class="editor-btn" data-command="createLink"><i class="fas fa-link"></i></button>
+                                    <button type="button" class="editor-btn" data-command="insertImage"><i class="fas fa-image"></i></button>
+                                    <button type="button" class="editor-btn" data-command="formatBlock"><i class="fas fa-heading"></i></button>
+                                </div>
+                                <div class="editor-content" contenteditable="true" id="post-content">
+                                    <p>Start writing your post here...</p>
+                                    <p>You can format text using the toolbar above.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" id="save-draft">
+                                <i class="fas fa-save"></i> Save Draft
+                            </button>
+                            <button type="button" class="btn btn-primary" id="schedule-btn">
+                                <i class="fas fa-clock"></i> Schedule
+                            </button>
+                            <button type="button" class="btn btn-success" id="publish-now">
+                                <i class="fas fa-paper-plane"></i> Publish Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="post-sidebar">
+                    <!-- Publish Section -->
+                    <div class="sidebar-section">
+                        <h3>Publish</h3>
+                        <div class="publish-options">
+                            <div class="option-group">
+                                <label>Status</label>
+                                <select id="post-status" class="form-control select w-100">
+                                    <option value="draft">Draft</option>
+                                    <option value="published">Published</option>
+                                    <option value="archived">Archived</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label>Visibility</label>
+                                <select class="form-control select w-100">
+                                    <option value="public">Public</option>
+                                    <option value="private">Private</option>
+                                    <option value="password">Password Protected</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label>Publish Date</label>
+                                <input type="datetime-local" id="publish-date" class="form-control w-100" value="">
+                                <small class="text-muted">Schedule for future publication</small>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success w-100" id="publish-sidebar">
+                            <i class="fas fa-paper-plane"></i> Publish
+                        </button>
+                    </div>
+
+                    <!-- Categories Section -->
+                    <div class="sidebar-section">
+                        <h3>Categories</h3>
+                        <div class="form-group">
+                            <select id="post-category" class="form-control select w-100">
+                                <option value="">Select a category</option>
+                                <option value="tutorials">Tutorials</option>
+                                <option value="css">CSS</option>
+                                <option value="javascript">JavaScript</option>
+                                <option value="react">React</option>
+                                <option value="new">+ Add New Category</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-outline w-100" id="manage-categories">
+                            <i class="fas fa-folder"></i> Manage Categories
+                        </button>
+                    </div>
+
+                    <!-- Tags Section -->
+                    <div class="sidebar-section">
+                        <h3>Tags</h3>
+                        <div class="tags-input-container">
+                            <input type="text" id="tag-input" class="tag-input" placeholder="Add tag">
+                        </div>
+                        <div id="tags-list" style="margin-top: 10px;"></div>
+                        <button type="button" class="btn btn-outline w-100 mt-20" id="manage-tags">
+                            <i class="fas fa-tags"></i> Manage Tags
+                        </button>
+                    </div>
+
+                    <!-- Featured Image -->
+                    <div class="sidebar-section">
+                        <h3>Featured Image</h3>
+                        <div class="featured-image" id="featured-image-upload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Set featured image</span>
+                        </div>
+                        <img src="" alt="" class="image-preview" id="image-preview">
+                        <button type="button" class="btn btn-outline w-100 mt-10" id="remove-image" style="display: none;">
+                            <i class="fas fa-trash"></i> Remove Image
+                        </button>
+                    </div>
+
+                    <!-- Custom Fields -->
+                    <div class="sidebar-section">
+                        <h3>Post Options</h3>
+                        <div class="form-group">
+                            <label for="post-excerpt">Excerpt</label>
+                            <textarea id="post-excerpt" class="form-control" rows="3" placeholder="Brief summary of the post"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="post-author">Author</label>
+                            <select id="post-author" class="form-control select w-100">
+                                <option value="admin">Admin</option>
+                                <option value="editor">Editor</option>
+                                <option value="contributor">Contributor</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="allow-comments"> Allow Comments
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>

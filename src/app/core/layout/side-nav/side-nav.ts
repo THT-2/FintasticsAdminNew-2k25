@@ -25,6 +25,7 @@ export class SideNav implements OnInit {
 
   ngOnInit(): void {
     this.loadPermissions();
+
   }
 
   toggleSection(section: any) {
@@ -56,7 +57,7 @@ export class SideNav implements OnInit {
 
   const mainMenu = permissions.find((p: any) => p.id === 'mainmenu');
   if (mainMenu) {
-    
+
     const anyChildChecked =
       Array.isArray(mainMenu.subtitle) &&
       mainMenu.subtitle.some(
@@ -101,5 +102,6 @@ export class SideNav implements OnInit {
         this.NavItems = [];
       }
     });
+    // console.log("SideNav loaded NavItems:", this.NavItems);
   }
 }

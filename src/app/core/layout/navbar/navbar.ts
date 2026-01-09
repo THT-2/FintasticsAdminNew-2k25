@@ -86,7 +86,7 @@ user_ip: any;
     } else {
       this.renderer.removeClass(document.body, 'dark-mode');
     }
-    
+
   }
 
   logout(){

@@ -10,7 +10,7 @@
       /* === Edit Subscription form styles === */
   .form-card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow)}
   .form-card .form-label{font-weight:700}
-  .form-card .req{color:var(--danger)}
+  .form-card .req{color: red;}
   .input-group-text{background:var(--panel);border-color:var(--border)}
   .form-control[type=file]{border-style:dashed}
   .btn-cta{background:linear-gradient(90deg,var(--grad-1),var(--grad-2));color:#fff;border:none;box-shadow:0 10px 20px rgba(0,0,0,.12)}

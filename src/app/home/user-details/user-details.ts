@@ -72,7 +72,8 @@ export class UserDetails implements OnInit{
     if (event.actions === 'Edit') {
       this.router.navigate(['/admin/user-details/edit',event.data._id]);
     }else if (event.actions === 'View'){
-      this.router.navigate(['/beta/clientView'], { queryParams: { id: event.data.clientId,type:"client" }, relativeTo: this.route });
+      this.router.navigate(['/admin/user-details/view-dashboard',event.data._id]);
+      // this.router.navigate(['/beta/clientView'], { queryParams: { id: event.data.clientId,type:"client" }, relativeTo: this.route });
     }else if (event.actions === 'Delete'){
       const dialogRef = this.dialog.open(MessageDialogue, {
         data: {

@@ -22,6 +22,20 @@
               </div>
             </div>
 
+            <div class="col-md-6">
+              <label class="form-label">Status<span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-tags"></i></span>
+               <select class="form-select" formControlName="status">
+                  <option hidden [value]="">Please Select</option>
+                  <option *ngFor="let item of activestatus">{{ item }}</option>
+                </select>
+              </div>
+              <div *ngIf="benefitsForm.get('status')?.touched && benefitsForm.get('status')?.invalid" class="text-danger">
+                Status is required.
+              </div>
+            </div>
+
             <!-- Submit -->
             <div class="d-flex justify-content-end gap-2 mt-4">
               <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">

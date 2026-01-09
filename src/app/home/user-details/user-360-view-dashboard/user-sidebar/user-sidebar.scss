@@ -1,0 +1,273 @@
+/* =========================================================
+   Tokens / Variables (use :host for component-scoped styles)
+   ✅ Pastel Purple Shaded Theme
+========================================================= */
+:host {
+  /* Core purple palette (pastel) */
+  --primary: #8b5cf6;           /* pastel purple */
+  --primary-dark: #7c3aed;      /* deeper purple */
+  --primary-light: #e9d5ff;     /* very light lavender */
+
+  /* Supporting (still soft / pastel) */
+  // --secondary: #a78bfa;         /* lavender */
+  // --danger: #fb7185;            /* soft rose */
+  // --warning: #fbbf24;           /* soft amber */
+  // --info: #60a5fa;              /* soft blue */
+
+
+            --secondary: #10B981;
+            --warning: #F59E0B;
+            --info: #0EA5E9;
+            --danger: #EF4444;
+            --success: #22C55E;
+            --dark: #1F2937;
+            --light: #F5F3FF;
+            --border: #DDD6FE;
+            --shadow: 0 2px 8px rgba(139, 92, 246, 0.1);
+            --radius: 8px;
+  /* Neutrals tuned slightly warmer/purple-ish */
+  --dark: #2e1065;              /* deep purple ink */
+  --light: #faf5ff;             /* very light lavender */
+  --gray-100: #faf5ff;          /* lavender tint */
+  --gray-200: #f3e8ff;          /* light purple tint */
+  --gray-300: #e9d5ff;          /* lavender */
+  --gray-400: #c4b5fd;          /* soft purple */
+  --gray-500: #a78bfa;          /* lavender */
+  --gray-600: #7c3aed;          /* purple */
+  --gray-700: #4c1d95;          /* dark purple */
+
+  --card-shadow: 0 1px 3px 0 rgba(17, 24, 39, 0.08), 0 1px 2px 0 rgba(17, 24, 39, 0.05);
+  --card-shadow-lg: 0 10px 25px -5px rgba(17, 24, 39, 0.10), 0 10px 10px -5px rgba(17, 24, 39, 0.06);
+  --border-radius: 12px;
+  --border-radius-sm: 8px;
+
+  /* Milestone tokens (purple shaded) */
+  --milestone-primary: #8b5cf6;
+  --milestone-secondary: #a78bfa;
+  --milestone-warning: #fbbf24;
+  --milestone-info: #60a5fa;
+  --milestone-dark: #2e1065;
+  --milestone-gray-100: #faf5ff;
+  --milestone-gray-200: #f3e8ff;
+  --milestone-gray-400: #c4b5fd;
+  --milestone-gray-600: #6d28d9;
+  --milestone-border-radius: 8px;
+
+  display: block;
+}
+
+/* =========================================================
+   Base
+========================================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.dashboard-wrapper {
+  height: 100vh;
+  background: linear-gradient(135deg, #faf5ff 0%, #f5f3ff 100%);
+}
+
+/* mat-sidenav-container host */
+.dashboard-wrapper.mat-sidenav-container {
+  background: linear-gradient(135deg, #faf5ff 0%, #f5f3ff 100%);
+}
+
+/* =========================================================
+   Sidebar (mat-sidenav)
+========================================================= */
+.user-sidebar {
+  width: 320px;
+  background: #ffffff;
+  border-right: 1px solid rgba(139, 92, 246, 0.18);
+  box-shadow: 2px 0 12px rgba(76, 29, 149, 0.06);
+  padding: 18px;
+  position: fixed;
+  margin-top: 65px;
+  margin: bottom 40px;
+  // height: 100vh;
+  overflow-y: auto;
+  border-radius: 20px;
+  z-index: 10;
+  transition: width 0.3s ease;
+}
+
+/* remove default padding inside sidenav content wrapper if needed */
+:host ::ng-deep .mat-drawer-inner-container {
+  overflow: auto;
+}
+
+/* Sidebar header buttons row */
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.16);
+}
+
+.back-btn,
+.collapse-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.08);
+  color: var(--gray-700);
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover,
+.collapse-btn:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* User header */
+.user-header {
+  text-align: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.14);
+  margin-bottom: 24px;
+}
+
+.user-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  color: white;
+  position: relative;
+  box-shadow: 0 10px 22px rgba(139, 92, 246, 0.28);
+}
+
+.avatar-icon {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+}
+
+.status-indicator {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  background: #34d399; /* soft green for "active" indicator */
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+.user-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.user-meta-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  color: rgba(76, 29, 149, 0.75);
+  font-size: 14px;
+}
+
+.user-meta-item mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: rgba(76, 29, 149, 0.65);
+}
+
+.user-id {
+  background: rgba(139, 92, 246, 0.10);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: rgba(76, 29, 149, 0.85);
+  display: inline-block;
+  margin: 12px 0;
+}
+
+/* Chips behave slightly different than spans */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.tag {
+  border-radius: 20px !important;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 0 10px;
+  height: 28px;
+}
+
+.tag-premium {
+  background: rgba(139, 92, 246, 0.12) !important;
+  color: var(--primary-dark) !important;
+  border: 1px solid rgba(139, 92, 246, 0.20);
+}
+
+.tag-active {
+  background: rgba(167, 139, 250, 0.14) !important;
+  color: rgba(76, 29, 149, 0.95) !important;
+  border: 1px solid rgba(167, 139, 250, 0.25);
+}
+
+/* Stats card */
+.user-stats {
+  background: linear-gradient(135deg, #faf5ff, #f5f3ff);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(139, 92, 246, 0.16);
+  box-shadow: none; /* already card-like */
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: rgba(76, 29, 149, 0.70);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+        body {
+            background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: 'Inter', sans-serif;
+        }
+

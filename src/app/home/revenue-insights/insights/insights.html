@@ -1,13 +1,11 @@
 <h2 class="section-title">Subscription Insights</h2>
 
-     <app-filter
+<app-filter
   [config]="initialServerFilter"
   (applied)="onRangeApplied($event)">
 </app-filter>
 
-      <!-- KPI Row -->
 <div class="row g-3 kpi-grid">
-        <!-- ₹89 Subscription -->
 <div class="col-12 col-sm-6 col-xl-3" *ngFor="let plan of plans; trackBy: trackByIndex">
   <div class="kpi-card pastel-89 border d-flex align-items-center justify-content-between">
     <div class="meta">
@@ -18,12 +16,13 @@
         <strong id="kpi-89-amt">₹{{ plan.totalRevenue ??0}}</strong>
       </div>
     </div>
+    
     <div class="icon">
       <i class="bi bi-people"></i>
     </div>
   </div>
 </div>
-<!-- Total Revenue -->
+
 <div class="col-12 col-sm-6 col-xl-3">
   <div class="kpi-card pastel-ios border d-flex align-items-center justify-content-between">
     <div class="meta">

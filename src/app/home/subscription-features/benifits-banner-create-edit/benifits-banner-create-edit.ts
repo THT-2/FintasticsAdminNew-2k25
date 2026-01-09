@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute,Router} from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
-import {FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,Validators,} from '@angular/forms';
+import {FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,RequiredValidator,Validators,} from '@angular/forms';
 import { Data } from '../../../Service/data';
 import { AlertService } from '../../../constants/alertservice';
 import { ApiRoutesConstants } from '../../../constants/api-route-constants';
@@ -33,6 +33,7 @@ export class BenifitsBannerCreateEdit implements OnInit{
   public btnLoader:boolean = false;
   editId: any;
   GlobalConstant: any = GlobalConstant;
+  activestatus:any[] = ["Active","Inactive"]
 
   constructor(
     private fb: FormBuilder,
@@ -51,6 +52,7 @@ export class BenifitsBannerCreateEdit implements OnInit{
 ngOnInit(): void {
   this.benefitsForm = this.fb.group({
     icon: [null, Validators.required],
+    status:[null,Validators.required],
     _id: [null],
   });
 }
@@ -68,6 +70,7 @@ ngOnInit(): void {
         this.benefitsData = res.data;
         this.benefitsForm.patchValue({
           icon: this.benefitsData.icon,
+          status: this.benefitsData.status,
           _id: this.benefitsData._id,
         });
         this.editId = this.benefitsData._id;

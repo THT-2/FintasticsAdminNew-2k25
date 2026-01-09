@@ -56,14 +56,15 @@
 
             <!-- Icon Upload -->
             <div class="col-md-6">
-              <label class="form-label">Icon <span class="req">*</span></label>
+              <label class="form-label">Icon </label>
+              <!-- <label class="form-label">Icon <span class="req">*</span></label> -->
               <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
               <div *ngIf="subCategoryFormControl['icon'].value" class="mt-2">
                 <app-file-preview [filePath]="subCategoryFormControl['icon'].value"></app-file-preview>
               </div>
-              <div *ngIf="subCategoryForm.get('icon')?.touched && subCategoryForm.get('icon')?.invalid" class="text-danger">
+              <!-- <div *ngIf="subCategoryForm.get('icon')?.touched && subCategoryForm.get('icon')?.invalid" class="text-danger">
                 Icon is required.
-              </div>
+              </div> -->
             </div>
 
             <!-- Color Code -->

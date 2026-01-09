@@ -1,0 +1,63 @@
+
+
+
+    <div class="sidebar-header">
+      <!-- <button mat-icon-button class="back-btn"  (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button> -->
+      <a routerLink="/admin/user-details"><mat-icon>arrow_back</mat-icon></a>
+    </div>
+
+    <div class="user-header" *ngIf="sidebarOpened">
+      <div class="user-avatar">
+        <mat-icon class="avatar-icon">person</mat-icon>
+        <div class="status-indicator"></div>
+      </div>
+
+      <h1 class="user-name">Rajesh Kumar</h1>
+
+      <div class="user-meta">
+        <div class="user-meta-item">
+          <mat-icon>mail</mat-icon>
+          <span>rajesh.kumar@email.com</span>
+        </div>
+        <div class="user-meta-item">
+          <mat-icon>call</mat-icon>
+          <span>+91 98765 43210</span>
+        </div>
+
+        <div class="user-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Mumbai, India</span>
+                    </div>
+      </div>
+
+      <div class="user-id">ID: USR-2024-00145</div>
+
+      <mat-chip-set class="tags">
+        <mat-chip class="tag tag-premium">Premium User</mat-chip>
+        <mat-chip class="tag tag-active">Active</mat-chip>
+      </mat-chip-set>
+    </div>
+
+    <!-- User Stats -->
+    <mat-card class="user-stats" *ngIf="sidebarOpened">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value">156</div>
+          <div class="stat-label">Transactions</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">₹62,340</div>
+          <div class="stat-label">Total Income</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">₹45,680</div>
+          <div class="stat-label">Total Expenses</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">5</div>
+          <div class="stat-label">Challenges</div>
+        </div>
+      </div>
+    </mat-card>

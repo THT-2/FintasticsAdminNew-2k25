@@ -87,6 +87,12 @@ import { UserActivityDashboard } from './challenge-30-days/user-activity-dashboa
 import { StartRedirect } from './start-redirect';
 import { BadgeSettings } from './badge-settings/badge-settings';
 import { BadgeCreateEdit } from './badge-settings/badge-create-edit/badge-create-edit';
+import { User360ViewDashboard } from './user-details/user-360-view-dashboard/user-360-view-dashboard';
+import { BlogDashboard } from './blogs/blog-dashboard/blog-dashboard';
+import { AddPost } from './blogs/add-post/add-post';
+import { BlogCategories } from './blogs/blog-categories/blog-categories';
+import { BlogTags } from './blogs/blog-tags/blog-tags';
+import { NewPost } from './blogs/new-post/new-post';
 
 
 const routes: Routes = [
@@ -132,8 +138,11 @@ const routes: Routes = [
               {path:'',component:UserDetails},
               {path:'create', component:DetailsCreateEdit},
               {path:'edit/:id', component:DetailsCreateEdit},
+              // {path:'view-dashboard/:id',component:User360ViewDashboard}
             ]
           },
+          {path:'view',component:User360ViewDashboard},
+
           {path:'subscription',
             children:[
               {path:'',component:SubscriptionUsers},
@@ -368,6 +377,12 @@ const routes: Routes = [
           { path: 'level4/create', component: Level4CreateEdit },
           { path: 'level4/edit/:id', component: Level4CreateEdit },
 
+          {path: 'blog-dashboard',component:BlogDashboard},
+          {path: 'new-post',component:NewPost},
+          {path: 'add-post',component:AddPost},
+          {path: 'blog-categories',component:BlogCategories},
+          {path: 'tags',component:BlogTags},
+
           {path:'category',
             children:[
               {path:'',component:Category},
@@ -421,7 +436,7 @@ const routes: Routes = [
               {path:'edit/:id',component:BadgeCreateEdit},
 
             ]
-          }
+          },
     ];
 
 

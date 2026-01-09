@@ -1,0 +1,246 @@
+        <!-- Main Content -->
+        <main class="admin-main">
+            <div class="admin-header">
+                <div class="page-title">
+                    <h1>Dashboard</h1>
+                    <p>Welcome to your blog administration panel</p>
+                </div>
+                <div class="header-actions">
+                    <a href="#" class="btn btn-outline">
+                        <i class="fas fa-cog"></i> Settings
+                    </a>
+                    <a routerLink="/admin/add-post" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Quick Add
+                    </a>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-number">24</div>
+                            <div class="stat-label">Total Posts</div>
+                        </div>
+                        <div class="stat-icon posts">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                    </div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>12% from last month</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-number">18</div>
+                            <div class="stat-label">Published</div>
+                        </div>
+                        <div class="stat-icon published">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>5 new this month</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Categories</div>
+                        </div>
+                        <div class="stat-icon categories">
+                            <i class="fas fa-folder"></i>
+                        </div>
+                    </div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-plus"></i>
+                        <span>2 new categories</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-number">42</div>
+                            <div class="stat-label">Tags</div>
+                        </div>
+                        <div class="stat-icon tags">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                    </div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-plus"></i>
+                        <span>15 new tags</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart and Activity -->
+            <div class="d-flex gap-10" style="flex-wrap: wrap;">
+                <div class="chart-container" style="flex: 2; min-width: 300px;">
+                    <div class="chart-header">
+                        <h3>Posts Overview</h3>
+                        <select class="form-control select" style="width: auto;">
+                            <option>Last 7 days</option>
+                            <option>Last 30 days</option>
+                            <option>Last 90 days</option>
+                        </select>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="text-center">
+                            <i class="fas fa-chart-bar fa-3x mb-20"></i>
+                            <p>Posts per category chart would appear here</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="activity-list" style="flex: 1; min-width: 300px;">
+                    <h3 class="mb-20">Recent Activity</h3>
+
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>New post published</h4>
+                            <p>"Getting Started with Web Development" was published</p>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Post updated</h4>
+                            <p>"CSS Grid vs Flexbox" was updated</p>
+                            <div class="activity-time">Yesterday, 3:42 PM</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-folder"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>New category added</h4>
+                            <p>"JavaScript" category was created</p>
+                            <div class="activity-time">2 days ago</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Tags updated</h4>
+                            <p>5 new tags were added to various posts</p>
+                            <div class="activity-time">3 days ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Posts Table -->
+            <div class="table-container mt-20">
+                <div class="table-header">
+                    <div class="table-title">Recent Posts</div>
+                    <a href="posts.html" class="btn btn-outline">
+                        <i class="fas fa-list"></i> View All
+                    </a>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Tags</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="post-title">Getting Started with Web Development</div>
+                                <div class="post-subtitle">A beginner's guide to HTML, CSS, and JavaScript</div>
+                            </td>
+                            <td><span class="category-badge">Tutorials</span></td>
+                            <td>
+                                <span class="tag-badge">HTML</span>
+                                <span class="tag-badge">CSS</span>
+                            </td>
+                            <td>May 15, 2023</td>
+                            <td><span class="status-badge status-published">Published</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="edit-post.html?id=1" class="action-btn">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button class="action-btn delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="post-title">CSS Grid vs Flexbox</div>
+                                <div class="post-subtitle">When to use each layout system</div>
+                            </td>
+                            <td><span class="category-badge">CSS</span></td>
+                            <td>
+                                <span class="tag-badge">Grid</span>
+                                <span class="tag-badge">Flexbox</span>
+                            </td>
+                            <td>May 10, 2023</td>
+                            <td><span class="status-badge status-published">Published</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="edit-post.html?id=2" class="action-btn">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button class="action-btn delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="post-title">Advanced JavaScript Patterns</div>
+                                <div class="post-subtitle">Exploring design patterns in modern JS</div>
+                            </td>
+                            <td><span class="category-badge">JavaScript</span></td>
+                            <td>
+                                <span class="tag-badge">Design Patterns</span>
+                                <span class="tag-badge">Advanced</span>
+                            </td>
+                            <td>May 5, 2023</td>
+                            <td><span class="status-badge status-draft">Draft</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="edit-post.html?id=3" class="action-btn">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button class="action-btn delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>

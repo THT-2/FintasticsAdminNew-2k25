@@ -22,6 +22,7 @@ export class FileUpload {
   constructor(private navservice:Data, private alertService:AlertService,) {
 
   }
+  
   ngOnInit(): void {
     this.fileUploadControl = new FormControl([]);
   }

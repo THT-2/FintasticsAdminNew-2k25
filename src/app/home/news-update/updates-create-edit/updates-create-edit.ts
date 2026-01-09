@@ -41,12 +41,16 @@ export class UpdatesCreateEdit implements OnInit{
     private acRouter: ActivatedRoute
   ) {
     this.acRouter.paramMap.subscribe((param) => {
-      var id = String(param.get('id'));
-      if(id != 'new'){
-        this.getById(id);
-      }
-    });
+  const id = param.get('id'); // string | null
+
+  if (!id || id === 'new') {
+    return; // create mode
   }
+
+  this.getById(id);
+});
+}
+
 ngOnInit(): void {
   this.newsForm = this.fb.group({
     pagename:[null, Validators.required],
@@ -134,7 +138,7 @@ ngOnInit(): void {
     this.getCategoryData();
   }
   getCategoryData(){
-    let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.desc_type_getlist;
+    let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.newscroll_getlist;
     this.dataService.getData(apiUrl).subscribe({
       next:(res:any)=> {
         console.log(res);

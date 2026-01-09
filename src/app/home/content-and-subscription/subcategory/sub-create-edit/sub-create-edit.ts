@@ -63,7 +63,7 @@ ngOnInit(): void {
     desc_type_id: [null, Validators.required],
     // desc_type: ['', Validators.required],
     sub_desc_type: ["", Validators.required],
-    icon: [null, Validators.required],
+    icon: [null],
     colorCode:[""],
     tax_msg: [null],
     success_msg:[null],

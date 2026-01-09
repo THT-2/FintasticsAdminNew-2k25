@@ -49,7 +49,7 @@ export class NewsUpdate implements OnInit{
       next:(res:any)=> {
         console.log('roleres',res);
 
-        if (res.Code === 200) {
+        if (res.Code === 200 ) {
           this.updates = res.Data;
           this.buttondata = this.buttondata;
         }

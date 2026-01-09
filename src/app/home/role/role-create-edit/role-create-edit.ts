@@ -201,6 +201,57 @@ NavItems: any[]=[
     path: ''
   },
    {
+    id: 'blogs',
+    title: 'Blogs',
+    status: false,
+    checked: false,
+    color:'#0097A7',
+    subtitle: [
+      {
+        id: 'blog-dashboard',
+        title: 'Dashboard',
+        icon: 'fas fa-layer-group',
+        status: false,
+        checked: false,
+        path: '/admin/blog-dashboard'
+      },
+      {
+        id: 'add-posts',
+        title: 'All Posts',
+        icon: 'fas fa-layer-group',
+        status: false,
+        checked: false,
+        path: '/admin/add-post'
+      },
+      {
+        id: 'new-post',
+        title: 'Add New Post',
+        icon: 'fas fa-cubes',
+        status: false,
+        checked: false,
+        path: '/admin/new-post'
+      },
+      {
+        id: 'blog-categories',
+        title: 'Categories',
+        icon: 'fas fa-network-wired',
+        status: false,
+        checked: false,
+        path: '/admin/blog-categories'
+      },
+      {
+        id: 'tags',
+        title: 'Tags',
+        icon: 'fas fa-project-diagram',
+        status: false,
+        checked: false,
+        path: '/admin/tags'
+      },
+    ],
+    icon: '',
+    path: ''
+  },
+   {
     id: 'chatbot',
     title: 'Financial ChatBots',
     status: false,
