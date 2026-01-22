@@ -26,7 +26,7 @@
             </div>
             <div class="chat-list">
 
-               <!-- <div class="filters">
+              <!-- <div class="filters">
       <button class="filter-btn active">All</button>
       <button class="filter-btn">Registered</button>
       <button class="filter-btn">Subscribed</button>
@@ -47,8 +47,7 @@
 
           <div class="chat-meta">
             <div class="chat-time">
-              {{ item.lastMessageAt | date:'yyyy-MM-dd hh:mm:ss a':'Asia/Kolkata' }}
-
+              {{ item.lastMessageAt | date:'dd-MMM-yyyy hh:mm a':'Asia/Kolkata' }}
             </div>
 
             @if (item.isRead > 0) {
@@ -58,9 +57,11 @@
         </div>
 
         <div class="chat-preview">{{ item.text }}</div>
+
         <span class="chat-status status-active">
           Last seen : {{ item.date }}
         </span>
+
       </div>
     </div>
 

@@ -60,7 +60,7 @@
     @for (nav of NavItems; track nav) {
     <button
       type="button"
-      class="menu-heading dashboard"
+      class="menu-heading dashboard"  
       (click)="toggleSection(nav)"
       [attr.aria-expanded]="!!nav.open">
       {{ nav.title }}
@@ -83,7 +83,6 @@
   }
   </div>
 </div>
-
 </nav>
 
 <!-- <nav class="sidebar" [class.collapsed]="isCollapsed" id="sidebar">

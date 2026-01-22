@@ -63,22 +63,36 @@
         <img
           class="stop"
           src="https://cdn-icons-png.flaticon.com/512/13312/13312989.png"
+          title="End chat"
         />
       </div>
     </div>
 
     <div class="chat-messages" #chatContainer>
-      @for (msg of userChat; track msg) {
+
+    @for (msg of userChat; track msg; let idx = $index) {
+
+  @if (
+    idx === 0 ||
+    (userChat[idx - 1]?.createdAt | date:'yyyyMMdd')
+      !==
+    (msg.createdAt | date:'yyyyMMdd')
+  ) {
+    <div class="date-separator">
+      {{ msg.createdAt | date:'dd MMM yyyy' }}
+    </div>
+  }
+
         <div
           class="message"
           [ngClass]="msg?.senderRole === 'user' ? 'client' : 'agent'">
-          <!-- 🟢 TEXT ONLY when type is Message (or no type) -->
-          @if (msg?.type === 'Message'||msg?.type === 'AI' || !msg?.type) {
+
+          <!-- TEXT ONLY when type is Message (or no type) -->
+          @if (msg?.type === 'Message'|| msg?.type === 'AI'|| msg?.type === 'Template'  || !msg?.type) {
             <span [innerHTML]="makeClickable(msg.text||'')"></span>
           }
 
-
-          <!-- 🟣 ATTACHMENTS ONLY when type is Attachments -->
+          <!-- ATTACHMENTS ONLY when type is Attachments -->
           @if (msg?.type === 'Attachments') {
             <!-- Image attachments -->
             @if (isImageurl(msg.attachments)) {
@@ -120,13 +134,17 @@
                 />
               </a>
             }
+
+
           }
 
           <span class="message-time">
-            {{ msg.createdAt | date : 'shortTime' }}
-          </span>
+      {{ msg.createdAt | date:'hh:mm a' }}
+    </span>
+    <span class="tick seen">✓✓</span>
         </div>
       }
+
     </div>
 
     <!-- Selected file preview (before sending) -->
@@ -149,6 +167,7 @@
         </div>
 
         <button class="wa-remove-btn" (click)="removeSelectedFile()">✖</button>
+
       </div>
     </div>
 
@@ -158,6 +177,7 @@
           <img
             class="pin"
             src="https://cdn-icons-png.flaticon.com/512/14464/14464403.png"
+            title="Attach"
             (click)="triggerFileUpload()"
           />
 
@@ -181,12 +201,14 @@
           class="icon"
           (click)="onEnter(msg)"
           src="https://cdn-icons-png.flaticon.com/512/9068/9068837.png"
+          title="Send"
         />
 
         <div class="dropdown" #dropdownContainer>
           <img
             class="stop"
             src="https://cdn-icons-png.flaticon.com/512/9423/9423700.png"
+            title="Pre-defined Questions"
             (click)="toggleDropdown($event)"
           />
 

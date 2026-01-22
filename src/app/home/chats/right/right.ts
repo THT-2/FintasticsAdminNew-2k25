@@ -409,6 +409,7 @@ initSocketListener() {
       });
 
       return;
+
     }
 
     // 2) If there is a selected file, send it first
@@ -437,7 +438,7 @@ initSocketListener() {
         text: message,
         createdAt: nowIso,
         sender: 'agent',
-        type: 'Message' // 👈 TEXT MESSAGE
+        type: 'Message' //  TEXT MESSAGE
       };
 
       this.userChat = [...this.userChat, tempMsg];
@@ -462,13 +463,14 @@ initSocketListener() {
 
             this.cd.detectChanges();
             this.scrollToBottomInstant();
+
           }
         },
         error: (err: any) => {
           console.error('Predefined question / text send error:', err);
         }
       });
-
+      
       return;
     }
   }
