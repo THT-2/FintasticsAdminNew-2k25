@@ -884,5 +884,27 @@ export class HeaderConstants {
       'disableSorting': false,
     },
   ]
+   public static AdsHeader = [
+    {
+      'name': 'google_ad_maincate',
+      'displayName': 'Ads Name',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+   {
+      'name': 'active_status',
+      'displayName': 'Status',
+      'type': 'toggle',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    
+     {
+      'name': 'actions',
+      'displayName': 'Action',
+      'disableSorting': false,
+    },
+
+  ]
 
 }

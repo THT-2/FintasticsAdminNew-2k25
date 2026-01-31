@@ -91,6 +91,17 @@
                       </button>
                     </td>
                   }
+                  @else if (column.type === 'toggle') {
+  <td>
+   <mat-slide-toggle
+  disableRipple
+  [checked]="item[column.name]"
+  (change)="emitToggle(item, column.name, $event.checked)">
+</mat-slide-toggle>
+
+  </td>
+}
+
                   @else if (column.type === 'status') {
           <td class="text-end">
             <ng-container *ngIf="item.subsById?.[column.name] as sub; else noPlan">

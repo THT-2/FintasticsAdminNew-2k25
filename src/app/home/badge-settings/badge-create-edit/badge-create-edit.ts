@@ -31,6 +31,7 @@ export class BadgeCreateEdit implements OnInit{
   pageLoader!: boolean;
   Badge: any;
   selectedimage: any;
+  Types = ["Gold","Silver","Purple"];
   public btnLoader:boolean = false;
   statusOptions: string[] = ['Active', 'Inactive'];
 
@@ -55,9 +56,14 @@ export class BadgeCreateEdit implements OnInit{
 ngOnInit(): void {
   this.badgeForm = this.fb.group({
     title: ['', Validators.required],
-    points: ['', Validators.required],
+    description:[''],
+    condition:[''],
+    progress:[''],
     icon: [null,Validators.required],
+    points: ['', Validators.required],
+    banner: ['', Validators.required],
     status:['',Validators.required],
+    type:['',Validators.required],
     _id: [null],
   });
 }
@@ -75,9 +81,14 @@ ngOnInit(): void {
         this.Badge = res.data;
         this.badgeForm.patchValue({
           title: this.Badge.title,
-          points: this.Badge.points,
-          status:this.Badge.status,
+          description: this.Badge.description,
+          condition: this.Badge.condition,   //string
+          progress: this.Badge.progress,  //number
           icon: this.Badge.icon,
+          points: this.Badge.points,
+          banner: this.Badge.banner,
+          status:this.Badge.status,
+          type:this.Badge.type,
           _id: this.Badge._id,
         });
         this.editId = this.Badge._id;
@@ -136,19 +147,41 @@ ngOnInit(): void {
       this.badgeForm.markAllAsTouched();
     }
   }
-  onFilePathReceived(icon: string) {
-    this.badgeFormControl['icon'].setValue(icon);
-  }
+  // onFilePathReceived(icon: string,banner:string) {
+  //   this.badgeFormControl['icon'].setValue(icon);
+  //   this.badgeFormControl['banner'].setValue(banner);
+  // }
 
-  removeImages(key:any) {
-    if(key == "image") {
-    this.badgeForm.patchValue({
-      image:''
-    })
-  }else if (key == "icon") {
-    this.badgeForm.patchValue({
-      icon:''
-    })
-    }
+  onFilePathReceived(filePath: string, type: 'icon' | 'banner') {
+  if (type === 'icon') {
+    this.badgeFormControl['icon'].setValue(filePath);
+  } else if (type === 'banner') {
+    this.badgeFormControl['banner'].setValue(filePath);
   }
+}
+
+
+  // removeImages(key:any) {
+  //   if(key == "image") {
+  //   this.badgeForm.patchValue({
+  //     image:''
+  //   })
+  // }else if (key == "icon" || "banner") {
+  //   this.badgeForm.patchValue({
+  //     icon:'',
+  //     banner:''
+  //   })
+  //   }
+  // }
+
+  removeImages(key: 'icon' | 'banner' | 'image') {
+  if(key === 'image') {
+    this.badgeForm.patchValue({ image: '' });
+  } else if(key === 'icon') {
+    this.badgeForm.patchValue({ icon: '' });
+  } else if(key === 'banner') {
+    this.badgeForm.patchValue({ banner: '' });
+  }
+}
+
 }

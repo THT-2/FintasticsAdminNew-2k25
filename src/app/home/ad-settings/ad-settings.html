@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!-- {{buttondata.routingView}} -->
+     <app-card cardTitle="Ads - Settings" blockClass="pc-component" [buttondata]="buttondata">
+      <app-table [tableData]="adsData" [loader]="loader"
+      [columnHeader]="columnDefinition" (getActionTable)="getActions($event)" 
+       [buttondata]="buttondata"  (toggleChange)="onStatusToggle($event)"></app-table>
+      </app-card>
+  </div>
+</div>
+

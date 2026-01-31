@@ -93,6 +93,8 @@ import { AddPost } from './blogs/add-post/add-post';
 import { BlogCategories } from './blogs/blog-categories/blog-categories';
 import { BlogTags } from './blogs/blog-tags/blog-tags';
 import { NewPost } from './blogs/new-post/new-post';
+import { AdSettings } from './ad-settings/ad-settings';
+import { AdSettingsCreateEdit } from './ad-settings/ad-settings-create-edit/ad-settings-create-edit';
 
 
 const routes: Routes = [
@@ -434,6 +436,15 @@ const routes: Routes = [
               {path:'',component:BadgeSettings},
               {path:'create',component:BadgeCreateEdit},
               {path:'edit/:id',component:BadgeCreateEdit},
+
+            ]
+          },
+          {
+            path:'ad-settings',
+            children:[
+              {path:'',component:AdSettings},
+              {path:'create',component:AdSettingsCreateEdit},
+              {path:'edit/:id',component:AdSettingsCreateEdit},
 
             ]
           },

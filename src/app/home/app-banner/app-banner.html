@@ -4,7 +4,8 @@
     <!-- {{buttondata.routingView}} -->
      <app-card cardTitle="App-Banners" blockClass="pc-component" [buttondata]="buttondata">
       <app-table [tableData]="bannerData" [loader]="loader"
-      [columnHeader]="columnDefinition" (getActionTable)="getActions($event)"  [buttondata]="buttondata"></app-table>
+      [columnHeader]="columnDefinition" (getActionTable)="getActions($event)"  
+      [buttondata]="buttondata" ></app-table>
       </app-card>
   </div>
 </div>

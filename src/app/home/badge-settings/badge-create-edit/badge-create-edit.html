@@ -29,6 +29,30 @@
                 </div>
               </div>
 
+              <!-- Progress -->
+              <div class="col-md-6">
+                <label class="form-label">Progress <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-card-image"></i></span>
+                  <input type="number" class="form-control" formControlName="progress" placeholder="Fin Coin Value" />
+                </div>
+                <div *ngIf="badgeForm.get('progress')?.touched && badgeForm.get('progress')?.invalid" class="text-danger">
+                  Value is required.
+                </div>
+              </div>
+
+              <!-- Condition -->
+               <div class="col-md-6">
+                <label class="form-label">Condition <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-card-image"></i></span>
+                  <input type="text" class="form-control" formControlName="condition" placeholder="Condition" />
+                </div>
+                <div *ngIf="badgeForm.get('condition')?.touched && badgeForm.get('condition')?.invalid" class="text-danger">
+                  Condition is required.
+                </div>
+              </div>
+
               <div class="col-md-6">
               <label class="form-label">Status <span class="req">*</span></label>
               <div class="input-group">
@@ -46,8 +70,8 @@
 
   <!-- Icon -->
               <div class="col-md-6">
-                <label class="form-label">File Path <span class="req">*</span></label>
-                <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
+                <label class="form-label">Icon <span class="req">*</span></label>
+                <app-file-upload (getFilePath)="onFilePathReceived($event,'icon')"></app-file-upload>
                 @if(badgeFormControl['icon'].value) {
                   <!-- <div class="mt-2">
                     <app-file-preview [filePath]="categoryFormControl['icon'].value"></app-file-preview>
@@ -61,6 +85,44 @@
                   File Path  is required.
                 </div>
               </div>
+
+              <!-- bannerimage -->
+              <div class="col-md-6">
+                <label class="form-label">Banner <span class="req">*</span></label>
+                <app-file-upload (getFilePath)="onFilePathReceived($event,'banner')"></app-file-upload>
+                @if(badgeFormControl['banner'].value) {
+                  <!-- <div class="mt-2">
+                    <app-file-preview [filePath]="categoryFormControl['icon'].value"></app-file-preview>
+                  </div> -->
+                   <div class="position-relative d-inline-block">
+                      <img width="100px" [src]="badgeFormControl['banner'].value" />
+                      <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('banner')">X</span>
+                    </div>
+                }
+                <div *ngIf="badgeForm.get('banner')?.touched && badgeForm.get('banner')?.invalid" class="text-danger">
+                  File Path  is required.
+                </div>
+              </div>
+         <!--Type-->
+              <div class="col-md-6">
+  <label class="form-label">Type <span class="req">*</span></label>
+  <div class="input-group">
+    <span class="input-group-text"><i class="bi bi-award"></i></span>
+    <select class="form-select" formControlName="type">
+      <option value="" disabled selected>Select Type</option>
+      <option *ngFor="let item of Types" [value]="item">{{ item }}</option>
+    </select>
+  </div>
+  <div *ngIf="badgeForm.get('type')?.touched && badgeForm.get('type')?.invalid" class="text-danger">
+    Type is required.
+  </div>
+</div>
+
+              <!-- Description -->
+                <div class="col-6">
+                  <label class="form-label">Description</label>
+                  <textarea class="form-control" formControlName="description" placeholder="Description..."></textarea>
+                </div>
 
             </div>
 

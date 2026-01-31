@@ -201,6 +201,14 @@ export class ApiRoutesConstants {
   public static badgelist_edit = "rewardsBadges/edit";
   public static badgelist_delete = "rewardsBadges/delete";
   public static badgelist_byId = "rewardsBadges/getById";
+  
+
+  //Ad Settings
+  public static ad_getlist = "googleads/getlist_admin";
+  public static adcreate = "googleads/create";
+  public static adlist_getbyid = "googleads/getlist_id";
+  public static adlist_edit = "googleads/edit";
+
 
   // Common routes
   public static GET_LIST = "/getlist";

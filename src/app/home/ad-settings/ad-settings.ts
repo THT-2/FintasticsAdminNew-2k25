@@ -1,58 +1,77 @@
-import { Component } from '@angular/core';
-import { Table } from "../../Z-Commons/table/table";
-import { Card } from "../../Z-Commons/card/card";
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { ApiRoutesConstants } from '../../constants/api-route-constants';
+import { Data } from '../../Service/data';
 import { AlertService } from '../../constants/alertservice';
+import { ApiRoutesConstants } from '../../constants/api-route-constants';
 import { GlobalConstant } from '../../constants/global-constants';
 import { HeaderConstants } from '../../constants/header-constants';
+import { Card } from '../../Z-Commons/card/card';
 import { MessageDialogue } from '../../Z-Commons/message-dialogue/message-dialogue';
-import { Data } from '../../Service/data';
+import { Table } from '../../Z-Commons/table/table';
 
 @Component({
-  selector: 'app-app-banner',
-  imports: [Table, Card],
-  templateUrl: './app-banner.html',
-  styleUrl: './app-banner.scss',
+  selector: 'app-ad-settings',
+  imports: [CommonModule, FormsModule, Card, Table],
+  templateUrl: './ad-settings.html',
+  styleUrl: './ad-settings.scss',
   providers:[AlertService]
 })
-export class AppBanner implements OnInit{
+export class AdSettings implements OnInit{
 
-  public apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.Banners_getlist;
+  public apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.ad_getlist;
   public loader:boolean = true;
   buttondata= {
-    buttonName : 'Add New Banner',
-    routingPath : '/admin/banners/create',
+    buttonName : 'Add New Ad',
+    routingPath : '/admin/ad-settings/create',
     // routingView : 'View',
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }
-  bannerData: any;
+  adsData: any;
   columnDefinition: any[];
   responseMessage: any;
 
   constructor(private navService: Data, private router: Router,private route :ActivatedRoute,
     private alertService: AlertService, private dialog: MatDialog, private cdr: ChangeDetectorRef){
-    this.columnDefinition = HeaderConstants.BannersHeader;
+    this.columnDefinition = HeaderConstants.AdsHeader;
   }
   ngOnInit(): void {
     this.getdata();
   }
 
-  
+  onStatusToggle(event: any) {
+  const { _id, field, value } = event;
+
+  const row = this.adsData.find((x: any) => x._id === _id);
+  if (row) row[field] = value; // optimistic update
+
+  const apiUrl =
+    ApiRoutesConstants.BASE_URL + ApiRoutesConstants.adlist_edit + '/' + _id;
+
+  this.navService.postData(apiUrl, {
+    _id,
+    active_status: value
+  }).subscribe({
+    error: () => {
+      if (row) row[field] = !value; // rollback
+      this.alertService.toast('error', true, 'Status update failed');
+    }
+  });
+}
+
     getdata(){
     this.loader = true;
-    this.bannerData = [];
+    this.adsData = [];
     this.navService.getData(this.apiUrl).subscribe({
       next:(res:any)=> {
-        console.log('banner',res);
+        console.log('roleres',res);
 
         if (res.code === 200) {
-          this.bannerData = res.data;
-          console.log('banner2',this.bannerData);
+          this.adsData = res.data;
           this.buttondata = this.buttondata;
 
         }
@@ -75,7 +94,7 @@ export class AppBanner implements OnInit{
     getActions(event:any){
     console.log("data",event);
     if (event.actions === 'Edit') {
-      this.router.navigate(['/admin/banners/edit',event.data._id]);
+      this.router.navigate(['/admin/ad-settings/edit',event.data._id]);
     }else if (event.actions === 'View'){
       // this.router.navigate(['/beta/clientView'], { queryParams: { id: event.data.clientId,type:"client" }, relativeTo: this.route });
     }else if (event.actions === 'Delete'){
@@ -90,14 +109,14 @@ export class AppBanner implements OnInit{
       });
       dialogRef.afterClosed().subscribe((confirmed: boolean) => {
         if (confirmed) {
-          let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.Banners_delete+"/"+event.data._id;
-          this.navService.postData(apiUrl,{}).subscribe({
+          let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.HOME_TONICS + ApiRoutesConstants.DELETE ;
+          this.navService.postData(apiUrl,{_id:event.data._id}).subscribe({
             next: (res: any) => {
-              if (res['status'] == true) {
+              if (res['status'] == 'Success') {
                 this.alertService.toast("success",true,res.message);
                 this.getdata();
               }
-              window.location.reload();
+              // window.location.reload();
             },
             error: (error: any) => {
               console.log(error);

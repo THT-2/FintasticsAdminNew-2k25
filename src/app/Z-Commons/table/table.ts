@@ -27,6 +27,7 @@ export class Table implements OnChanges {
   @Input() loader = false;
   @Input() columnHeader:any;
   @Input() buttondata:any;
+  @Output() toggleChange = new EventEmitter<any>();
   @Output() getActionTable = new EventEmitter();
   @Output() statusChange = new EventEmitter<{ featureId: string; subscriptionId: string; status: string }>();
 
@@ -67,6 +68,13 @@ get Math(): Math {
 
 ngOnInit(): void {
   this.tableData  = this.tableData;
+}
+emitToggle(item: any, field: string, value: boolean) {
+  this.toggleChange.emit({
+    _id: item._id,
+    field,
+    value
+  });
 }
 
 sanitizeVideoLink(videoLink: string): SafeResourceUrl {

@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [cardTitle]="adFormControl['_id'].value ? GlobalConstant['EDIT'] + ' Ads Settings' : GlobalConstant['ADD'] + ' Ads Settings'" blockClass="pc-component" route_button="">
+      <section class="container-xxl">
+        <div class="form-card p-3 p-md-4">
+          <form [formGroup]="adForm" (ngSubmit)="submit()" class="needs-validation" novalidate>
+            <div class="row g-3">
+
+             <!-- Category Type -->
+            <div class="col-md-6">
+              <label class="form-label"> Ad Name <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-list-ul"></i></span>
+                <select class="form-select" formControlName="google_ad_maincate">
+                  <option hidden [value]="">Please Select</option>
+                  <option *ngFor="let item of adname">{{ item }}</option>
+                </select>
+              </div>
+              <div *ngIf="adForm.get('google_ad_maincate')?.touched && adForm.get('google_ad_maincate')?.invalid" class="text-danger">
+                Name is required.
+              </div>
+            </div>
+
+              <div class="col-md-6">
+                <label class="form-label"> Android ID <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-card-image"></i></span>
+                  <input type="text" class="form-control" formControlName="android_ad" placeholder="Ad Id" />
+                </div>
+                <div *ngIf="adForm.get('android_ad')?.touched && adForm.get('android_ad')?.invalid" class="text-danger">
+                  Name is required.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"> IOS ID <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-card-image"></i></span>
+                  <input type="text" class="form-control" formControlName="ios_ad" placeholder="Ad Id" />
+                </div>
+                <div *ngIf="adForm.get('ios_ad')?.touched && adForm.get('ios_ad')?.invalid" class="text-danger">
+                  ID is required.
+                </div>
+              </div>
+
+
+            </div>
+
+            <!-- Submit -->
+            <div class="d-flex justify-content-end gap-2 mt-4">
+              <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+                @if(btnLoader) {
+                  <div class="spinner-border text-white" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                } @else {
+                  {{adFormControl['_id'].value ? 'Update' : 'Submit'}}
+                }
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </section>
+    </app-card>
+  </div>
+</div>

@@ -726,7 +726,15 @@ NavItems: any[]=[
         status: false,
         checked: false,
         path: '/admin/badge-settings'
-      }
+      },
+      {
+        id: 'ad-settings',
+        title: 'Ad Settings',
+        icon: 'fas fa-newspaper',
+        status: false,
+        checked: false,
+        path: '/admin/ad-settings'
+      },
     ],
     color:'#3F51B5',
     icon: '',
