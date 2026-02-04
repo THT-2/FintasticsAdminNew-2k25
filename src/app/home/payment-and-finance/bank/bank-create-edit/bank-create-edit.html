@@ -56,8 +56,7 @@
                   Icon is required.
                 </div>
               </div>
-<!--
-              <div class="col-12">
+           <!-- <div class="col-12">
                   <label class="form-label">Icon</label>
                   <input type="file" (change)="fileuploadAnyProof($event, 'icon')" accept=".jpg,.jpeg,.png" class="form-control" />
                   <div *ngIf="BankFormControl['icon'].value" class="mt-3">
@@ -68,11 +67,50 @@
                   </div>
                 </div> -->
 
+                
+                <!-- Bank SMS Code (Tags Input) -->
+<div class="col-md-6">
+  <label class="form-label">
+    Bank SMS Code <span class="req">*</span>
+  </label>
+
+  <div class="tag-input-wrapper">
+    <!-- Tags -->
+    <div class="tags">
+      <span
+        class="tag"
+        *ngFor="let code of BankFormControl['banksmsCode'].value; let i = index">
+        {{ code }}
+        <i class="bi bi-x" (click)="removeSmsCode(i)"></i>
+      </span>
+    </div>
+
+    <!-- Input -->
+    <div class="input-group">
+      <input
+  type="text"
+  class="form-control border-0"
+  placeholder="Enter SMS code"
+  [(ngModel)]="smsCodeInput"
+  [ngModelOptions]="{ standalone: true }"
+  (keydown.enter)="addSmsCode(); $event.preventDefault()"
+/>
+
+      <span class="input-group-text add-btn" (click)="addSmsCode()">
+        <i class="bi bi-plus-lg"></i>
+      </span>
+    </div>
+  </div>
+
+  <div
+    *ngIf="BankForm.get('banksmsCode')?.touched && BankForm.get('banksmsCode')?.invalid"
+    class="text-danger">
+    At least one SMS code is required.
+  </div>
+</div>
+
             </div>
 
-            
-
-            
 
             <!-- Submit -->
             <div class="d-flex justify-content-end gap-2 mt-4">

@@ -30,6 +30,7 @@ export class BankCreateEdit {
   pageLoader!: boolean;
   BankData: any;
   selectedimage: any;
+  smsCodeInput: string = '';
   public btnLoader:boolean = false;
   editId: any;
   GlobalConstant: any = GlobalConstant;
@@ -53,6 +54,7 @@ ngOnInit(): void {
     bankName: ['', Validators.required],
     icon: [null, Validators.required],
     backgroundcolor: ['', Validators.required],
+    banksmsCode: [[], Validators.required],
     _id: [null],
   });
 }
@@ -72,6 +74,7 @@ ngOnInit(): void {
           bankName: this.BankData.bankName,
           icon: this.BankData.icon,
           backgroundcolor: this.BankData.backgroundcolor,
+          banksmsCode: this.BankData.banksmsCode || [], 
           _id: this.BankData._id,
         });
         this.editId = this.BankData._id;
@@ -158,6 +161,8 @@ ngOnInit(): void {
     }
   }
 
+  
+
   removeImages(key:any) {
     if(key == "image") {
     this.BankForm.patchValue({
@@ -169,4 +174,26 @@ ngOnInit(): void {
     })
     }
   }
+
+
+  addSmsCode() {
+  const value = this.smsCodeInput.trim();
+  if (!value) return;
+
+  const tags = this.BankFormControl['banksmsCode'].value || [];
+
+  if (!tags.includes(value)) {
+    tags.push(value);
+    this.BankFormControl['banksmsCode'].setValue(tags);
+  }
+
+  this.smsCodeInput = '';
+}
+
+removeSmsCode(index: number) {
+  const tags = [...this.BankFormControl['banksmsCode'].value];
+  tags.splice(index, 1);
+  this.BankFormControl['banksmsCode'].setValue(tags);
+}
+
 }

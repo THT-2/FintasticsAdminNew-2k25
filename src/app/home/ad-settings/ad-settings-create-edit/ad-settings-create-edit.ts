@@ -31,6 +31,7 @@ export class AdSettingsCreateEdit implements OnInit{
   editId: any;
   adname: any[] = ['native_ad','banner_ad','interstitial_ad','rewarded_ad'];
   GlobalConstant: any = GlobalConstant;
+  togglebtn: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -51,6 +52,8 @@ ngOnInit(): void {
     google_ad_maincate:['',Validators.required],
     android_ad:['',Validators.required],
     ios_ad:['',Validators.required],
+    android_active_status:[false],
+    ios_active_status:[false],
     _id: [null],
   });
 }
@@ -58,6 +61,7 @@ ngOnInit(): void {
   get adFormControl() {
     return this.adForm.controls;
   }
+  
   getById(id: any) {
     this.pageLoader = true;
     let apiUrl =
@@ -70,6 +74,8 @@ ngOnInit(): void {
           google_ad_maincate: this.adsData.google_ad_maincate,
           android_ad: this.adsData.android_ad,
           ios_ad: this.adsData.ios_ad,
+          android_active_status: this.adsData.android_active_status,
+          ios_active_status: this.adsData.ios_active_status,
           _id: this.adsData._id,
         });
         this.editId = this.adsData._id;
@@ -129,5 +135,10 @@ ngOnInit(): void {
     }
   }
 
+
+    toggleLevelStop() {
+    this.togglebtn = !this.togglebtn;
+    console.log('Level Stop:', this.adForm.value.levelStop ? 'ON' : 'OFF');
+  }
 
 }
