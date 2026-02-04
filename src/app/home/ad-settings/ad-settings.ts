@@ -44,20 +44,25 @@ export class AdSettings implements OnInit{
   }
 
   onStatusToggle(event: any) {
-  const { _id, field, value } = event;
+    console.log('event',event);
+    
+  const {field, value} = event;
 
-  const row = this.adsData.find((x: any) => x._id === _id);
-  if (row) row[field] = value; // optimistic update
+  const id = event._id;
+
+  const row = this.adsData.find((x: any) => x._id === id);
+  if (row) row[field] = value; 
 
   const apiUrl =
-    ApiRoutesConstants.BASE_URL + ApiRoutesConstants.adlist_edit + '/' + _id;
+    ApiRoutesConstants.BASE_URL + ApiRoutesConstants.adlist_edit + '/' + id;
 
   this.navService.postData(apiUrl, {
-    _id,
+    id,
     active_status: value
   }).subscribe({
+    
     error: () => {
-      if (row) row[field] = !value; // rollback
+      if (row) row[field] = !value; 
       this.alertService.toast('error', true, 'Status update failed');
     }
   });
@@ -71,9 +76,13 @@ export class AdSettings implements OnInit{
         console.log('roleres',res);
 
         if (res.code === 200) {
-          this.adsData = res.data;
+          // this.adsData = res.data;
+          this.adsData = res.data.map((item: any) => ({
+  ...item,
+  android_active_status: !!item.android_active_status,
+  ios_active_status: !!item.ios_active_status
+}));
           this.buttondata = this.buttondata;
-
         }
         else {
           this.alertService.toast("error",true,res.message);
@@ -107,9 +116,10 @@ export class AdSettings implements OnInit{
           }
         }
       });
+
       dialogRef.afterClosed().subscribe((confirmed: boolean) => {
         if (confirmed) {
-          let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.HOME_TONICS + ApiRoutesConstants.DELETE ;
+          let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.adlist_delete;
           this.navService.postData(apiUrl,{_id:event.data._id}).subscribe({
             next: (res: any) => {
               if (res['status'] == 'Success') {

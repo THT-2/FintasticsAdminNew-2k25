@@ -70,3 +70,48 @@
 .btn-cta-wide {
   min-width: 280px;
 }
+
+
+.tag-input-wrapper {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 6px;
+  background: #fff;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.tag {
+  background: #4f46e5;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tag i {
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-btn {
+  background: #4f46e5;
+  color: #fff;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background: #4338ca;
+}
+
+.tag-input-wrapper input:focus {
+  box-shadow: none;
+}

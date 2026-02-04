@@ -892,8 +892,15 @@ export class HeaderConstants {
       'class': "text-transform"
     },
    {
-      'name': 'active_status',
-      'displayName': 'Status',
+      'name': 'android_active_status',
+      'displayName': 'Android Status',
+      'type': 'toggle',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+   {
+      'name': 'ios_active_status',
+      'displayName': 'IOS Status',
       'type': 'toggle',
       'disableSorting': false,
       'class': "text-transform"

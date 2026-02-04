@@ -208,6 +208,7 @@ export class ApiRoutesConstants {
   public static adcreate = "googleads/create";
   public static adlist_getbyid = "googleads/getlist_id";
   public static adlist_edit = "googleads/edit";
+  public static adlist_delete = "googleads/delete";
 
 
   // Common routes

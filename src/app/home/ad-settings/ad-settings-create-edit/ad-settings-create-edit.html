@@ -22,17 +22,18 @@
             </div>
 
               <div class="col-md-6">
-                <label class="form-label"> Android ID <span class="req">*</span></label>
+                <label class="form-label"> Android ID </label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="bi bi-card-image"></i></span>
                   <input type="text" class="form-control" formControlName="android_ad" placeholder="Ad Id" />
                 </div>
                 <div *ngIf="adForm.get('android_ad')?.touched && adForm.get('android_ad')?.invalid" class="text-danger">
-                  Name is required.
+                  ID is required.
                 </div>
               </div>
+
               <div class="col-md-6">
-                <label class="form-label"> IOS ID <span class="req">*</span></label>
+                <label class="form-label"> IOS ID </label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="bi bi-card-image"></i></span>
                   <input type="text" class="form-control" formControlName="ios_ad" placeholder="Ad Id" />
@@ -42,6 +43,72 @@
                 </div>
               </div>
 
+              <div class="col-md-6 d-flex align-items-start justify-content-md-end">
+                <div class="w-100 w-md-auto" style="max-width: 620px;">
+                  <label class="form-label d-block mb-2 fw-bold">
+                    Android Toggle
+                    
+                  </label>
+
+                  <div 
+                    class="level-toggle d-flex align-items-center justify-content-between p-2 px-3 rounded"
+                    [ngClass]="{
+                      'active-toggle': adForm.get('android_active_status')?.value,
+                      'inactive-toggle': !adForm.get('android_active_status')?.value
+                    }"
+                  >
+                    <span class="toggle-status me-2">
+                      {{ adForm.get('android_active_status')?.value ? 'On' : 'Off' }}
+                    </span>
+
+                    <div class="form-check form-switch m-0">
+                      <input
+                        class="form-check-input level-switch"
+                        type="checkbox"
+                        formControlName="android_active_status"
+                        id="levelStopToggle"
+                        (change)="toggleLevelStop()"
+                      />
+                      <label class="form-check-label visually-hidden" for="levelStopToggle">
+                        Android Toggle
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 d-flex align-items-start justify-content-md-end">
+                <div class="w-100 w-md-auto" style="max-width: 620px;">
+                  <label class="form-label d-block mb-2 fw-bold">
+                    IOS Toggle
+                  </label>
+
+                  <div 
+                    class="level-toggle d-flex align-items-center justify-content-between p-2 px-3 rounded"
+                    [ngClass]="{
+                      'active-toggle': adForm.get('ios_active_status')?.value,
+                      'inactive-toggle': !adForm.get('ios_active_status')?.value
+                    }"
+                  >
+                    <span class="toggle-status me-2">
+                      {{ adForm.get('ios_active_status')?.value ? 'On' : 'Off' }}
+                    </span>
+
+                    <div class="form-check form-switch m-0">
+                      <input
+                        class="form-check-input level-switch"
+                        type="checkbox"
+                        formControlName="ios_active_status"
+                        id="levelStopToggle"
+                        (change)="toggleLevelStop()"
+                      />
+                      <label class="form-check-label visually-hidden" for="levelStopToggle">
+                        Android Toggle
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
             </div>
 
