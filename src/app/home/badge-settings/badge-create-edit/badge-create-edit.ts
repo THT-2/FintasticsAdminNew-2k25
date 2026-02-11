@@ -64,6 +64,7 @@ ngOnInit(): void {
     banner: ['', Validators.required],
     status:['',Validators.required],
     type:['',Validators.required],
+    message :['',Validators.required],
     _id: [null],
   });
 }
@@ -89,6 +90,7 @@ ngOnInit(): void {
           banner: this.Badge.banner,
           status:this.Badge.status,
           type:this.Badge.type,
+          message :this.Badge.message,
           _id: this.Badge._id,
         });
         this.editId = this.Badge._id;
