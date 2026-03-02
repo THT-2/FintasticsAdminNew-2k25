@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import {ActivatedRoute,Router,} from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
@@ -27,6 +27,7 @@ export class VideoCreateEdit implements OnInit{
   viewAccess!: boolean;
   pageLoader!: boolean;
   videoData: any;
+  categoryData:any[] = [];
   public btnLoader:boolean = false;
   editId: any;
   GlobalConstant: any = GlobalConstant;
@@ -37,17 +38,21 @@ export class VideoCreateEdit implements OnInit{
     private navService: Data,
     private router: Router,
     private alertService: AlertService,
-    private acRouter: ActivatedRoute
+    private acRouter: ActivatedRoute,
+    private cd: ChangeDetectorRef
   ) {
-    this.acRouter.paramMap.subscribe((param) => {
-      var id = String(param.get('id'));
-      if(id != 'null'){
-        this.getById(id);
-      }
-    });
+    // this.acRouter.paramMap.subscribe((param) => {
+    //   var id = String(param.get('id'));
+    //   if(id != 'null'){
+    //     this.getById(id);
+    //   }
+    // });
   }
+
+ 
 ngOnInit(): void {
   this.videoForm = this.fb.group({
+    videocategory: ['', Validators.required],
     title: ['', Validators.required],
     videolink: [null, Validators.required],
     tamp_img: [null],
@@ -57,11 +62,37 @@ ngOnInit(): void {
     videotype:["videoLink"],
     index:[null, Validators.required]
   });
+  this.getVideoCategoryList(); 
+    this.acRouter.paramMap.subscribe((param) => {
+    const id = param.get('id');
+    if (id && id !== 'null') {
+      this.getById(id);
+    }
+  });
 }
 
   get videoFormControl() {
     return this.videoForm.controls;
   }
+
+  getVideoCategoryList() {
+  const apiUrl =
+    ApiRoutesConstants.BASE_URL +
+    ApiRoutesConstants.video_category_getlist;
+
+  this.navService.getData(apiUrl).subscribe({
+    next: (res: any) => {
+      if (res.code === 200) {
+        this.categoryData = res.data;  
+        console.log("categorylist",this.categoryData); 
+      }
+      this.cd.detectChanges();
+    },
+    error: (err: any) => {
+      console.log(err);
+    }
+  });
+}
   getById(id: any) {
     this.pageLoader = true;
     let apiUrl =
@@ -69,9 +100,10 @@ ngOnInit(): void {
     this.navService.getData(apiUrl).subscribe({
       next: (res: any) => {
         console.log('video',res);
-        this.videoData = res.Data;
+        this.videoData = res.data;
         this.videoForm.patchValue({
           title: this.videoData.title,
+          videocategory: this.videoData.videocategory,
           videolink: this.videoData.videolink,
           tamp_img:this.videoData.tamp_img,
           video_img:this.videoData.video_img,
@@ -98,12 +130,12 @@ ngOnInit(): void {
         ApiRoutesConstants.BASE_URL + ApiRoutesConstants.VIDEO_UPLOAD + ApiRoutesConstants.EDIT + "/" +  this.videoFormControl['_id'].value;
         this.navService.postData(apiUrl, this.videoForm.value).subscribe({
           next: (res: any) => {
-            if (res.Code === 200) {
-              this.alertService.toast('success', true, res.Message);
+            if (res.code === 200) {
+              this.alertService.toast('success', true, res.message);
               this.router.navigate(['/admin/video']);
               this.btnLoader = false;
             } else {
-              this.alertService.toast('error', true, res.Message);
+              this.alertService.toast('error', true, res.message);
               this.btnLoader = false;
             }
           },
@@ -118,12 +150,12 @@ ngOnInit(): void {
           delete this.videoForm.value._id
         this.navService.postData(apiUrl, this.videoForm.value).subscribe({
           next: (res: any) => {
-            if (res.Code === 200) {
-              this.alertService.toast('success', true, res.Message);
+            if (res.code === 200) {
+              this.alertService.toast('success', true, res.message);
               this.router.navigate(['/admin/video']);
               this.btnLoader = false;
             } else {
-              this.alertService.toast('error', true, res.Message);
+              this.alertService.toast('error', true, res.message);
               this.btnLoader = false;
             }
           },

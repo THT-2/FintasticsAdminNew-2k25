@@ -108,6 +108,12 @@ export class ApiRoutesConstants {
   // sub categories urls
   public static videos_getlist = "videosUpload/getlist_Admin"
   public static VIDEO_UPLOAD = "videosUpload"
+  public static video_category_getlist = "videosUpload/categorygetlist"
+  public static video_category_getlistId = "videosUpload/categorygetlist_id"  
+  public static video_category_create = "videosUpload/categorycreate"
+  public static video_category_edit = "videosUpload/categoryedit"
+  public static video_category_delete = "videosUpload/categorydelete"
+
 
   // Notfication urls
   public static pushNotfication = "notification/send_alert"
@@ -209,6 +215,9 @@ export class ApiRoutesConstants {
   public static adlist_getbyid = "googleads/getlist_id";
   public static adlist_edit = "googleads/edit";
   public static adlist_delete = "googleads/delete";
+
+  //User Data
+  public static user_data = "finexpertchatBot/yesterday";
 
 
   // Common routes

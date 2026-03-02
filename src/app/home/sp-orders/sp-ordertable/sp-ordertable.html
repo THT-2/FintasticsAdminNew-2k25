@@ -1,0 +1,96 @@
+  <div class="table-card shadow-sm">
+
+    <!-- Tabs -->
+    <div class="th-tabs">
+      <button class="th-tab active">All</button>
+      <button class="th-tab">Unfulfilled</button>
+      <button class="th-tab">Unpaid</button>
+      <button class="th-tab">Open</button>
+      <button class="th-tab">Closed</button>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar p-3 d-flex flex-wrap gap-3 align-items-center">
+
+      <div class="search-wrapper flex-grow-1" style="min-width:240px;">
+        <i class="bi bi-search"></i>
+        <input type="text" class="form-control search-input" placeholder="Search orders...">
+      </div>
+
+      <button class="btn btn-light border d-flex align-items-center gap-2">
+        <i class="bi bi-calendar3"></i> Date range
+      </button>
+
+      <button class="btn btn-light border d-flex align-items-center gap-2">
+        <i class="bi bi-funnel"></i> Status filter
+      </button>
+
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Total Amount</th>
+            <th>Payment</th>
+            <th>Fulfillment</th>
+            <th class="text-end">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td class="fw-bold text-primary">#1042</td>
+            <td class="text-muted">Oct 24, 2023</td>
+            <td class="fw-medium">Alex Thompson</td>
+            <td class="fw-semibold">$1,240.00</td>
+            <td><span class="status-pill bg-success-subtle text-success">Paid</span></td>
+            <td><span class="status-pill bg-primary-subtle text-primary">Fulfilled</span></td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-light"><i class="bi bi-three-dots"></i></button>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="fw-bold text-primary">#1041</td>
+            <td class="text-muted">Oct 23, 2023</td>
+            <td>Sarah Miller</td>
+            <td class="fw-semibold">$89.50</td>
+            <td><span class="status-pill bg-warning-subtle text-warning">Pending</span></td>
+            <td><span class="status-pill bg-danger-subtle text-danger">Unfulfilled</span></td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-light"><i class="bi bi-three-dots"></i></button>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="fw-bold text-primary">#1040</td>
+            <td class="text-muted">Oct 23, 2023</td>
+            <td>Michael Chen</td>
+            <td class="fw-semibold">$542.00</td>
+            <td><span class="status-pill bg-success-subtle text-success">Paid</span></td>
+            <td><span class="status-pill bg-info-subtle text-info">Partial</span></td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-light"><i class="bi bi-three-dots"></i></button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-strip px-4 py-3 d-flex justify-content-between align-items-center">
+      <small class="text-muted">Showing 1 to 5 of 1,248 orders</small>
+      <div class="d-flex gap-2">
+        <button class="btn btn-sm btn-light border" disabled>Previous</button>
+        <button class="btn btn-sm btn-light border">Next</button>
+      </div>
+    </div>
+
+  </div>

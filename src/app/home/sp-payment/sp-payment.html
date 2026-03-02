@@ -1,0 +1,179 @@
+
+
+<!-- Header -->
+<div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-end gap-3 mb-4">
+
+  <div>
+    <h1 class="fw-bold display-6 mb-1">Payments Management</h1>
+    <p class="text-muted small mb-0">
+      Real-time overview of your store's financial performance and transactions.
+    </p>
+  </div>
+
+  <div class="d-flex gap-2">
+    <button class="btn btn-light border shadow-sm d-flex align-items-center gap-2">
+      <i class="bi bi-download"></i> Export CSV
+    </button>
+    <button class="btn text-white d-flex align-items-center gap-2"
+            style="background:var(--primary); box-shadow:0 8px 20px rgba(110,89,197,.25);">
+      <i class="bi bi-plus-lg"></i> New Payout
+    </button>
+  </div>
+
+</div>
+
+<!-- Summary Cards -->
+<div class="row g-4 mb-4">
+
+  <div class="col-md-4">
+    <div class="summary-card bg-white p-4 shadow-sm">
+      <p class="text-uppercase small fw-bold text-muted mb-1">Total Processed</p>
+      <h3 class="fw-bold mb-2">$128,430.00</h3>
+      <div class="text-success fw-bold small">
+        <i class="bi bi-arrow-up"></i> +12.5%
+        <span class="text-muted fw-normal ms-1">vs last month</span>
+      </div>
+      <i class="bi bi-wallet2 bg-icon"></i>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="summary-card bg-white p-4 shadow-sm">
+      <p class="text-uppercase small fw-bold text-muted mb-1">Pending Payouts</p>
+      <h3 class="fw-bold mb-2">$12,540.00</h3>
+      <div class="text-warning fw-bold small">
+        <i class="bi bi-clock"></i> In processing
+      </div>
+      <i class="bi bi-cash-stack bg-icon"></i>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="summary-card bg-white p-4 shadow-sm">
+      <p class="text-uppercase small fw-bold text-muted mb-1">Refund Rate</p>
+      <h3 class="fw-bold mb-2">1.2%</h3>
+      <div class="text-success fw-bold small">
+        <i class="bi bi-arrow-down"></i> -0.2%
+        <span class="text-muted fw-normal ms-1">improvement</span>
+      </div>
+      <i class="bi bi-arrow-repeat bg-icon"></i>
+    </div>
+  </div>
+
+</div>
+
+<!-- Transactions Card -->
+<div class="bg-white rounded-4 border shadow-sm">
+
+  <!-- Filters -->
+  <div class="p-3 border-bottom d-flex flex-wrap justify-content-between gap-3">
+
+    <div class="d-flex gap-2">
+      <button class="btn filter-pill text-white"
+              style="background:var(--primary);">All Transactions</button>
+      <button class="btn filter-pill btn-light">Completed</button>
+      <button class="btn filter-pill btn-light">Refunded</button>
+      <button class="btn filter-pill btn-light">Failed</button>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button class="btn btn-light border"><i class="bi bi-funnel"></i></button>
+      <button class="btn btn-light border"><i class="bi bi-calendar3"></i></button>
+    </div>
+
+  </div>
+
+  <!-- Table -->
+  <div class="table-responsive">
+    <table class="table align-middle mb-0">
+
+      <thead>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Customer</th>
+          <th>Payment Method</th>
+          <th class="text-end">Amount</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+          <td class="font-monospace small text-muted">#TRX-99402</td>
+          <td>
+            <div>
+              <div class="fw-bold small">Alex Thompson</div>
+              <div class="text-muted small">alex.t@example.com</div>
+            </div>
+          </td>
+          <td><i class="bi bi-credit-card text-muted"></i> Visa ****4242</td>
+          <td class="text-end fw-bold">$1,250.00</td>
+          <td class="text-muted small">Oct 24, 2023</td>
+          <td><span class="badge-soft-success">Completed</span></td>
+          <td class="text-end"><i class="bi bi-three-dots"></i></td>
+        </tr>
+
+        <tr>
+          <td class="font-monospace small text-muted">#TRX-99398</td>
+          <td>
+            <div>
+              <div class="fw-bold small">Sarah Jenkins</div>
+              <div class="text-muted small">s.jenkins@test.com</div>
+            </div>
+          </td>
+          <td><i class="bi bi-paypal text-primary"></i> PayPal</td>
+          <td class="text-end fw-bold">$840.50</td>
+          <td class="text-muted small">Oct 24, 2023</td>
+          <td><span class="badge-soft-warning">Refunded</span></td>
+          <td class="text-end"><i class="bi bi-three-dots"></i></td>
+        </tr>
+
+        <tr>
+          <td class="font-monospace small text-muted">#TRX-99392</td>
+          <td>
+            <div>
+              <div class="fw-bold small">Linda Wu</div>
+              <div class="text-muted small">linda.wu@web.com</div>
+            </div>
+          </td>
+          <td><i class="bi bi-credit-card text-muted"></i> Visa ****8821</td>
+          <td class="text-end fw-bold">$120.00</td>
+          <td class="text-muted small">Oct 23, 2023</td>
+          <td><span class="badge-soft-danger">Failed</span></td>
+          <td class="text-end"><i class="bi bi-three-dots"></i></td>
+        </tr>
+
+      </tbody>
+
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="p-4 border-top d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3">
+
+    <small class="text-muted">
+      Showing <strong>1</strong> to <strong>10</strong> of <strong>2,402</strong> transactions
+    </small>
+
+    <div class="d-flex align-items-center gap-2">
+      <button class="btn btn-light border btn-sm" disabled>Previous</button>
+
+      <div class="d-flex gap-1">
+        <div class="pagination-btn text-white"
+             style="background:var(--primary); border-color:var(--primary);">1</div>
+        <div class="pagination-btn">2</div>
+        <div class="pagination-btn">3</div>
+        <span class="px-2">...</span>
+        <div class="pagination-btn">240</div>
+      </div>
+
+      <button class="btn btn-light border btn-sm">Next</button>
+    </div>
+
+  </div>
+
+</div>
+

@@ -24,13 +24,31 @@ export class Video implements OnInit{
 
   public apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.videos_getlist;
   public loader:boolean = true;
-  buttondata= {
-    buttonName : 'Add New Video',
-    routingPath : '/admin/video/create',
-    // routingView : 'View',
-    routingEdit : 'Edit',
-    routingDelete : 'Delete',
-  }
+  // buttondata= {
+  //   buttonName : 'Add New Video',
+  //   routingPath : '/admin/video/create',
+  //   // routingView : 'View',
+  //   routingEdit : 'Edit',
+  //   routingDelete : 'Delete',
+  // }
+  buttondata = {
+  buttons: [
+    {
+      buttonName: 'Add New Video',
+      routingPath: '/admin/video/create',
+      icon: 'bi bi-plus-lg',
+      btnClass: 'btn btn-cta btn-cta-wide'
+    },
+    {
+      buttonName: 'View Category',
+      routingPath: '/admin/video/videocategory',
+      icon: 'bi bi-eye',
+      btnClass: 'btn btn-secondary'
+    }
+  ],
+  routingEdit: 'Edit',
+  routingDelete: 'Delete'
+};
   videoData: any;
   columnDefinition: any[];
   responseMessage: any;
@@ -49,12 +67,12 @@ export class Video implements OnInit{
       next:(res:any)=> {
         console.log('video',res);
 
-        if (res.Code === 200) {
-          this.videoData = res.Data;
+        if (res.code === 200) {
+          this.videoData = res.data;
           this.buttondata = this.buttondata;
         }
         else {
-          this.alertService.toast("error",true,res.Message);
+          this.alertService.toast("error",true,res.message);
         }
         this.loader=false;
         this.cdr.detectChanges();

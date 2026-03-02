@@ -1,0 +1,111 @@
+<main class="dashboard">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h1>Coupon Management</h1>
+      <p>Manage, create, and track your discount codes with style.</p>
+    </div>
+
+    <button class="btn-primary">
+      <i class="bi bi-plus-lg"></i>
+      Create Coupon
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <div class="card filter-card">
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+      <input type="text" placeholder="Search coupons..." />
+    </div>
+
+    <div class="filters">
+      <select>
+        <option>All Status</option>
+        <option>Active</option>
+        <option>Expired</option>
+        <option>Scheduled</option>
+      </select>
+
+      <button class="btn-outline">
+        <i class="bi bi-sliders"></i> Filters
+      </button>
+
+      <button class="btn-icon">
+        <i class="bi bi-download"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card table-card">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Coupon</th>
+          <th>Discount</th>
+          <th>Usage</th>
+          <th>Status</th>
+          <th>Expiry</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td><span class="badge">SUMMER24</span></td>
+          <td>15% Off</td>
+          <td>
+            <div class="progress-wrapper">
+              <div class="progress">
+                <div class="progress-fill" style="width:70%"></div>
+              </div>
+              <span>65/100</span>
+            </div>
+          </td>
+          <td><span class="status active">Active</span></td>
+          <td>Oct 24, 2024</td>
+          <td><button class="btn-icon"><i class="bi bi-three-dots"></i></button></td>
+        </tr>
+
+        <tr>
+          <td><span class="badge">NEW50</span></td>
+          <td>50% Off</td>
+          <td>
+            <div class="progress-wrapper">
+              <div class="progress">
+                <div class="progress-fill" style="width:40%"></div>
+              </div>
+              <span>20/50</span>
+            </div>
+          </td>
+          <td><span class="status expired">Expired</span></td>
+          <td>Aug 10, 2024</td>
+          <td><button class="btn-icon"><i class="bi bi-three-dots"></i></button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <span>Showing 1–2 of 24</span>
+      <div>
+        <button class="btn-outline small">Prev</button>
+        <button class="btn-outline small">Next</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Promo -->
+  <div class="promo">
+    <div>
+      <h3>Unlock Advanced Analytics 🚀</h3>
+      <p>See which campaigns drive the most revenue with powerful insights.</p>
+    </div>
+    <button class="btn-link">Learn More →</button>
+  </div>
+
+</main>

@@ -1,0 +1,86 @@
+<div class="advanced-filter">
+
+  <!-- Header -->
+  <div class="filter-header">
+    <h3>Date & Time Range Filter</h3>
+  </div>
+
+  <div class="filter-body">
+
+    <!-- DATE RANGE -->
+    <div class="range-group">
+      <div class="range-title">Date Range</div>
+      <div class="date-inputs">
+        <div class="input-wrapper">
+          <span class="input-icon">📅</span>
+          <input type="date" class="date-input" [(ngModel)]="fromdate" name="fromdate" />
+        </div>
+        <span class="range-separator">→</span>
+        <div class="input-wrapper">
+          <span class="input-icon">📅</span>
+          <input type="date" class="date-input" [(ngModel)]="todate" name="todate" />
+        </div>
+      </div>
+    </div>
+
+    <!-- TIME RANGE -->
+    <div class="range-group">
+      <div class="range-title">Time Range</div>
+      <div class="time-inputs">
+        <div class="input-wrapper">
+          <span class="input-icon">⏰</span>
+          <input type="time" class="time-input" [(ngModel)]="fromtime" name="fromtime" />
+        </div>
+        <span class="range-separator">→</span>
+        <div class="input-wrapper">
+          <span class="input-icon">⏰</span>
+          <input type="time" class="time-input" [(ngModel)]="totime" name="totime" />
+        </div>
+      </div>
+    </div>
+
+    <!-- TYPE FILTER -->
+    <div class="filter-group">
+      <label class="filter-label">Type</label>
+      <select class="filter-select" [(ngModel)]="type" name="type">
+        <option value="subscription">Subscription</option>
+        <option value="one-time">One-time</option>
+        <option value="trial">Trial</option>
+      </select>
+    </div>
+
+    <!-- QUICK SELECT -->
+    <div class="quick-select">
+      <span class="quick-label">Quick Select:</span>
+      <button type="button" class="quick-btn" (click)="quickSelect('today')">Today</button>
+      <button type="button" class="quick-btn" (click)="quickSelect('tomorrow')">Tomorrow</button>
+      <button type="button" class="quick-btn" (click)="quickSelect('week')">This Week</button>
+      <button type="button" class="quick-btn" (click)="quickSelect('month')">This Month</button>
+    </div>
+
+    <!-- ERROR MESSAGE -->
+    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="filter-footer">
+    <button type="button" class="clear-btn" (click)="clearFilter()">Clear All</button>
+    <button type="button" class="apply-filter-btn" (click)="applyFilter()">Apply Filter</button>
+  </div>
+
+</div>
+
+<!-- EXPORT BUTTON -->
+<div class="table-head">
+  <button class="btn" id="export-excel" (click)="exportExcel()">Export Excel</button>
+</div>
+
+<!-- USER DATA TABLE -->
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="User Data" blockClass="pc-component">
+      <app-table [tableData]="userData" [loader]="loader" [columnHeader]="columnDefinition"></app-table>
+    </app-card>
+  </div>
+</div>

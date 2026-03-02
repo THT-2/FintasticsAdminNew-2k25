@@ -8,21 +8,27 @@ import { Observable } from 'rxjs';
 
 export class Data {
   private navItems = signal<any[]>([]);
+  
   readonly NavItems = this.navItems.asReadonly();
   constructor(private http:HttpClient){}
 
   selectedUserId = signal<string | null>(null);
+  
+  userId = signal<string | null>(null);
+
+  setUserId(id: string) {
+    this.userId.set(id);
+  }
 
   setSelectedUser(id: string) {
     this.selectedUserId.set(id);
   }
+  
 
   setNavItems(items: any[]) {
     this.navItems.set(items);
   }
-
-
-
+  
   getNavItems() {
     return this.NavItems;
   }

@@ -61,7 +61,6 @@ import { Video } from './video/video';
 import { VideoCreateEdit } from './video/video-create-edit/video-create-edit';
 import { Storyboard } from './storyboard/storyboard';
 import { StoryCreateEdit } from './storyboard/story-create-edit/story-create-edit';
-import { CustomerSupport } from './customer-support/customer-support';
 import { Role } from './role/role';
 import { RoleCreateEdit } from './role/role-create-edit/role-create-edit';
 import { UserDetails } from './user-details/user-details';
@@ -95,6 +94,19 @@ import { BlogTags } from './blogs/blog-tags/blog-tags';
 import { NewPost } from './blogs/new-post/new-post';
 import { AdSettings } from './ad-settings/ad-settings';
 import { AdSettingsCreateEdit } from './ad-settings/ad-settings-create-edit/ad-settings-create-edit';
+import { UserData } from './user-data/user-data';
+import { SpOrders } from './sp-orders/sp-orders';
+import { SpDashboard } from './sp-dashboard/sp-dashboard';
+import { SpReports } from './sp-reports/sp-reports';
+import { SpPayment } from './sp-payment/sp-payment';
+import { SpBanners } from './sp-banners/sp-banners';
+import { SpProducts } from './sp-products/sp-products';
+import { SpCategory } from './sp-category/sp-category';
+import { SpCustomers } from './sp-customers/sp-customers';
+import { SpReviews } from './sp-reviews/sp-reviews';
+import { SpInventory } from './sp-inventory/sp-inventory';
+import { SpCoupon } from './sp-coupon/sp-coupon';
+import { VideoCategory } from './video/video-category/video-category';
 
 
 const routes: Routes = [
@@ -201,6 +213,7 @@ const routes: Routes = [
               {path:'',component:Video},
               {path:'create',component:VideoCreateEdit},
               {path:'edit/:id',component:VideoCreateEdit},
+              {path:'videocategory',component:VideoCategory},
 
             ]
           },
@@ -212,12 +225,12 @@ const routes: Routes = [
 
             ]
           },
-          {path:'customer-support',
-            children:[
-              {path:'',component:CustomerSupport},
+          // {path:'customer-support',
+          //   children:[
+          //     {path:'',component:CustomerSupport},
 
-            ]
-          },
+          //   ]
+          // },
           {path:'push',
             children:[
               {path:'',component:Push},
@@ -436,7 +449,6 @@ const routes: Routes = [
               {path:'',component:BadgeSettings},
               {path:'create',component:BadgeCreateEdit},
               {path:'edit/:id',component:BadgeCreateEdit},
-
             ]
           },
           {
@@ -445,7 +457,82 @@ const routes: Routes = [
               {path:'',component:AdSettings},
               {path:'create',component:AdSettingsCreateEdit},
               {path:'edit/:id',component:AdSettingsCreateEdit},
-
+            ]
+          },
+          {
+            path:'user-data',
+            children:[
+              {path:'',component:UserData},
+              // {path:'create',component:AdSettingsCreateEdit},
+              // {path:'edit/:id',component:AdSettingsCreateEdit},
+            ]
+          },
+          {
+            path:'sp-dashboard',
+            children:[
+              {path:'',component:SpDashboard},
+              // {path:'create',component:AdSettingsCreateEdit},
+              // {path:'edit/:id',component:AdSettingsCreateEdit},
+            ]
+          },
+          {
+            path:'sp-reports',
+            children:[
+              {path:'',component:SpReports},
+            ]
+          },
+          {
+            path:'sp-payment',
+            children:[
+              {path:'',component:SpPayment},
+            ]
+          },
+          {
+            path:'sp-banners',
+            children:[
+              {path:'',component:SpBanners},
+            ]
+          },
+          {
+            path:'sp-orders',
+            children:[
+              {path:'',component:SpOrders},
+            ]
+          },
+          {
+            path:'sp-products',
+            children:[
+              {path:'',component:SpProducts},
+            ]
+          },
+          {
+            path:'sp-category',
+            children:[
+              {path:'',component:SpCategory},
+            ]
+          },
+          {
+            path:'sp-customers',
+            children:[
+              {path:'',component:SpCustomers},
+            ]
+          },
+          {
+            path:'sp-reviews',
+            children:[
+              {path:'',component:SpReviews},
+            ]
+          },
+          {
+            path:'sp-inventory',
+            children:[
+              {path:'',component:SpInventory},
+            ]
+          },
+          {
+            path:'sp-coupon',
+            children:[
+              {path:'',component:SpCoupon},
             ]
           },
     ];

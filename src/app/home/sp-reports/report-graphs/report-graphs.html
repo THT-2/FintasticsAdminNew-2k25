@@ -1,0 +1,40 @@
+    <!-- Sales Over Time -->
+    <div class="card shadow-sm border-0 rounded-4 mb-4">
+        <div class="card-body">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h5 class="fw-bold mb-1">Sales Over Time</h5>
+                    <small class="text-muted">Daily revenue comparison for the current month</small>
+                </div>
+                <div class="d-flex gap-4 small">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="bg-primary rounded-circle d-inline-block" style="width:10px;height:10px;"></span>
+                        Current Period
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="bg-secondary rounded-circle d-inline-block" style="width:10px;height:10px;"></span>
+                        Previous Period
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG Chart stays same -->
+            <svg class="w-100" viewBox="0 0 1000 300">
+                <path d="M0,250 Q100,200 200,220 T400,100 T600,150 T800,50 T1000,80"
+                    fill="none" stroke="#6f42c1" stroke-width="4"></path>
+                <path d="M0,280 Q150,260 300,270 T600,180 T1000,210"
+                    fill="none" stroke="#adb5bd" stroke-dasharray="8,8" stroke-width="2"></path>
+            </svg>
+
+            <div class="d-flex justify-content-between text-muted small mt-3">
+                <span>Oct 01</span>
+                <span>Oct 07</span>
+                <span>Oct 14</span>
+                <span>Oct 21</span>
+                <span>Oct 28</span>
+                <span>Oct 31</span>
+            </div>
+
+        </div>
+    </div>
