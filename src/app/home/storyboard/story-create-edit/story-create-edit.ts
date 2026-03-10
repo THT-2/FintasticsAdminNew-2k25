@@ -65,16 +65,19 @@ ngOnInit(): void {
   getById(id: any) {
     this.pageLoader = true;
     let apiUrl =
-      ApiRoutesConstants.BASE_URL + ApiRoutesConstants.StoryBoardGetlistID + "/" +  id;
-    this.dataService.getData(apiUrl).subscribe({
+      ApiRoutesConstants.BASE_URL + ApiRoutesConstants.StoryBoardGetlistID ;
+    this.dataService.postData(apiUrl,{_id: id }).subscribe({
       next: (res: any) => {
         console.log(res);
-        this.StoryBoardData = res.Data;
+        this.StoryBoardData = res.Data[0];
         this.StoryBoardForm.patchValue({
           mediaType:this.StoryBoardData.mediaType,
           title:this.StoryBoardData.title,
           _id: this.StoryBoardData._id,
-          mediaUrl:this.StoryBoardData.mediaUrl
+          mediaUrl:this.StoryBoardData.mediaUrl,
+          notifi_title:this.StoryBoardData.notifi_title,
+          notifi_body:this.StoryBoardData.notifi_body,
+          
         });
         this.editId = this.StoryBoardData._id;
         this.pageLoader = false;
