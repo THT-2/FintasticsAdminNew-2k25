@@ -135,9 +135,16 @@
                         </button>
                       }
                     </td>
-                  } @else {
+                  } 
+                  @else if (column.name === 'createdAt'|| column.name ==='startDate'|| column.name ==='endDate') {
+                    <td>
+                      {{ item[column.name] ? (item[column.name] | date:'dd MMM yyyy') : '-' }}
+                    </td>
+                  }
+                  @else {
                     <td>{{ item[column.name] ? item[column.name] : "-" }}</td>
                   }
+                
                 }
               </tr>
             }

@@ -1,4 +1,4 @@
-<div class="advanced-filter">
+<div class="advanced-filter compact-filter">
 
   <!-- Header -->
   <div class="filter-header">
@@ -12,12 +12,12 @@
       <div class="range-title">Date Range</div>
       <div class="date-inputs">
         <div class="input-wrapper">
-          <span class="input-icon">📅</span>
+          <span class="input-icon"></span>
           <input type="date" class="date-input" [(ngModel)]="fromdate" name="fromdate" />
         </div>
         <span class="range-separator">→</span>
         <div class="input-wrapper">
-          <span class="input-icon">📅</span>
+          <span class="input-icon"></span>
           <input type="date" class="date-input" [(ngModel)]="todate" name="todate" />
         </div>
       </div>
@@ -28,12 +28,12 @@
       <div class="range-title">Time Range</div>
       <div class="time-inputs">
         <div class="input-wrapper">
-          <span class="input-icon">⏰</span>
+          <span class="input-icon"></span>
           <input type="time" class="time-input" [(ngModel)]="fromtime" name="fromtime" />
         </div>
         <span class="range-separator">→</span>
         <div class="input-wrapper">
-          <span class="input-icon">⏰</span>
+          <span class="input-icon"></span>
           <input type="time" class="time-input" [(ngModel)]="totime" name="totime" />
         </div>
       </div>
@@ -42,10 +42,14 @@
     <!-- TYPE FILTER -->
     <div class="filter-group">
       <label class="filter-label">Type</label>
-      <select class="filter-select" [(ngModel)]="type" name="type">
+      
+      <select class="filter-select" [(ngModel)]="type" name="type" (change)="onTypeChange()">
+        <option value="" disabled selected hidden>
+      Select Type
+    </option>
         <option value="subscription">Subscription</option>
-        <option value="one-time">One-time</option>
-        <option value="trial">Trial</option>
+        <option value="registered">Registered</option>
+        <option value="challege">Challenge</option>
       </select>
     </div>
 
@@ -53,7 +57,7 @@
     <div class="quick-select">
       <span class="quick-label">Quick Select:</span>
       <button type="button" class="quick-btn" (click)="quickSelect('today')">Today</button>
-      <button type="button" class="quick-btn" (click)="quickSelect('tomorrow')">Tomorrow</button>
+      <button type="button" class="quick-btn" (click)="quickSelect('yesterday')">yesterday</button>
       <button type="button" class="quick-btn" (click)="quickSelect('week')">This Week</button>
       <button type="button" class="quick-btn" (click)="quickSelect('month')">This Month</button>
     </div>

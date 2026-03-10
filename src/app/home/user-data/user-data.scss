@@ -1,83 +1,51 @@
-* {
-      --brand-primary: #5E35B1;
-      --brand-secondary: #7C4DFF;
-      --brand-accent: #B388FF;
-      --brand-light: #D1C4E9;
-      --gradient-primary: linear-gradient(135deg, #5E35B1, #7C4DFF);
-      --gradient-secondary: linear-gradient(135deg, #7C4DFF, #B388FF);
-      --gradient-success: linear-gradient(135deg, #00C853, #64DD17);
-      --gradient-danger: linear-gradient(135deg, #FF5252, #FF867D);
-      --gradient-warning: linear-gradient(135deg, #FFAB00, #FFD600);
-      --gradient-info: linear-gradient(135deg, #448AFF, #82B1FF);
-      --gradient-purple: linear-gradient(135deg, #7E57C2, #B388FF);
-      --gradient-teal: linear-gradient(135deg, #26C6DA, #80DEEA);
-      --bg-primary: #F8FAFF;
-      --bg-secondary: #FFFFFF;
-      --bg-card: #FFFFFF;
-      --bg-sidebar: #FFFFFF;
-      --text-primary: #2D3748;
-      --text-secondary: #4A5568;
-      --text-muted: #718096;
-      --success: #00C853;
-      --danger: #FF5252;
-      --warning: #FFAB00;
-      --info: #448AFF;
-      --border-color: #E2E8F0;
-      --radius-lg: 16px;
-      --radius-md: 12px;
-      --radius-sm: 8px;
-      --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
-      --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.08);
-      --shadow-heavy: 0 12px 28px rgba(0, 0, 0, 0.12);
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-      box-sizing: border-box;
-      font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-.advanced-filter {
-//   max-width: 600px;
-margin-bottom: 30px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+/* ===== FILTER CONTAINER ===== */
+.compact-filter {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f1f1;
+  max-width: 100%;
+  font-family: 'Inter', sans-serif;
 }
 
-.filter-header {
-  padding: 15px 20px;
-  border-bottom: 1px solid #eee;
-}
-
+/* Header */
 .filter-header h3 {
-  margin: 0;
-  color: #333;
-}
-
-.filter-body {
-  padding: 20px;
-}
-
-.range-group {
-  margin-bottom: 25px;
-}
-
-.range-title {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
-  color: #666;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+/* Body Layout */
+.filter-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+/* Group Styling */
+.range-group,
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 220px;
+}
+
+/* Titles */
+.range-title,
+.filter-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6c757d;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.date-inputs, .time-inputs {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
+/* Input Wrapper */
 .input-wrapper {
-  flex: 1;
   position: relative;
   display: flex;
   align-items: center;
@@ -86,192 +54,157 @@ margin-bottom: 30px;
 .input-icon {
   position: absolute;
   left: 10px;
-  color: #666;
-}
-
-.date-input, .time-input {
-  width: 100%;
-  padding: 10px 10px 10px 35px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
   font-size: 14px;
-  transition: border-color 0.3s;
+  opacity: 0.6;
 }
 
-.date-input:focus, .time-input:focus {
+/* Inputs */
+.date-input,
+.time-input,
+.filter-select {
+  width: 100%;
+  padding: 6px 10px 6px 32px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  background: #fafafa;
+}
+
+.date-input:focus,
+.time-input:focus,
+.filter-select:focus {
+  border-color: #4e73df;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(78, 115, 223, 0.1);
   outline: none;
-  border-color: #007bff;
 }
 
+/* Range Separator */
 .range-separator {
+  margin: 0 6px;
+  font-size: 13px;
   color: #999;
-  font-size: 18px;
-  font-weight: bold;
 }
 
+/* Date & Time inline layout */
+.date-inputs,
+.time-inputs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Quick Select */
 .quick-select {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
-  margin-top: 15px;
-  padding-top: 15px;
-  border-top: 1px solid #eee;
 }
 
 .quick-label {
-  color: #666;
-  font-size: 13px;
+  font-size: 12px;
+  color: #6c757d;
+  font-weight: 500;
 }
 
 .quick-btn {
-  padding: 6px 12px;
-  background: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
+  padding: 4px 10px;
   font-size: 12px;
+  border-radius: 20px;
+  border: 1px solid #dcdcdc;
+  background: #f8f9fa;
   cursor: pointer;
-  color: #495057;
-  transition: all 0.2s;
+  transition: 0.2s;
 }
 
 .quick-btn:hover {
-  background: #e9ecef;
-  border-color: #ced4da;
+  background: #4e73df;
+  color: #fff;
+  border-color: #4e73df;
 }
 
+/* Error Message */
 .error-message {
-  margin-top: 15px;
-  padding: 10px;
-  background: #f8d7da;
-  color: #721c24;
-  border-radius: 4px;
-  font-size: 14px;
-  display: none;
+  font-size: 12px;
+  color: #dc3545;
 }
 
+/* Footer */
 .filter-footer {
-  padding: 15px 20px;
-  background: #f8f9fa;
-  border-top: 1px solid #eee;
+  margin-top: 15px;
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  border-radius: 0 0 10px 10px;
-}
-
-.clear-btn, .apply-filter-btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.2s;
 }
 
 .clear-btn {
-  background: #e9ecef;
-  color: #495057;
+  background: #f1f3f5;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  background: #dee2e6;
 }
 
 .apply-filter-btn {
-  background: #007bff;
+  background: #4e73df;
   color: white;
-}
-
-.clear-btn:hover { background: #dee2e6; }
-.apply-filter-btn:hover { background: #0056b3; }
-
-
-
-            .table-head {
-  display: flex;
-  justify-content: flex-end; /* Push button to right */
-  align-items: center;
-  margin-bottom: 10px; /* Space between button and table */
-}
-
-#export-excel {
-  padding: 8px 16px;
-  font-size: 14px;
+  border: none;
+  padding: 6px 16px;
   border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.apply-filter-btn:hover {
+  background: #2e59d9;
+}
+
+/* Export Button */
+.table-head {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 
-#export-excel {
-      padding: 12px 24px;
-      background: linear-gradient(
-      135deg,
-      #5E35B1,
-      #7C4DFF);
-      color: white;
-      border: none;
-      border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
-    border-bottom-left-radius: 12px;
-      font-weight: 500;
-      cursor: pointer;
-    transition-behavior: normal;
-    transition-duration: 0.3s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-delay: 0s;
-    transition-property: all;
-      align-self: flex-end;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    #export-excel:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(94, 53, 177, 0.4);
-    }
-
-
-      .filter-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex: 1;
-      min-width: 180px;
-    }
-    
-    .filter-label {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-    }
-
-    .filter-select {
-      padding: 12px 16px;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      background: var(--bg-secondary);
-      font-size: 0.9rem;
-      transition: var(--transition);
-      color: var(--text-primary);
-      cursor: pointer;
-    }
-
-    .filter-select:focus {
-      outline: none;
-      border-color: var(--brand-primary);
-      box-shadow: 0 0 0 3px rgba(94, 53, 177, 0.1);
-    }
-
-    .filter-button {
-      padding: 12px 24px;
-      background: var(--gradient-primary);
-      color: white;
-      border: none;
-      border-radius: var(--radius-md);
-      font-weight: 500;
-      cursor: pointer;
-      transition: var(--transition);
-      align-self: flex-end;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
+      
+      
+      #export-excel {
+            padding: 12px 24px;
+            background: linear-gradient(
+            135deg,
+            #5E35B1,
+            #7C4DFF);
+            color: white;
+            border: none;
+            border-top-left-radius: 12px;
+          border-top-right-radius: 12px;
+          border-bottom-right-radius: 12px;
+          border-bottom-left-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+          transition-behavior: normal;
+          transition-duration: 0.3s;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          transition-delay: 0s;
+          transition-property: all;
+            align-self: flex-end;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+          }
+      
+          #export-excel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(94, 53, 177, 0.4);
+          }
+      

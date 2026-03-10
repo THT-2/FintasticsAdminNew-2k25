@@ -964,36 +964,36 @@ export class HeaderConstants {
       'disableSorting': false,
       'class': "text-transform"
     },
-  //   {
-  //     'name': 'plan',
-  //     'displayName': 'Plan',
-  //     'disableSorting': false,
-  //     'class': "text-transform"
-  //   },
-  //  {
-  //     'name': 'amount',
-  //     'displayName': 'Plan Amount',
-  //     'disableSorting': false,
-  //     'class': "text-transform"
-  //   },
-  //  {
-  //     'name': 'status',
-  //     'displayName': 'Status',
-  //     'disableSorting': false,
-  //     'class': "text-transform"
-  //   },
-  //  {
-  //     'name': 'creadedAt',
-  //     'displayName': 'Start Date',
-  //     'disableSorting': false,
-  //     'class': "text-transform"
-  //   },
-  //  {
-  //     'name': 'enddate',
-  //     'displayName': 'End Date',
-  //     'disableSorting': false,
-  //     'class': "text-transform"
-  //   },
+    {
+      'name': 'plan',
+      'displayName': 'Plan',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+   {
+      'name': 'amount',
+      'displayName': 'Plan Amount',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+   {
+      'name': 'status',
+      'displayName': 'Status',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+   {
+      'name': 'startDate',
+      'displayName': 'Start Date',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+   {
+      'name': 'endDate',
+      'displayName': 'End Date',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
    {
       'name': 'activeDays',
       'displayName': 'Active Days',
