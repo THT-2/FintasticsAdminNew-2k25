@@ -1,0 +1,101 @@
+*{
+  --primary:#6e59c5;
+  --slate-50:#f8fafc;
+  --slate-100:#f1f5f9;
+  --slate-200:#e2e8f0;
+  --slate-400:#94a3b8;
+  --slate-500:#64748b;
+  --slate-800:#1f2937;
+  --radius-xl:16px;
+}
+
+
+/* Card */
+.th-card{
+  background:#fff;
+  border:1px solid var(--slate-200);
+  border-radius:var(--radius-xl);
+  overflow:hidden;
+}
+
+/* Filters */
+.filter-card{
+  background:#fff;
+  border:1px solid var(--slate-200);
+  border-radius:var(--radius-xl);
+}
+
+/* Search input */
+.search-wrap{ position:relative; }
+.search-wrap i{
+  position:absolute;
+  left:12px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--slate-400);
+}
+.search-input{
+  padding-left:36px;
+  border-radius:12px;
+  border:1px solid var(--slate-200);
+  font-size:.875rem;
+}
+
+/* Table */
+.table thead th{
+  font-size:.7rem;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-weight:700;
+  background:var(--slate-50);
+  border-bottom:1px solid var(--slate-200);
+  color:var(--slate-500);
+}
+.table tbody tr:hover{
+  background:var(--slate-50);
+}
+.product-img{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background-size:cover;
+  background-position:center;
+  border:1px solid var(--slate-200);
+}
+
+/* Status badge */
+.status-pill{
+  font-size:.75rem;
+  font-weight:600;
+  padding:.2rem .6rem;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+}
+
+/* Hover actions */
+.row-actions{
+  opacity:0;
+  transition:opacity .2s ease;
+}
+.table tbody tr:hover .row-actions{
+  opacity:1;
+}
+
+/* Pagination */
+.pagination-custom .page-btn{
+  width:32px;
+  height:32px;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.875rem;
+  border:1px solid var(--slate-200);
+  background:#fff;
+}
+.pagination-custom .active{
+  background:var(--primary);
+  color:#fff;
+  border-color:var(--primary);
+}

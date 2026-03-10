@@ -1,0 +1,249 @@
+
+
+<main class="flex-grow-1 d-flex flex-column min-vh-100 bg-background-light">
+
+  <!-- ✅ Header Section as DIV (NOT header tag) -->
+  <div class="d-flex align-items-center justify-content-between px-4 px-lg-5 border-bottom bg-white"
+       style="height:64px;border-color:var(--slate-200)!important;border-radius: 10px;">
+    <div class="d-flex align-items-center gap-3">
+      <h2 class="h4 mb-0 fw-bold text-dark">Customers</h2>
+      <span class="badge-soft-primary">2,543 Total</span>
+    </div>
+
+    <div class="d-flex align-items-center gap-2">
+      <button class="btn btn-light border d-flex align-items-center gap-2"
+              style="border-radius:12px;border-color:var(--slate-200)!important;">
+        <i class="bi bi-download"></i>
+        <span class="fw-semibold small">Export CSV</span>
+      </button>
+
+      <button class="btn text-white d-flex align-items-center gap-2"
+              style="border-radius:12px;background:var(--primary);box-shadow:0 10px 22px rgba(110,89,197,.25);">
+        <i class="bi bi-plus-lg"></i>
+        <span class="fw-bold small">New Customer</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Table Controls -->
+  <div class="px-4 px-lg-5 pt-4 pb-0">
+    <div class="card-shell p-3 p-md-4 d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+
+      <div class="position-relative w-100" style="max-width:380px;">
+        <i class="bi bi-search position-absolute"
+           style="left:14px;top:50%;transform:translateY(-50%);color:var(--slate-400);"></i>
+        <input type="text"
+               class="form-control controls-input ps-5"
+               placeholder="Search customers by name or email...">
+      </div>
+
+      <div class="d-flex align-items-center gap-3 w-100 w-md-auto justify-content-between justify-content-md-end flex-wrap">
+        <div class="d-flex align-items-center gap-2 muted-500 small fw-semibold">
+          <i class="bi bi-funnel"></i> Filter by:
+        </div>
+
+        <select class="form-select controls-select" style="min-width:170px;">
+          <option>All Locations</option>
+          <option>North America</option>
+          <option>Europe</option>
+          <option>Asia</option>
+        </select>
+
+        <select class="form-select controls-select" style="min-width:170px;">
+          <option>Sort by: Recent</option>
+          <option>Sort by: Name</option>
+          <option>Sort by: Spent</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Content Area (Table) -->
+  <div class="flex-grow-1 px-4 px-lg-5 py-4 d-flex flex-column overflow-hidden">
+    <div class="card-shell d-flex flex-column overflow-hidden flex-grow-1">
+
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="position-sticky top-0" style="z-index:1;">
+            <tr>
+              <th>Name &amp; Email</th>
+              <th>Location</th>
+              <th class="text-center">Orders</th>
+              <th class="text-end">Total Spent</th>
+              <th>Last Order</th>
+              <th class="text-end"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="avatar" style="background:rgba(110,89,197,.20);color:var(--primary);">JC</div>
+                  <div class="d-flex flex-column">
+                    <span class="fw-semibold text-dark small">Jane Cooper</span>
+                    <span class="text-muted small">jane@example.com</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-2 small" style="color:var(--slate-700);">
+                  <i class="bi bi-geo-alt muted-500"></i>
+                  <span class="muted-500">New York, USA</span>
+                </div>
+              </td>
+              <td class="text-center"><span class="fw-semibold small">12</span></td>
+              <td class="text-end"><span class="fw-bold font-monospace small">$1,240.00</span></td>
+              <td><span class="muted-500 small">Oct 24, 2023</span></td>
+              <td class="text-end"><button class="btn p-0 muted-500"><i class="bi bi-three-dots-vertical"></i></button></td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="avatar" style="background:#dbeafe;color:#2563eb;">WW</div>
+                  <div class="d-flex flex-column">
+                    <span class="fw-semibold text-dark small">Wade Warren</span>
+                    <span class="text-muted small">wade@example.com</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-2 small">
+                  <i class="bi bi-geo-alt muted-500"></i>
+                  <span class="muted-500">London, UK</span>
+                </div>
+              </td>
+              <td class="text-center"><span class="fw-semibold small">8</span></td>
+              <td class="text-end"><span class="fw-bold font-monospace small">$850.50</span></td>
+              <td><span class="muted-500 small">Oct 20, 2023</span></td>
+              <td class="text-end"><button class="btn p-0 muted-500"><i class="bi bi-three-dots-vertical"></i></button></td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="avatar" style="background:#ccfbf1;color:#0d9488;">EH</div>
+                  <div class="d-flex flex-column">
+                    <span class="fw-semibold text-dark small">Esther Howard</span>
+                    <span class="text-muted small">esther@example.com</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-2 small">
+                  <i class="bi bi-geo-alt muted-500"></i>
+                  <span class="muted-500">Chicago, USA</span>
+                </div>
+              </td>
+              <td class="text-center"><span class="fw-semibold small">22</span></td>
+              <td class="text-end"><span class="fw-bold font-monospace small">$3,100.00</span></td>
+              <td><span class="muted-500 small">Oct 18, 2023</span></td>
+              <td class="text-end"><button class="btn p-0 muted-500"><i class="bi bi-three-dots-vertical"></i></button></td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="avatar" style="background:#ffedd5;color:#ea580c;">CW</div>
+                  <div class="d-flex flex-column">
+                    <span class="fw-semibold text-dark small">Cameron Williamson</span>
+                    <span class="text-muted small">cam@example.com</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-2 small">
+                  <i class="bi bi-geo-alt muted-500"></i>
+                  <span class="muted-500">Berlin, Germany</span>
+                </div>
+              </td>
+              <td class="text-center"><span class="fw-semibold small">5</span></td>
+              <td class="text-end"><span class="fw-bold font-monospace small">$420.00</span></td>
+              <td><span class="muted-500 small">Oct 15, 2023</span></td>
+              <td class="text-end"><button class="btn p-0 muted-500"><i class="bi bi-three-dots-vertical"></i></button></td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="avatar" style="background:#fce7f3;color:#db2777;">BS</div>
+                  <div class="d-flex flex-column">
+                    <span class="fw-semibold text-dark small">Brooklyn Simmons</span>
+                    <span class="text-muted small">brooklyn@example.com</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-2 small">
+                  <i class="bi bi-geo-alt muted-500"></i>
+                  <span class="muted-500">Paris, France</span>
+                </div>
+              </td>
+              <td class="text-center"><span class="fw-semibold small">15</span></td>
+              <td class="text-end"><span class="fw-bold font-monospace small">$1,890.00</span></td>
+              <td><span class="muted-500 small">Oct 12, 2023</span></td>
+              <td class="text-end"><button class="btn p-0 muted-500"><i class="bi bi-three-dots-vertical"></i></button></td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="avatar" style="background:#e0e7ff;color:#4f46e5;">GU</div>
+                  <div class="d-flex flex-column">
+                    <span class="fw-semibold text-dark small">Guy Hawkins</span>
+                    <span class="text-muted small">guy@example.com</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-2 small">
+                  <i class="bi bi-geo-alt muted-500"></i>
+                  <span class="muted-500">Tokyo, Japan</span>
+                </div>
+              </td>
+              <td class="text-center"><span class="fw-semibold small">31</span></td>
+              <td class="text-end"><span class="fw-bold font-monospace small">$4,320.75</span></td>
+              <td><span class="muted-500 small">Oct 10, 2023</span></td>
+              <td class="text-end"><button class="btn p-0 muted-500"><i class="bi bi-three-dots-vertical"></i></button></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="mt-auto d-flex flex-wrap justify-content-between align-items-center gap-3 px-4 py-3"
+           style="border-top:1px solid var(--slate-200);background:rgba(248,250,252,.7);">
+
+        <p class="mb-0 small muted-500">
+          Showing <span class="fw-bold text-dark">1</span> to <span class="fw-bold text-dark">10</span> of
+          <span class="fw-bold text-dark">2,543</span> customers
+        </p>
+
+        <div class="d-flex align-items-center gap-2">
+          <button class="pagination-pill" disabled style="opacity:.5;">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+
+          <div class="pagination-pill active">1</div>
+          <div class="pagination-pill" style="background:transparent;">2</div>
+          <div class="pagination-pill" style="background:transparent;">3</div>
+
+          <span class="px-2 muted-500">...</span>
+
+          <div class="pagination-pill" style="background:transparent;">254</div>
+
+          <button class="pagination-pill">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</main>

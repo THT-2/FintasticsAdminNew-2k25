@@ -25,6 +25,7 @@ import { ApiRoutesConstants } from '../../../constants/api-route-constants';
 })
 export class BadgeCreateEdit implements OnInit{
 
+  public btnLoader:boolean = false;
   badgeForm!: FormGroup;
   editAccess!: boolean;
   viewAccess!: boolean;
@@ -32,9 +33,7 @@ export class BadgeCreateEdit implements OnInit{
   Badge: any;
   selectedimage: any;
   Types = ["Gold","Silver","Purple"];
-  public btnLoader:boolean = false;
   statusOptions: string[] = ['Active', 'Inactive'];
-
   editId: any;
   GlobalConstant: any = GlobalConstant;
 
@@ -59,11 +58,14 @@ ngOnInit(): void {
     description:[''],
     condition:[''],
     progress:[''],
+    
     icon: [null,Validators.required],
     points: ['', Validators.required],
     banner: ['', Validators.required],
     status:['',Validators.required],
     type:['',Validators.required],
+    message :['',Validators.required],
+
     _id: [null],
   });
 }
@@ -89,6 +91,7 @@ ngOnInit(): void {
           banner: this.Badge.banner,
           status:this.Badge.status,
           type:this.Badge.type,
+          message :this.Badge.message,
           _id: this.Badge._id,
         });
         this.editId = this.Badge._id;

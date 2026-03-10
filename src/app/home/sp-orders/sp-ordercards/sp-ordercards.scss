@@ -1,0 +1,146 @@
+
+*{
+  --primary:#6e59c5;
+  --slate-50:#f8fafc;
+  --slate-100:#f1f5f9;
+  --slate-200:#e2e8f0;
+  --slate-400:#94a3b8;
+  --slate-500:#64748b;
+  --slate-700:#334155;
+  --slate-800:#1f2937;
+  --slate-900:#0f172a;
+  --radius-xl:16px;
+  --radius-lg:12px;
+}
+
+/* 64px height like h-16 */
+.th-topbar{
+  height:64px;
+  background:#fff;
+  border-bottom:1px solid var(--slate-200);
+  border-radius: 15px;
+  padding:0 2rem; /* px-8 */
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+/* Outline button (Export) */
+.btn-soft-outline{
+  font-size:.875rem;
+  font-weight:600;
+  border:1px solid var(--slate-200);
+  color:#475569;
+  background:#fff;
+  border-radius:var(--radius-lg);
+  padding:.5rem 1rem;
+  transition:all .2s ease;
+}
+.btn-soft-outline:hover{
+  background:#f8fafc;
+}
+
+/* Primary button */
+.btn-primary-soft{
+  font-size:.875rem;
+  font-weight:600;
+  background:var(--primary);
+  color:#fff;
+  border-radius:var(--radius-lg);
+  padding:.5rem 1rem;
+  border:0;
+  box-shadow:0 2px 6px rgba(0,0,0,.06);
+  transition:all .2s ease;
+}
+.btn-primary-soft:hover{
+  background:#5b47b5;
+}
+
+.table-card{
+  background:#fff;
+  border:1px solid var(--slate-200);
+  border-radius:var(--radius-xl);
+  overflow:hidden;
+}
+
+.th-tabs{
+  display:flex;
+  gap:1rem;
+  border-bottom:1px solid var(--slate-200);
+  padding:0 1rem;
+}
+.th-tab{
+  background:none;
+  border:0;
+  padding:1rem 1rem;
+  font-size:.875rem;
+  font-weight:500;
+  color:var(--slate-500);
+}
+.th-tab:hover{ color:var(--slate-700); }
+.th-tab.active{
+  font-weight:600;
+  color:var(--primary);
+  border-bottom:2px solid var(--primary);
+}
+
+.filter-bar{
+  background:rgba(241,245,249,.6);
+  border-bottom:1px solid var(--slate-200);
+}
+
+.search-input{
+  border:1px solid var(--slate-200);
+  border-radius:12px;
+  padding:.5rem .75rem .5rem 2.5rem;
+  font-size:.875rem;
+}
+
+.search-wrapper{
+  position:relative;
+}
+.search-wrapper i{
+  position:absolute;
+  left:.75rem;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--slate-400);
+}
+
+.table thead th{
+  font-size:.65rem;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:var(--slate-500);
+  background:var(--slate-50);
+  font-weight:700;
+  border-bottom:1px solid var(--slate-200);
+}
+
+.table tbody tr:hover{
+  background:var(--slate-50);
+}
+
+.status-pill{
+  font-size:.75rem;
+  font-weight:600;
+  padding:.2rem .6rem;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+}
+
+.pagination-strip{
+  background:rgba(241,245,249,.6);
+  border-top:1px solid var(--slate-200);
+}
+
+.summary-card{
+  border:1px solid var(--slate-200);
+  border-radius: 20px;
+    background: #fff;
+    margin-bottom: 20px;
+}

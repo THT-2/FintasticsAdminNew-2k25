@@ -1,0 +1,27 @@
+<app-card>
+<div class="row">
+
+  <div class="col-lg-4 col-md-12">
+    <app-video-category-create-edit>
+    </app-video-category-create-edit>
+  </div>
+
+  <div class="col-lg-8 col-md-12">
+    <!-- <app-card 
+      cardTitle="Videos" 
+      blockClass="pc-component" 
+      [buttondata]="buttondata"> -->
+
+      <app-table 
+        [tableData]="videoData" 
+        [loader]="loader"
+        [columnHeader]="columnDefinition" 
+        (getActionTable)="getActions($event)"  
+        [buttondata]="buttondata">
+      </app-table>
+
+    <!-- </app-card> -->
+  </div>
+
+</div>
+</app-card>

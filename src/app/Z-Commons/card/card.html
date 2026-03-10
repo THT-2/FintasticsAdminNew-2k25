@@ -7,12 +7,34 @@
         <ng-container *ngTemplateOutlet="headerTitleTemplate"></ng-container>
       </div>
       <div class="d-flex align-items-center">
-        @if (buttondata?.buttonName) {
+        <!-- @if (buttondata?.buttonName) {
           <button (click)="toggleClass()" class="btn btn-cta btn-cta-wide">
   <i class="bi bi-plus-lg me-1"></i>{{ buttondata?.buttonName }}
 </button>
-
+        } -->
+<!-- NEW: multiple buttons -->
+@if (buttondata?.buttons?.length) {
+  <div class="d-flex gap-2">
+    @for (btn of buttondata.buttons; track $index) {
+      <button
+        type="button"
+        class="btn btn-cta"
+        
+        (click)="onHeaderButtonClick(btn)">
+        @if (btn.icon) {
+          <i [class]="btn.icon + ' me-1'"></i>
         }
+        {{ btn.buttonName }}
+      </button>
+    }
+  </div>
+}
+<!-- OLD: single button -->
+@else if (buttondata?.buttonName) {
+  <button (click)="toggleClass()" class="btn btn-cta btn-cta-wide">
+    <i class="bi bi-plus-lg me-1"></i>{{ buttondata?.buttonName }}
+  </button>
+}
       </div>
       <ng-container *ngTemplateOutlet="headerOptionsTemplate"></ng-container>
     </div>

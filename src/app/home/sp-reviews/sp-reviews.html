@@ -1,0 +1,252 @@
+<main class="main-content">
+
+  <div class="container-fluid">
+
+    <!-- Title -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 gap-3">
+
+      <div>
+        <h2 class="fw-bold mb-1">Reviews Management</h2>
+        <p class="text-muted mb-0">
+          Moderate and analyze customer feedback across all product lines.
+        </p>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button class="btn btn-light border fw-semibold d-flex align-items-center gap-2">
+          <i class="bi bi-download"></i> Export CSV
+        </button>
+        <button class="btn btn-light border fw-semibold d-flex align-items-center gap-2">
+          <i class="bi bi-sliders"></i> Filter
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Bulk Toolbar -->
+    <div class="bulk-toolbar p-3 d-flex justify-content-between align-items-center mb-4 shadow-sm">
+
+      <div class="d-flex align-items-center gap-3">
+        <span class="text-muted small">
+          <strong style="color:var(--primary)">2</strong> items selected
+        </span>
+
+        <div style="width:1px;height:20px;background:var(--slate-200)"></div>
+
+        <button class="btn btn-sm text-white fw-bold"
+                style="background:var(--primary); border-radius:10px;">
+          <i class="bi bi-check-circle"></i> Bulk Approve
+        </button>
+
+        <button class="btn btn-sm btn-light border text-danger fw-bold"
+                style="border-radius:10px;">
+          <i class="bi bi-trash"></i> Bulk Delete
+        </button>
+      </div>
+
+      <div class="small text-muted">
+        Sort by: <strong class="text-dark">Newest First</strong>
+      </div>
+
+    </div>
+
+    <!-- Table -->
+    <div class="th-card shadow-sm">
+
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+
+          <thead>
+            <tr>
+              <th style="width:40px;"><input type="checkbox"></th>
+              <th>Product</th>
+              <th>Customer</th>
+              <th>Rating</th>
+              <th>Comment</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td><input type="checkbox"></td>
+
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="product-thumb"
+                       style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuCH6XSBKRCYhRjTo-ylpYLaaAh5TLktrAr1wh6WuQ8gHTXHX_VWz-w8pVAd71JTRBDV4_TQb0sp953JIn_9kL9AUsLoTJnYnisKCibPsyjuAavHv-yO347GPCfeRSayZxQm_8QWrKUoQJzlDxg5Usre7WIFuAN_sQflc_iXobWK0uplajo7I5szfMLSucmS5IYiwOb4Lq_ciKD7axOyqW_p-T_8gSuHlHHV21-WnDi7r24HwbGDVKE-rD17Zi-vIou738Wo8h8lRAE')"></div>
+                  <span class="fw-semibold small">AquaFlow Filter</span>
+                </div>
+              </td>
+
+              <td>
+                <div>
+                  <div class="small fw-medium">John Doe</div>
+                  <div class="small text-muted">john@example.com</div>
+                </div>
+              </td>
+
+              <td>
+                <div class="rating text-warning">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+              </td>
+
+              <td class="small text-muted">
+                Excellent product, very quiet and easy to set up...
+              </td>
+
+              <td class="small text-muted">Oct 24, 2023</td>
+
+              <td>
+                <span class="status-pill bg-success-subtle text-success">
+                  Approved
+                </span>
+              </td>
+
+              <td class="text-end">
+                <button class="btn btn-sm btn-light">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+              </td>
+
+            </tr>
+            <tr>
+              <td><input type="checkbox"></td>
+
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="product-thumb"
+                       style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuCH6XSBKRCYhRjTo-ylpYLaaAh5TLktrAr1wh6WuQ8gHTXHX_VWz-w8pVAd71JTRBDV4_TQb0sp953JIn_9kL9AUsLoTJnYnisKCibPsyjuAavHv-yO347GPCfeRSayZxQm_8QWrKUoQJzlDxg5Usre7WIFuAN_sQflc_iXobWK0uplajo7I5szfMLSucmS5IYiwOb4Lq_ciKD7axOyqW_p-T_8gSuHlHHV21-WnDi7r24HwbGDVKE-rD17Zi-vIou738Wo8h8lRAE')"></div>
+                  <span class="fw-semibold small">AquaFlow Filter</span>
+                </div>
+              </td>
+
+              <td>
+                <div>
+                  <div class="small fw-medium">John Doe</div>
+                  <div class="small text-muted">john@example.com</div>
+                </div>
+              </td>
+
+              <td>
+                <div class="rating text-warning">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+              </td>
+
+              <td class="small text-muted">
+                Excellent product, very quiet and easy to set up...
+              </td>
+
+              <td class="small text-muted">Oct 24, 2023</td>
+
+              <td>
+                <span class="status-pill bg-success-subtle text-success">
+                  Approved
+                </span>
+              </td>
+
+              <td class="text-end">
+                <button class="btn btn-sm btn-light">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+              </td>
+
+            </tr>
+            <tr>
+              <td><input type="checkbox"></td>
+
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="product-thumb"
+                       style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuCH6XSBKRCYhRjTo-ylpYLaaAh5TLktrAr1wh6WuQ8gHTXHX_VWz-w8pVAd71JTRBDV4_TQb0sp953JIn_9kL9AUsLoTJnYnisKCibPsyjuAavHv-yO347GPCfeRSayZxQm_8QWrKUoQJzlDxg5Usre7WIFuAN_sQflc_iXobWK0uplajo7I5szfMLSucmS5IYiwOb4Lq_ciKD7axOyqW_p-T_8gSuHlHHV21-WnDi7r24HwbGDVKE-rD17Zi-vIou738Wo8h8lRAE')"></div>
+                  <span class="fw-semibold small">AquaFlow Filter</span>
+                </div>
+              </td>
+
+              <td>
+                <div>
+                  <div class="small fw-medium">John Doe</div>
+                  <div class="small text-muted">john@example.com</div>
+                </div>
+              </td>
+
+              <td>
+                <div class="rating text-warning">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+              </td>
+
+              <td class="small text-muted">
+                Excellent product, very quiet and easy to set up...
+              </td>
+
+              <td class="small text-muted">Oct 24, 2023</td>
+
+              <td>
+                <span class="status-pill bg-success-subtle text-success">
+                  Approved
+                </span>
+              </td>
+
+              <td class="text-end">
+                <button class="btn btn-sm btn-light">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="d-flex justify-content-between align-items-center p-3 bg-light border-top">
+
+        <small class="text-muted">
+          Showing 1 to 5 of 124 reviews
+        </small>
+
+        <div class="d-flex align-items-center gap-1 pagination-custom">
+
+          <div class="page-btn">
+            <i class="bi bi-chevron-left"></i>
+          </div>
+
+          <div class="page-btn active">1</div>
+          <div class="page-btn">2</div>
+          <div class="page-btn">3</div>
+          <span class="px-1 text-muted small">...</span>
+          <div class="page-btn">25</div>
+
+          <div class="page-btn">
+            <i class="bi bi-chevron-right"></i>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>

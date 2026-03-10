@@ -39,4 +39,11 @@ export class Card {
     }
 
   }
+  onHeaderButtonClick(btn: any) {
+  if (btn.routingPath) {
+    this.router.navigate([btn.routingPath]);
+  } else {
+    this.classApplied = !this.classApplied;
+  }
+}
 }

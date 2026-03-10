@@ -9,6 +9,22 @@
         <form [formGroup]="videoForm" (ngSubmit)="submit()">
           <div class="row g-3">
 
+             <div class="col-md-6">
+              <label class="form-label">Video Category Name <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                <select class="form-select" formControlName="videocategory">
+                  <option hidden [value]="null">Please Select</option>
+                   @for (item of categoryData; track item) {
+                    <option [value]="item._id">{{ item.categoryname }}</option>
+                  }
+                </select>
+              </div>
+              <div *ngIf="videoForm.get('videocategory')?.touched && videoForm.get('videocategory')?.invalid" class="text-danger">
+                Video Category Name is required.
+              </div>
+            </div>
+
             <!-- Title -->
             <div class="col-md-6">
               <label class="form-label">Title <span class="req">*</span></label>

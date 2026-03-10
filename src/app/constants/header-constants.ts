@@ -507,8 +507,8 @@ export class HeaderConstants {
       'class': "text-transform"
     },
     {
-      'name': 'videolink',
-      'displayName': 'Video',
+      'name': 'totalLikes',
+      'displayName': 'Likes',
       'disableSorting': false,
       'class': "text-transform"
     },
@@ -519,6 +519,25 @@ export class HeaderConstants {
       'class': "text-transform"
     },
 
+    {
+      'name': 'actions',
+      'displayName': 'Action',
+      'disableSorting': false,
+    }
+  ]
+  public static VideosCategoryHeader = [
+    {
+      'name': 'categoryname',
+      'displayName': 'Video Category',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'icon',
+      'displayName': 'Icon',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
     {
       'name': 'actions',
       'displayName': 'Action',
@@ -911,6 +930,88 @@ export class HeaderConstants {
       'displayName': 'Action',
       'disableSorting': false,
     },
+
+  ]
+   public static UserData = [
+
+    {
+      'name': 'username',
+      'displayName': 'Name',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'user_email',
+      'displayName': 'Email',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'mobile_num',
+      'displayName': 'Number',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'mobile_type',
+      'displayName': 'Type',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'state',
+      'displayName': 'State',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+  //   {
+  //     'name': 'plan',
+  //     'displayName': 'Plan',
+  //     'disableSorting': false,
+  //     'class': "text-transform"
+  //   },
+  //  {
+  //     'name': 'amount',
+  //     'displayName': 'Plan Amount',
+  //     'disableSorting': false,
+  //     'class': "text-transform"
+  //   },
+  //  {
+  //     'name': 'status',
+  //     'displayName': 'Status',
+  //     'disableSorting': false,
+  //     'class': "text-transform"
+  //   },
+  //  {
+  //     'name': 'creadedAt',
+  //     'displayName': 'Start Date',
+  //     'disableSorting': false,
+  //     'class': "text-transform"
+  //   },
+  //  {
+  //     'name': 'enddate',
+  //     'displayName': 'End Date',
+  //     'disableSorting': false,
+  //     'class': "text-transform"
+  //   },
+   {
+      'name': 'activeDays',
+      'displayName': 'Active Days',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+   {
+      'name': 'challenge_status',
+      'displayName': 'Challenge Status',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    
+    //  {
+    //   'name': 'actions',
+    //   'displayName': 'Action',
+    //   'disableSorting': false,
+    // },
 
   ]
 

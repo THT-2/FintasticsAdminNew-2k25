@@ -550,12 +550,12 @@ NavItems: any[]=[
         path: '/admin/storyboard'
       },
       {
-        id: 'customer-support',
+        id: 'user-data',
         title: 'Customer Support',
         icon: 'fas fa-headset',
         status: false,
         checked: false,
-        path: '/admin/customer-support'
+        path: '/admin/user-data'
       },
     ],
     icon: '',
@@ -637,6 +637,105 @@ NavItems: any[]=[
         status: false,
         checked: false,
         path: '/admin/products'
+      },
+    ],
+    icon: '',
+    path: ''
+  },
+    {
+    id: 'scart',
+    title: 'Shopping Cart Module',
+    status: false,
+    checked: false,
+    color:'#E91E63',
+    subtitle: [
+      {
+        id: 'sp-dashboard',
+        title: 'Dashboard',
+        icon: 'fas fa-tags',
+        status: false,
+        checked: false,
+        path: '/admin/sp-dashboard'
+      },
+      {
+        id: 'sp-reports',
+        title: 'Reports',
+        icon: 'fas fa-box',
+        status: false,
+        checked: false,
+        path: '/admin/sp-reports'
+      },
+      {
+        id: 'sp-banners',
+        title: 'Banners',
+        icon: 'fas fa-box',
+        status: false,
+        checked: false,
+        path: '/admin/sp-banners'
+      },
+      {
+        id: 'sp-payment',
+        title: 'Payment',
+        icon: 'fas fa-box',
+        status: false,
+        checked: false,
+        path: '/admin/sp-payment'
+      },
+      {
+        id: 'sp-orders',
+        title: 'Orders',
+        icon: 'fas fa-box',
+        status: false,
+        checked: false,
+        path: '/admin/sp-orders'
+      },
+      {
+        id: 'sp-products',
+        title: 'Products',
+        icon: 'fas fa-box',
+        status: false,
+        checked: false,
+        path: '/admin/sp-products'
+      },
+      {
+        id: 'sp-category',
+        title: 'Category',
+        icon: 'fas fa-box',
+        status: false,
+        checked: false,
+        path: '/admin/sp-category'
+      },
+      {
+        id: 'sp-customers',
+        title: 'Customer List',
+        icon: 'fas fa-box',
+        status: false,
+        checked: false,
+        path: '/admin/sp-customers'
+      },
+      {
+        id: 'sp-coupon',
+        title: 'Coupons',
+        icon: 'fas fa-box',
+        status: false,
+        checked: false,
+        path: '/admin/sp-coupon'
+      },
+      {
+        id: 'sp-reviews',
+        title: 'Reviews',
+        icon: 'fas fa-box',
+        status: false,
+        checked: false,
+        path: '/admin/sp-reviews'
+      },
+      {
+        id: 'sp-inventory',
+        title: 'Inventory Management',
+        icon: 'fas fa-box',
+        status: false,
+        checked: false,
+        path: '/admin/sp-inventory'
       },
     ],
     icon: '',
