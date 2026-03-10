@@ -34,7 +34,7 @@
                 <div class="chart-container">
                     <div class="chart-header">
                         <h2>Module Usage Overview</h2>
-                        <div class="legend">
+                        <!-- <div class="legend">
                             <div class="legend-item">
                                 <div class="legend-color most"></div>
                                 <span>Most Used</span>
@@ -47,148 +47,83 @@
                                 <div class="legend-color other"></div>
                                 <span>Others</span>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="bar-chart">
                         <!-- Account - Most Used -->
                         <div class="bar-item">
                             <span class="module-name">
-                                <span class="module-icon">👤</span> Account
+                                <span class="module-icon"><i class="fa-solid fa-user"></i></span> Account
                             </span>
                             <div class="bar-wrapper">
                                 <div class="bar">
                                     <div class="bar-fill" style="--target-width: 92%; background: linear-gradient(90deg, #00d68f, #00b897);"></div>
                                 </div>
                                 <span class="percentage">92%</span>
-                                <span class="trend-indicator">📈 Most Used</span>
+                                <!-- <span class="trend-indicator">📈 Most Used</span> -->
                             </div>
                         </div>
 
                         <!-- Financial Goals -->
                         <div class="bar-item">
                             <span class="module-name">
-                                <span class="module-icon">🎯</span> Financial Goals
+                                <span class="module-icon"><i class="fa-solid fa-bullseye"></i></span> Financial Goals
                             </span>
                             <div class="bar-wrapper">
                                 <div class="bar">
                                     <div class="bar-fill" style="--target-width: 78%; background: linear-gradient(90deg, #0095ff, #0066b8);"></div>
                                 </div>
                                 <span class="percentage">78%</span>
-                                <span class="trend-indicator">📈 High</span>
+                                <!-- <span class="trend-indicator">📈 High</span> -->
                             </div>
                         </div>
 
                         <!-- Bugget -->
                         <div class="bar-item">
                             <span class="module-name">
-                                <span class="module-icon">💰</span> Bugget
+                                <span class="module-icon"><i class="fa-solid fa-wallet"></i></span> Budget
                             </span>
                             <div class="bar-wrapper">
                                 <div class="bar">
                                     <div class="bar-fill" style="--target-width: 42%; background: linear-gradient(90deg, #ffaa00, #cc8800);"></div>
                                 </div>
                                 <span class="percentage">42%</span>
-                                <span class="trend-indicator">➡️ Medium</span>
+                                <!-- <span class="trend-indicator">➡️ Medium</span> -->
                             </div>
                         </div>
 
                         <!-- Transaction -->
                         <div class="bar-item">
                             <span class="module-name">
-                                <span class="module-icon">💳</span> Transaction
+                                <span class="module-icon"><i class="fa-solid fa-credit-card"></i></span> Transaction
                             </span>
                             <div class="bar-wrapper">
                                 <div class="bar">
                                     <div class="bar-fill" style="--target-width: 28%; background: linear-gradient(90deg, #a461d8, #7b3fad);"></div>
                                 </div>
                                 <span class="percentage">28%</span>
-                                <span class="trend-indicator">📉 Low</span>
+                                <!-- <span class="trend-indicator">📉 Low</span> -->
                             </div>
                         </div>
 
                         <!-- Hometonics - Least Used -->
                         <div class="bar-item">
                             <span class="module-name">
-                                <span class="module-icon">🏠</span> Hometonics
+                                <span class="module-icon"><i class="fa-solid fa-house"></i></span> Hometonics
                             </span>
                             <div class="bar-wrapper">
                                 <div class="bar">
                                     <div class="bar-fill" style="--target-width: 18%; background: linear-gradient(90deg, #ff3d71, #cc0033);"></div>
                                 </div>
                                 <span class="percentage">18%</span>
-                                <span class="trend-indicator">📉 Least Used</span>
+                                <!-- <span class="trend-indicator">📉 Least Used</span> -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Card View Container -->
-            <div id="cardView" class="card-view-container hidden-view">
-                <!-- Module Cards Grid -->
-                <div class="modules-grid">
-                    <!-- Account Card -->
-                    <div class="module-card most-used">
-                        <div class="module-card-header">
-                            <h3>👤 Account</h3>
-                            <span class="module-badge badge-most">Most Used</span>
-                        </div>
-                        <div class="progress-circle" style="--percent: 92; --color: #00d68f">
-                            <span class="progress-value">92%</span>
-                        </div>
-                        <p style="text-align: center; color: #666; margin-top: 10px;">Primary user management</p>
-                    </div>
-
-                    <!-- Financial Goals Card -->
-                    <div class="module-card">
-                        <div class="module-card-header">
-                            <h3>🎯 Financial Goals</h3>
-                            <span class="module-badge" style="background: #0095ff; color: white;">78%</span>
-                        </div>
-                        <div class="progress-circle" style="--percent: 78; --color: #0095ff">
-                            <span class="progress-value">78%</span>
-                        </div>
-                        <p style="text-align: center; color: #666; margin-top: 10px;">Goal setting & tracking</p>
-                    </div>
-
-                    <!-- Bugget Card -->
-                    <div class="module-card">
-                        <div class="module-card-header">
-                            <h3>💰 Bugget</h3>
-                            <span class="module-badge" style="background: #ffaa00; color: white;">42%</span>
-                        </div>
-                        <div class="progress-circle" style="--percent: 42; --color: #ffaa00">
-                            <span class="progress-value">42%</span>
-                        </div>
-                        <p style="text-align: center; color: #666; margin-top: 10px;">Budget management</p>
-                    </div>
-
-                    <!-- Transaction Card -->
-                    <div class="module-card">
-                        <div class="module-card-header">
-                            <h3>💳 Transaction</h3>
-                            <span class="module-badge" style="background: #a461d8; color: white;">28%</span>
-                        </div>
-                        <div class="progress-circle" style="--percent: 28; --color: #a461d8">
-                            <span class="progress-value">28%</span>
-                        </div>
-                        <p style="text-align: center; color: #666; margin-top: 10px;">Transaction history</p>
-                    </div>
-
-                    <!-- Hometonics Card -->
-                    <div class="module-card least-used">
-                        <div class="module-card-header">
-                            <h3>🏠 Hometonics</h3>
-                            <span class="module-badge badge-least">Least Used</span>
-                        </div>
-                        <div class="progress-circle" style="--percent: 18; --color: #ff3d71">
-                            <span class="progress-value">18%</span>
-                        </div>
-                        <p style="text-align: center; color: #666; margin-top: 10px;">Home automation & IoT</p>
-                    </div>
-                </div>
-            </div>
 
 
  

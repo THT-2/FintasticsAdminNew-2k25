@@ -1004,9 +1004,4 @@ export class UserMainArea implements AfterViewInit, OnDestroy {
     w.expenseChangeModule = (module: ExpenseModule) => this.expenseChangeModule(module, w.event as Event);
     w.expenseRefreshData = () => this.expenseRefreshData(w.event as Event);
   }
-
-
-
-
-  
 }
