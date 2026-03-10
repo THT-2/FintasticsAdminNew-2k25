@@ -113,6 +113,8 @@ ngOnInit(): void {
         this.dataService.postData(apiUrl, this.StoryBoardForm.value).subscribe({
           next: (res: any) => {
             if (res.Code === 200) {
+              console.log("body",res);
+              
               this.alertService.toast('success', true, res.Message);
               this.router.navigate(['/admin/storyboard']);
               this.btnLoader = false;

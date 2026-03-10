@@ -32,7 +32,7 @@ export class UserData implements OnInit {
   todate: string = '';
   fromtime: string = '';
   totime: string = '';
-  type: string = 'subscription'; // default type
+  type: string = ''; // default type
 
   errorMessage: string = '';
 
@@ -91,6 +91,7 @@ export class UserData implements OnInit {
   applyFilter() {
     if (!this.validateDates()) return;
     this.getuserdata();
+    
   }
 
   // ===============================
@@ -101,9 +102,10 @@ export class UserData implements OnInit {
     this.todate = '';
     this.fromtime = '';
     this.totime = '';
-    this.type = 'subscription';
+    this.type = '';
     this.errorMessage = '';
     this.getuserdata();
+
   }
 
   // ===============================
@@ -115,14 +117,16 @@ export class UserData implements OnInit {
     switch (range) {
       case 'today':
         this.setDateRange(today, today);
-        this.fromtime = '00:00';
-        this.totime = '23:59';
+        this.fromtime = '09:00';
+        this.totime = '19:00';
         break;
 
-      case 'tomorrow':
-        const tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        this.setDateRange(tomorrow, tomorrow);
+      case 'yesterday':
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        this.fromtime = '09:00';
+        this.totime = '19:00';
+        this.setDateRange(yesterday, yesterday);
         break;
 
       case 'week':
@@ -130,16 +134,24 @@ export class UserData implements OnInit {
         weekStart.setDate(today.getDate() - today.getDay());
         const weekEnd = new Date(weekStart);
         weekEnd.setDate(weekStart.getDate() + 6);
+        this.fromtime = '09:00';
+        this.totime = '19:00';
         this.setDateRange(weekStart, weekEnd);
         break;
 
       case 'month':
         const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
         const monthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        this.fromtime = '09:00';
+        this.totime = '19:00';
         this.setDateRange(monthStart, monthEnd);
         break;
     }
+    this.applyFilter();
   }
+  onTypeChange() {
+  this.applyFilter();
+}
 
   setDateRange(start: Date, end: Date) {
     this.fromdate = this.formatDate(start);
