@@ -1,0 +1,63 @@
+/* ✅ Main content scrolls (right side) */
+:host ::ng-deep mat-sidenav-content.main-content {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 24px;
+}
+.main-content {
+  padding: 24px;
+ 
+}
+.user-sidebar {
+  width: 320px;
+  background: #ffffff;
+  border-right: 1px solid rgba(139, 92, 246, 0.18);
+  box-shadow: 2px 0 12px rgba(76, 29, 149, 0.06);
+  padding: 18px;
+  position: fixed;
+  margin-top: 65px;
+  margin: bottom 40px;
+  // height: 100vh;
+  overflow-y: auto;
+  border-radius: 20px;
+  z-index: 10;
+  transition: width 0.3s ease;
+}
+:host ::ng-deep mat-sidenav.user-sidebar {
+  width: 320px;
+}
+/* this is the actual scroll container inside the sidenav */
+:host ::ng-deep mat-sidenav.user-sidebar .mat-drawer-inner-container {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(219, 142, 255);
+}
+
+@media (max-width: 768px) {
+
+
+  .user-sidebar {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1200px) {
+
+
+  .user-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid rgba(139, 92, 246, 0.14);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+
+}

@@ -1,0 +1,614 @@
+
+
+
+    <!-- Header -->
+    <mat-toolbar class="content-header" color="primary">
+      <div class="header-left">
+        <div class="header-title">Customer 360° Dashboard</div>
+        <div class="header-subtitle">
+          Complete overview of customer's financial activities and achievements
+        </div>
+      </div>
+
+      <span class="spacer"></span>
+
+      <div class="header-actions">
+        <!-- <button mat-stroked-button class="btn btn-outline">
+          <mat-icon>print</mat-icon>
+          Print
+        </button> -->
+
+        <button mat-flat-button class="btn btn-primary">
+          <mat-icon>download</mat-icon>
+          Export
+        </button>
+      </div>
+    </mat-toolbar>
+
+
+
+<div class="milestone-container">
+    <div class="expense-dashboard">
+        <!-- Header -->
+        <div class="expense-header">
+            <div class="expense-header-top">
+                <div class="expense-title">
+                    <h3>Expense Tracker</h3>
+                    <p>Track your finances</p>
+                </div>
+                <div class="expense-footer-info">
+                    <strong id="expenseCurrentFilter">Today</strong>
+                </div>
+            </div>
+
+            <!-- Filter -->
+            <div class="expense-filter-container">
+                <button class="expense-filter-btn active" onclick="expenseChangeFilter('today')">Today</button>
+                <button class="expense-filter-btn" onclick="expenseChangeFilter('yesterday')">Yesterday</button>
+                <button class="expense-filter-btn" onclick="expenseChangeFilter('monthly')">Monthly</button>
+                <button class="expense-filter-btn" onclick="expenseChangeFilter('yearly')">Yearly</button>
+                <button class="expense-filter-btn" onclick="expenseToggleCustomDate()">Custom</button>
+            </div>
+
+            <!-- Custom Date Picker - Initially hidden -->
+            <div class="expense-date-picker expense-hidden" id="expenseDatePicker">
+                <div class="expense-date-inputs">
+                    <input type="date" class="expense-date-input" id="expenseStartDate">
+                    <input type="date" class="expense-date-input" id="expenseEndDate">
+                </div>
+                <button class="expense-apply-date" onclick="expenseApplyCustomDate()">Apply</button>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="expense-tabs">
+            <button class="expense-tab active" onclick="expenseChangeModule('transaction')">
+                <i class="fas fa-exchange-alt"></i>
+                Transaction
+            </button>
+            <button class="expense-tab" onclick="expenseChangeModule('budget')">
+                <i class="fas fa-chart-pie"></i>
+                Budget
+            </button>
+            <button class="expense-tab" onclick="expenseChangeModule('accounts')">
+                <i class="fas fa-wallet"></i>
+                Accounts
+            </button>
+            <button class="expense-tab" onclick="expenseChangeModule('dues')">
+                <i class="fas fa-clock"></i>
+                Dues
+            </button>
+            <button class="expense-tab" onclick="expenseChangeModule('goals')">
+                <i class="fas fa-bullseye"></i>
+                Goals
+            </button>
+            <button class="expense-tab" onclick="expenseChangeModule('hometronics')">
+                <i class="fas fa-home"></i>
+                Hometronics
+            </button>
+        </div>
+
+        <!-- Content -->
+        <div class="expense-content">
+            <!-- Transaction Module -->
+            <div id="expense-transaction-view" class="expense-module-content">
+                <div class="expense-module-layout">
+                    <div class="expense-chart-wrapper">
+                        <div class="expense-chart-container">
+                            <canvas id="expenseTransactionChart"></canvas>
+                            <div class="expense-center-percentage" id="expenseTransactionPercentage">
+                                <div class="expense-percentage-value">87%</div>
+                                <div class="expense-percentage-label">Overall Usage</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="expense-legend-sidebar" id="expenseTransactionLegend">
+                        <!-- Legend will be inserted here -->
+                    </div>
+                </div>
+                <div class="expense-summary-row">
+                    <div>Total: <strong id="expenseTransactionTotal">147</strong></div>
+                    <div>Most Used: <strong id="expenseMostUsed">SMS (42%)</strong></div>
+                </div>
+                <div class="expense-module-usage">
+                    <div class="expense-usage-label">Module Usage</div>
+                    <div class="expense-usage-value" id="expenseTransactionModuleUsage">3h 45m</div>
+                </div>
+            </div>
+
+            <!-- Budget Module -->
+            <div id="expense-budget-view" class="expense-module-content expense-hidden">
+                <div class="expense-budget-chart-container">
+                    <canvas id="expenseBudgetChart"></canvas>
+                </div>
+                <div class="expense-budget-legend">
+                    <div class="expense-legend-dot">
+                        <div class="expense-dot expense-dot-spent"></div>
+                        Spent
+                    </div>
+                    <div class="expense-legend-dot">
+                        <div class="expense-dot expense-dot-budget"></div>
+                        Budget
+                    </div>
+                </div>
+                <div class="expense-budget-summary">
+                    <div class="expense-budget-stat">
+                        <div class="expense-budget-percentage" id="expenseSpentPercentage">80%</div>
+                        <div class="expense-budget-label">Spent</div>
+                    </div>
+                    <div class="expense-budget-stat">
+                        <div class="expense-budget-percentage" id="expenseBudgetPercentage">100%</div>
+                        <div class="expense-budget-label">Budget</div>
+                    </div>
+                    <div class="expense-budget-stat">
+                        <div class="expense-budget-percentage" id="expenseRemainingPercentage">20%</div>
+                        <div class="expense-budget-label">Remaining</div>
+                    </div>
+                </div>
+                <div class="expense-module-usage">
+                    <div class="expense-usage-label">Module Usage</div>
+                    <div class="expense-usage-value" id="expenseBudgetModuleUsage">4h 30m</div>
+                </div>
+            </div>
+
+            <!-- Accounts Module -->
+            <div id="expense-accounts-view" class="expense-module-content expense-hidden">
+                <div class="expense-module-layout">
+                    <div class="expense-chart-wrapper">
+                        <div class="expense-chart-container">
+                            <canvas id="expenseAccountsChart"></canvas>
+                            <div class="expense-center-percentage" id="expenseAccountsPercentage">
+                                <div class="expense-percentage-value">84%</div>
+                                <div class="expense-percentage-label">Overall Usage</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="expense-legend-sidebar" id="expenseAccountsLegend">
+                        <!-- Legend will be inserted here -->
+                    </div>
+                </div>
+                <div class="expense-summary-row">
+                    <div>Total Accounts: <strong id="expenseTotalAccounts">12</strong></div>
+                    <div>Most Used: <strong id="expenseMostUsedAccount">Bank (38%)</strong></div>
+                </div>
+                <div class="expense-module-usage">
+                    <div class="expense-usage-label">Module Usage</div>
+                    <div class="expense-usage-value" id="expenseAccountsModuleUsage">2h 15m</div>
+                </div>
+            </div>
+
+            <!-- Dues Module -->
+            <div id="expense-dues-view" class="expense-module-content expense-hidden">
+                <div class="expense-module-layout">
+                    <div class="expense-chart-wrapper">
+                        <div class="expense-chart-container">
+                            <canvas id="expenseDuesChart"></canvas>
+                            <div class="expense-center-percentage" id="expenseDuesPercentage">
+                                <div class="expense-percentage-value">65%</div>
+                                <div class="expense-percentage-label">To Pay</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="expense-legend-sidebar" id="expenseDuesLegend">
+                        <!-- Legend will be inserted here -->
+                    </div>
+                </div>
+                <div class="expense-summary-row">
+                    <div>Total Dues: <strong id="expenseTotalDues">₹18,349</strong></div>
+                    <div>To Pay: <strong id="expenseToPayAmount">₹11,900</strong></div>
+                </div>
+                <div class="expense-module-usage">
+                    <div class="expense-usage-label">Module Usage</div>
+                    <div class="expense-usage-value" id="expenseDuesModuleUsage">1h 20m</div>
+                </div>
+            </div>
+
+            <!-- Goals Module -->
+            <div id="expense-goals-view" class="expense-module-content expense-hidden">
+                <div class="expense-module-layout">
+                    <div class="expense-chart-wrapper">
+                        <div class="expense-chart-container">
+                            <canvas id="expenseGoalsChart"></canvas>
+                            <div class="expense-center-percentage" id="expenseGoalsPercentage">
+                                <div class="expense-percentage-value">42%</div>
+                                <div class="expense-percentage-label">Completed</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="expense-legend-sidebar" id="expenseGoalsLegend">
+                        <!-- Legend will be inserted here -->
+                    </div>
+                </div>
+                <div class="expense-summary-row">
+                    <div>Total Goals: <strong id="expenseTotalGoals">5</strong></div>
+                    <div>Completed: <strong id="expenseCompletedGoals">2</strong></div>
+                </div>
+                <div class="expense-module-usage">
+                    <div class="expense-usage-label">Module Usage</div>
+                    <div class="expense-usage-value" id="expenseGoalsModuleUsage">1h 50m</div>
+                </div>
+            </div>
+
+            <!-- Hometronics Module -->
+            <div id="expense-hometronics-view" class="expense-module-content expense-hidden">
+                <div class="expense-module-layout">
+                    <div class="expense-chart-wrapper">
+                        <div class="expense-chart-container">
+                            <canvas id="expenseHometronicsChart"></canvas>
+                            <div class="expense-center-percentage" id="expenseHometronicsPercentage">
+                                <div class="expense-percentage-value">58%</div>
+                                <div class="expense-percentage-label">Electronics</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="expense-legend-sidebar" id="expenseHometronicsLegend">
+                        <!-- Legend will be inserted here -->
+                    </div>
+                </div>
+                <div class="expense-summary-row">
+                    <div>Total Products: <strong id="expenseTotalProducts">12</strong></div>
+                    <div>Most Category: <strong id="expenseMostCategory">Electronics</strong></div>
+                </div>
+                <div class="expense-module-usage">
+                    <div class="expense-usage-label">Module Usage</div>
+                    <div class="expense-usage-value" id="expenseHometronicsModuleUsage">45m</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="expense-footer">
+            <div class="expense-footer-info">
+                <i class="fas fa-info-circle" style="color: var(--primary); margin-right: 4px;"></i>
+                Last updated: <strong>Just now</strong>
+            </div>
+            <button class="expense-refresh-btn" onclick="expenseRefreshData()">
+                <i class="fas fa-sync-alt"></i>
+                Refresh
+            </button>
+        </div>
+    </div>
+</div>
+
+    <!-- Account Details -->
+    <div class="account-details-grid">
+      <mat-card class="info-card">
+        <div class="info-header">
+          <mat-icon>account_circle</mat-icon>
+          <h3>Account Details</h3>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="info-item">
+          <span class="info-label">Member Since</span>
+          <span class="info-value">Jan 15, 2024</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Last Login</span>
+          <span class="info-value">Today, 10:30 AM</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Account Status</span>
+          <span class="info-value success">Active</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Email Verified</span>
+          <span class="info-value success">Verified</span>
+        </div>
+      </mat-card>
+
+      <mat-card class="info-card">
+        <div class="info-header">
+          <mat-icon>workspace_premium</mat-icon>
+          <h3>Subscription</h3>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="info-item">
+          <span class="info-label">Current Plan</span>
+          <span class="info-value">Premium</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Monthly Cost</span>
+          <span class="info-value">₹499</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Billing Cycle</span>
+          <span class="info-value">Monthly</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Next Billing</span>
+          <span class="info-value">Jan 15, 2024</span>
+        </div>
+
+      </mat-card>
+
+      <mat-card class="info-card">
+        <div class="info-header">
+          <mat-icon>show_chart</mat-icon>
+          <h3>Financial Summary</h3>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="info-item">
+          <span class="info-label">Avg. Monthly Spend</span>
+          <span class="info-value">₹15,227</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Savings Rate</span>
+          <span class="info-value success">27%</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Top Category</span>
+          <span class="info-value">Food & Dining</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Budget Compliance</span>
+          <span class="info-value warning">85%</span>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-container">
+      <mat-card class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">
+            <mat-icon>insights</mat-icon>
+            Monthly Expense Trend
+          </h3>
+
+          <div class="chart-legend">
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#6366f1"></span> Expenses
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#10b981"></span> Income
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <canvas #expenseTrendCanvas></canvas>
+        </div>
+      </mat-card>
+
+      <mat-card class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">
+            <mat-icon>donut_small</mat-icon>
+            Expense Categories
+          </h3>
+
+          <div class="chart-legend">
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#f59e0b"></span> Food & Dining
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#3b82f6"></span> Shopping
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <canvas #expenseCategoriesCanvas></canvas>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- SMS Analysis -->
+    <mat-card class="card">
+      <div class="card-head">
+        <h3 class="card-title">
+          <mat-icon>sms</mat-icon>
+          SMS Transaction Analysis
+        </h3>
+        <mat-chip class="card-badge badge-primary">Auto-tracked</mat-chip>
+      </div>
+
+      <div class="sms-analysis-grid">
+        <mat-card class="sms-metric">
+          <div class="sms-icon banks">
+            <mat-icon>account_balance</mat-icon>
+          </div>
+          <div class="sms-value">5</div>
+          <div class="sms-label">Banks Detected</div>
+
+          <mat-chip-set class="bank-list">
+            <mat-chip class="bank-tag">HDFC</mat-chip>
+            <mat-chip class="bank-tag">ICICI</mat-chip>
+            <mat-chip class="bank-tag">SBI</mat-chip>
+          </mat-chip-set>
+        </mat-card>
+
+
+        <mat-card class="sms-metric">
+          <div class="sms-icon whatsapp">
+            <mat-icon>chat</mat-icon>
+          </div>
+          <div class="sms-value">32</div>
+          <div class="sms-label">Via WhatsApp</div>
+
+          <div class="progress-bar-container">
+            <div class="progress-header">
+              <span class="progress-label">This month</span>
+              <span class="progress-percent">↑ 18%</span>
+            </div>
+            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 18%; background: #25d366;"></div>
+                            </div>
+            <!-- <mat-progress-bar mode="determinate" [value]="18"></mat-progress-bar> -->
+          </div>
+        </mat-card>
+
+        <mat-card class="sms-metric">
+          <div class="sms-icon sms">
+            <mat-icon>message</mat-icon>
+          </div>
+          <div class="sms-value">142</div>
+          <div class="sms-label">SMS Transactions Read</div>
+
+          <div class="progress-bar-container">
+            <div class="progress-header">
+              <span class="progress-label">Accuracy</span>
+              <span class="progress-percent">94%</span>
+            </div>
+            <!-- <mat-progress-bar mode="determinate" [value]="94"></mat-progress-bar> -->
+             <div class="progress-bar">
+                                <div class="progress-fill" style="width: 94%;"></div>
+                            </div>
+          </div>
+        </mat-card>
+
+        <mat-card class="sms-metric">
+          <div class="sms-icon manual">
+            <mat-icon>keyboard</mat-icon>
+          </div>
+          <div class="sms-value">8</div>
+          <div class="sms-label">Manual Entries</div>
+
+          <div class="progress-bar-container">
+            <div class="progress-header">
+              <span class="progress-label">Last 30 days</span>
+              <span class="progress-percent success">↓ 12%</span>
+            </div>
+            <!-- <mat-progress-bar mode="determinate" [value]="12"></mat-progress-bar> -->
+              <div class="progress-bar">
+                                <div class="progress-fill" style="width: 12%; background: #10b981;"></div>
+                            </div>
+          </div>
+        </mat-card>
+
+
+
+        <mat-card class="sms-metric">
+          <div class="sms-icon excel">
+            <mat-icon>description</mat-icon>
+          </div>
+          <div class="sms-value">15</div>
+          <div class="sms-label">Excel Imports</div>
+
+          <div class="progress-bar-container">
+            <div class="progress-header">
+              <span class="progress-label">Total files</span>
+              <span class="progress-percent">3 files</span>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <div class="sms-footer">
+        <div>
+          <div class="sms-footer-label">Auto-detection Rate</div>
+          <div class="sms-footer-value">SMS: 91% • WhatsApp: 89%</div>
+        </div>
+
+        <button mat-stroked-button color="primary" class="btn btn-outline">
+          <mat-icon>bar_chart</mat-icon>
+          View Details
+        </button>
+      </div>
+    </mat-card>
+
+    <!-- Additional Cards -->
+    <div class="dashboard-grid">
+
+      <mat-card class="card">
+        <div class="card-head">
+          <h3 class="card-title">
+            <mat-icon>emoji_events</mat-icon>
+            Challenge Progress
+          </h3>
+          <mat-chip class="card-badge badge-primary">Active</mat-chip>
+        </div>
+
+
+<div class="progress-bar-container">
+                        <div class="progress-header">
+                            <span class="progress-label">30-Day Savings Challenge</span>
+                            <span class="progress-percent">65%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 65%;"></div>
+                        </div>
+                        <p style="color: var(--gray-600); font-size: 13px; margin-top: 8px;">
+                            Day 19/30 • 11 days remaining
+                        </p>
+                    </div>
+         <div style="margin-top: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                            <span style="font-weight: 600; color: var(--dark);">Completed Challenges</span>
+                            <span style="color: var(--secondary); font-weight: 600;">2/5</span>
+                        </div>
+                        <div style="display: flex; gap: 4px;">
+                            <div style="flex: 1; height: 8px; background: var(--secondary); border-radius: 4px;"></div>
+                            <div style="flex: 1; height: 8px; background: var(--secondary); border-radius: 4px;"></div>
+                            <div style="flex: 1; height: 8px; background: var(--primary); border-radius: 4px;"></div>
+                            <div style="flex: 1; height: 8px; background: var(--gray-300); border-radius: 4px;"></div>
+                            <div style="flex: 1; height: 8px; background: var(--gray-300); border-radius: 4px;"></div>
+                        </div>
+                    </div>
+      </mat-card>
+
+      <mat-card class="card">
+        <div class="card-head">
+          <h3 class="card-title">
+            <mat-icon>redeem</mat-icon>
+            Rewards & Points
+          </h3>
+          <mat-chip class="card-badge badge-warning">850 pts</mat-chip>
+        </div>
+
+        <div class="rewards-center">
+          <div class="rewards-value">850</div>
+          <div class="muted">Total Reward Points</div>
+        </div>
+
+        <div class="rewards-grid">
+          <div class="rewards-item">
+            <div class="rewards-subvalue">3</div>
+            <div class="muted">Badges Earned</div>
+          </div>
+          <div class="rewards-item">
+            <div class="rewards-subvalue">₹2,500</div>
+            <div class="muted">Cashback Earned</div>
+          </div>
+        </div>
+      </mat-card>
+
+      <mat-card class="card">
+        <div class="card-head">
+          <h3 class="card-title">
+            <mat-icon>history</mat-icon>
+            Recent Activity
+          </h3>
+          <mat-chip class="card-badge">Today</mat-chip>
+        </div>
+
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-icon ok"><mat-icon>check</mat-icon></div>
+            <div class="activity-body">
+              <div class="activity-title">Challenge completed</div>
+              <div class="muted">No Spending Weekend • 2 hours ago</div>
+            </div>
+          </div>
+
+          <div class="activity-item">
+            <div class="activity-icon primary"><mat-icon>credit_card</mat-icon></div>
+            <div class="activity-body">
+              <div class="activity-title">Subscription renewed</div>
+              <div class="muted">Premium plan • Yesterday</div>
+            </div>
+          </div>
+
+          <div class="activity-item">
+            <div class="activity-icon info"><mat-icon>sms</mat-icon></div>
+            <div class="activity-body">
+              <div class="activity-title">SMS detected</div>
+              <div class="muted">HDFC Bank transaction • 3 hours ago</div>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
