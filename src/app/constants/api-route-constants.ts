@@ -155,7 +155,7 @@ export class ApiRoutesConstants {
   // StoryBoard
   public static StoryBoardCreate = "storyboard/create"
   public static StoryBoardEdit = "storyboard/edit"
-  public static StoryBoardGetlistID = "storyboard/getlist"
+  public static StoryBoardGetlistID = "storyboard/getlist_id"
   public static StoryBoardGetlistAll= "storyboard/getlist"
   public static StoryBoardDelete= "storyboard/delete"
 
