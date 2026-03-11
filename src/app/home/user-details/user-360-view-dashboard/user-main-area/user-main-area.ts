@@ -88,7 +88,10 @@ export class UserMainArea implements AfterViewInit, OnDestroy {
 
   @ViewChild('expenseTrendCanvas') expenseTrendCanvas!: ElementRef<HTMLCanvasElement>;
   @ViewChild('expenseCategoriesCanvas') expenseCategoriesCanvas!: ElementRef<HTMLCanvasElement>;
+@ViewChild('moduleUsageCanvas')
+moduleUsageCanvas!: ElementRef<HTMLCanvasElement>;
 
+private moduleUsageChart?: Chart<'bar'>;
   // ✅ keep existing charts, but store refs so we can destroy on ngOnDestroy
   private expenseTrendChart?: Chart;
   private expenseCategoriesChart?: Chart;
@@ -252,6 +255,7 @@ export class UserMainArea implements AfterViewInit, OnDestroy {
 
     // ✅ IMPORTANT: because your HTML uses onclick="expenseXxx()"
     this.exposeExpenseWindowFns();
+    this.initModuleUsageChart();
   }
 
   ngOnDestroy(): void {
@@ -1004,4 +1008,97 @@ export class UserMainArea implements AfterViewInit, OnDestroy {
     w.expenseChangeModule = (module: ExpenseModule) => this.expenseChangeModule(module, w.event as Event);
     w.expenseRefreshData = () => this.expenseRefreshData(w.event as Event);
   }
+
+
+private initModuleUsageChart(): void {
+
+  const ctx = this.moduleUsageCanvas.nativeElement.getContext('2d');
+  if (!ctx) return;
+
+  this.moduleUsageChart?.destroy();
+
+  this.moduleUsageChart = new Chart(ctx, {
+
+    type: 'bar',
+
+    data: {
+      labels: [
+        'Transaction',
+        'Budget',
+        'Accounts',
+        'Dues',
+        'Goals',
+        'Hometronics'
+      ],
+
+      datasets: [
+        {
+          data: [4200, 15800, 9800, 18700, 12300, 7600],
+
+          backgroundColor: 'rgba(59,130,246,0.5)',
+          borderColor: '#3b82f6',
+          borderWidth: 1,
+
+          borderRadius: 6,
+          borderSkipped: false,
+
+          hoverBackgroundColor: 'rgba(59,130,246,0.8)'
+        }
+      ]
+    },
+
+    options: {
+
+      responsive: true,
+      maintainAspectRatio: false,
+
+      plugins: {
+        legend: { display: false },
+
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              return (context.parsed.y ?? 0).toLocaleString();
+            }
+          }
+        }
+      },
+
+      scales: {
+
+        x: {
+          grid: { display: false },
+          ticks: {
+            font: { size: 11 }
+          }
+        },
+
+        y: {
+          beginAtZero: true,
+
+          grid: {
+            color: '#f3f4f6'
+          },
+
+          ticks: {
+            callback: (value: any) => {
+
+              if (value >= 1000)
+                return value / 1000 + 'k';
+
+              return value;
+
+            }
+          }
+        }
+
+      }
+
+    }
+
+  });
+
+}
+
+  
 }
