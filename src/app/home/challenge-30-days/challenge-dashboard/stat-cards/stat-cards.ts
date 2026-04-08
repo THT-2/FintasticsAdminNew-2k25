@@ -10,6 +10,7 @@ import { AlertService } from '../../../../constants/alertservice';
   imports: [ChallengeFilter],
   templateUrl: './stat-cards.html',
   styleUrl: './stat-cards.scss',
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   providers:[AlertService]
 })
 export class StatCards {

@@ -90,10 +90,12 @@ export class VideoCategory implements OnInit{
         if (confirmed) {
           let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.video_category_delete;
           this.navService.deleterequestData(apiUrl,{_id:event.data._id}).subscribe({
+
             next: (res: any) => {
-              if (res['Status'] == 'Success') {
-                this.alertService.toast("success",true,res.Message);
+              if (res.code===200) {
+                this.alertService.toast("success",true,res.message);
                 this.getvideo();
+                this.cdr.detectChanges();
               }
             },
             error: (error: any) => {

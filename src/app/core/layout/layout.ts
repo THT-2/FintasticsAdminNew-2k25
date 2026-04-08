@@ -23,10 +23,11 @@ export class Layout {
     this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
       .subscribe((e: NavigationEnd) => {
-        const url = e.urlAfterRedirects;
+        // const url = e.urlAfterRedirects;
+         const url = this.router.url;
 
         // ✅ Whenever you're on chats (/admin/chats) → collapse sidebar
-        if (url.startsWith('/admin/chats')) {
+        if (url.startsWith('/admin/chats') || url.startsWith('/admin/view')) {
           this.isCollapsed = true;
         }
         // else {

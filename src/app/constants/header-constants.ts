@@ -446,6 +446,32 @@ export class HeaderConstants {
       'disableSorting': false,
     }
   ]
+  public static SubscriptionRewardsHeader = [
+    {
+      'name': 'Plan Type',
+      'displayName': 'Title',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+     {
+      'name': 'title',
+      'displayName': 'Name',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'icon',
+      'displayName': 'Icon',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+
+    {
+      'name': 'actions',
+      'displayName': 'Action',
+      'disableSorting': false,
+    }
+  ]
 
 
     public static BenefitsBannerHeader = [
@@ -515,6 +541,12 @@ export class HeaderConstants {
     {
       'name': 'video_img',
       'displayName': 'Video Image',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'videocategory',
+      'displayName': 'Category Name',
       'disableSorting': false,
       'class': "text-transform"
     },
@@ -596,6 +628,25 @@ export class HeaderConstants {
     {
       'name': 'catagory_type',
       'displayName': 'Catagory Name',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'icon',
+      'displayName': 'Icon',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
+      'name': 'actions',
+      'displayName': 'Action',
+      'disableSorting': false,
+    },
+  ]
+  public static LoansHeader = [
+    {
+      'name': 'type',
+      'displayName': 'Loan Name',
       'disableSorting': false,
       'class': "text-transform"
     },
@@ -1006,12 +1057,18 @@ export class HeaderConstants {
       'disableSorting': false,
       'class': "text-transform"
     },
+   {
+      'name': 'remainingDays',
+      'displayName': 'Remaining Days',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
     
-    //  {
-    //   'name': 'actions',
-    //   'displayName': 'Action',
-    //   'disableSorting': false,
-    // },
+     {
+      'name': 'actions',
+      'displayName': 'Action',
+      'disableSorting': false,
+    },
 
   ]
 

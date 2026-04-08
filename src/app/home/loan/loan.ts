@@ -14,62 +14,45 @@ import { MessageDialogue } from '../../Z-Commons/message-dialogue/message-dialog
 import { Table } from '../../Z-Commons/table/table';
 
 @Component({
-  selector: 'app-video',
-  imports: [CommonModule, FormsModule, Table, Card],
-  templateUrl: './video.html',
-  styleUrl: './video.scss',
+  selector: 'app-loan',
+  imports: [CommonModule, FormsModule, Card, Table],
+  templateUrl: './loan.html',
+  styleUrl: './loan.scss',
   providers:[AlertService]
 })
-export class Video implements OnInit{
+export class Loan implements OnInit{
 
-  public apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.videos_getlist;
+  public apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.Loan_getlist;
   public loader:boolean = true;
-  // buttondata= {
-  //   buttonName : 'Add New Video',
-  //   routingPath : '/admin/video/create',
-  //   // routingView : 'View',
-  //   routingEdit : 'Edit',
-  //   routingDelete : 'Delete',
-  // }
-  buttondata = {
-  buttons: [
-    {
-      buttonName: 'Add New Video',
-      routingPath: '/admin/video/create',
-      icon: 'bi bi-plus-lg',
-      btnClass: 'btn btn-cta btn-cta-wide'
-    },
-    {
-      buttonName: 'View Category',
-      routingPath: '/admin/video/videocategory',
-      icon: 'bi bi-eye',
-      btnClass: 'btn btn-secondary'
-    }
-  ],
-  routingEdit: 'Edit',
-  routingDelete: 'Delete'
-};
-  videoData: any;
+  buttondata= {
+    buttonName : 'Add New',
+    routingPath : '/admin/loan/create',
+    // routingView : 'View',
+    routingEdit : 'Edit',
+    routingDelete : 'Delete',
+  }
+  loan: any;
   columnDefinition: any[];
   responseMessage: any;
 
-  constructor(private navService: Data, private router: Router,private route :ActivatedRoute,private cdr: ChangeDetectorRef,
-     private alertService: AlertService, private dialog: MatDialog){
-    this.columnDefinition = HeaderConstants.VideosListHeader;
+  constructor(private navService: Data, private router: Router,private route :ActivatedRoute,
+    private alertService: AlertService, private dialog: MatDialog, private cdr: ChangeDetectorRef){
+    this.columnDefinition = HeaderConstants.LoansHeader;
   }
   ngOnInit(): void {
-    this.getvideo();
+    this.getloan();
   }
-    getvideo(){
+    getloan(){
     this.loader = true;
-    this.videoData = [];
+    this.loan = [];
     this.navService.getData(this.apiUrl).subscribe({
       next:(res:any)=> {
-        console.log('video',res);
+        console.log('loan',res);
 
         if (res.code === 200) {
-          this.videoData = res.data;
+          this.loan = res.data;
           this.buttondata = this.buttondata;
+
         }
         else {
           this.alertService.toast("error",true,res.message);
@@ -90,7 +73,7 @@ export class Video implements OnInit{
     getActions(event:any){
     console.log("data",event);
     if (event.actions === 'Edit') {
-      this.router.navigate(['/admin/video/edit',event.data._id]);
+      this.router.navigate(['/admin/loan/edit',event.data._id]);
     }else if (event.actions === 'View'){
       // this.router.navigate(['/beta/clientView'], { queryParams: { id: event.data.clientId,type:"client" }, relativeTo: this.route });
     }else if (event.actions === 'Delete'){
@@ -105,14 +88,15 @@ export class Video implements OnInit{
       });
       dialogRef.afterClosed().subscribe((confirmed: boolean) => {
         if (confirmed) {
-          let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.VIDEO_UPLOAD + ApiRoutesConstants.DELETE;
-          this.navService.deleterequestData(apiUrl,{_id:event.data._id}).subscribe({
+          let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.Loan_delete+'/'+event.data._id;
+          this.navService.delete(apiUrl).subscribe({
             next: (res: any) => {
-              if (res.code === 200) {
+              if (res.code == 200) {
                 this.alertService.toast("success",true,res.message);
-                this.getvideo();
-                this.cdr.detectChanges();
+                this.getloan();
               }
+              this.cdr.detectChanges();
+              // window.location.reload();
             },
             error: (error: any) => {
               console.log(error);
@@ -127,7 +111,6 @@ export class Video implements OnInit{
       })
     }
   }
-
 }
 
 

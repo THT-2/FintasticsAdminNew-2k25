@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -16,7 +16,8 @@ interface Category {
   imports: [CommonModule,FormsModule,ReactiveFormsModule,MatSlideToggleModule ],
   standalone: true,
   templateUrl: './table.html',
-  styleUrl: './table.scss'
+  styleUrl: './table.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 

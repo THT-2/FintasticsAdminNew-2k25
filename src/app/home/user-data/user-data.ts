@@ -10,6 +10,8 @@ import { HeaderConstants } from '../../constants/header-constants';
 import { Card } from '../../Z-Commons/card/card';
 import { Table } from '../../Z-Commons/table/table';
 import * as XLSX from 'xlsx';
+import { MessageDialogue } from '../../Z-Commons/message-dialogue/message-dialogue';
+import { GlobalConstant } from '../../constants/global-constants';
 
 @Component({
   selector: 'app-user-data',
@@ -26,6 +28,7 @@ export class UserData implements OnInit {
   userData: any[] = [];
   columnDefinition: any[];
   userdata: any;
+  responseMessage: any;
 
   // Filter fields
   fromdate: string = '';
@@ -33,8 +36,14 @@ export class UserData implements OnInit {
   fromtime: string = '';
   totime: string = '';
   type: string = ''; // default type
+  activeQuick: string = 'today';
 
   errorMessage: string = '';
+buttondata= {
+    routingView : 'View',
+    // routingEdit : 'Edit',
+    // routingDelete : 'Delete',
+  }
 
   constructor(
     private navService: Data,
@@ -49,6 +58,7 @@ export class UserData implements OnInit {
 
   ngOnInit(): void {
     this.getuserdata(); // Load all initially
+    this.quickSelect('today');
   }
 
   // ===============================
@@ -111,44 +121,47 @@ export class UserData implements OnInit {
   // ===============================
   // QUICK SELECT
   // ===============================
-  quickSelect(range: string) {
-    const today = new Date();
+quickSelect(range: string) {
+  this.activeQuick = range; // 👈 track active button
 
-    switch (range) {
-      case 'today':
-        this.setDateRange(today, today);
-        this.fromtime = '09:00';
-        this.totime = '19:00';
-        break;
+  const today = new Date();
 
-      case 'yesterday':
-        const yesterday = new Date(today);
-        yesterday.setDate(yesterday.getDate() - 1);
-        this.fromtime = '09:00';
-        this.totime = '19:00';
-        this.setDateRange(yesterday, yesterday);
-        break;
+  switch (range) {
+    case 'today':
+      this.setDateRange(today, today);
+      this.fromtime = '09:00';
+      this.totime = '19:00';
+      break;
 
-      case 'week':
-        const weekStart = new Date(today);
-        weekStart.setDate(today.getDate() - today.getDay());
-        const weekEnd = new Date(weekStart);
-        weekEnd.setDate(weekStart.getDate() + 6);
-        this.fromtime = '09:00';
-        this.totime = '19:00';
-        this.setDateRange(weekStart, weekEnd);
-        break;
+    case 'yesterday':
+      const yesterday = new Date(today);
+      yesterday.setDate(yesterday.getDate() - 1);
+      this.setDateRange(yesterday, yesterday);
+      this.fromtime = '09:00';
+      this.totime = '19:00';
+      break;
 
-      case 'month':
-        const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-        const monthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-        this.fromtime = '09:00';
-        this.totime = '19:00';
-        this.setDateRange(monthStart, monthEnd);
-        break;
-    }
-    this.applyFilter();
+    case 'week':
+      const weekStart = new Date(today);
+      weekStart.setDate(today.getDate() - today.getDay());
+      const weekEnd = new Date(weekStart);
+      weekEnd.setDate(weekStart.getDate() + 6);
+      this.setDateRange(weekStart, weekEnd);
+      this.fromtime = '09:00';
+      this.totime = '19:00';
+      break;
+
+    case 'month':
+      const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+      const monthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+      this.setDateRange(monthStart, monthEnd);
+      this.fromtime = '09:00';
+      this.totime = '19:00';
+      break;
   }
+
+  this.applyFilter();
+}
   onTypeChange() {
   this.applyFilter();
 }
@@ -240,6 +253,45 @@ export class UserData implements OnInit {
   XLSX.writeFile(wb, this.fileName);
 }
 
-  
-
+    getActions(event:any){
+    console.log("data",event);
+    if (event.actions === 'Edit') {
+      this.router.navigate(['/admin/user-data/edit',event.data._id]);
+    }else if (event.actions === 'View'){
+      console.log("view",event.data._id);
+      
+      this.router.navigate(['/admin/user-data/view',event.data._id]);
+    }else if (event.actions === 'Delete'){
+      const dialogRef = this.dialog.open(MessageDialogue, {
+        data: {
+          message: 'Do you want to delete this Event ?',
+          buttonText: {
+            ok: 'Ok',
+            cancel: 'Close'
+          }
+        }
+      });
+      // dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      //   if (confirmed) {
+      //     let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.StoryBoardDelete + '/' + event.data._id;
+      //     this.navService.postData(apiUrl,{}).subscribe({
+      //       next: (res: any) => {
+      //         if (res['Status'] == 'Success') {
+      //           this.alertService.toast("success",true,res.Message);
+      //           this.getuserdata();
+      //         }
+      //       },
+      //       error: (error: any) => {
+      //         console.log(error);
+      //         if (error.error?.message) {
+      //           this.responseMessage = error.error.message;
+      //         } else {
+      //           this.responseMessage = GlobalConstant.genericError;
+      //         }
+      //       }
+      //     })
+      //   }
+      // })
+    }
+  }
 }

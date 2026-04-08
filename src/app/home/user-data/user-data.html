@@ -49,17 +49,37 @@
     </option>
         <option value="subscription">Subscription</option>
         <option value="registered">Registered</option>
-        <option value="challege">Challenge</option>
+        <option value="challenge">Challenge</option>
       </select>
     </div>
 
     <!-- QUICK SELECT -->
     <div class="quick-select">
       <span class="quick-label">Quick Select:</span>
-      <button type="button" class="quick-btn" (click)="quickSelect('today')">Today</button>
-      <button type="button" class="quick-btn" (click)="quickSelect('yesterday')">yesterday</button>
-      <button type="button" class="quick-btn" (click)="quickSelect('week')">This Week</button>
-      <button type="button" class="quick-btn" (click)="quickSelect('month')">This Month</button>
+      <button type="button" class="quick-btn"
+  [class.active]="activeQuick === 'today'"
+  (click)="quickSelect('today')">
+  Today
+</button>
+
+<button type="button" class="quick-btn"
+  [class.active]="activeQuick === 'yesterday'"
+  (click)="quickSelect('yesterday')">
+  Yesterday
+</button>
+
+<button type="button" class="quick-btn"
+  [class.active]="activeQuick === 'week'"
+  (click)="quickSelect('week')">
+  This Week
+</button>
+
+<button type="button" class="quick-btn"
+  [class.active]="activeQuick === 'month'"
+  (click)="quickSelect('month')">
+  This Month
+</button>
+
     </div>
 
     <!-- ERROR MESSAGE -->
@@ -84,7 +104,7 @@
 <div class="row">
   <div class="col-sm-12">
     <app-card cardTitle="User Data" blockClass="pc-component">
-      <app-table [tableData]="userData" [loader]="loader" [columnHeader]="columnDefinition"></app-table>
+      <app-table [tableData]="userData" (getActionTable)="getActions($event)" [loader]="loader" [columnHeader]="columnDefinition" [buttondata]="buttondata"></app-table>
     </app-card>
   </div>
 </div>

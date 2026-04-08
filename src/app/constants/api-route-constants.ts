@@ -37,6 +37,9 @@ export class ApiRoutesConstants {
   public static InviteUser_list = 'group/inviteUser_list';
   public static familyUser_list = 'userdetails/familyUser_list';
 
+  //360view urls
+  public static userview_overall = 'adminPanel/user360_Dashboard';
+
   //paments type urls
   public static payment_type_getlist = 'payment_type/getlist';
   public static PAYMENT_TYPE = 'payment_type';
@@ -98,6 +101,13 @@ export class ApiRoutesConstants {
   public static hometronics_getlist = "recurringCatagory/getlist";
   public static HOME_TONICS = "recurringCatagory";
 
+  // Loan urls
+  public static Loan_getlist = "passbook/loan_type/admin/get_list";
+  public static Loan_getbyId = "passbook/loan_type/getbyid";
+  public static Loan_create = "passbook/loan_type/create";
+  public static Loan_edit = "passbook/loan_type/edit";
+  public static Loan_delete = "passbook/loan_type/delete";
+
   // Banners urls
   public static Banners_getlist = "banner/getlist";
   public static Banners_getbyId = "banner/getbyId";
@@ -106,7 +116,7 @@ export class ApiRoutesConstants {
   public static Banners_delete = "banner/delete";
 
   // sub categories urls
-  public static videos_getlist = "videosUpload/getlist_Admin"
+  public static videos_getlist = "videosUpload/getlist_admin"
   public static VIDEO_UPLOAD = "videosUpload"
   public static video_category_getlist = "videosUpload/categorygetlist"
   public static video_category_getlistId = "videosUpload/categorygetlist_id"  
@@ -156,7 +166,7 @@ export class ApiRoutesConstants {
   public static StoryBoardCreate = "storyboard/create"
   public static StoryBoardEdit = "storyboard/edit"
   public static StoryBoardGetlistID = "storyboard/getlist_id"
-  public static StoryBoardGetlistAll= "storyboard/getlist"
+  public static StoryBoardGetlistAll= "storyboard/getlist_admin"
   public static StoryBoardDelete= "storyboard/delete"
 
   // Support

@@ -107,6 +107,13 @@ import { SpReviews } from './sp-reviews/sp-reviews';
 import { SpInventory } from './sp-inventory/sp-inventory';
 import { SpCoupon } from './sp-coupon/sp-coupon';
 import { VideoCategory } from './video/video-category/video-category';
+import { Refund } from './refund/refund';
+import { ViewRefundData } from './refund/view-refund-data/view-refund-data';
+import { Loan } from './loan/loan';
+import { LoanCreateEdit } from './loan/loan-create-edit/loan-create-edit';
+import { SubscriptionRewards } from './subscription-rewards/subscription-rewards';
+import { SubscriptionRewardsCreateEdit } from './subscription-rewards/subscription-rewards-create-edit/subscription-rewards-create-edit';
+
 
 
 const routes: Routes = [
@@ -162,6 +169,13 @@ const routes: Routes = [
               {path:'',component:SubscriptionUsers},
               {path:'create', component:SubscriptionCreateEdit},
               {path:'edit/:id', component:SubscriptionCreateEdit},
+            ]
+          },
+          {path:'refund',
+            children:[
+              {path:'',component:Refund},
+              {path:'create', component:ViewRefundData},
+              {path:'edit/:id', component:ViewRefundData},
             ]
           },
           {path:'invite',
@@ -428,6 +442,13 @@ const routes: Routes = [
               {path:'benefits/edit/:id',component:BenifitsBannerCreateEdit}
             ]
           },
+          {path:'subs-rewards',
+            children:[
+              {path:'',component:SubscriptionRewards},
+              {path:'create',component:SubscriptionRewardsCreateEdit},
+              {path:'edit/:id',component:SubscriptionRewardsCreateEdit},
+            ]
+          },
 
           {path:'news-update',
             children:[
@@ -441,6 +462,13 @@ const routes: Routes = [
               {path:'',component:Hometronics},
               {path:'create',component:HometronicsCreateEdit},
               {path:'edit/:id',component:HometronicsCreateEdit},
+            ]
+          },
+          {path:'loan',
+            children:[
+              {path:'',component:Loan},
+              {path:'create',component:LoanCreateEdit},
+              {path:'edit/:id',component:LoanCreateEdit},
             ]
           },
           {
@@ -463,8 +491,7 @@ const routes: Routes = [
             path:'user-data',
             children:[
               {path:'',component:UserData},
-              // {path:'create',component:AdSettingsCreateEdit},
-              // {path:'edit/:id',component:AdSettingsCreateEdit},
+              {path:'view/:id',component:User360ViewDashboard},
             ]
           },
           {

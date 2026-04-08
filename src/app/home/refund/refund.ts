@@ -1,75 +1,60 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { Table } from "../../Z-Commons/table/table";
+import { Card } from "../../Z-Commons/card/card";
+import { ChangeDetectorRef } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { Data } from '../../Service/data';
-import { AlertService } from '../../constants/alertservice';
 import { ApiRoutesConstants } from '../../constants/api-route-constants';
+import { AlertService } from '../../constants/alertservice';
 import { GlobalConstant } from '../../constants/global-constants';
 import { HeaderConstants } from '../../constants/header-constants';
-import { Card } from '../../Z-Commons/card/card';
 import { MessageDialogue } from '../../Z-Commons/message-dialogue/message-dialogue';
-import { Table } from '../../Z-Commons/table/table';
+import { Data } from '../../Service/data';
 
 @Component({
-  selector: 'app-video',
-  imports: [CommonModule, FormsModule, Table, Card],
-  templateUrl: './video.html',
-  styleUrl: './video.scss',
+  selector: 'app-refund',
+  imports: [Card, Table],
+  templateUrl: './refund.html',
+  styleUrl: './refund.scss',
   providers:[AlertService]
 })
-export class Video implements OnInit{
+export class Refund implements OnInit{
 
-  public apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.videos_getlist;
+  public apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.Banners_getlist;
   public loader:boolean = true;
-  // buttondata= {
-  //   buttonName : 'Add New Video',
-  //   routingPath : '/admin/video/create',
-  //   // routingView : 'View',
-  //   routingEdit : 'Edit',
-  //   routingDelete : 'Delete',
-  // }
-  buttondata = {
-  buttons: [
-    {
-      buttonName: 'Add New Video',
-      routingPath: '/admin/video/create',
-      icon: 'bi bi-plus-lg',
-      btnClass: 'btn btn-cta btn-cta-wide'
-    },
-    {
-      buttonName: 'View Category',
-      routingPath: '/admin/video/videocategory',
-      icon: 'bi bi-eye',
-      btnClass: 'btn btn-secondary'
-    }
-  ],
-  routingEdit: 'Edit',
-  routingDelete: 'Delete'
-};
-  videoData: any;
+  buttondata= {
+    buttonName : 'Add Refund',
+    routingPath : '/admin/refund/create',
+    // routingView : 'View',
+    routingEdit : 'Edit',
+    routingDelete : 'Delete',
+  }
+    refundData: any;
   columnDefinition: any[];
   responseMessage: any;
 
-  constructor(private navService: Data, private router: Router,private route :ActivatedRoute,private cdr: ChangeDetectorRef,
-     private alertService: AlertService, private dialog: MatDialog){
-    this.columnDefinition = HeaderConstants.VideosListHeader;
+  constructor(private navService: Data, private router: Router,private route :ActivatedRoute,
+    private alertService: AlertService, private dialog: MatDialog, private cdr: ChangeDetectorRef){
+    this.columnDefinition = HeaderConstants.BannersHeader;
   }
   ngOnInit(): void {
-    this.getvideo();
+    this.getdata();
   }
-    getvideo(){
+
+  
+    getdata(){
     this.loader = true;
-    this.videoData = [];
+    this.refundData = [];
     this.navService.getData(this.apiUrl).subscribe({
       next:(res:any)=> {
-        console.log('video',res);
+        console.log('refund',res);
 
         if (res.code === 200) {
-          this.videoData = res.data;
+          this.  refundData = res.data;
+          console.log('refund2',this.  refundData);
           this.buttondata = this.buttondata;
+
         }
         else {
           this.alertService.toast("error",true,res.message);
@@ -90,7 +75,7 @@ export class Video implements OnInit{
     getActions(event:any){
     console.log("data",event);
     if (event.actions === 'Edit') {
-      this.router.navigate(['/admin/video/edit',event.data._id]);
+      this.router.navigate(['/admin/refund/edit',event.data._id]);
     }else if (event.actions === 'View'){
       // this.router.navigate(['/beta/clientView'], { queryParams: { id: event.data.clientId,type:"client" }, relativeTo: this.route });
     }else if (event.actions === 'Delete'){
@@ -105,14 +90,14 @@ export class Video implements OnInit{
       });
       dialogRef.afterClosed().subscribe((confirmed: boolean) => {
         if (confirmed) {
-          let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.VIDEO_UPLOAD + ApiRoutesConstants.DELETE;
-          this.navService.deleterequestData(apiUrl,{_id:event.data._id}).subscribe({
+          let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.Banners_delete+"/"+event.data._id;
+          this.navService.postData(apiUrl,{}).subscribe({
             next: (res: any) => {
-              if (res.code === 200) {
+              if (res['status'] == true) {
                 this.alertService.toast("success",true,res.message);
-                this.getvideo();
-                this.cdr.detectChanges();
+                this.getdata();
               }
+              window.location.reload();
             },
             error: (error: any) => {
               console.log(error);
@@ -127,7 +112,6 @@ export class Video implements OnInit{
       })
     }
   }
-
 }
 
 

@@ -65,7 +65,7 @@ export class VideoCategoryCreateEdit implements OnInit{
 ngOnInit(): void {
   this.videoForm = this.fb.group({
     categoryname: ['', Validators.required],
-    icon: [null, Validators.required],
+    icon: [null],
     _id: [null],
   });
  

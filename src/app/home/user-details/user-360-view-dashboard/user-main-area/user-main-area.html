@@ -50,6 +50,9 @@
   </div>
 
   <div class="chart-container">
+    <div *ngIf="!trackingData?.length" class="no-data-overlay">
+    No Data Available
+  </div>
     <canvas #moduleUsageCanvas></canvas>
   </div>
 
@@ -80,53 +83,53 @@
                     <h3>Expense Tracker</h3>
                     <p>Track your finances</p>
                 </div>
-                <div class="expense-footer-info">
+                <!-- <div class="expense-footer-info">
                     <strong id="expenseCurrentFilter">Today</strong>
-                </div>
+                </div> -->
             </div>
 
             <!-- Filter -->
-            <div class="expense-filter-container">
+            <!-- <div class="expense-filter-container">
                 <button class="expense-filter-btn active" onclick="expenseChangeFilter('today')">Today</button>
                 <button class="expense-filter-btn" onclick="expenseChangeFilter('yesterday')">Yesterday</button>
                 <button class="expense-filter-btn" onclick="expenseChangeFilter('monthly')">Monthly</button>
                 <button class="expense-filter-btn" onclick="expenseChangeFilter('yearly')">Yearly</button>
                 <button class="expense-filter-btn" onclick="expenseToggleCustomDate()">Custom</button>
-            </div>
+            </div> -->
 
             <!-- Custom Date Picker - Initially hidden -->
-            <div class="expense-date-picker expense-hidden" id="expenseDatePicker">
+            <!-- <div class="expense-date-picker expense-hidden" id="expenseDatePicker">
                 <div class="expense-date-inputs">
                     <input type="date" class="expense-date-input" id="expenseStartDate">
                     <input type="date" class="expense-date-input" id="expenseEndDate">
                 </div>
                 <button class="expense-apply-date" onclick="expenseApplyCustomDate()">Apply</button>
-            </div>
+            </div> -->
         </div>
 
         <!-- Tabs -->
         <div class="expense-tabs">
-            <button class="expense-tab active" onclick="expenseChangeModule('transaction')">
+            <button class="expense-tab active" (click)="expenseChangeModule('transaction')">
                 <i class="fas fa-exchange-alt"></i>
                 Transaction
             </button>
-            <button class="expense-tab" onclick="expenseChangeModule('budget')">
+            <button class="expense-tab" (click)="expenseChangeModule('budget')">
                 <i class="fas fa-chart-pie"></i>
                 Budget
             </button>
-            <button class="expense-tab" onclick="expenseChangeModule('accounts')">
+            <button class="expense-tab" (click)="expenseChangeModule('accounts')">
                 <i class="fas fa-wallet"></i>
                 Accounts
             </button>
-            <button class="expense-tab" onclick="expenseChangeModule('dues')">
+            <button class="expense-tab" (click)="expenseChangeModule('dues')">
                 <i class="fas fa-clock"></i>
                 Dues
             </button>
-            <button class="expense-tab" onclick="expenseChangeModule('goals')">
+            <button class="expense-tab" (click)="expenseChangeModule('goals')">
                 <i class="fas fa-bullseye"></i>
                 Goals
             </button>
-            <button class="expense-tab" onclick="expenseChangeModule('hometronics')">
+            <button class="expense-tab" (click)="expenseChangeModule('hometronics')">
                 <i class="fas fa-home"></i>
                 Hometronics
             </button>
@@ -138,11 +141,9 @@
             <div id="expense-transaction-view" class="expense-module-content">
                 <div class="expense-module-layout">
                     <div class="expense-chart-wrapper">
-                        <div class="expense-chart-container">
+                        <div class="expense-chart-container" >
                             <canvas id="expenseTransactionChart"></canvas>
                             <div class="expense-center-percentage" id="expenseTransactionPercentage">
-                                <div class="expense-percentage-value">87%</div>
-                                <div class="expense-percentage-label">Overall Usage</div>
                             </div>
                         </div>
                     </div>
@@ -163,6 +164,9 @@
             <!-- Budget Module -->
             <div id="expense-budget-view" class="expense-module-content expense-hidden">
                 <div class="expense-budget-chart-container">
+                   <div id="expenseBudgetNoData" class="no-data-overlay expense-hidden">
+    No Budget Data
+  </div>
                     <canvas id="expenseBudgetChart"></canvas>
                 </div>
                 <div class="expense-budget-legend">
@@ -317,85 +321,148 @@
     <!-- Account Details -->
     <div class="account-details-grid">
       <mat-card class="info-card">
-        <div class="info-header">
-          <mat-icon>account_circle</mat-icon>
-          <h3>Account Details</h3>
-        </div>
-        <mat-divider></mat-divider>
+  <div class="info-header">
+    <mat-icon>account_circle</mat-icon>
+    <h3>Account Details</h3>
+  </div>
+  <mat-divider></mat-divider>
 
-        <div class="info-item">
-          <span class="info-label">Member Since</span>
-          <span class="info-value">Jan 15, 2024</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Last Login</span>
-          <span class="info-value">Today, 10:30 AM</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Account Status</span>
-          <span class="info-value success">Active</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Email Verified</span>
-          <span class="info-value success">Verified</span>
-        </div>
-      </mat-card>
+  <div class="info-item">
+    <span class="info-label">Member Since</span>
+    <span class="info-value">
+      {{ dashboard_data?.user?.createdAt | date:'MMM dd, yyyy'  }}
+    </span>
+  </div>
 
-      <mat-card class="info-card">
-        <div class="info-header">
-          <mat-icon>workspace_premium</mat-icon>
-          <h3>Subscription</h3>
-        </div>
-        <mat-divider></mat-divider>
+  <div class="info-item">
+    <span class="info-label">Last Login</span>
+    <span class="info-value">
+  {{
+    dashboard_data?.user?.logdate
+      ? (dashboard_data.user.logdate | date:'MMM dd, yyyy')
+      : '-'
+  }}
+</span>
+  </div>
 
-        <div class="info-item">
-          <span class="info-label">Current Plan</span>
-          <span class="info-value">Premium</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Monthly Cost</span>
-          <span class="info-value">₹499</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Billing Cycle</span>
-          <span class="info-value">Monthly</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Next Billing</span>
-          <span class="info-value">Jan 15, 2024</span>
-        </div>
+  <div class="info-item">
+    <span class="info-label">Account Status</span>
+    <span class="info-value success">Active</span>
+  </div>
 
-      </mat-card>
+  <div class="info-item">
+    <span class="info-label">Email Verified</span>
+    <span class="info-value success">
+      {{ dashboard_data?.user?.mobile_num ? 'Verified' : 'Not Verified' }}
+    </span>
+  </div>
+</mat-card>
+
+     <mat-card class="info-card">
+  <div class="info-header">
+    <mat-icon>workspace_premium</mat-icon>
+    <h3>Subscription</h3>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div class="info-item">
+    <span class="info-label">Current Plan</span>
+    <span class="info-value">
+      {{ dashboard_data?.user?.usersubscriptions_details?.type || 'Free' }}
+    </span>
+  </div>
+
+  <div class="info-item">
+    <span class="info-label">Cost</span>
+    <span class="info-value">
+      {{ dashboard_data?.user?.usersubscriptions_details?.title || '-'}}
+    </span>
+  </div>
+
+  <div class="info-item">
+    <span class="info-label">Start Date</span>
+    <span class="info-value">
+      {{ dashboard_data?.user?.usersubscriptions_details?.startdate | date:'MMM dd, yyyy' }}
+    </span>
+  </div>
+
+  <div class="info-item">
+    <span class="info-label">Next Billing</span>
+    <span class="info-value">
+      {{ dashboard_data?.user?.usersubscriptions_details?.enddate | date:'MMM dd, yyyy' }}
+    </span>
+  </div>
+</mat-card>
 
       <mat-card class="info-card">
         <div class="info-header">
           <mat-icon>show_chart</mat-icon>
-          <h3>Financial Summary</h3>
+          <h3>Device Details</h3>
         </div>
         <mat-divider></mat-divider>
 
         <div class="info-item">
-          <span class="info-label">Avg. Monthly Spend</span>
-          <span class="info-value">₹15,227</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Savings Rate</span>
-          <span class="info-value success">27%</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Top Category</span>
-          <span class="info-value">Food & Dining</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Budget Compliance</span>
-          <span class="info-value warning">85%</span>
-        </div>
+  <span class="info-label">Mobile storage</span>
+  <span class="info-value1"
+        [ngClass]="{'success': deviceDetails.phonecallStorage === 'allowed'}">
+    {{(deviceDetails.phonecallStorage || '-') |titlecase}}
+  </span>
+</div>
+
+<div class="info-item">
+  <span class="info-label">SMS</span>
+  <span class="info-value1"
+        [ngClass]="{'success': deviceDetails.sms === 'allowed'}">
+    {{(deviceDetails.sms  || '-') |titlecase}}
+  </span>
+</div>
+
+<div class="info-item">
+  <span class="info-label">Photos</span>
+  <span class="info-value1"
+        [ngClass]="{'success': deviceDetails.photos === 'allowed'}">
+    {{(deviceDetails.photos || '-') |titlecase}}
+  </span>
+</div>
+
+<div class="info-item">
+  <span class="info-label">Location</span>
+  <span class="info-value1"
+        [ngClass]="{'success': deviceDetails.location === 'allowed'}">
+    {{(deviceDetails.location || '-') |titlecase}}
+  </span>
+</div>
+
+<div class="info-item">
+  <span class="info-label">Notification</span>
+  <span class="info-value1"
+        [ngClass]="{'success': deviceDetails.notification === 'allowed'}">
+    {{(deviceDetails.notification || '-') |titlecase}}
+  </span>
+</div>
+
+<div class="info-item">
+  <span class="info-label">Microphone</span>
+  <span class="info-value1"
+        [ngClass]="{'success': deviceDetails.microphone === 'allowed'}">
+    {{(deviceDetails.microphone || '-') |titlecase}}
+  </span>
+</div>
+
+<div class="info-item">
+  <span class="info-label">Contacts</span>
+  <span class="info-value1"
+        [ngClass]="{'success': deviceDetails.contacts === 'allowed'}">
+    {{(deviceDetails.contacts || '-') |titlecase}}
+  </span>
+</div>
+
       </mat-card>
     </div>
 
     <!-- Charts -->
     <div class="charts-container">
-      <mat-card class="chart-card">
+      <!-- <mat-card class="chart-card">
         <div class="chart-header">
           <h3 class="chart-title">
             <mat-icon>insights</mat-icon>
@@ -415,29 +482,42 @@
         <div class="chart-container">
           <canvas #expenseTrendCanvas></canvas>
         </div>
-      </mat-card>
+      </mat-card> -->
 
-      <mat-card class="chart-card">
-        <div class="chart-header">
-          <h3 class="chart-title">
-            <mat-icon>donut_small</mat-icon>
-            Expense Categories
-          </h3>
+    <mat-card class="chart-card">
+  <div class="chart-header">
+    <h3 class="chart-title">
+      <mat-icon>donut_small</mat-icon>
+      Expense Categories
+    </h3>
+  </div>
 
-          <div class="chart-legend">
-            <div class="legend-item">
-              <span class="legend-dot" style="background:#f59e0b"></span> Food & Dining
-            </div>
-            <div class="legend-item">
-              <span class="legend-dot" style="background:#3b82f6"></span> Shopping
-            </div>
-          </div>
-        </div>
+  <!-- NEW WRAPPER -->
+  <div class="chart-body1">
 
-        <div class="chart-container">
-          <canvas #expenseCategoriesCanvas></canvas>
-        </div>
-      </mat-card>
+    <!-- LEFT: CHART -->
+    <div class="chart-container1">
+      <canvas #expenseCategoriesCanvas></canvas>
+    </div>
+
+    <!-- RIGHT: LEGEND -->
+    <div class="chart-legend1">
+      <div class="legend-item" *ngFor="let item of categorySummary">
+        <span 
+          class="legend-dot"
+          [style.background]="item.CatecolorCode?.startsWith('#') 
+            ? item.CatecolorCode 
+            : '#' + item.CatecolorCode">
+        </span>
+
+        <span class="legend-name">
+          {{ item.category }}
+        </span>
+      </div>
+    </div>
+
+  </div>
+</mat-card>
     </div>
 
     <!-- SMS Analysis -->
@@ -451,11 +531,11 @@
       </div>
 
       <div class="sms-analysis-grid">
-        <mat-card class="sms-metric">
+        <!-- <mat-card class="sms-metric">
           <div class="sms-icon banks">
             <mat-icon>account_balance</mat-icon>
           </div>
-          <div class="sms-value">5</div>
+          <div class="sms-value">{{transactionSummary.sms}}</div>
           <div class="sms-label">Banks Detected</div>
 
           <mat-chip-set class="bank-list">
@@ -463,17 +543,19 @@
             <mat-chip class="bank-tag">ICICI</mat-chip>
             <mat-chip class="bank-tag">SBI</mat-chip>
           </mat-chip-set>
-        </mat-card>
+        </mat-card> -->
 
 
         <mat-card class="sms-metric">
           <div class="sms-icon whatsapp">
             <mat-icon>chat</mat-icon>
           </div>
-          <div class="sms-value">32</div>
+          <div class="sms-value">
+  {{ transactionSummary.whatsapp }}
+</div>
           <div class="sms-label">Via WhatsApp</div>
 
-          <div class="progress-bar-container">
+          <!-- <div class="progress-bar-container">
             <div class="progress-header">
               <span class="progress-label">This month</span>
               <span class="progress-percent">↑ 18%</span>
@@ -481,46 +563,50 @@
             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 18%; background: #25d366;"></div>
                             </div>
-            <!-- <mat-progress-bar mode="determinate" [value]="18"></mat-progress-bar> -->
-          </div>
+            <mat-progress-bar mode="determinate" [value]="18"></mat-progress-bar>
+          </div> -->
         </mat-card>
 
         <mat-card class="sms-metric">
           <div class="sms-icon sms">
             <mat-icon>message</mat-icon>
           </div>
-          <div class="sms-value">142</div>
+          <div class="sms-value">
+  {{ transactionSummary.sms }}
+</div>
           <div class="sms-label">SMS Transactions Read</div>
 
-          <div class="progress-bar-container">
+          <!-- <div class="progress-bar-container">
             <div class="progress-header">
               <span class="progress-label">Accuracy</span>
               <span class="progress-percent">94%</span>
             </div>
-            <!-- <mat-progress-bar mode="determinate" [value]="94"></mat-progress-bar> -->
+            <mat-progress-bar mode="determinate" [value]="94"></mat-progress-bar>
              <div class="progress-bar">
                                 <div class="progress-fill" style="width: 94%;"></div>
                             </div>
-          </div>
+          </div> -->
         </mat-card>
 
         <mat-card class="sms-metric">
           <div class="sms-icon manual">
             <mat-icon>keyboard</mat-icon>
           </div>
-          <div class="sms-value">8</div>
+         <div class="sms-value">
+  {{ transactionSummary.manual}}
+</div>
           <div class="sms-label">Manual Entries</div>
 
-          <div class="progress-bar-container">
+          <!-- <div class="progress-bar-container">
             <div class="progress-header">
               <span class="progress-label">Last 30 days</span>
               <span class="progress-percent success">↓ 12%</span>
             </div>
-            <!-- <mat-progress-bar mode="determinate" [value]="12"></mat-progress-bar> -->
+            <mat-progress-bar mode="determinate" [value]="12"></mat-progress-bar>
               <div class="progress-bar">
                                 <div class="progress-fill" style="width: 12%; background: #10b981;"></div>
                             </div>
-          </div>
+          </div> -->
         </mat-card>
 
 
@@ -529,29 +615,31 @@
           <div class="sms-icon excel">
             <mat-icon>description</mat-icon>
           </div>
-          <div class="sms-value">15</div>
+          <div class="sms-value">
+  {{ transactionSummary.excel}}
+</div>
           <div class="sms-label">Excel Imports</div>
 
-          <div class="progress-bar-container">
+          <!-- <div class="progress-bar-container">
             <div class="progress-header">
               <span class="progress-label">Total files</span>
               <span class="progress-percent">3 files</span>
             </div>
-          </div>
+          </div> -->
         </mat-card>
       </div>
-
+<!-- 
       <div class="sms-footer">
         <div>
-          <div class="sms-footer-label">Auto-detection Rate</div>
-          <div class="sms-footer-value">SMS: 91% • WhatsApp: 89%</div>
+          <div class="sms-footer-label">Mostly Used:</div>
+          <div class="sms-footer-value">SMS: 91% </div>
         </div>
 
         <button mat-stroked-button color="primary" class="btn btn-outline">
           <mat-icon>bar_chart</mat-icon>
           View Details
         </button>
-      </div>
+      </div> -->
     </mat-card>
 
     <!-- Additional Cards -->
@@ -600,11 +688,11 @@
             <mat-icon>redeem</mat-icon>
             Rewards & Points
           </h3>
-          <mat-chip class="card-badge badge-warning">850 pts</mat-chip>
+          <mat-chip class="card-badge badge-warning">{{rewardpoints || '0'}} pts</mat-chip>
         </div>
 
         <div class="rewards-center">
-          <div class="rewards-value">850</div>
+          <div class="rewards-value">{{rewardpoints || '0'}}</div>
           <div class="muted">Total Reward Points</div>
         </div>
 
@@ -620,7 +708,7 @@
         </div>
       </mat-card>
 
-      <mat-card class="card">
+      <!-- <mat-card class="card">
         <div class="card-head">
           <h3 class="card-title">
             <mat-icon>history</mat-icon>
@@ -654,5 +742,5 @@
             </div>
           </div>
         </div>
-      </mat-card>
+      </mat-card> -->
     </div>

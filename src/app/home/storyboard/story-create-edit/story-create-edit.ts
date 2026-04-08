@@ -30,6 +30,7 @@ export class StoryCreateEdit {
   StoryBoardData: any;
   categoryData:any[] = []
   public btnLoader:boolean = false;
+  storyTypes = ["Image","Video"];
   editId: any;
   GlobalConstant: any = GlobalConstant;
 
@@ -47,6 +48,7 @@ export class StoryCreateEdit {
       }
     });
   }
+
 ngOnInit(): void {
   this.StoryBoardForm = this.fb.group({
     mediaType:[null, Validators.required],
@@ -54,6 +56,7 @@ ngOnInit(): void {
     mediaUrl:[null, Validators.required],
     notifi_title:[null],
     notifi_body:[null],
+    expiryDays: [1, Validators.required] ,
     _id: [null],
   });
   this.formFieldNeedGetList();
@@ -72,70 +75,85 @@ ngOnInit(): void {
         this.StoryBoardData = res.Data[0];
         this.StoryBoardForm.patchValue({
           mediaType:this.StoryBoardData.mediaType,
-          title:this.StoryBoardData.title,
-          _id: this.StoryBoardData._id,
-          mediaUrl:this.StoryBoardData.mediaUrl,
+          title:this.StoryBoardData.title,              
+          _id: this.StoryBoardData._id,                 
+          mediaUrl:this.StoryBoardData.mediaUrl,        
           notifi_title:this.StoryBoardData.notifi_title,
-          notifi_body:this.StoryBoardData.notifi_body,
-          
+          notifi_body:this.StoryBoardData.notifi_body,   
+          expiryDays:this.StoryBoardData.expiryDays,   
         });
-        this.editId = this.StoryBoardData._id;
-        this.pageLoader = false;
+        this.editId = this.StoryBoardData._id; 
+        this.pageLoader = false;                
       },
-      error: (error: any) => {
+      error: (error: any) => {  
         this.pageLoader = false;
       },
     });
   }
 
-  submit() {
-    if (this.StoryBoardForm.valid) {
-      this.btnLoader = true;
-      if (this.StoryBoardFormControl['_id'].value) {
-        let apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.StoryBoardEdit + "/" +  this.StoryBoardFormControl['_id'].value;
-        this.dataService.postData(apiUrl, this.StoryBoardForm.value).subscribe({
-          next: (res: any) => {
-            if (res.Code === 200) {
-              this.alertService.toast('success', true, res.Message);
-              this.router.navigate(['/admin/storyboard']);
-              this.btnLoader = false;
-            } else {
-              this.alertService.toast('error', true, res.Message);
-              this.btnLoader = false;
-            }
-          },
-          error: (error: any) => {
-            console.log(error);
-            this.btnLoader = false;
-          },
-        });
-      } else {
-        let apiUrl =
-          ApiRoutesConstants.BASE_URL + ApiRoutesConstants.StoryBoardCreate;
-          delete this.StoryBoardForm.value._id
-        this.dataService.postData(apiUrl, this.StoryBoardForm.value).subscribe({
-          next: (res: any) => {
-            if (res.Code === 200) {
-              console.log("body",res);
-              
-              this.alertService.toast('success', true, res.Message);
-              this.router.navigate(['/admin/storyboard']);
-              this.btnLoader = false;
-            } else {
-              this.alertService.toast('error', true, res.Message);
-              this.btnLoader = false;
-            }
-          },
-          error: (error: any) => {
-            console.log(error);
-            this.btnLoader = false;
-          },
-        });
-      }
+submit() {
+  if (this.StoryBoardForm.valid) {
+    this.btnLoader = true;
+
+    let formValue = { ...this.StoryBoardForm.value };
+
+    // ✅ Optional: if backend expects expiryDate instead of days
+    // (skip this if backend uses expiryDays directly)
+    const expiry = new Date();
+    expiry.setDate(expiry.getDate() + formValue.expiryDays);
+    formValue.expiryDate = expiry;
+
+    if (formValue._id) {
+      let apiUrl =
+        ApiRoutesConstants.BASE_URL +
+        ApiRoutesConstants.StoryBoardEdit +
+        "/" +
+        formValue._id;
+
+      this.dataService.postData(apiUrl, formValue).subscribe({
+        next: (res: any) => {
+          if (res.Code === 200) {
+            this.alertService.toast('success', true, res.Message);
+            this.router.navigate(['/admin/storyboard']);
+          } else {
+            this.alertService.toast('error', true, res.Message);
+          }
+          this.btnLoader = false;
+        },
+        error: (error: any) => {
+          console.log(error);
+          this.btnLoader = false;
+        },
+      });
+
     } else {
-      this.StoryBoardForm.markAllAsTouched();
+      let apiUrl =
+        ApiRoutesConstants.BASE_URL +
+        ApiRoutesConstants.StoryBoardCreate;
+
+      delete formValue._id;
+
+      this.dataService.postData(apiUrl, formValue).subscribe({
+        next: (res: any) => {
+          if (res.Code === 200) {
+            this.alertService.toast('success', true, res.Message);
+            this.router.navigate(['/admin/storyboard']);
+          } else {
+            this.alertService.toast('error', true, res.Message);
+          }
+          this.btnLoader = false;
+        },
+        error: (error: any) => {
+          console.log(error);
+          this.btnLoader = false;
+        },
+      });
     }
+
+  } else {
+    this.StoryBoardForm.markAllAsTouched();
   }
+}
   onFilePathReceived(filePath: string) {
     this.StoryBoardFormControl['mediaUrl'].setValue(filePath);
   }
@@ -143,7 +161,7 @@ ngOnInit(): void {
     this.getCategoryData();
   }
   getCategoryData(){
-    let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.desc_type_getlist;
+    let apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.StoryBoardGetlistAll;
     this.dataService.getData(apiUrl).subscribe({
       next:(res:any)=> {
         console.log(res);

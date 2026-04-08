@@ -37,6 +37,9 @@ export class Data {
     return this.http.post(url, data);
   }
 
+  patchData(url: any, data: any) {
+  return this.http.patch(url, data);
+}
 
   updateData(url:any,data:any) {
     return this.http.put(url,data);
@@ -72,9 +75,12 @@ getuserData<T>(url: string, params?: Record<string, any>) {
     return this.http.delete(url);
   }
 
-  deleterequestData(url:any,data:any) {
-    return this.http.delete(url,data);
-  }
+
+  deleterequestData(url: any, data: any) {
+  return this.http.delete(url, {
+    body: data
+  });
+}
 
   UploadpostData(url: string, data: FormData): Observable<HttpEvent<any>> {
     return this.http.post(url, data, {

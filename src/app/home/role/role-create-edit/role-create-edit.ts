@@ -196,6 +196,14 @@ NavItems: any[]=[
         checked: false,
         path: '/admin/subscribed'
       },
+       {
+        id: 'refund',
+        title: 'Refund Details',
+        icon: 'fas fa-user-clock',
+        status: false,
+        checked: false,
+        path: '/admin/refund'
+      }
     ],
     icon: '',
     path: ''
@@ -506,6 +514,14 @@ NavItems: any[]=[
         checked: false,
         path: '/admin/bank'
       },
+      {
+        id: 'loan',
+        title: 'Loan',
+        icon: 'fas fa-university',
+        status: false,
+        checked: false,
+        path: '/admin/loan'
+      },
     ],
     icon: '',
     path: ''
@@ -780,6 +796,14 @@ NavItems: any[]=[
         status: false,
         checked: false,
         path: '/admin/features'
+      },
+      {
+        id: 'subs-rewards',
+        title: 'Subscription Rewards',
+        icon: 'fas fa-star',
+        status: false,
+        checked: false,
+        path: '/admin/subs-rewards'
       },
     ],
     icon: '',

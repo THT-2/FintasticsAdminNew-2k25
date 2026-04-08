@@ -27,19 +27,19 @@
 
             <!-- Icon Upload -->
             <div >
-              <label class="form-label">Icon <span class="req">*</span></label>
+              <label class="form-label">Icon </label>
               <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
               <div *ngIf="videoFormControl['icon'].value" class="mt-2">
                 <app-file-preview [filePath]="videoFormControl['icon'].value"></app-file-preview>
               </div>
-              <div *ngIf="videoForm.get('icon')?.touched && videoForm.get('icon')?.invalid" class="text-danger">
+              <!-- <div *ngIf="videoForm.get('icon')?.touched && videoForm.get('icon')?.invalid" class="text-danger">
                 Icon is required.
-              </div>
+              </div> -->
             </div>
 
             <!-- Submit Button -->
             <div class="col-12 pt-2 d-flex justify-content-end">
-              <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+              <button type="submit" [disabled] ="btnLoader" class="btn btn-cta btn-cta-wide">
                 <ng-container *ngIf="btnLoader; else btnText">
                   <div class="spinner-border text-white" role="status">
                     <span class="visually-hidden">Loading...</span>

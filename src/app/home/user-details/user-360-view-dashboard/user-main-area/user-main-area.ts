@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, NgZone, OnDestroy, Pipe, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -16,7 +16,12 @@ type ExpenseFilter = 'today' | 'yesterday' | 'monthly' | 'yearly' | 'custom';
 type ExpenseModule = 'transaction' | 'budget' | 'accounts' | 'dues' | 'goals' | 'hometronics';
 
 type TransactionData = { sms: number; whatsapp: number; manual: number; ai: number; excel: number };
-type BudgetItem = { name: string; spent: number; budget: number };
+type BudgetItem = { 
+  name: string; 
+  spent: number; 
+  budget: number; 
+  color?: string; 
+};
 type AccountsData = {
   passbook: { count: number; usage: number };
   insurance: { count: number; usage: number };
@@ -50,6 +55,8 @@ import {
   BarController,
   DoughnutController
 } from 'chart.js';
+import { ApiRoutesConstants } from '../../../../constants/api-route-constants';
+import { pipe } from 'rxjs';
 
 Chart.register(
   Tooltip,
@@ -85,14 +92,36 @@ Chart.register(
 })
 export class UserMainArea implements AfterViewInit, OnDestroy {
   sidebarOpened = true;
-
-  @ViewChild('expenseTrendCanvas') expenseTrendCanvas!: ElementRef<HTMLCanvasElement>;
+viewReady = false;
+dataLoaded = false;
+private pendingInitialRender = false;
+  @ViewChild('expenseTrendCanvas', { static: false })
+expenseTrendCanvas!: ElementRef<HTMLCanvasElement>;
   @ViewChild('expenseCategoriesCanvas') expenseCategoriesCanvas!: ElementRef<HTMLCanvasElement>;
 @ViewChild('moduleUsageCanvas')
 moduleUsageCanvas!: ElementRef<HTMLCanvasElement>;
+@Input() trackingData: any[] = [];
+@Input() transectionscount: any[] = []; 
+@Input() categoryBreakdown: any[] = [];
+@Input() passbookData: any[] = [];
+@Input() goaldashboard_data: any;
+@Input() reminders: any[] = [];
+@Input() dashboard_data: any;
+@Input() rewardpoints: any;
+@Input() deviceDetails: any;
+@Input() categorySummary: any[] = [];
+
+constructor(private cd: ChangeDetectorRef,private zone: NgZone){}
+ngOnInit() {
+    setTimeout(() => {
+    this.viewReady = true;
+    this.tryRenderCategoryChart();
+    // this.renderAllCharts();   // ✅ THIS IS THE FIX
+  });
+}
+
 
 private moduleUsageChart?: Chart<'bar'>;
-  // ✅ keep existing charts, but store refs so we can destroy on ngOnDestroy
   private expenseTrendChart?: Chart;
   private expenseCategoriesChart?: Chart;
 
@@ -237,6 +266,10 @@ private moduleUsageChart?: Chart<'bar'>;
     budget: ['#8B5CF6'] // typing safety
   };
 
+  get transactionSummary() {
+  return this.getTransactionDataFromAPI();
+}
+
   toggleSidebar() {
     this.sidebarOpened = !this.sidebarOpened;
   }
@@ -245,18 +278,27 @@ private moduleUsageChart?: Chart<'bar'>;
     history.back();
   }
 
-  ngAfterViewInit(): void {
-    // ✅ existing behavior
-    this.initCharts();
+ngOnChanges(changes: any) {
+  console.log('ngOnChanges fired', changes);
 
-    // ✅ converted script init (same as DOMContentLoaded)
-    this.expenseLoadModule(this.expenseCurrentModule);
-    this.expenseInitDatePickerDefaults();
-
-    // ✅ IMPORTANT: because your HTML uses onclick="expenseXxx()"
-    this.exposeExpenseWindowFns();
-    this.initModuleUsageChart();
+  if (!this.viewReady) {
+    this.pendingInitialRender = true;
+    return;
   }
+
+  this.renderDashboardParts(changes);
+}
+
+ngAfterViewInit(): void {
+  this.viewReady = true;
+
+  if (this.pendingInitialRender) {
+    this.pendingInitialRender = false;
+    this.renderDashboardParts();
+  } else {
+    this.renderDashboardParts();
+  }
+}
 
   ngOnDestroy(): void {
     // ✅ destroy existing charts
@@ -272,12 +314,68 @@ private moduleUsageChart?: Chart<'bar'>;
     this.expenseHometronicsChart?.destroy();
   }
 
+  private renderDashboardParts(changes?: any) {
+  if (this.trackingData?.length) {
+    this.tryRenderModuleChart();
+  } else {
+    this.moduleUsageChart?.destroy();
+  }
+
+  if (this.categorySummary?.length) {
+    this.tryRenderCategoryChart();
+  } else {
+    this.expenseCategoriesChart?.destroy();
+  }
+
+  // initial/default tab
+  this.expenseLoadModule(this.expenseCurrentModule);
+
+  // if specific inputs changed, re-render their module too
+  
+  if (changes?.['transectionscount']) {
+    this.expenseLoadModule('transaction');
+  }
+  if (changes?.['categoryBreakdown']) {
+    this.expenseLoadModule('budget');
+  }
+  if (changes?.['passbookData']) {
+    this.expenseLoadModule('accounts');
+  }
+  if (changes?.['dashboard_data']) {
+    this.expenseLoadModule('dues');
+  }
+  if (changes?.['goaldashboard_data']) {
+    this.expenseLoadModule('goals');
+  }
+}
+private tryRenderModuleChart() {
+  if (!this.trackingData?.length) return;
+  if (!this.moduleUsageCanvas?.nativeElement) return;
+
+  const canvas = this.moduleUsageCanvas.nativeElement;
+  if (canvas.offsetHeight === 0 || canvas.offsetWidth === 0) {
+    return;
+  }
+
+  this.initModuleUsageChart();
+}
+
+
+
   // ======================================
   // ✅ EXISTING CHARTS (unchanged, just stored)
   // ======================================
   private initCharts(): void {
+    console.log("initchart");
+    
+
+    if (!this.expenseTrendCanvas) return;   // ✅ FIX
+
+  const canvas = this.expenseTrendCanvas.nativeElement;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
     this.expenseTrendChart?.destroy();
-    this.expenseCategoriesChart?.destroy();
+    // this.expenseCategoriesChart?.destroy();
 
     this.expenseTrendChart = new Chart(this.expenseTrendCanvas.nativeElement, {
       type: 'line',
@@ -317,31 +415,44 @@ private moduleUsageChart?: Chart<'bar'>;
       }
     });
 
-    this.expenseCategoriesChart = new Chart(this.expenseCategoriesCanvas.nativeElement, {
-      type: 'doughnut',
-      data: {
-        labels: ['Food & Dining', 'Shopping', 'Transport', 'Entertainment', 'Bills', 'Healthcare', 'Others'],
-        datasets: [
-          {
-            data: [25, 20, 15, 12, 10, 8, 10],
-            backgroundColor: ['#f59e0b', '#3b82f6', '#10b981', '#8b5cf6', '#ef4444', '#0ea5e9', '#94a3b8'],
-            borderWidth: 2,
-            borderColor: '#ffffff'
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        cutout: '65%'
-      }
-    });
+    // this.expenseCategoriesChart = new Chart(this.expenseCategoriesCanvas.nativeElement, {
+    //   type: 'doughnut',
+    //   data: {
+    //     labels: ['Food & Dining', 'Shopping', 'Transport', 'Entertainment', 'Bills', 'Healthcare', 'Others'],
+    //     datasets: [
+    //       {
+    //         data: [25, 20, 15, 12, 10, 8, 10],
+    //         backgroundColor: ['#f59e0b', '#3b82f6', '#10b981', '#8b5cf6', '#ef4444', '#0ea5e9', '#94a3b8'],
+    //         borderWidth: 2,
+    //         borderColor: '#ffffff'
+    //       }
+    //     ]
+    //   },
+    //   options: {
+    //     responsive: true,
+    //     maintainAspectRatio: false,
+    //     plugins: { legend: { display: false } },
+    //     cutout: '65%'
+    //   }
+    // });
   }
 
   // ======================================
   // ✅ CONVERTED SCRIPT: Public functions
   // ======================================
+
+private tryRenderCategoryChart() {
+  if (!this.categorySummary?.length) return;
+  if (!this.expenseCategoriesCanvas?.nativeElement) return;
+
+  const canvas = this.expenseCategoriesCanvas.nativeElement;
+  if (canvas.offsetHeight === 0 || canvas.offsetWidth === 0) {
+    return;
+  }
+
+  this.initExpenseCategoriesFromAPI();
+}
+
   expenseChangeFilter(filter: ExpenseFilter, ev?: Event) {
     this.expenseCurrentFilter = filter;
 
@@ -392,19 +503,32 @@ private moduleUsageChart?: Chart<'bar'>;
     this.expenseLoadModule(this.expenseCurrentModule);
   }
 
-  expenseChangeModule(module: ExpenseModule, ev?: Event) {
-    this.expenseCurrentModule = module;
+expenseChangeModule(module: ExpenseModule, ev?: Event) {
+  this.expenseCurrentModule = module;
 
-    document.querySelectorAll('.expense-tab').forEach((tab) => tab.classList.remove('active'));
-    const target = (ev?.currentTarget ?? (window as any).event?.currentTarget) as HTMLElement | undefined;
-    target?.classList.add('active');
+  document.querySelectorAll('.expense-tab').forEach(tab => tab.classList.remove('active'));
+  const target = (ev?.currentTarget ?? (window as any).event?.currentTarget) as HTMLElement | undefined;
+  target?.classList.add('active');
 
-    document.querySelectorAll('.expense-module-content').forEach((view) => view.classList.add('expense-hidden'));
-    document.getElementById(`expense-${module}-view`)?.classList.remove('expense-hidden');
+  document.querySelectorAll('.expense-module-content').forEach(view => view.classList.add('expense-hidden'));
 
+  const el = document.getElementById(`expense-${module}-view`);
+  el?.classList.remove('expense-hidden');
+
+  // 🔥 IMPORTANT FIX
+  setTimeout(() => {
     this.expenseLoadModule(module);
-  }
 
+    // 🔥 force chart resize (VERY IMPORTANT)
+    this.expenseTransactionChart?.resize();
+    this.expenseBudgetChart?.resize();
+    this.expenseAccountsChart?.resize();
+    this.expenseDuesChart?.resize();
+    this.expenseGoalsChart?.resize();
+    this.expenseHometronicsChart?.resize();
+
+  }, 200);
+}
   expenseRefreshData(ev?: Event) {
     this.expenseLoadModule(this.expenseCurrentModule);
 
@@ -424,36 +548,56 @@ private moduleUsageChart?: Chart<'bar'>;
   // ======================================
   // ✅ CONVERTED SCRIPT: Loader
   // ======================================
-  private expenseLoadModule(module: ExpenseModule) {
-    const filterKey = this.expenseCurrentFilter;
-    const baseFilter: 'today' | 'yesterday' | 'monthly' | 'yearly' = filterKey === 'custom' ? 'monthly' : filterKey;
+private expenseLoadModule(module: ExpenseModule) {
 
-    const moduleData = this.expenseData[baseFilter][module];
+  const filterKey = this.expenseCurrentFilter;
+  const baseFilter =
+    filterKey === 'custom' ? 'monthly' : filterKey;
 
-    switch (module) {
-      case 'transaction':
-        this.expenseLoadTransaction(moduleData as TransactionData);
-        break;
-      case 'budget':
-        this.expenseLoadBudget(moduleData as BudgetItem[]);
-        break;
-      case 'accounts':
-        this.expenseLoadAccounts(moduleData as AccountsData);
-        break;
-      case 'dues':
-        this.expenseLoadDues(moduleData as DuesData);
-        break;
-      case 'goals':
-        this.expenseLoadGoals(moduleData as GoalsData);
-        break;
-      case 'hometronics':
-        this.expenseLoadHometronics(moduleData as HometronicsData);
-        break;
-    }
+  let moduleData;
 
-    this.expenseUpdateModuleUsageTime(module);
+  if (module === 'transaction') {
+    moduleData = this.convertToPercentage(this.getTransactionDataFromAPI());
+
+  } else if (module === 'budget') {
+    moduleData = this.getBudgetFromAPI();
+
+  } else if (module === 'accounts') {
+    moduleData = this.getAccountsFromAPI();
+
+  } else if (module === 'goals') {
+    moduleData = this.getGoalsFromAPI();
+
+  } else if (module === 'dues') {
+    moduleData = this.getDuesFromAPI();
+
+  } else {
+    moduleData = this.expenseData[baseFilter][module];
   }
 
+  switch (module) {
+    case 'transaction':
+      this.expenseLoadTransaction(moduleData as TransactionData);
+      break;
+    case 'budget':
+      this.expenseLoadBudget(moduleData as BudgetItem[]);
+      break;
+    case 'accounts':
+      this.expenseLoadAccounts(moduleData as AccountsData);
+      break;
+    case 'dues':
+      this.expenseLoadDues(moduleData as DuesData);
+      break;
+    case 'goals':
+      this.expenseLoadGoals(moduleData as GoalsData);
+      break;
+    case 'hometronics':
+      this.expenseLoadHometronics(moduleData as HometronicsData);
+      break;
+  }
+
+  this.expenseUpdateModuleUsageTime(module);
+}
   private expenseUpdateModuleUsageTime(module: ExpenseModule) {
     const filterKey = this.expenseCurrentFilter;
     const baseFilter: 'today' | 'yesterday' | 'monthly' | 'yearly' = filterKey === 'custom' ? 'monthly' : filterKey;
@@ -466,27 +610,70 @@ private moduleUsageChart?: Chart<'bar'>;
   // ======================================
   // ✅ CONVERTED SCRIPT: Modules
   // ======================================
-  private expenseLoadTransaction(transactionData: TransactionData) {
-    const labels = ['SMS', 'WhatsApp', 'Manual', 'AI', 'Excel'];
-    const values = [transactionData.sms, transactionData.whatsapp, transactionData.manual, transactionData.ai, transactionData.excel];
-    const colors = this.expenseModuleColors.transaction;
+private expenseLoadTransaction(transactionData: TransactionData) {
 
-    const overallPercentage = this.expenseCalculateTransactionPercentage(values);
+  const labels = ['SMS', 'WhatsApp', 'Manual', 'AI', 'Excel'];
 
-    const center = document.getElementById('expenseTransactionPercentage');
-    if (center) {
-      center.innerHTML = `
-        <div class="expense-percentage-value">${overallPercentage}%</div>
-        <div class="expense-percentage-label">Overall Usage</div>
-      `;
-    }
+  const values = [
+    transactionData.sms,
+    transactionData.whatsapp,
+    transactionData.manual,
+    transactionData.ai,
+    transactionData.excel
+  ];
 
-    const canvas = document.getElementById('expenseTransactionChart') as HTMLCanvasElement | null;
-    const ctx = canvas?.getContext('2d');
-    if (!ctx) return;
+  const colors = this.expenseModuleColors.transaction;
 
-    this.expenseTransactionChart?.destroy();
+  const totalTransactions = values.reduce((a, b) => a + b, 0);
 
+  const overallPercentage =
+    totalTransactions === 0
+      ? 0
+      : this.expenseCalculateTransactionPercentage(values);
+
+  // ✅ center text
+  const center = document.getElementById('expenseTransactionPercentage');
+  if (center) {
+    center.innerHTML = `
+      <div class="expense-percentage-value">
+        ${totalTransactions === 0 ? 'No Data' : overallPercentage + '%'}
+      </div>
+      <div class="expense-percentage-label">
+        ${totalTransactions === 0 ? 'No Transactions' : 'Overall Usage'}
+      </div>
+    `;
+  }
+const canvas = document.getElementById('expenseTransactionChart') as HTMLCanvasElement | null;
+
+if (!canvas) return;
+
+// ❗ if hidden → DO NOT render
+if (canvas.offsetHeight === 0 || canvas.offsetWidth === 0) {
+
+  // 🔥 IMPORTANT: destroy broken chart
+  this.expenseTransactionChart?.destroy();
+  this.expenseTransactionChart = undefined;
+
+  setTimeout(() => this.expenseLoadTransaction(transactionData), 150);
+  return;
+}
+  const ctx = canvas?.getContext('2d');
+  if (!ctx) return;
+
+if (!canvas || canvas.offsetHeight === 0) {
+  setTimeout(() => this.expenseLoadTransaction(transactionData), 100);
+  return;
+}
+
+  // 🔥 ✅ FIX STARTS HERE
+
+  if (this.expenseTransactionChart) {
+    // ✅ UPDATE EXISTING CHART
+    this.expenseTransactionChart.data.labels = labels;
+    this.expenseTransactionChart.data.datasets[0].data = values;
+    this.expenseTransactionChart.update();   // 🔥 IMPORTANT
+  } else {
+    // ✅ CREATE ONLY ONCE
     this.expenseTransactionChart = new Chart(ctx, {
       type: 'doughnut',
       data: {
@@ -510,7 +697,7 @@ private moduleUsageChart?: Chart<'bar'>;
             callbacks: {
               label: (context: any) => {
                 const total = context.dataset.data.reduce((a: number, b: number) => a + b, 0);
-                const percent = ((context.raw / total) * 100).toFixed(1);
+                const percent = total === 0 ? 0 : ((context.raw / total) * 100).toFixed(1);
                 return `${context.label}: ${context.raw} (${percent}%)`;
               }
             }
@@ -519,367 +706,534 @@ private moduleUsageChart?: Chart<'bar'>;
         cutout: '70%'
       }
     });
-
-    const legend = document.getElementById('expenseTransactionLegend');
-    if (legend) {
-      legend.innerHTML = '';
-      const totalTransactions = values.reduce((a, b) => a + b, 0);
-
-      labels.forEach((label, i) => {
-        const individualPercentage = ((values[i] / totalTransactions) * 100).toFixed(1);
-
-        const item = document.createElement('div');
-        item.className = 'expense-legend-item';
-        item.style.borderLeftColor = colors[i];
-        item.innerHTML = `
-          <div class="expense-legend-color" style="background: ${colors[i]};"></div>
-          <div class="expense-legend-text">${label}</div>
-          <div class="expense-legend-value">${individualPercentage}%</div>
-        `;
-        legend.appendChild(item);
-      });
-
-      const maxIndex = values.indexOf(Math.max(...values));
-      const mostUsedPercentage = ((values[maxIndex] / totalTransactions) * 100).toFixed(0);
-
-      const totalEl = document.getElementById('expenseTransactionTotal');
-      const mostEl = document.getElementById('expenseMostUsed');
-      if (totalEl) totalEl.textContent = String(totalTransactions);
-      if (mostEl) mostEl.textContent = `${labels[maxIndex]} (${mostUsedPercentage}%)`;
-    }
   }
 
-  private expenseLoadBudget(budgetData: BudgetItem[]) {
-    const labels = budgetData.map((item) => item.name);
-    const spentValues = budgetData.map((item) => item.spent);
-    const budgetValues = budgetData.map((item) => item.budget);
+  // 🔥 FIX ENDS HERE
 
-    const totalSpent = spentValues.reduce((a, b) => a + b, 0);
-    const totalBudget = budgetValues.reduce((a, b) => a + b, 0);
-    const remaining = totalBudget - totalSpent;
+  // ✅ legend (keep same)
+  const legend = document.getElementById('expenseTransactionLegend');
 
-    const spentPercentage = Math.round((totalSpent / totalBudget) * 100);
-    const budgetPercentage = 100;
-    const remainingPercentage = Math.round((remaining / totalBudget) * 100);
+  if (legend) {
+    legend.innerHTML = '';
 
-    document.getElementById('expenseSpentPercentage')!.textContent = `${spentPercentage}%`;
-    document.getElementById('expenseBudgetPercentage')!.textContent = `${budgetPercentage}%`;
-    document.getElementById('expenseRemainingPercentage')!.textContent = `${remainingPercentage}%`;
+    labels.forEach((label, i) => {
 
-    const canvas = document.getElementById('expenseBudgetChart') as HTMLCanvasElement | null;
-    const ctx = canvas?.getContext('2d');
-    if (!ctx) return;
+      const percent =
+        totalTransactions === 0
+          ? 0
+          : ((values[i] / totalTransactions) * 100).toFixed(1);
 
+      const item = document.createElement('div');
+      item.className = 'expense-legend-item';
+      item.style.borderLeftColor = colors[i];
+
+      item.innerHTML = `
+        <div class="expense-legend-color" style="background: ${colors[i]};"></div>
+        <div class="expense-legend-text">${label}</div>
+        <div class="expense-legend-value">
+          ${totalTransactions === 0 ? '-' : percent + '%'}
+        </div>
+      `;
+
+      legend.appendChild(item);
+    });
+
+    const totalEl = document.getElementById('expenseTransactionTotal');
+    const mostEl = document.getElementById('expenseMostUsed');
+
+    if (totalEl) totalEl.textContent = String(totalTransactions);
+
+    if (mostEl) {
+      if (totalTransactions === 0) {
+        mostEl.textContent = 'No Data';
+      } else {
+        const maxIndex = values.indexOf(Math.max(...values));
+        const mostUsedPercentage = ((values[maxIndex] / totalTransactions) * 100).toFixed(0);
+        mostEl.textContent = `${labels[maxIndex]} (${mostUsedPercentage}%)`;
+      }
+    }
+  }
+}
+
+private expenseLoadBudget(budgetData: BudgetItem[]) {
+
+  // ✅ SAFE FALLBACK
+  if (!budgetData || budgetData.length === 0) {
+
+    document.getElementById('expenseSpentPercentage')!.textContent = 'No Data';
+    document.getElementById('expenseBudgetPercentage')!.textContent = 'No Data';
+    document.getElementById('expenseRemainingPercentage')!.textContent = 'No Data';
+
+    // destroy chart if exists
     this.expenseBudgetChart?.destroy();
 
-    this.expenseBudgetChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels,
-        datasets: [
-          {
-            label: 'Spent',
-            data: spentValues,
-            backgroundColor: 'rgba(139, 92, 246, 0.8)',
-            borderColor: '#8B5CF6',
-            borderWidth: 1,
-            borderRadius: 4,
-            barPercentage: 0.6
-          },
-          {
-            label: 'Budget',
-            data: budgetValues,
-            backgroundColor: 'rgba(139, 92, 246, 0.3)',
-            borderColor: '#8B5CF6',
-            borderWidth: 1,
-            borderRadius: 4,
-            barPercentage: 0.6
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: (context: any) => {
-                let label = context.dataset.label || '';
-                if (label) label += ': ₹';
-                label += Number(context.raw).toLocaleString('en-IN');
+    return;
+  }
 
-                if (context.datasetIndex === 0) {
-                  const budget = budgetValues[context.dataIndex];
-                  const percentage = ((context.raw / budget) * 100).toFixed(1);
-                  label += ` (${percentage}% of budget)`;
-                }
-                return label;
-              }
-            }
-          }
+  const labels = budgetData.map(item => item.name);
+  const spentValues = budgetData.map(item => item.spent || 0);
+  const budgetValues = budgetData.map(item => item.budget || 0);
+
+  const totalSpent = spentValues.reduce((a, b) => a + b, 0);
+  const totalBudget = budgetValues.reduce((a, b) => a + b, 0);
+  const remaining = totalBudget - totalSpent;
+
+  // ✅ HANDLE ZERO BUDGET CASE
+  const spentPercentage = totalBudget === 0 ? 0 : Math.round((totalSpent / totalBudget) * 100);
+  const remainingPercentage = totalBudget === 0 ? 0 : Math.round((remaining / totalBudget) * 100);
+
+  document.getElementById('expenseSpentPercentage')!.textContent =
+    totalBudget === 0 ? 'No Budget' : `${spentPercentage}%`;
+
+  document.getElementById('expenseBudgetPercentage')!.textContent =
+    totalBudget === 0 ? 'No Budget' : `100%`;
+
+  document.getElementById('expenseRemainingPercentage')!.textContent =
+    totalBudget === 0 ? 'No Budget' : `${remainingPercentage}%`;
+
+  const canvas = document.getElementById('expenseBudgetChart') as HTMLCanvasElement | null;
+  const ctx = canvas?.getContext('2d');
+  if (!ctx) return;
+
+  const colors = budgetData.map(item => item.color || '#8B5CF6');
+
+  this.expenseBudgetChart?.destroy();
+
+  this.expenseBudgetChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Spent',
+          data: spentValues,
+          backgroundColor: colors,
+          borderRadius: 4,
+          barPercentage: 0.6
         },
-        scales: {
-          y: {
-            beginAtZero: true,
-            // ✅ Chart.js v4: use border.display instead of grid.drawBorder
-            border: { display: false },
-            ticks: {
-              font: { size: 10 },
-              callback: (value: any) => '₹' + Number(value).toLocaleString('en-IN')
+        {
+          label: 'Budget',
+          data: budgetValues,
+          backgroundColor: colors.map(c => this.hexToTransparent(c)),
+          borderRadius: 4,
+          barPercentage: 0.6
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (context: any) => {
+
+              if (totalBudget === 0) return 'No Budget';
+
+              let label = context.dataset.label || '';
+              if (label) label += ': ₹';
+
+              label += Number(context.raw).toLocaleString('en-IN');
+
+              if (context.datasetIndex === 0) {
+                const budget = budgetValues[context.dataIndex];
+                const percent = budget === 0 ? 0 : ((context.raw / budget) * 100).toFixed(1);
+                label += ` (${percent}% of budget)`;
+              }
+
+              return label;
             }
-          },
-          x: {
-            grid: { display: false },
-            ticks: { font: { size: 10 } }
           }
         }
-      }
-    });
-  }
-
-  private expenseLoadAccounts(accountsData: AccountsData) {
-    const labels = ['Passbook', 'Insurance', 'Wallet', 'Bank', 'Credit Cards'];
-    const usageValues = [
-      accountsData.passbook.usage,
-      accountsData.insurance.usage,
-      accountsData.wallet.usage,
-      accountsData.bank.usage,
-      accountsData.credit.usage
-    ];
-
-    const countValues = [
-      accountsData.passbook.count,
-      accountsData.insurance.count,
-      accountsData.wallet.count,
-      accountsData.bank.count,
-      accountsData.credit.count
-    ];
-
-    const colors = this.expenseModuleColors.accounts;
-
-    const overallPercentage = Math.round(usageValues.reduce((a, b) => a + b, 0) / usageValues.length);
-
-    const center = document.getElementById('expenseAccountsPercentage');
-    if (center) {
-      center.innerHTML = `
-        <div class="expense-percentage-value">${overallPercentage}%</div>
-        <div class="expense-percentage-label">Overall Usage</div>
-      `;
-    }
-
-    const canvas = document.getElementById('expenseAccountsChart') as HTMLCanvasElement | null;
-    const ctx = canvas?.getContext('2d');
-    if (!ctx) return;
-
-    this.expenseAccountsChart?.destroy();
-
-    this.expenseAccountsChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels,
-        datasets: [
-          {
-            data: usageValues,
-            backgroundColor: colors,
-            borderWidth: 2,
-            borderColor: '#fff',
-            hoverOffset: 10
-          }
-        ]
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: (context: any) => `${context.label}: ${context.raw}% usage (${countValues[context.dataIndex]} accounts)`
-            }
+      scales: {
+        y: {
+          beginAtZero: true,
+          border: { display: false },
+          ticks: {
+            callback: (value: any) => '₹' + Number(value).toLocaleString('en-IN')
           }
         },
-        cutout: '70%'
+        x: {
+          grid: { display: false }
+        }
       }
-    });
-
-    const legend = document.getElementById('expenseAccountsLegend');
-    if (legend) {
-      legend.innerHTML = '';
-
-      labels.forEach((label, i) => {
-        const item = document.createElement('div');
-        item.className = 'expense-legend-item';
-        item.style.borderLeftColor = colors[i];
-        item.innerHTML = `
-          <div class="expense-legend-color" style="background: ${colors[i]};"></div>
-          <div class="expense-legend-text">${label}</div>
-          <div class="expense-legend-value">${usageValues[i]}%</div>
-        `;
-        legend.appendChild(item);
-      });
-
-      const totalAccounts = countValues.reduce((a, b) => a + b, 0);
-      const maxIndex = usageValues.indexOf(Math.max(...usageValues));
-
-      document.getElementById('expenseTotalAccounts')!.textContent = String(totalAccounts);
-      document.getElementById('expenseMostUsedAccount')!.textContent = `${labels[maxIndex]} (${usageValues[maxIndex]}%)`;
     }
+  });
+}
+private hexToTransparent(hex: string): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+
+  return `rgba(${r}, ${g}, ${b}, 0.3)`;
+}
+
+private expenseLoadAccounts(accountsData: AccountsData) {
+
+  const labels = ['Passbook', 'Insurance', 'Wallet', 'Bank', 'Credit Cards'];
+
+  const usageValues = [
+    accountsData.passbook.usage,
+    accountsData.insurance.usage,
+    accountsData.wallet.usage,
+    accountsData.bank.usage,
+    accountsData.credit.usage
+  ];
+
+  const countValues = [
+    accountsData.passbook.count,
+    accountsData.insurance.count,
+    accountsData.wallet.count,
+    accountsData.bank.count,
+    accountsData.credit.count
+  ];
+
+  const colors = [
+    '#8B5CF6',
+    '#10B981',
+    '#0EA5E9',
+    '#F59E0B',
+    '#EC4899'
+  ];
+
+  // ✅ FIX typo + total
+  const totalUsage = usageValues.reduce((a, b) => a + b, 0);
+
+  // ✅ safe percentage
+  const overallPercentage =
+    totalUsage === 0
+      ? 0
+      : this.safePercentage(totalUsage, usageValues.length * 100);
+
+  // ✅ center text
+  const center = document.getElementById('expenseAccountsPercentage');
+  if (center) {
+    center.innerHTML = `
+      <div class="expense-percentage-value">
+        ${totalUsage === 0 ? 'No Data' : overallPercentage + '%'}
+      </div>
+      <div class="expense-percentage-label">
+        ${totalUsage === 0 ? 'No Accounts' : 'Overall Usage'}
+      </div>
+    `;
   }
 
-  private expenseLoadDues(duesData: DuesData) {
-    const labels = ['To Pay', 'Income'];
-    const values = [duesData.toPay, duesData.income];
-    const colors = this.expenseModuleColors.dues;
+  // ✅ chart
+  const canvas = document.getElementById('expenseAccountsChart') as HTMLCanvasElement | null;
+  const ctx = canvas?.getContext('2d');
+  if (!ctx) return;
 
-    const total = values[0] + values[1];
-    const toPayPercentage = Math.round((values[0] / total) * 100);
+  this.expenseAccountsChart?.destroy();
 
-    const center = document.getElementById('expenseDuesPercentage');
-    if (center) {
-      center.innerHTML = `
-        <div class="expense-percentage-value">${toPayPercentage}%</div>
-        <div class="expense-percentage-label">To Pay</div>
-      `;
-    }
+  this.expenseAccountsChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [
+        {
+          data: usageValues,
+          backgroundColor: colors,
+          borderWidth: 2,
+          borderColor: '#fff',
+          hoverOffset: 10
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (context: any) => {
+              const total = context.dataset.data.reduce((a: number, b: number) => a + b, 0);
+              const percent = total === 0 ? 0 : ((context.raw / total) * 100).toFixed(1);
 
-    const canvas = document.getElementById('expenseDuesChart') as HTMLCanvasElement | null;
-    const ctx = canvas?.getContext('2d');
-    if (!ctx) return;
-
-    this.expenseDuesChart?.destroy();
-
-    this.expenseDuesChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels,
-        datasets: [
-          {
-            data: values,
-            backgroundColor: colors,
-            borderWidth: 2,
-            borderColor: '#fff',
-            hoverOffset: 10
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: (context: any) => {
-                const percent = ((context.raw / total) * 100).toFixed(1);
-                return `${context.label}: ₹${Number(context.raw).toLocaleString('en-IN')} (${percent}%)`;
-              }
+              return `${context.label}: ${context.raw}% (${percent}%) (${countValues[context.dataIndex]} accounts)`;
             }
           }
-        },
-        cutout: '70%'
-      }
+        }
+      },
+      cutout: '70%'
+    }
+  });
+
+  // ✅ legend
+  const legend = document.getElementById('expenseAccountsLegend');
+
+  if (legend) {
+    legend.innerHTML = '';
+
+    labels.forEach((label, i) => {
+
+      const percent =
+        totalUsage === 0
+          ? 0
+          : ((usageValues[i] / totalUsage) * 100).toFixed(1);
+
+      const item = document.createElement('div');
+      item.className = 'expense-legend-item';
+      item.style.borderLeftColor = colors[i];
+
+      item.innerHTML = `
+        <div class="expense-legend-color" style="background: ${colors[i]};"></div>
+        <div class="expense-legend-text">${label}</div>
+        <div class="expense-legend-value">
+          ${totalUsage === 0 ? '-' : percent + '%'}
+        </div>
+      `;
+
+      legend.appendChild(item);
     });
 
-    const legend = document.getElementById('expenseDuesLegend');
-    if (legend) {
-      legend.innerHTML = '';
+    // ✅ summary
+    const totalAccounts = countValues.reduce((a, b) => a + b, 0);
 
-      labels.forEach((label, i) => {
-        const percent = ((values[i] / total) * 100).toFixed(1);
+    const totalEl = document.getElementById('expenseTotalAccounts');
+    const mostEl = document.getElementById('expenseMostUsedAccount');
 
-        const item = document.createElement('div');
-        item.className = 'expense-legend-item';
-        item.style.borderLeftColor = colors[i];
-        item.innerHTML = `
-          <div class="expense-legend-color" style="background: ${colors[i]};"></div>
-          <div class="expense-legend-text">${label}</div>
-          <div class="expense-legend-value">${percent}%</div>
-        `;
-        legend.appendChild(item);
-      });
+    if (totalEl) totalEl.textContent = String(totalAccounts);
 
-      document.getElementById('expenseTotalDues')!.textContent = `₹${Number(total).toLocaleString('en-IN')}`;
-      document.getElementById('expenseToPayAmount')!.textContent = `₹${Number(values[0]).toLocaleString('en-IN')}`;
+    if (mostEl) {
+      if (totalUsage === 0) {
+        mostEl.textContent = 'No Data';
+      } else {
+        const maxIndex = usageValues.indexOf(Math.max(...usageValues));
+        mostEl.textContent = `${labels[maxIndex]} (${usageValues[maxIndex]}%)`;
+      }
     }
   }
+}
 
-  private expenseLoadGoals(goalsData: GoalsData) {
-    const labels = ['Completed', 'In Progress'];
-    const values = [goalsData.completed, goalsData.inProgress];
-    const colors = this.expenseModuleColors.goals;
+private expenseLoadDues(duesData: DuesData) {
 
-    const total = values[0] + values[1];
-    const completedPercentage = Math.round((values[0] / total) * 100);
+  const labels = ['To Pay', 'Income'];
 
-    const center = document.getElementById('expenseGoalsPercentage');
-    if (center) {
-      center.innerHTML = `
-        <div class="expense-percentage-value">${completedPercentage}%</div>
-        <div class="expense-percentage-label">Completed</div>
-      `;
-    }
+  const values = [
+    duesData.toPay,
+    duesData.income
+  ];
 
-    const canvas = document.getElementById('expenseGoalsChart') as HTMLCanvasElement | null;
-    const ctx = canvas?.getContext('2d');
-    if (!ctx) return;
+  const colors = this.expenseModuleColors.dues;
 
-    this.expenseGoalsChart?.destroy();
+  // ✅ total
+  const total = values[0] + values[1];
 
-    this.expenseGoalsChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels,
-        datasets: [
-          {
-            data: values,
-            backgroundColor: colors,
-            borderWidth: 2,
-            borderColor: '#fff',
-            hoverOffset: 10
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: (context: any) => {
-                const percent = ((context.raw / total) * 100).toFixed(1);
-                return `${context.label}: ${context.raw} goals (${percent}%)`;
-              }
+  // ✅ safe percentage
+  const toPayPercentage = this.safePercentage(values[0], total);
+
+  // ✅ center text
+  const center = document.getElementById('expenseDuesPercentage');
+  if (center) {
+    center.innerHTML = `
+      <div class="expense-percentage-value">
+        ${total === 0 ? 'No Data' : toPayPercentage + '%'}
+      </div>
+      <div class="expense-percentage-label">
+        ${total === 0 ? 'No Dues' : 'To Pay'}
+      </div>
+    `;
+  }
+
+  // ✅ chart
+  const canvas = document.getElementById('expenseDuesChart') as HTMLCanvasElement | null;
+  const ctx = canvas?.getContext('2d');
+  if (!ctx) return;
+
+  this.expenseDuesChart?.destroy();
+
+  this.expenseDuesChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [
+        {
+          data: values,
+          backgroundColor: colors,
+          borderWidth: 2,
+          borderColor: '#fff',
+          hoverOffset: 10
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (context: any) => {
+              const total = context.dataset.data.reduce((a: number, b: number) => a + b, 0);
+              const percent = total === 0 ? 0 : ((context.raw / total) * 100).toFixed(1);
+
+              return `${context.label}: ₹${Number(context.raw).toLocaleString('en-IN')} (${percent}%)`;
             }
           }
-        },
-        cutout: '70%'
-      }
+        }
+      },
+      cutout: '70%'
+    }
+  });
+
+  // ✅ legend
+  const legend = document.getElementById('expenseDuesLegend');
+
+  if (legend) {
+    legend.innerHTML = '';
+
+    labels.forEach((label, i) => {
+
+      const percent =
+        total === 0
+          ? 0
+          : ((values[i] / total) * 100).toFixed(1);
+
+      const item = document.createElement('div');
+      item.className = 'expense-legend-item';
+      item.style.borderLeftColor = colors[i];
+
+      item.innerHTML = `
+        <div class="expense-legend-color" style="background: ${colors[i]};"></div>
+        <div class="expense-legend-text">${label}</div>
+        <div class="expense-legend-value">
+          ${total === 0 ? '-' : percent + '%'}
+        </div>
+      `;
+
+      legend.appendChild(item);
     });
 
-    const legend = document.getElementById('expenseGoalsLegend');
-    if (legend) {
-      legend.innerHTML = '';
+    // ✅ summary
+    const totalEl = document.getElementById('expenseTotalDues');
+    const toPayEl = document.getElementById('expenseToPayAmount');
+    
 
-      labels.forEach((label, i) => {
-        const percent = ((values[i] / total) * 100).toFixed(1);
+    if (totalEl) {
+      totalEl.textContent =
+        total === 0
+          ? 'No Data'
+          : `₹${Number(total).toLocaleString('en-IN')}`;
+    }
 
-        const item = document.createElement('div');
-        item.className = 'expense-legend-item';
-        item.style.borderLeftColor = colors[i];
-        item.innerHTML = `
-          <div class="expense-legend-color" style="background: ${colors[i]};"></div>
-          <div class="expense-legend-text">${label}</div>
-          <div class="expense-legend-value">${percent}%</div>
-        `;
-        legend.appendChild(item);
-      });
-
-      document.getElementById('expenseTotalGoals')!.textContent = String(total);
-      document.getElementById('expenseCompletedGoals')!.textContent = String(values[0]);
+    if (toPayEl) {
+      toPayEl.textContent =
+        total === 0
+          ? '-'
+          : `₹${Number(values[0]).toLocaleString('en-IN')}`;
     }
   }
+}
+
+private expenseLoadGoals(goalsData: GoalsData) {
+
+  const labels = ['Completed', 'In Progress'];
+
+  const values = [
+    goalsData.completed,
+    goalsData.inProgress
+  ];
+
+  const colors = this.expenseModuleColors.goals;
+
+  // ✅ total
+  const total = values[0] + values[1];
+
+  // ✅ safe percentage
+  const completedPercentage = this.safePercentage(values[0], total);
+
+  // ✅ center text (FIXED)
+  const center = document.getElementById('expenseGoalsPercentage');
+  if (center) {
+    center.innerHTML = `
+      <div class="expense-percentage-value">
+        ${total === 0 ? 'No Data' : completedPercentage + '%'}
+      </div>
+      <div class="expense-percentage-label">
+        ${total === 0 ? 'No Goals' : 'Completed'}
+      </div>
+    `;
+  }
+
+  // ✅ chart
+  const canvas = document.getElementById('expenseGoalsChart') as HTMLCanvasElement | null;
+  const ctx = canvas?.getContext('2d');
+  if (!ctx) return;
+
+  this.expenseGoalsChart?.destroy();
+
+  this.expenseGoalsChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [
+        {
+          data: values,
+          backgroundColor: colors,
+          borderWidth: 2,
+          borderColor: '#fff',
+          hoverOffset: 10
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (context: any) => {
+              const total = context.dataset.data.reduce((a: number, b: number) => a + b, 0);
+              const percent = total === 0 ? 0 : ((context.raw / total) * 100).toFixed(1);
+              return `${context.label}: ${context.raw} (${percent}%)`;
+            }
+          }
+        }
+      },
+      cutout: '70%'
+    }
+  });
+
+  // ✅ legend
+  const legend = document.getElementById('expenseGoalsLegend');
+
+  if (legend) {
+    legend.innerHTML = '';
+
+    labels.forEach((label, i) => {
+
+      const percent =
+        total === 0
+          ? 0
+          : ((values[i] / total) * 100).toFixed(1);
+
+      const item = document.createElement('div');
+      item.className = 'expense-legend-item';
+      item.style.borderLeftColor = colors[i];
+
+      item.innerHTML = `
+        <div class="expense-legend-color" style="background: ${colors[i]};"></div>
+        <div class="expense-legend-text">${label}</div>
+        <div class="expense-legend-value">
+          ${total === 0 ? '-' : percent + '%'}
+        </div>
+      `;
+
+      legend.appendChild(item);
+    });
+
+    // ✅ summary
+    const totalEl = document.getElementById('expenseTotalGoals');
+    const completedEl = document.getElementById('expenseCompletedGoals');
+
+    if (totalEl) totalEl.textContent = String(total);
+    if (completedEl) completedEl.textContent = String(values[0]);
+  }
+}
 
   private expenseLoadHometronics(hometronicsData: HometronicsData) {
     const labels = ['Electronics', 'Appliances', 'Furniture', 'Kitchen'];
@@ -1009,96 +1363,319 @@ private moduleUsageChart?: Chart<'bar'>;
     w.expenseRefreshData = () => this.expenseRefreshData(w.event as Event);
   }
 
+formatModuleName(name: string): string {
+  return name
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, c => c.toUpperCase());
+}
 
+private formatSeconds(seconds: number): string {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+
+  if (m > 0) return `${m}m ${s}s`;
+  return `${s}s`;
+}
 private initModuleUsageChart(): void {
+  if (!this.moduleUsageCanvas?.nativeElement?.offsetHeight) {
+  return;
+}
+
+  if (!this.trackingData?.length) return;
 
   const ctx = this.moduleUsageCanvas.nativeElement.getContext('2d');
   if (!ctx) return;
 
   this.moduleUsageChart?.destroy();
 
-  this.moduleUsageChart = new Chart(ctx, {
+  // ✅ map API data
+  const labels = this.trackingData.map(item =>
+    this.formatModuleName(item.moduleName)
+  );
 
+  const values = this.trackingData.map(item => item.totalSeconds);
+
+  this.moduleUsageChart = new Chart(ctx, {
     type: 'bar',
 
     data: {
-      labels: [
-        'Transaction',
-        'Budget',
-        'Accounts',
-        'Dues',
-        'Goals',
-        'Hometronics'
-      ],
-
+      labels: labels,
       datasets: [
         {
-          data: [4200, 15800, 9800, 18700, 12300, 7600],
-
+          data: values,
           backgroundColor: 'rgba(59,130,246,0.5)',
           borderColor: '#3b82f6',
           borderWidth: 1,
-
-          borderRadius: 6,
-          borderSkipped: false,
-
-          hoverBackgroundColor: 'rgba(59,130,246,0.8)'
+          borderRadius: 6
         }
       ]
     },
 
-    options: {
+ options: {
+  responsive: true,
+  maintainAspectRatio: false,
 
-      responsive: true,
-      maintainAspectRatio: false,
+  plugins: {
+    legend: { display: false },
 
-      plugins: {
-        legend: { display: false },
-
-        tooltip: {
-          callbacks: {
-            label: (context) => {
-              return (context.parsed.y ?? 0).toLocaleString();
-            }
-          }
+    // ✅ Tooltip (when hover)
+    tooltip: {
+      callbacks: {
+        label: (context: any) => {
+          return this.formatSeconds(context.raw);
         }
-      },
-
-      scales: {
-
-        x: {
-          grid: { display: false },
-          ticks: {
-            font: { size: 11 }
-          }
-        },
-
-        y: {
-          beginAtZero: true,
-
-          grid: {
-            color: '#f3f4f6'
-          },
-
-          ticks: {
-            callback: (value: any) => {
-
-              if (value >= 1000)
-                return value / 1000 + 'k';
-
-              return value;
-
-            }
-          }
-        }
-
       }
-
     }
+  },
 
+  scales: {
+    y: {
+      ticks: {
+        callback: (value: any) => {
+          return this.formatSeconds(value);
+        }
+      }
+    }
+  }
+}
   });
 
 }
 
-  
+private getTransactionDataFromAPI(): TransactionData {
+
+  if (!this.transectionscount || this.transectionscount.length === 0) {
+    return { sms: 0, whatsapp: 0, manual: 0, ai: 0, excel: 0 };
+  }
+
+  let sms = 0;
+  let whatsapp = 0;
+  let manual = 0;
+  let ai = 0;
+  let excel = 0;
+
+  this.transectionscount.forEach(item => {
+
+    const path = (item.transactionPath || '').toLowerCase();
+
+    switch (path) {
+
+      case 'bankmessageread':
+        sms += item.count;
+        break;
+
+      case 'bankmessage':
+      case 'whatsappmassage':
+        whatsapp += item.count;
+        break;
+
+      case 'apptransaction':
+        manual += item.count;
+        break;
+
+      case 'imageprocessdata':
+        ai += item.count;
+        break;
+
+      case 'exceldata':
+        excel += item.count;
+        break;
+
+      default:
+        manual += item.count; // fallback
+        break;
+    }
+  });
+
+  return { sms, whatsapp, manual, ai, excel };
+}
+
+private convertToPercentage(data: TransactionData): TransactionData {
+  const total = data.sms + data.whatsapp + data.manual + data.ai + data.excel;
+
+  if (total === 0) return data;
+
+  return {
+    sms: Math.round((data.sms / total) * 100),
+    whatsapp: Math.round((data.whatsapp / total) * 100),
+    manual: Math.round((data.manual / total) * 100),
+    ai: Math.round((data.ai / total) * 100),
+    excel: Math.round((data.excel / total) * 100)
+  };
+}
+
+private getBudgetFromAPI(): BudgetItem[] {
+
+  if (!this.categoryBreakdown || this.categoryBreakdown.length === 0) {
+    return [];
+  }
+
+  return this.categoryBreakdown.map(item => ({
+    name: item.name,
+    spent: item.spent || 0,
+    budget: item.limit || 0,
+    color: item.colorCode || '#8B5CF6'
+  }));
+}
+ 
+
+private getAccountsFromAPI() {
+
+  if (!this.passbookData?.length) {
+    return {
+      passbook: { count: 0, usage: 0 },
+      insurance: { count: 0, usage: 0 },
+      wallet: { count: 0, usage: 0 },
+      bank: { count: 0, usage: 0 },
+      credit: { count: 0, usage: 0 }
+    };
+  }
+
+  const grouped: any = {
+  passbook: { value: 0, count: 0 },
+  insurance: { value: 0, count: 0 },
+  wallet: { value: 0, count: 0 },
+  bank: { value: 0, count: 0 },
+  credit: { value: 0, count: 0 }
+};
+
+this.passbookData
+  .filter(item => item != null) // 🔥 remove null/undefined
+  .forEach((item: any) => {
+
+    if (Array.isArray(item)) {
+      item
+        .filter(sub => sub != null)
+        .forEach((sub: any) => this.processAccount(sub, grouped));
+    } else {
+      this.processAccount(item, grouped);
+    }
+
+  });
+
+  // ✅ convert to percentage
+ const total = Object.values(grouped)
+  .reduce((sum: number, item: any) => sum + item.value, 0);
+
+  Object.keys(grouped).forEach((key: any) => {
+    grouped[key].usage = total
+  ? Math.round((Number(grouped[key].value) / Number(total)) * 100)
+  : 0;
+  });
+
+  return {
+    passbook: { count: grouped.passbook.count, usage: grouped.passbook.usage },
+    insurance: { count: grouped.insurance.count, usage: grouped.insurance.usage },
+    wallet: { count: grouped.wallet.count, usage: grouped.wallet.usage },
+    bank: { count: grouped.bank.count, usage: grouped.bank.usage },
+    credit: { count: grouped.credit.count, usage: grouped.credit.usage }
+  };
+}
+
+processAccount(item: any, grouped: any) {
+
+  if (!item) return; // 🔥 prevent crash
+
+  const type = (item.type || '').toLowerCase();
+  const balance = Number(item.balance) || 0;
+
+  if (type.includes('bank')) {
+    grouped.bank.value += Math.abs(balance);
+    grouped.bank.count++;
+  } else if (type.includes('wallet')) {
+    grouped.wallet.value += Math.abs(balance);
+    grouped.wallet.count++;
+  } else if (type.includes('credit')) {
+    grouped.credit.value += Math.abs(balance);
+    grouped.credit.count++;
+  } else if (type.includes('insurance')) {
+    grouped.insurance.value += Math.abs(balance);
+    grouped.insurance.count++;
+  } else {
+    grouped.passbook.value += Math.abs(balance);
+    grouped.passbook.count++;
+  }
+}
+private getGoalsFromAPI(): GoalsData {
+
+  if (!this.goaldashboard_data) {
+    return { completed: 0, inProgress: 0 };
+  }
+
+  const completed = this.goaldashboard_data.completedGoals?.length || 0;
+  const inProgress = this.goaldashboard_data.ongoingGoals?.length || 0;
+
+  return {
+    completed,
+    inProgress
+  };
+}
+
+private getDuesFromAPI(): DuesData {
+
+  if (!this.dashboard_data) {
+    return { toPay: 0, income: 0 };
+  }
+
+  return {
+    toPay: Number(this.dashboard_data.debit) || 0,
+    income: Number(this.dashboard_data.credit) || 0
+  };
+}
+
+private initExpenseCategoriesFromAPI() {
+
+  const canvas = this.expenseCategoriesCanvas?.nativeElement;
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  // 🔥 IMPORTANT: destroy old chart
+  if (this.expenseCategoriesChart) {
+    this.expenseCategoriesChart.destroy();
+  }
+
+  const labels = this.categorySummary.map(c => c.category);
+  const data = this.categorySummary.map(c => c.total);
+
+  const colors = this.categorySummary.map(c =>
+    c.CatecolorCode?.startsWith('#')
+      ? c.CatecolorCode
+      : '#' + c.CatecolorCode
+  );
+
+  this.expenseCategoriesChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [{
+        data,
+        backgroundColor: colors,
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+       plugins: {
+    legend: {
+      display: false   
+    }
+  }
+    }
+  });
+
+  // 🔥 FORCE resize after render
+  setTimeout(() => {
+    this.expenseCategoriesChart?.resize();
+    this.expenseCategoriesChart?.update();
+  }, 200);
+}
+
+
+private safePercentage(value: number, total: number): number {
+  if (!total || total === 0) return 0;
+  return Math.round((value / total) * 100);
+}
 }

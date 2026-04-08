@@ -1,0 +1,266 @@
+
+
+        body {
+            background: #edf2f9;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        /* main card */
+        .split-card {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            // max-width: 1000px;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -8px rgba(0, 20, 40, 0.2), 0 0 0 1px rgba(0,0,0,0.02);
+            overflow: hidden;
+            height: 550px;
+        }
+
+        /* left side — scrollable container */
+        .left-data {
+            flex: 1 1 45%;
+            min-width: 260px;
+            height: 500px;                /* fixed height to enable scroll */
+            display: flex;
+            flex-direction: column;
+            background: #f9fcff;
+            border-right: 1px solid #e2eaf2;
+            padding: 2rem 1.8rem;
+            height: 550px;
+        }
+
+        /* scrollable list container */
+        .scrollable-list {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 0.5rem;         /* space for scrollbar */
+            margin-top: 0.5rem;
+            /* custom thin scrollbar (optional) */
+            scrollbar-width: thin;
+            scrollbar-color: #b6c8dd #eaeff7;
+        }
+        .scrollable-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scrollable-list::-webkit-scrollbar-track {
+            background: #eaeff7;
+            border-radius: 8px;
+        }
+        .scrollable-list::-webkit-scrollbar-thumb {
+            background: #b6c8dd;
+            border-radius: 8px;
+        }
+
+        /* right side */
+        .right-message {
+            flex: 1 1 45%;
+            min-width: 260px;
+            padding: 2rem 1.8rem;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* headers */
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            color: #2c3e5c;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #dde5ef;
+            padding-bottom: 0.75rem;
+            flex-shrink: 0;                /* prevent shrinking */
+        }
+        .section-label i {
+            font-size: 1.2rem;
+            color: #3c6e71;
+        }
+
+        /* ---------- LEFT: simple list items ---------- */
+        .data-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 0.9rem 0.5rem;
+            border-bottom: 1px solid #eaeef4;
+            gap: 1rem;
+        }
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-icon {
+            width: 32px;
+            color: #4b637f;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .item-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .item-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #1f2c40;
+        }
+        .item-sub {
+            font-size: 0.8rem;
+            color: #62748c;
+            margin-top: 2px;
+        }
+
+        .list-badge {
+            font-size: 0.7rem;
+            background: #e6ecf5;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #2b4b6f;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .item-count {
+            font-size: 0.75rem;
+            color: #7a8ca8;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        /* ---------- RIGHT: header with edit button ---------- */
+        .right-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-shrink: 0;
+        }
+        .right-header h3 {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #1a2940;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .edit-btn {
+            background: #f0f5fd;
+            border: 1px solid #cdddec;
+            padding: 0.5rem 1.4rem 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #1f3a5f;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.15s;
+        }
+        .edit-btn i {
+            font-size: 0.95rem;
+            color: #2b4f7b;
+        }
+        .edit-btn:hover {
+            background: #e3ecf9;
+            border-color: #9bb5d4;
+        }
+
+        /* MESSAGE CONTAINER – static / editable toggle */
+        .message-container {
+            margin-bottom: 1.5rem;
+        }
+        .static-message {
+            background: #f5f8fe;
+            border-radius: 16px;
+            padding: 1rem 1.4rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #1f2c40;
+            border: 1px solid #e2eaf2;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+            white-space: pre-wrap;
+            word-break: break-word;
+            min-height: 100px;
+            display: flex;
+            align-items: flex-start;
+        }
+        /* editable textarea (hidden by default) */
+        .message-input {
+            width: 100%;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 1rem 1.4rem;
+            border: 1px solid #7f9fcc;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+            box-shadow: 0 0 0 3px rgba(128, 160, 210, 0.2);
+            display: none;  /* hidden until edit mode */
+        }
+        .message-input:focus {
+            outline: none;
+        }
+
+        /* second input box – always editable */
+        .secondary-input {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #f8fbfe;
+            border: 1px solid #d0ddee;
+            border-radius: 40px;
+            padding: 0.1rem 0.1rem 0.1rem 1.2rem;
+        }
+        .secondary-input span {
+            font-size: 0.85rem;
+            color: #3f5b7c;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .secondary-input .mini-input {
+            border: none;
+            background: white;
+            padding: 0.7rem 1.2rem;
+            border-radius: 40px;
+            width: 100%;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+        }
+        .secondary-input .mini-input:focus {
+            outline: 2px solid #a2bbdd;
+        }
+
+        /* mobile stack */
+        @media (max-width: 650px) {
+            .left-data {
+                border-right: none;
+                border-bottom: 1px solid #e2eaf2;
+                height: 350px;          /* smaller on mobile but still scrollable */
+            }
+        }
+  

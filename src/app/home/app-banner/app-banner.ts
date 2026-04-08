@@ -43,7 +43,7 @@ export class AppBanner implements OnInit{
   }
 
   
-    getdata(){
+  getdata(){
     this.loader = true;
     this.bannerData = [];
     this.navService.getData(this.apiUrl).subscribe({
@@ -70,7 +70,7 @@ export class AppBanner implements OnInit{
         this.loader = false;
       }
     })
-  }
+}
 
     getActions(event:any){
     console.log("data",event);

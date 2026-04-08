@@ -1,11 +1,27 @@
 <mat-sidenav-container class="dashboard-wrapper">
   <mat-sidenav class="user-sidebar" mode="side" [opened]="sidebarOpened">
-    <app-user-sidebar></app-user-sidebar>
+    <app-user-sidebar
+  [trackingData]="moduleTrackingData">
+</app-user-sidebar>
   </mat-sidenav>
 
   <mat-sidenav-content class="main-content">
-    <app-user-main-area></app-user-main-area>
-  </mat-sidenav-content>
+   <app-user-main-area
+  [trackingData]="moduleTrackingData"
+  [transectionscount]="transectionscount"
+  [categoryBreakdown]="categoryBreakdown"
+  [passbookData]="passbookData"
+  [goaldashboard_data]="goaldashboard_data"
+  [reminders]="reminders"
+  [dashboard_data]="dashboard_data"
+  [rewardpoints]="rewardpoints"
+  [deviceDetails]="deviceDetails"
+  [categorySummary]="categorySummary">
+</app-user-main-area>
+
+  </mat-sidenav-content>  
 </mat-sidenav-container>
+
+
 
 

@@ -1,6 +1,6 @@
 <section class="add-card">
   <app-card
-    [cardTitle]="StoryBoardFormControl['_id'].value ? GlobalConstant['EDIT'] + ' Subscription' : GlobalConstant['ADD'] + ' Subscription'"
+    [cardTitle]="StoryBoardFormControl['_id'].value ? GlobalConstant['EDIT'] + ' Story' : GlobalConstant['ADD'] + ' Story'"
     blockClass="pc-component"
     route_button=""
   >
@@ -11,28 +11,36 @@
 
             <!-- Title -->
             <div class="col-md-6">
-              <label class="form-label">Title <span class="req">*</span></label>
+              <label class="form-label">Title </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-card-text"></i></span>
                 <input type="text" class="form-control" placeholder="Title" formControlName="title" />
               </div>
-              <div *ngIf="StoryBoardForm.get('title')?.touched && StoryBoardForm.get('title')?.invalid" class="text-danger">
+              <!-- <div *ngIf="StoryBoardForm.get('title')?.touched && StoryBoardForm.get('title')?.invalid" class="text-danger">
                 Title is required.
-              </div>
+              </div> -->
             </div>
 
             <!-- Media Type -->
-            <div class="col-md-6">
-              <label class="form-label">Media Type <span class="req">*</span></label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-file-earmark"></i></span>
-                <input type="text" class="form-control" placeholder="Media Type" formControlName="mediaType" />
-              </div>
-              <div *ngIf="StoryBoardForm.get('mediaType')?.touched && StoryBoardForm.get('mediaType')?.invalid" class="text-danger">
-                Media Type is required.
-              </div>
-            </div>
+<div class="col-md-6">
+  <label class="form-label">Media Type <span class="req">*</span></label>
 
+  <div class="input-group">
+    <span class="input-group-text">
+      <i class="bi bi-file-earmark"></i>
+    </span>
+
+    <select class="form-control" formControlName="mediaType">
+      <option value="" disabled selected>Select Media Type</option>
+      <option value="image">Image</option>
+      <option value="video">Video</option>
+    </select>
+  </div>
+
+  <div *ngIf="StoryBoardForm.get('mediaType')?.touched && StoryBoardForm.get('mediaType')?.invalid" class="text-danger">
+    Media Type is required.
+  </div>
+</div>
             <!-- Upload Media File -->
             <div class="col-md-6">
               <label class="form-label">Upload Media File <span class="req">*</span></label>
@@ -53,6 +61,22 @@
                 <input type="text" class="form-control" placeholder="Notification Title" formControlName="notifi_title" />
               </div>
             </div>
+
+            <div class="col-md-6">
+  <label class="form-label">Expiry Days <span class="req">*</span></label>
+
+  <div class="input-group">
+    <span class="input-group-text">
+      <i class="bi bi-calendar"></i>
+    </span>
+
+    <select class="form-control" formControlName="expiryDays">
+      <option *ngFor="let day of [1,2,3,4,5,6,7,8,9,10]" [value]="day">
+        {{ day }} Day{{ day > 1 ? 's' : '' }}
+      </option>
+    </select>
+  </div>
+</div>
 
             <!-- Notification Description -->
             <div class="col-md-6">

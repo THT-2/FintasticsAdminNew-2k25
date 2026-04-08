@@ -1,0 +1,137 @@
+ <div class="split-card">
+
+        <!-- LEFT SIDE: fixed height + scrollable list -->
+        <div class="left-data">
+            <div class="section-label">
+                <i class="fa-solid fa-table-list"></i> 
+                <span>details</span>
+            </div>
+            
+            <!-- scrollable wrapper -->
+            <div class="scrollable-list">
+                <div class="data-list">
+                    <!-- item 1 -->
+                    <div class="list-item">
+                        <div class="item-icon"><i class="fa-regular fa-user"></i></div>
+                        <div class="item-content">
+                            <span class="item-title">Customer</span>
+                            <span class="item-sub">Riley Parker · premium</span>
+                        </div>
+                        <span class="list-badge">active</span>
+                    </div>
+                    <!-- item 2 -->
+                    <div class="list-item">
+                        <div class="item-icon"><i class="fa-regular fa-envelope"></i></div>
+                        <div class="item-content">
+                            <span class="item-title">Email</span>
+                            <span class="item-sub">riley.p@example.com</span>
+                        </div>
+                    </div>
+                    <!-- item 3 -->
+                    <div class="list-item">
+                        <div class="item-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="item-content">
+                            <span class="item-title">Region</span>
+                            <span class="item-sub">West Coast · warehouse 3</span>
+                        </div>
+                    </div>
+                    <!-- item 4 -->
+                    <div class="list-item">
+                        <div class="item-icon"><i class="fa-regular fa-credit-card"></i></div>
+                        <div class="item-content">
+                            <span class="item-title">Payment</span>
+                            <span class="item-sub">•••• 7890 (exp 06/26)</span>
+                        </div>
+                    </div>
+                    <!-- item 5 -->
+                    <div class="list-item">
+                        <div class="item-icon"><i class="fa-regular fa-calendar"></i></div>
+                        <div class="item-content">
+                            <span class="item-title">Last order</span>
+                            <span class="item-sub">March 12, 2026</span>
+                        </div>
+                    </div>
+                    <!-- item 6 -->
+                    <div class="list-item">
+                        <div class="item-icon"><i class="fa-regular fa-note-sticky"></i></div>
+                        <div class="item-content">
+                            <span class="item-title">Notes</span>
+                            <span class="item-sub">VIP · call before shipping</span>
+                        </div>
+                    </div>
+                    <!-- item 7 (extra to demonstrate scroll) -->
+                    <div class="list-item">
+                        <div class="item-icon"><i class="fa-regular fa-clock"></i></div>
+                        <div class="item-content">
+                            <span class="item-title">Timezone</span>
+                            <span class="item-sub">PST (UTC-8)</span>
+                        </div>
+                    </div>
+                    <!-- item 8 -->
+                    <div class="list-item">
+                        <div class="item-icon"><i class="fa-regular fa-building"></i></div>
+                        <div class="item-content">
+                            <span class="item-title">Company</span>
+                            <span class="item-sub">Riley Industries</span>
+                        </div>
+                    </div>
+                    <!-- item 9 -->
+                    <div class="list-item">
+                        <div class="item-icon"><i class="fa-regular fa-hashtag"></i></div>
+                        <div class="item-content">
+                            <span class="item-title">Loyalty tier</span>
+                            <span class="item-sub">Gold · member since 2022</span>
+                        </div>
+                    </div>
+                    <!-- item 10 -->
+                    <div class="list-item">
+                        <div class="item-icon"><i class="fa-regular fa-comment"></i></div>
+                        <div class="item-content">
+                            <span class="item-title">Last support</span>
+                            <span class="item-sub">2 days ago · resolved</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          
+        </div>
+
+         <div class="right-message">
+
+        <div class="right-header">
+            <h3><i class="fa-regular fa-comment"></i> Message</h3>
+
+            <button class="edit-btn" (click)="toggleEdit()">
+                <i *ngIf="!editMode" class="fa-regular fa-pen-to-square"></i>
+                <i *ngIf="editMode" class="fa-regular fa-check-circle"></i>
+                {{ editMode ? 'Done' : 'Edit' }}
+            </button>
+        </div>
+
+        <!-- MESSAGE AREA -->
+        <div class="message-container">
+
+            <!-- STATIC -->
+            <div *ngIf="!editMode" class="static-message">
+                {{ message }}
+            </div>
+
+            <!-- EDITABLE -->
+            <textarea 
+                *ngIf="editMode"
+                class="message-input"
+                [(ngModel)]="message"
+                placeholder="Edit your message...">
+            </textarea>
+
+        </div>
+
+        <!-- SECOND INPUT -->
+        <div class="secondary-input">
+            <span><i class="fa-regular fa-keyboard"></i> quick reply</span>
+            <input type="text" class="mini-input" placeholder="type a short response...">
+        </div>  
+
+    </div>
+    </div>
