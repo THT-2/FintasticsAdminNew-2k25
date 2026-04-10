@@ -41,7 +41,7 @@ export class SubscriptionCreateEdit implements OnInit {
 
   BenefitsDatas: any[] = [];
   OffersIncludes: any[] = [];
-  subscriptionTypes = ["Free","Basic","Standard","Premium","UltraPremium"];
+  subscriptionTypes = ["Free","Basic","Pro","Plus","UltraPremium"];
   iosProducts:any[]= [];
 
 
@@ -85,6 +85,9 @@ export class SubscriptionCreateEdit implements OnInit {
       index: [null, Validators.required],
       icon: ['', Validators.required],
       bannerImg: ['',Validators.required],
+      // cashback: [false],
+      // cashbackforreferral: [''],
+      // cashbackforsubscriber: [''],
       _id: [null],
     });
 
@@ -141,7 +144,9 @@ export class SubscriptionCreateEdit implements OnInit {
           referralPoints: this.subscriptionData.referralPoints,
           icon: this.subscriptionData.icon,
           bannerImg: this.subscriptionData.bannerImg ?? '',
-
+          // cashback: this.subscriptionData.cashback,
+          // cashbackforreferral: this.subscriptionData.cashbackforreferral,
+          // cashbackforsubscriber: this.subscriptionData.cashbackforsubscriber,
         });
 
         this.OffersIncludes = (this.subscriptionData.featuresIncludes || []).map((o: any) => ({
@@ -301,7 +306,6 @@ removeBannerAt(index: number) {
         this.OffersIncludes.push(offer);
       }
     }
-
 
     this.editingIndex = null;
     this.modalType = 'benefit';

@@ -22,7 +22,7 @@ import { Data } from '../../Service/data';
 })
 export class SubscriptionRewards implements OnInit{
 
-  public apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.Banners_getlist;
+  public apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.rewards_getlist;
   public loader:boolean = true;
   buttondata= {
     buttonName : 'Add Reward',
@@ -31,7 +31,7 @@ export class SubscriptionRewards implements OnInit{
     routingEdit : 'Edit',
     routingDelete : 'Delete',
   }
-    rewardData: any;
+  rewardData: any;
   columnDefinition: any[];
   responseMessage: any;
 
@@ -43,19 +43,16 @@ export class SubscriptionRewards implements OnInit{
     this.getreward();
   }
 
-  
     getreward(){
     this.loader = true;
     this.rewardData = [];
     this.navService.getData(this.apiUrl).subscribe({
       next:(res:any)=> {
         console.log('refund',res);
-
         if (res.code === 200) {
-          this.  rewardData = res.data;
-          console.log('refund2',this.  rewardData);
+          this.rewardData = res.data;
+          console.log('refund2',this.rewardData);
           this.buttondata = this.buttondata;
-
         }
         else {
           this.alertService.toast("error",true,res.message);
@@ -89,10 +86,11 @@ export class SubscriptionRewards implements OnInit{
           }
         }
       });
+      
       dialogRef.afterClosed().subscribe((confirmed: boolean) => {
         if (confirmed) {
-          let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.Banners_delete+"/"+event.data._id;
-          this.navService.postData(apiUrl,{}).subscribe({
+          let apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.rewards_delete + "/" + event.data._id;
+          this.navService.delete(apiUrl).subscribe({
             next: (res: any) => {
               if (res['status'] == true) {
                 this.alertService.toast("success",true,res.message);

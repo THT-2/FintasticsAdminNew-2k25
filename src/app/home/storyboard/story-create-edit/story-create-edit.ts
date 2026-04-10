@@ -56,8 +56,8 @@ ngOnInit(): void {
     mediaUrl:[null, Validators.required],
     notifi_title:[null],
     notifi_body:[null],
-    expiryDays: [1, Validators.required] ,
-    _id: [null],
+    expiryDays: [1, Validators.required],
+    _id: [null], 
   });
   this.formFieldNeedGetList();
 }

@@ -17,12 +17,12 @@
   <label class="form-label">Plan Type <span class="req">*</span></label>
   <div class="input-group">
     <span class="input-group-text"><i class="bi bi-award"></i></span>
-    <select class="form-select" formControlName="type">
+    <select class="form-select" formControlName="subscription_id">
       <option value="" disabled selected>Select Type</option>
-      <option *ngFor="let item of subscriptionTypes" [value]="item">{{ item }}</option>
+      <option *ngFor="let item of plansData" [value]="item._id">{{ item.type }}</option>
     </select>
   </div>
-  <div *ngIf="rewardsForm.get('type')?.touched && rewardsForm.get('type')?.invalid" class="text-danger">
+  <div *ngIf="rewardsForm.get('subscription_id')?.touched && rewardsForm.get('subscription_id')?.invalid" class="text-danger">
     Type is required.
   </div>
 </div>
@@ -41,31 +41,20 @@
 
             
 
-                <!-- Title -->
-              <div class="col-md-6">
-                <label class="form-label">Name <span class="req">*</span></label>
-                <div class="input-group">
-                  <span class="input-group-text"><i class="bi bi-bank"></i></span>
-                  <input type="text" class="form-control" formControlName="title" placeholder="Title" />
-                </div>
-                <div *ngIf="rewardsForm.get('title')?.touched && rewardsForm.get('title')?.invalid" class="text-danger">
-                  Name is required.
-                </div>
-              </div>
                 <!-- Icon -->
               <div class="col-md-6">
                 <label class="form-label">Icon
                   <!-- <span class="req">*</span> -->
                 </label>
                 <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
-                @if(rewardsFormControl['icon'].value) {
+                @if(rewardsFormControl['image'].value) {
                   <!-- <div class="mt-2">
-                    <app-file-preview [filePath]="BankFormControl['icon'].value"></app-file-preview>
+                    <app-file-preview [filePath]="rewardsFormControl['image'].value"></app-file-preview>
                   </div> -->
                    <!-- <div *ngIf="BankFormControl['icon'].value" class="mt-3"> -->
                     <div class="position-relative d-inline-block">
-                      <img width="100px" [src]="rewardsFormControl['icon'].value" />
-                      <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('icon')">X</span>
+                      <img width="100px" [src]="rewardsFormControl['image'].value" />
+                      <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('image')">X</span>
                     </div>
                   <!-- </div> -->
                 }
@@ -79,12 +68,58 @@
               <label class="form-label">Amount <span class="req">*</span></label>
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-ticket-perforated"></i></span>
-                <input type="text" class="form-control" formControlName="offerAmount" placeholder="Offer Amount" />
+                <input type="text" class="form-control" formControlName="amount" placeholder="Offer Amount" />
               </div>
-              <div *ngIf="rewardsForm.get('offerAmount')?.touched && rewardsForm.get('offerAmount')?.invalid" class="text-danger">
+              <div *ngIf="rewardsForm.get('amount')?.touched && rewardsForm.get('amount')?.invalid" class="text-danger">
                Amount is required (Only Numbers).
               </div>
             </div>
+
+              <!-- Index -->
+            <div class="col-md-6">
+              <label class="form-label">Order Number <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-list-ol"></i></span>
+                <input type="number" class="form-control" formControlName="Index" placeholder="Index" />
+              </div>
+              <div *ngIf="rewardsForm.get('Index')?.touched && rewardsForm.get('Index')?.invalid" class="text-danger">
+                Index is required.
+              </div>
+            </div>
+
+              <div class="col-md-6 d-flex align-items-start justify-content-md-end">
+                <div class="w-100 w-md-auto" style="max-width: 620px;">
+                  <label class="form-label d-block mb-2 fw-bold">
+                    Status
+                    
+                  </label>
+
+                  <div 
+                    class="level-toggle d-flex align-items-center justify-content-between p-2 px-3 rounded"
+                    [ngClass]="{
+                      'active-toggle': rewardsForm.get('Status')?.value,
+                      'inactive-toggle': !rewardsForm.get('Status')?.value
+                    }"
+                  >
+                    <span class="toggle-status me-2">
+                      {{ rewardsForm.get('Status')?.value ? 'Active' : 'Inactive' }}
+                    </span>
+
+                    <div class="form-check form-switch m-0">
+                      <input
+                        class="form-check-input level-switch"
+                        type="checkbox"
+                        formControlName="Status"
+                        id="levelStopToggle"
+                        (change)="toggleLevelStop()"
+                      />
+                      <label class="form-check-label visually-hidden" for="levelStopToggle">
+                        Status Toggle
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <!-- Description -->
                 <div class="col-6">

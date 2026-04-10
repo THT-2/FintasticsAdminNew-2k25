@@ -39,7 +39,7 @@ export class Storyboard implements OnInit{
   constructor(private navService: Data, private router: Router,private cdr:ChangeDetectorRef,
     private route :ActivatedRoute, private alertService: AlertService, private dialog: MatDialog){
     this.columnDefinition = HeaderConstants.StoryBoardListHeader;
-  }
+  } 
   ngOnInit(): void {
     this.getstory();
   }

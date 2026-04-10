@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -9,6 +9,7 @@ import { AlertService } from '../../../constants/alertservice';
 import { GlobalConstant } from '../../../constants/global-constants';
 import { Data } from '../../../Service/data';
 import { ApiRoutesConstants } from '../../../constants/api-route-constants';
+import { FilePreview } from "../../../Z-Commons/file-preview/file-preview";
 
 @Component({
   selector: 'app-subscription-rewards-create-edit',
@@ -17,7 +18,8 @@ import { ApiRoutesConstants } from '../../../constants/api-route-constants';
     FormsModule,
     ReactiveFormsModule,
     FileUpload,
-    Card
+    Card,
+    // FilePreview
 ],
   templateUrl: './subscription-rewards-create-edit.html',
   styleUrl: './subscription-rewards-create-edit.scss',
@@ -30,27 +32,32 @@ export class  SubscriptionRewardsCreateEdit {
   pageLoader!: boolean;
   rewards: any;
   selectedimage: any;
-  public btnLoader:boolean = false;
   editId: any;
   GlobalConstant: any = GlobalConstant;
-  subscriptionTypes = ["Free","Basic","Standard","Premium","UltraPremium"];
+  togglebtn: boolean = false;
+  plansData: any;
+  public btnLoader:boolean = false;
+
 
   constructor(
     private fb: FormBuilder,
     private navService: Data,
     private router: Router,
     private alertService: AlertService,
-    private acRouter: ActivatedRoute
+    private acRouter: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {
 
   }
 ngOnInit(): void {
   this.rewardsForm = this.fb.group({
     title: ['', Validators.required],
-    icon: [null],
-    type: [null],
-    offerAmount: [null],
+    image: [null],
+    amount: [null],
     description: [null],
+    Status: [null],
+    subscription_id: [null],
+    Index:[null],
     _id: [null],
   });
   this.acRouter.paramMap.subscribe((param) => {
@@ -59,6 +66,7 @@ ngOnInit(): void {
       this.getById(id);
     }
   });
+  this.getPlanlist();
 }
 
 
@@ -67,18 +75,20 @@ ngOnInit(): void {
   }
   getById(id: any) {
   this.pageLoader = true;
-  const apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.features_getlist_ById + "/" + id;
+  const apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.rewards_getbyid + "/" + id;
 
   this.navService.getData(apiUrl).subscribe({
     next: (res: any) => {
       console.log("id", res);
-      const item = res.data[0];
+      const item = res.data[0] || res.data;
       this.rewardsForm.patchValue({
         title: item.title,
-        icon: item.icon,
-        type: item.type,
-        offerAmount: item.offerAmount,
+        image: item.image,
+        amount: item.amount,
+        Index: item.Index,
+        Status:item.Status,
         description: item.description,
+        subscription_id: item.subscription_id,
         _id: item._id,
       });
 
@@ -92,56 +102,83 @@ ngOnInit(): void {
   });
 }
 
+getPlanlist(){
+  const apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.subscription_getlist;
+  
+    this.plansData = [];
+    this.navService.  getData(apiUrl).subscribe({
+      next:(res:any)=> {
+        console.log('plans',res);
 
-  submit() {
-    if (this.rewardsForm.valid) {
-      this.btnLoader = true;
-      if (this.rewardsFormControl['_id'].value) {
-        let apiUrl =
-        ApiRoutesConstants.BASE_URL + ApiRoutesConstants.features_edit + "/" + this.rewardsFormControl['_id'].value;
-        this.navService.postData(apiUrl, this.rewardsForm.value).subscribe({
-          next: (res: any) => {
-            if (res.code === 200) {
-              this.alertService.toast('success', true, res.message);
-              this.router.navigate(['/admin/subs-rewards']);
-              this.btnLoader = false;
-            } else {
-              this.alertService.toast('error', true, res.message);
-              this.btnLoader = false;
-            }
-          },
-          error: (error: any) => {
-            console.log(error);
-            this.btnLoader = false;
-          },
-        });
-      } else {
-        let apiUrl =
-          ApiRoutesConstants.BASE_URL + ApiRoutesConstants.features_create;
-       
-        this.navService.postData(apiUrl, this.rewardsForm.value).subscribe({
-          next: (res: any) => {
-            if (res.code === 200) {
-              this.alertService.toast('success', true, res.message);
-              this.router.navigate(['/admin/subs-rewards']);
-              this.btnLoader = false;
-            } else {
-              this.alertService.toast('error', true, res.message);
-              this.btnLoader = false;
-            }
-          },
-          error: (error: any) => {
-            console.log(error);
-            this.btnLoader = false;
-          },
-        });
+        if (res.code === 200) {
+          this.plansData = res.data;
+           console.log('planslist',this.plansData);
+        }
+        else {
+          this.alertService.toast("error",true,res.message);
+        }
+    
+        this.cdr.detectChanges();
+      },
+      error: (error:any) => {
+        console.log(error);
+        this.alertService.toast("error",true,error);
       }
+    })
+
+
+}
+  submit() {
+  if (this.rewardsForm.valid) {
+    this.btnLoader = true;
+
+    if (this.rewardsFormControl['_id'].value) {
+      // ✅ UPDATE
+      let apiUrl =
+        ApiRoutesConstants.BASE_URL +
+        ApiRoutesConstants.rewards_edit +
+        "/" +
+        this.rewardsFormControl['_id'].value;
+
+      this.navService.updateData(apiUrl, this.rewardsForm.value).subscribe({
+        next: (res: any) => {
+          this.btnLoader = false;
+          if (res.code === 200) {
+            this.alertService.toast('success', true, res.message);
+            this.router.navigate(['/admin/subs-rewards']);
+          } else {
+            this.alertService.toast('error', true, res.message);
+          }
+        },
+        error: () => (this.btnLoader = false),
+      });
+
     } else {
-      this.rewardsForm.markAllAsTouched();
+      // ✅ CREATE (THIS WAS MISSING)
+      let apiUrl =
+        ApiRoutesConstants.BASE_URL +
+        ApiRoutesConstants.rewards_create;
+
+      this.navService.postData(apiUrl, this.rewardsForm.value).subscribe({
+        next: (res: any) => {
+          this.btnLoader = false;
+          if (res.code === 200) {
+            this.alertService.toast('success', true, res.message);
+            this.router.navigate(['/admin/subs-rewards']);
+          } else {
+            this.alertService.toast('error', true, res.message);
+          }
+        },
+        error: () => (this.btnLoader = false),
+      });
     }
+
+  } else {
+    this.rewardsForm.markAllAsTouched();
   }
+}
   onFilePathReceived(filePath: string) {
-    this.rewardsFormControl['icon'].setValue(filePath);
+    this.rewardsFormControl['image'].setValue(filePath);
   }
 
     fileuploadAnyProof(event: any,key:any) {
@@ -178,5 +215,10 @@ ngOnInit(): void {
       icon:''
     })
     }
+  }
+
+    toggleLevelStop() {
+    this.togglebtn = !this.togglebtn;
+    console.log('Status:', this.rewardsForm.value.levelStop ? 'Active' : 'Inactive');
   }
 }

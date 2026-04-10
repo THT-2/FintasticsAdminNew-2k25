@@ -43,6 +43,30 @@ export class AppBanner implements OnInit{
   }
 
   
+    onStatusToggle(event: any) {
+    console.log('event',event);
+    
+  const {field, value} = event;
+
+  const id = event._id;
+
+  const row = this.bannerData.find((x: any) => x._id === id);
+  if (row) row[field] = value; 
+
+  const apiUrl =
+    ApiRoutesConstants.BASE_URL + ApiRoutesConstants.Banners_edit + '/' + id;
+
+  this.navService.postData(apiUrl, {
+    id,
+    active_status: value
+  }).subscribe({
+    
+    error: () => {
+      if (row) row[field] = !value; 
+      this.alertService.toast('error', true, 'Status update failed');
+    }
+  });
+}
   getdata(){
     this.loader = true;
     this.bannerData = [];
@@ -52,6 +76,7 @@ export class AppBanner implements OnInit{
 
         if (res.code === 200) {
           this.bannerData = res.data;
+
           console.log('banner2',this.bannerData);
           this.buttondata = this.buttondata;
 

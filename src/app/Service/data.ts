@@ -44,6 +44,9 @@ export class Data {
   updateData(url:any,data:any) {
     return this.http.put(url,data);
   }
+   update(url:any) {
+    return this.http.delete(url);
+  }
 
   // getData(url:any) {
   //   return this.http.get(url);

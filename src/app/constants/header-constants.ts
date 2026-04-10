@@ -104,6 +104,13 @@ export class HeaderConstants {
       'class': "text-transform"
     },
     {
+      'name': 'active_status',
+      'displayName': 'Active Status',
+      'type': 'toggle',
+      'disableSorting': false,
+      'class': "text-transform"
+    },
+    {
       'name': 'actions',
       'displayName': 'Action',
       'disableSorting': false,
@@ -448,14 +455,14 @@ export class HeaderConstants {
   ]
   public static SubscriptionRewardsHeader = [
     {
-      'name': 'Plan Type',
-      'displayName': 'Title',
-      'disableSorting': false,
-      'class': "text-transform"
-    },
-     {
-      'name': 'title',
-      'displayName': 'Name',
+     'name': 'title',
+     'displayName': 'Rewards',
+     'disableSorting': false,
+     'class': "text-transform"
+   },
+    {
+      'name': 'amount',
+      'displayName': 'Amount',
       'disableSorting': false,
       'class': "text-transform"
     },
@@ -465,7 +472,6 @@ export class HeaderConstants {
       'disableSorting': false,
       'class': "text-transform"
     },
-
     {
       'name': 'actions',
       'displayName': 'Action',

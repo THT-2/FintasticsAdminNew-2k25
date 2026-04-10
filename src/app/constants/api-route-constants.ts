@@ -174,6 +174,13 @@ export class ApiRoutesConstants {
   public static supportTeam_support_team_reply = "supportTeam/support_team_reply"
   public static supportTeam_admin_chat_list = "supportTeam/admin_chat_list"
 
+  //rewards
+  public static rewards_create = "subscription/subscription_rewards"
+  public static rewards_getlist = "subscription/subscription_rewards_getlist"
+  public static rewards_edit = "subscription/subscription_rewards"
+  public static rewards_getbyid = "subscription/subscription_rewards"
+  public static rewards_delete = "subscription/subscription_rewards"
+
   // ToolsSuites
   public static toolsuites = "toolsuites";
   public static ToolsSuites_create = "toolsuites/create"

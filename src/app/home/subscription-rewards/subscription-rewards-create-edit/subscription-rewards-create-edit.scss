@@ -14,7 +14,7 @@
 
 /* Required asterisk */
 .form-card .req {
-  color: red;
+  color: var(--danger);
 }
 
 /* Input group (text with icon) */
@@ -69,4 +69,59 @@
 
 .btn-cta-wide {
   min-width: 280px;
+}
+
+/* --- Level Stop Toggle Card --- */
+.level-toggle {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  min-height: 50px;
+  cursor: pointer;
+}
+
+.level-toggle:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.2);
+}
+
+/* --- Toggle State Colors --- */
+.active-toggle {
+  background: rgba(124, 58, 237, 0.08);
+  border-color: #7c3aed;
+}
+
+.inactive-toggle {
+  background: var(--panel);
+  border-color: var(--border);
+}
+
+.toggle-status {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+/* --- Custom Switch --- */
+.level-switch {
+  width: 2.8rem;
+  height: 1.4rem;
+  background-color: #ccc;
+  border: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.level-switch:checked {
+  background-color: #7c3aed;
+  box-shadow: 0 0 8px rgba(124, 58, 237, 0.4);
+}
+
+.level-switch:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.25);
+}
+.icon{
+  margin-right: 0;
 }
