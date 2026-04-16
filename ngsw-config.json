@@ -7,7 +7,7 @@
       "installMode": "prefetch",
       "resources": {
         "files": [
-          "/favicon.ico",
+          "./assets/favicon.ico",
           "/index.csr.html",
           "/index.html",
           "/manifest.webmanifest",
@@ -24,6 +24,20 @@
         "files": [
           "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
+      }
+    }
+  ],
+   "dataGroups": [
+    {
+      "name": "api-fresh",
+      "urls": [
+        "https://www.fintastics.in/api/**"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 50,
+        "maxAge": "1m",
+        "timeout": "5s"
       }
     }
   ]

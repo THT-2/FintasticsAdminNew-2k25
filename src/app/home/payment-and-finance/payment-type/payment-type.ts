@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, SimpleChanges } from '@angular/core';
 import { Table } from "../../../Z-Commons/table/table";
-import { CommonModule } from '@angular/common';
+
 import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ApiRoutesConstants } from '../../../constants/api-route-constants';
@@ -15,7 +15,7 @@ import { Card } from "../../../Z-Commons/card/card";
 
 @Component({
   selector: 'app-payment-type',
-  imports: [CommonModule, FormsModule, Table, Card],
+  imports: [FormsModule, Table, Card],
   templateUrl: './payment-type.html',
   styleUrl: './payment-type.scss',
   providers:[AlertService]

@@ -1,23 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute,Router} from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import {FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,Validators} from '@angular/forms';
 import { Data } from '../../../Service/data';
 import { GlobalConstant } from '../../../constants/global-constants';
 import { Card } from '../../../Z-Commons/card/card';
 import { AlertService } from '../../../constants/alertservice';
 import { ApiRoutesConstants } from '../../../constants/api-route-constants';
+import { FileUpload } from "../../../Z-Commons/file-upload/file-upload";
+import { FilePreview } from "../../../Z-Commons/file-preview/file-preview";
 
 
 @Component({
   selector: 'app-updates-create-edit',
     imports: [
     Card,
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgIf
-  ],
+    FileUpload,
+    FilePreview
+],
   templateUrl: './updates-create-edit.html',
   styleUrl: './updates-create-edit.scss',
   providers: [AlertService],
@@ -29,6 +31,7 @@ export class UpdatesCreateEdit implements OnInit{
   pageLoader!: boolean;
   newsData: any;
   categoryData:any[] = []
+  Types: any[] = ["url", "text", "image", "route"];
   public btnLoader:boolean = false;
   editId: any;
   GlobalConstant: any = GlobalConstant;
@@ -53,11 +56,40 @@ export class UpdatesCreateEdit implements OnInit{
 
 ngOnInit(): void {
   this.newsForm = this.fb.group({
-    pagename:[null, Validators.required],
-    news:[null, Validators.required],
+    pagename: [null, Validators.required],
+    news: [null, Validators.required],
+    type: [null, Validators.required],
+    data: [null],
     _id: [null],
   });
-  this.formFieldNeedGetList();
+
+  this.newsForm.get('type')?.valueChanges.subscribe((type) => {
+    const control = this.newsForm.get('data');
+
+ 
+    control?.clearValidators();
+
+    if (type === 'url') {
+      control?.setValidators([
+        Validators.required,
+        Validators.pattern(/^(https?:\/\/)(?!.*\.(jpg|jpeg|png|gif|mp4|avi|mov)$).+/i)
+      ]);
+    }
+
+    else if (type === 'text') {
+      control?.setValidators([Validators.required]);
+    }
+
+    else if (type === 'image') {
+      control?.setValidators([Validators.required]);
+    }
+
+    else if (type === 'route') {
+      control?.setValidators([Validators.required]);
+    }
+
+    control?.updateValueAndValidity();
+  });
 }
 
   get newsFormControl() {
@@ -69,11 +101,13 @@ ngOnInit(): void {
     let apiUrl = ApiRoutesConstants.BASE_URL + ApiRoutesConstants.NEWS_SCROLL + ApiRoutesConstants.GET_LIST_ID + "/" +  id;
     this.dataService.getData(apiUrl).subscribe({
       next: (res: any) => {
-        console.log(res);
+        console.log("news",res);
         this.newsData = res.Data;
         this.newsForm.patchValue({
           pagename:this.newsData.pagename,
           news:this.newsData.news,
+          data:this.newsData.data,
+          type: this.newsData.type,
           _id: this.newsData._id,
         });
         this.editId = this.newsData._id;
@@ -109,7 +143,7 @@ ngOnInit(): void {
       } else {
         let apiUrl =
           ApiRoutesConstants.BASE_URL + ApiRoutesConstants.NEWS_SCROLL + ApiRoutesConstants.CREATE;
-          delete this.newsForm.value._id
+          // delete this.newsForm.value._id
         this.dataService.postData(apiUrl, this.newsForm.value).subscribe({
           next: (res: any) => {
             if (res.Code === 200) {
@@ -132,7 +166,7 @@ ngOnInit(): void {
     }
   }
   onFilePathReceived(filePath: string) {
-    this.newsFormControl['icon'].setValue(filePath);
+    this.newsFormControl['data'].setValue(filePath);
   }
   formFieldNeedGetList() {
     this.getCategoryData();

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 
 export interface ChallengeFilterPayload {
@@ -11,7 +11,7 @@ export interface ChallengeFilterPayload {
 @Component({
   selector: 'app-challenge-filter',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './challenge-filter.html',
   styleUrl: './challenge-filter.scss',
 })

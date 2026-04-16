@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+
 import { Data } from '../../../Service/data';
 import { AlertService } from '../../../constants/alertservice';
 import { ApiRoutesConstants } from '../../../constants/api-route-constants';
@@ -11,13 +11,7 @@ import { FileUpload } from '../../../Z-Commons/file-upload/file-upload';
 
 @Component({
   selector: 'app-dues-create-edit',
-  imports: [Card,
-    NgIf,
-    FormsModule,
-    ReactiveFormsModule,
-    FileUpload ,
-    // FilePreview
-   ],
+  imports: [Card, FormsModule, ReactiveFormsModule, FileUpload],
   templateUrl: './dues-create-edit.html',
   styleUrl: './dues-create-edit.scss',
   providers: [AlertService],

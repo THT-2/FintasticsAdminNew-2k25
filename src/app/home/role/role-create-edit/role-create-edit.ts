@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { Card } from '../../../Z-Commons/card/card';
 
 @Component({
   selector: 'app-role-create-edit',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, Card],
+  imports: [FormsModule, ReactiveFormsModule, Card],
   templateUrl: './role-create-edit.html',
   styleUrl: './role-create-edit.scss',
   providers:[AlertService]

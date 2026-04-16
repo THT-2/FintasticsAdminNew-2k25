@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -69,7 +69,6 @@ Chart.register(
 @Component({
   selector: 'app-user-main-area',
   imports: [
-    CommonModule,
     MatSidenavModule,
     MatToolbarModule,
     MatCardModule,

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -16,7 +16,7 @@ import { MessageDialogue } from '../../Z-Commons/message-dialogue/message-dialog
 
 @Component({
   selector: 'app-subscription-users',
-  imports: [CommonModule, FormsModule,Card, Table],
+  imports: [FormsModule, Card, Table],
   templateUrl: './subscription-users.html',
   styleUrl: './subscription-users.scss',
   providers:[AlertService]

@@ -13,9 +13,11 @@
                   <span class="input-group-text"><i class="bi bi-smartwatch"></i></span>
                   <input type="text" class="form-control" formControlName="type" placeholder="Loan Name" />
                 </div>
-                <div *ngIf="loanForm.get('type')?.touched && loanForm.get('type')?.invalid" class="text-danger">
-                  Loan Name is required.
-                </div>
+                @if (loanForm.get('type')?.touched && loanForm.get('type')?.invalid) {
+                  <div class="text-danger">
+                    Loan Name is required.
+                  </div>
+                }
               </div>
 
               <!-- Icon -->
@@ -24,36 +26,38 @@
                 <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
                 @if(loanFormControl['icon'].value) {
                   <!-- <div class="mt-2">
-                    <app-file-preview [filePath]="loanFormControl['icon'].value"></app-file-preview>
-                  </div> -->
-                   <div class="position-relative d-inline-block">
-                      <img width="100px" [src]="loanFormControl['icon'].value" />
-                      <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('icon')">X</span>
-                    </div>
-                }
-                <div *ngIf="loanForm.get('icon')?.touched && loanForm.get('icon')?.invalid" class="text-danger">
+                  <app-file-preview [filePath]="loanFormControl['icon'].value"></app-file-preview>
+                </div> -->
+                <div class="position-relative d-inline-block">
+                  <img width="100px" [src]="loanFormControl['icon'].value" />
+                  <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('icon')">X</span>
+                </div>
+              }
+              @if (loanForm.get('icon')?.touched && loanForm.get('icon')?.invalid) {
+                <div class="text-danger">
                   Icon is required.
                 </div>
-              </div>
-
+              }
             </div>
 
-            <!-- Submit -->
-            <div class="d-flex justify-content-end gap-2 mt-4">
-              <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
-                @if(btnLoader) {
-                  <div class="spinner-border text-white" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                  </div>
-                } @else {
-                  {{loanFormControl['_id'].value ? 'Update' : 'Submit'}}
-                }
-              </button>
-            </div>
+          </div>
 
-          </form>
-        </div>
-      </section>
-    </app-card>
-  </div>
+          <!-- Submit -->
+          <div class="d-flex justify-content-end gap-2 mt-4">
+            <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+              @if(btnLoader) {
+                <div class="spinner-border text-white" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              } @else {
+                {{loanFormControl['_id'].value ? 'Update' : 'Submit'}}
+              }
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+  </app-card>
+</div>
 </div>

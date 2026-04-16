@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute,Router} from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import {FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,RequiredValidator,Validators,} from '@angular/forms';
 import { Data } from '../../../Service/data';
 import { AlertService } from '../../../constants/alertservice';
@@ -11,13 +11,7 @@ import { FileUpload } from '../../../Z-Commons/file-upload/file-upload';
 
 @Component({
   selector: 'app-benifits-banner-create-edit',
-  imports: [Card,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    FileUpload ,
-    // FilePreview  ,
-    NgIf],
+  imports: [Card, FormsModule, ReactiveFormsModule, FileUpload],
   templateUrl: './benifits-banner-create-edit.html',
   styleUrl: './benifits-banner-create-edit.scss',
   providers: [AlertService]

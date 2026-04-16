@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, effect } from '@angular/core';
 import { OnInit } from '@angular/core';
 import {ActivatedRoute,Router,} from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import {FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,Validators,} from '@angular/forms';
 import { FilePreview } from '../../../../Z-Commons/file-preview/file-preview';
 import { FileUpload } from '../../../../Z-Commons/file-upload/file-upload';
@@ -13,12 +13,7 @@ import { ApiRoutesConstants } from '../../../../constants/api-route-constants';
 
 @Component({
   selector: 'app-video-category-create-edit',
-  imports: [CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    FileUpload,
-    FilePreview,
-    NgIf],
+  imports: [FormsModule, ReactiveFormsModule, FileUpload, FilePreview],
   templateUrl: './video-category-create-edit.html',
   styleUrl: './video-category-create-edit.scss',
   providers: [AlertService],

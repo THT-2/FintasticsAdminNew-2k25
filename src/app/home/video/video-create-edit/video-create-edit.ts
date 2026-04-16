@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import {ActivatedRoute,Router,} from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import {FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,Validators,} from '@angular/forms';
 import { Data } from '../../../Service/data';
 import { GlobalConstant } from '../../../constants/global-constants';
@@ -15,7 +15,7 @@ import { ApiRoutesConstants } from '../../../constants/api-route-constants';
 
 @Component({
   selector: 'app-video-create-edit',
-  imports: [FileUpload, FilePreview, Card,ReactiveFormsModule,FormsModule,NgIf,CommonModule],
+  imports: [FileUpload, FilePreview, Card, ReactiveFormsModule, FormsModule],
   templateUrl: './video-create-edit.html',
   styleUrl: './video-create-edit.scss',
   providers:[AlertService]

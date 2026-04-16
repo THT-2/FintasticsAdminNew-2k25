@@ -20,9 +20,11 @@
                     <span class="input-group-text"><i class="bi bi-question-circle"></i></span>
                     <input type="text" class="form-control" formControlName="questionText" placeholder="Enter question..." />
                   </div>
-                  <div *ngIf="questionForm.get('questionText')?.touched && questionForm.get('questionText')?.invalid" class="text-danger">
-                    Question Text is required.
-                  </div>
+                  @if (questionForm.get('questionText')?.touched && questionForm.get('questionText')?.invalid) {
+                    <div class="text-danger">
+                      Question Text is required.
+                    </div>
+                  }
                 </div>
 
                 <!-- Description -->
@@ -69,44 +71,52 @@
                 </div>
 
                 <!-- Input / Placeholder -->
-                <div *ngIf="questionForm.value.type === 'input' || questionForm.value.type === 'currency'" class="mb-3">
-                  <label class="form-label">Placeholder</label>
-                  <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-type"></i></span>
-                    <input type="text" class="form-control" formControlName="placeholder" placeholder="Enter placeholder..." />
+                @if (questionForm.value.type === 'input' || questionForm.value.type === 'currency') {
+                  <div class="mb-3">
+                    <label class="form-label">Placeholder</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-type"></i></span>
+                      <input type="text" class="form-control" formControlName="placeholder" placeholder="Enter placeholder..." />
+                    </div>
+                    <label class="mt-2">Input Type</label>
+                    <select class="form-select" formControlName="inputType">
+                      <option value="text">Text</option>
+                      <option value="number">Number</option>
+                    </select>
                   </div>
-                  <label class="mt-2">Input Type</label>
-                  <select class="form-select" formControlName="inputType">
-                    <option value="text">Text</option>
-                    <option value="number">Number</option>
-                  </select>
-                </div>
+                }
 
                 <!-- Options Array -->
-                <div formArrayName="options" class="mb-3" *ngIf="questionForm.value.type.includes('choice')">
-                  <label class="form-label">Options</label>
-                  <div *ngFor="let opt of options.controls; let i = index" [formGroupName]="i" class="row mb-2 align-items-center">
-                    <div class="col">
-                      <label class="form-label">Label <span class="req">*</span></label>
-                      <input type="text" class="form-control" formControlName="label" placeholder="Label" />
-                    </div>
-                    <div class="col">
-                      <label class="form-label">Value <span class="req">*</span></label>
-                      <input type="text" class="form-control" formControlName="value" placeholder="Value" />
-                    </div>
-                    <div class="col">
-                      <label class="form-label">Icon <span class="req">*</span></label>
-                      <app-file-upload (getFilePath)="onFilePathReceived($event, i)"></app-file-upload>
-                      <div class="mt-2" *ngIf="options.at(i).get('icon')?.value">
-                        <app-file-preview [filePath]="options.at(i).get('icon')?.value"></app-file-preview>
+                @if (questionForm.value.type.includes('choice')) {
+                  <div formArrayName="options" class="mb-3">
+                    <label class="form-label">Options</label>
+                    @for (opt of options.controls; track opt; let i = $index) {
+                      <div [formGroupName]="i" class="row mb-2 align-items-center">
+                        <div class="col">
+                          <label class="form-label">Label <span class="req">*</span></label>
+                          <input type="text" class="form-control" formControlName="label" placeholder="Label" />
+                        </div>
+                        <div class="col">
+                          <label class="form-label">Value <span class="req">*</span></label>
+                          <input type="text" class="form-control" formControlName="value" placeholder="Value" />
+                        </div>
+                        <div class="col">
+                          <label class="form-label">Icon <span class="req">*</span></label>
+                          <app-file-upload (getFilePath)="onFilePathReceived($event, i)"></app-file-upload>
+                          @if (options.at(i).get('icon')?.value) {
+                            <div class="mt-2">
+                              <app-file-preview [filePath]="options.at(i).get('icon')?.value"></app-file-preview>
+                            </div>
+                          }
+                        </div>
+                        <div class="col-auto">
+                          <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeOption(i)">✕</button>
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-auto">
-                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeOption(i)">✕</button>
-                    </div>
+                    }
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="addOption()">+ Add Option</button>
                   </div>
-                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="addOption()">+ Add Option</button>
-                </div>
+                }
 
                 <!-- Submit Button -->
                 <div class="d-flex justify-content-end gap-2 mt-4">
@@ -121,32 +131,42 @@
             <!-- Right: Preview (4 columns) -->
             <div class="col-md-4 border-start ps-4">
               <h5 class="fw-bold mb-3">Preview</h5>
-              <div *ngIf="questionForm.value.type">
-                <p class="fw-semibold">{{ questionForm.value.questionText }}</p>
-                <p class="text-muted">{{ questionForm.value.description }}</p>
-
-                <ng-container [ngSwitch]="questionForm.value.type">
-                  <div *ngSwitchCase="'single-choice'">
-                    <div *ngFor="let opt of questionForm.value.options">
-                      <label><input type="radio" name="preview" disabled /> {{ opt.label }}</label><br />
-                    </div>
-                  </div>
-
-                  <div *ngSwitchCase="'multi-choice'">
-                    <div *ngFor="let opt of questionForm.value.options">
-                      <label><input type="checkbox" disabled /> {{ opt.label }}</label><br />
-                    </div>
-                  </div>
-
-                  <div *ngSwitchCase="'input'">
-                    <input class="form-control" [placeholder]="questionForm.value.placeholder" disabled />
-                  </div>
-
-                  <div *ngSwitchCase="'currency'">
-                    <input class="form-control" type="number" [placeholder]="questionForm.value.placeholder" disabled />
-                  </div>
-                </ng-container>
-              </div>
+              @if (questionForm.value.type) {
+                <div>
+                  <p class="fw-semibold">{{ questionForm.value.questionText }}</p>
+                  <p class="text-muted">{{ questionForm.value.description }}</p>
+                  @switch (questionForm.value.type) {
+                    @case ('single-choice') {
+                      <div>
+                        @for (opt of questionForm.value.options; track opt) {
+                          <div>
+                            <label><input type="radio" name="preview" disabled /> {{ opt.label }}</label><br />
+                          </div>
+                        }
+                      </div>
+                    }
+                    @case ('multi-choice') {
+                      <div>
+                        @for (opt of questionForm.value.options; track opt) {
+                          <div>
+                            <label><input type="checkbox" disabled /> {{ opt.label }}</label><br />
+                          </div>
+                        }
+                      </div>
+                    }
+                    @case ('input') {
+                      <div>
+                        <input class="form-control" [placeholder]="questionForm.value.placeholder" disabled />
+                      </div>
+                    }
+                    @case ('currency') {
+                      <div>
+                        <input class="form-control" type="number" [placeholder]="questionForm.value.placeholder" disabled />
+                      </div>
+                    }
+                  }
+                </div>
+              }
             </div>
 
           </div>

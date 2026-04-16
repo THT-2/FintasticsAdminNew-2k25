@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FileUpload } from '../../../Z-Commons/file-upload/file-upload';
 import { Card } from '../../../Z-Commons/card/card';
@@ -13,13 +13,10 @@ import { ApiRoutesConstants } from '../../../constants/api-route-constants';
   selector: 'app-subs-features-create-edit',
   imports: [
     Card,
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    FileUpload,
-    // FilePreview,
-    NgIf,
-  ],
+    FileUpload
+],
   templateUrl: './subs-features-create-edit.html',
   styleUrl: './subs-features-create-edit.scss',
   providers: [AlertService],

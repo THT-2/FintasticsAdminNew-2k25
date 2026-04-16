@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import {ActivatedRoute,Router,} from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import {FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,Validators,} from '@angular/forms';
 import { Data } from '../../../../Service/data';
 import { AlertService } from '../../../../constants/alertservice';
@@ -13,13 +13,11 @@ import { Card } from "../../../../Z-Commons/card/card";
 @Component({
   selector: 'app-category-create-edit',
   imports: [
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     FileUpload,
     FilePreview,
-    Card,
-    NgIf
+    Card
 ],
   templateUrl: './category-create-edit.html',
   styleUrl: './category-create-edit.scss',

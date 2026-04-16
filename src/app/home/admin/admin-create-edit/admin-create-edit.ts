@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { Card } from '../../../Z-Commons/card/card';
 
 @Component({
   selector: 'app-admin-create-edit',
-  imports: [FormsModule, CommonModule,ReactiveFormsModule, Card],
+  imports: [FormsModule, ReactiveFormsModule, Card],
   templateUrl: './admin-create-edit.html',
   styleUrl: './admin-create-edit.scss',
   providers: [AlertService]

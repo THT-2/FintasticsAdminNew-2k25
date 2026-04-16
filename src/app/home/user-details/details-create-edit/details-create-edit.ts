@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+
 import { Data } from '../../../Service/data';
 import { AlertService } from '../../../constants/alertservice';
 import { ApiRoutesConstants } from '../../../constants/api-route-constants';
@@ -10,9 +10,7 @@ import { Card } from '../../../Z-Commons/card/card';
 
 @Component({
   selector: 'app-details-create-edit',
-  imports: [FormsModule,
-    ReactiveFormsModule,
-    Card,NgIf],
+  imports: [FormsModule, ReactiveFormsModule, Card],
   templateUrl: './details-create-edit.html',
   styleUrl: './details-create-edit.scss',
   providers: [AlertService]

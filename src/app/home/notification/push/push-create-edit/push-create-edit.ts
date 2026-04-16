@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,11 +9,7 @@ import { ApiRoutesConstants } from '../../../../constants/api-route-constants';
 
 @Component({
   selector: 'app-push-create-edit',
-  imports: [Card,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+  imports: [Card, FormsModule, ReactiveFormsModule],
   templateUrl: './push-create-edit.html',
   styleUrl: './push-create-edit.scss',
   providers:[AlertService],
@@ -62,6 +58,7 @@ export class PushCreateEdit {
       time:['', Validators.required],
       date:[''],
       weekdays:[[]],
+      notification_popup: ['false'],
       _id:[null]
     });
   }
@@ -122,6 +119,7 @@ export class PushCreateEdit {
           time:this.pushNotficationData.time,
           date:this.pushNotficationData.date,
           weekdays:this.pushNotficationData.weekdays,
+          notification_popup: this.pushNotficationData.notification_popup || 'false', 
           _id: this.pushNotficationData._id,
         });
         this.pageLoader = false;

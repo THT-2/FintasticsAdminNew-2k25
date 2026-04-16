@@ -1,1 +1,18 @@
+<div *ngIf="showInstallButton" class="install-banner">
+  <div class="install-left">
+    <div class="app-icon">
+  <img src="./assets/favicon.ico" width="24">
+</div>
+    <div>
+      <div class="app-title">Fintastics</div>
+      <div class="app-subtitle">Install app for better experience</div>
+    </div>
+  </div>
+
+  <div class="install-actions">
+    <button class="install-btn" (click)="installApp()">Install</button>
+    <button class="close-btn" (click)="showInstallButton = false">✕</button>
+  </div>
+</div>
+
 <router-outlet></router-outlet>

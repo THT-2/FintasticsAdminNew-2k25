@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Data } from '../../../Service/data';
@@ -12,13 +12,7 @@ import { FileUpload } from '../../../Z-Commons/file-upload/file-upload';
 
 @Component({
   selector: 'app-onboard-create-edit',
-  imports: [CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    Card,
-    FileUpload,
-    FilePreview
-  ],
+  imports: [FormsModule, ReactiveFormsModule, Card, FileUpload, FilePreview],
   templateUrl: './onboard-create-edit.html',
   styleUrl: './onboard-create-edit.scss',
   providers: [AlertService]

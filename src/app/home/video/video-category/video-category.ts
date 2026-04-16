@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { VideoCategoryCreateEdit } from "./video-category-create-edit/video-category-create-edit";
 import { Card } from "../../../Z-Commons/card/card";
 import { Table } from "../../../Z-Commons/table/table";
-import { CommonModule } from '@angular/common';
+
 import { AlertService } from '../../../constants/alertservice';
 import { ApiRoutesConstants } from '../../../constants/api-route-constants';
 import { Data } from '../../../Service/data';
@@ -15,7 +15,7 @@ import { GlobalConstant } from '../../../constants/global-constants';
 
 @Component({
   selector: 'app-video-category',
-  imports: [VideoCategoryCreateEdit, Card, Table,CommonModule, FormsModule ],
+  imports: [VideoCategoryCreateEdit, Card, Table, FormsModule],
   templateUrl: './video-category.html',
   styleUrl: './video-category.scss',
   providers:[AlertService]

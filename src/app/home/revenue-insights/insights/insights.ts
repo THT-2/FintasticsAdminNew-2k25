@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { NgFor } from '@angular/common';
+
 import { Filter, ServerFilterPayload } from '../../dashboard/filter/filter';
 import { Data } from '../../../Service/data';
 import { AlertService } from '../../../constants/alertservice';
@@ -19,7 +19,7 @@ const KEY_TO_SERVER: Record<QuickKey, ServerFilterPayload['filter_type']> = {
 
 @Component({
   selector: 'app-insights',
-  imports: [Filter, NgFor],
+  imports: [Filter],
   templateUrl: './insights.html',
   styleUrl: './insights.scss',
   providers: [AlertService]

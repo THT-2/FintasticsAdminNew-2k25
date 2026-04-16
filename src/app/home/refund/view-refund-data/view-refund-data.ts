@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-view-refund-data',
-  imports:[CommonModule,FormsModule],
+  imports: [FormsModule],
   templateUrl: './view-refund-data.html',
   styleUrls: ['./view-refund-data.scss']
 })

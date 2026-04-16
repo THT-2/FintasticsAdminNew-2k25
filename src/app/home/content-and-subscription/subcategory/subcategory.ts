@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Table } from "../../../Z-Commons/table/table";
-import { CommonModule } from '@angular/common';
+
 import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ApiRoutesConstants } from '../../../constants/api-route-constants';
@@ -15,7 +15,7 @@ import { Card } from "../../../Z-Commons/card/card";
 
 @Component({
   selector: 'app-subcategory',
-  imports: [CommonModule, FormsModule, Table, Card],
+  imports: [FormsModule, Table, Card],
   templateUrl: './subcategory.html',
   styleUrl: './subcategory.scss',
   providers:[AlertService]

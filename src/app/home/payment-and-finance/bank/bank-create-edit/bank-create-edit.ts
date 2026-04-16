@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import { Card } from '../../../../Z-Commons/card/card';
 import { FileUpload } from '../../../../Z-Commons/file-upload/file-upload';
 import { AlertService } from '../../../../constants/alertservice';
@@ -11,14 +11,7 @@ import { ApiRoutesConstants } from '../../../../constants/api-route-constants';
 
 @Component({
   selector: 'app-bank-create-edit',
-  imports: [ Card,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    FileUpload ,
-    // FilePreview,
-    NgIf
-  ],
+  imports: [Card, FormsModule, ReactiveFormsModule, FileUpload],
   templateUrl: './bank-create-edit.html',
   styleUrl: './bank-create-edit.scss',
   providers:[AlertService]

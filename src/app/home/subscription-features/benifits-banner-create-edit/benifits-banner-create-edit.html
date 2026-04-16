@@ -11,14 +11,16 @@
                 <label class="form-label">Icon <span class="req">*</span></label>
                 <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
                 @if(benefitsFormControl['icon'].value) {
-                   <div class="position-relative d-inline-block">
-                      <img width="100px" [src]="benefitsFormControl['icon'].value" />
-                      <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('icon')">X</span>
-                    </div>
+                  <div class="position-relative d-inline-block">
+                    <img width="100px" [src]="benefitsFormControl['icon'].value" />
+                    <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('icon')">X</span>
+                  </div>
                 }
-                <div *ngIf="benefitsForm.get('icon')?.touched && benefitsForm.get('icon')?.invalid" class="text-danger">
-                  Icon is required.
-                </div>
+                @if (benefitsForm.get('icon')?.touched && benefitsForm.get('icon')?.invalid) {
+                  <div class="text-danger">
+                    Icon is required.
+                  </div>
+                }
               </div>
             </div>
 
@@ -26,14 +28,18 @@
               <label class="form-label">Status<span class="req">*</span></label>
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-tags"></i></span>
-               <select class="form-select" formControlName="status">
+                <select class="form-select" formControlName="status">
                   <option hidden [value]="">Please Select</option>
-                  <option *ngFor="let item of activestatus">{{ item }}</option>
+                  @for (item of activestatus; track item) {
+                    <option>{{ item }}</option>
+                  }
                 </select>
               </div>
-              <div *ngIf="benefitsForm.get('status')?.touched && benefitsForm.get('status')?.invalid" class="text-danger">
-                Status is required.
-              </div>
+              @if (benefitsForm.get('status')?.touched && benefitsForm.get('status')?.invalid) {
+                <div class="text-danger">
+                  Status is required.
+                </div>
+              }
             </div>
 
             <!-- Submit -->

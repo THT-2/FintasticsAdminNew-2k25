@@ -6,20 +6,24 @@
           <form [formGroup]="adForm" (ngSubmit)="submit()" class="needs-validation" novalidate>
             <div class="row g-3">
 
-             <!-- Category Type -->
-            <div class="col-md-6">
-              <label class="form-label"> Ad Name <span class="req">*</span></label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-list-ul"></i></span>
-                <select class="form-select" formControlName="google_ad_maincate">
-                  <option hidden [value]="">Please Select</option>
-                  <option *ngFor="let item of adname">{{ item }}</option>
-                </select>
+              <!-- Category Type -->
+              <div class="col-md-6">
+                <label class="form-label"> Ad Name <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-list-ul"></i></span>
+                  <select class="form-select" formControlName="google_ad_maincate">
+                    <option hidden [value]="">Please Select</option>
+                    @for (item of adname; track item) {
+                      <option>{{ item }}</option>
+                    }
+                  </select>
+                </div>
+                @if (adForm.get('google_ad_maincate')?.touched && adForm.get('google_ad_maincate')?.invalid) {
+                  <div class="text-danger">
+                    Name is required.
+                  </div>
+                }
               </div>
-              <div *ngIf="adForm.get('google_ad_maincate')?.touched && adForm.get('google_ad_maincate')?.invalid" class="text-danger">
-                Name is required.
-              </div>
-            </div>
 
               <div class="col-md-6">
                 <label class="form-label"> Android ID </label>
@@ -27,9 +31,11 @@
                   <span class="input-group-text"><i class="bi bi-card-image"></i></span>
                   <input type="text" class="form-control" formControlName="android_ad" placeholder="Ad Id" />
                 </div>
-                <div *ngIf="adForm.get('android_ad')?.touched && adForm.get('android_ad')?.invalid" class="text-danger">
-                  ID is required.
-                </div>
+                @if (adForm.get('android_ad')?.touched && adForm.get('android_ad')?.invalid) {
+                  <div class="text-danger">
+                    ID is required.
+                  </div>
+                }
               </div>
 
               <div class="col-md-6">
@@ -38,25 +44,27 @@
                   <span class="input-group-text"><i class="bi bi-card-image"></i></span>
                   <input type="text" class="form-control" formControlName="ios_ad" placeholder="Ad Id" />
                 </div>
-                <div *ngIf="adForm.get('ios_ad')?.touched && adForm.get('ios_ad')?.invalid" class="text-danger">
-                  ID is required.
-                </div>
+                @if (adForm.get('ios_ad')?.touched && adForm.get('ios_ad')?.invalid) {
+                  <div class="text-danger">
+                    ID is required.
+                  </div>
+                }
               </div>
 
               <div class="col-md-6 d-flex align-items-start justify-content-md-end">
                 <div class="w-100 w-md-auto" style="max-width: 620px;">
                   <label class="form-label d-block mb-2 fw-bold">
                     Android Toggle
-                    
+
                   </label>
 
-                  <div 
+                  <div
                     class="level-toggle d-flex align-items-center justify-content-between p-2 px-3 rounded"
                     [ngClass]="{
                       'active-toggle': adForm.get('android_active_status')?.value,
                       'inactive-toggle': !adForm.get('android_active_status')?.value
                     }"
-                  >
+                    >
                     <span class="toggle-status me-2">
                       {{ adForm.get('android_active_status')?.value ? 'On' : 'Off' }}
                     </span>
@@ -68,65 +76,65 @@
                         formControlName="android_active_status"
                         id="levelStopToggle"
                         (change)="toggleLevelStop()"
-                      />
-                      <label class="form-check-label visually-hidden" for="levelStopToggle">
-                        Android Toggle
-                      </label>
+                        />
+                        <label class="form-check-label visually-hidden" for="levelStopToggle">
+                          Android Toggle
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="col-md-6 d-flex align-items-start justify-content-md-end">
-                <div class="w-100 w-md-auto" style="max-width: 620px;">
-                  <label class="form-label d-block mb-2 fw-bold">
-                    IOS Toggle
-                  </label>
-                  <div 
-                    class="level-toggle d-flex align-items-center justify-content-between p-2 px-3 rounded"
+                <div class="col-md-6 d-flex align-items-start justify-content-md-end">
+                  <div class="w-100 w-md-auto" style="max-width: 620px;">
+                    <label class="form-label d-block mb-2 fw-bold">
+                      IOS Toggle
+                    </label>
+                    <div
+                      class="level-toggle d-flex align-items-center justify-content-between p-2 px-3 rounded"
                     [ngClass]="{
                       'active-toggle': adForm.get('ios_active_status')?.value,
                       'inactive-toggle': !adForm.get('ios_active_status')?.value
                     }"
-                  >
-                    <span class="toggle-status me-2">
-                      {{ adForm.get('ios_active_status')?.value ? 'On' : 'Off' }}
-                    </span>
+                      >
+                      <span class="toggle-status me-2">
+                        {{ adForm.get('ios_active_status')?.value ? 'On' : 'Off' }}
+                      </span>
 
-                    <div class="form-check form-switch m-0">
-                      <input
-                        class="form-check-input level-switch"
-                        type="checkbox"
-                        formControlName="ios_active_status"
-                        id="levelStopToggle"
-                        (change)="toggleLevelStop()"
-                      />
-                      <label class="form-check-label visually-hidden" for="levelStopToggle">
-                        Android Toggle
-                      </label>
+                      <div class="form-check form-switch m-0">
+                        <input
+                          class="form-check-input level-switch"
+                          type="checkbox"
+                          formControlName="ios_active_status"
+                          id="levelStopToggle"
+                          (change)="toggleLevelStop()"
+                          />
+                          <label class="form-check-label visually-hidden" for="levelStopToggle">
+                            Android Toggle
+                          </label>
+                        </div>
+                      </div>
                     </div>
                   </div>
+
                 </div>
-              </div>
 
+                <!-- Submit -->
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                  <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+                    @if(btnLoader) {
+                      <div class="spinner-border text-white" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                    } @else {
+                      {{adFormControl['_id'].value ? 'Update' : 'Submit'}}
+                    }
+                  </button>
+                </div>
+
+              </form>
             </div>
-
-            <!-- Submit -->
-            <div class="d-flex justify-content-end gap-2 mt-4">
-              <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
-                @if(btnLoader) {
-                  <div class="spinner-border text-white" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                  </div>
-                } @else {
-                  {{adFormControl['_id'].value ? 'Update' : 'Submit'}}
-                }
-              </button>
-            </div>
-
-          </form>
-        </div>
-      </section>
-    </app-card>
-  </div>
-</div>
+          </section>
+        </app-card>
+      </div>
+    </div>

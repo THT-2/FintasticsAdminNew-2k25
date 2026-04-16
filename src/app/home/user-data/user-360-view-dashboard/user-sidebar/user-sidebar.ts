@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -13,8 +13,6 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-user-sidebar',
    imports: [
-    CommonModule,
-    // Option A (recommended in standalone): import what you use
     MatSidenavModule,
     MatToolbarModule,
     MatCardModule,
@@ -24,7 +22,7 @@ import { RouterModule } from '@angular/router';
     MatProgressBarModule,
     MatChipsModule,
     RouterModule
-  ],
+],
   templateUrl: './user-sidebar.html',
   styleUrl: './user-sidebar.scss'
 })

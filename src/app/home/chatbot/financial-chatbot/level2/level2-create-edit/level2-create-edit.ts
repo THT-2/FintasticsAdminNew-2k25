@@ -5,7 +5,7 @@ import { Card } from '../../../../../Z-Commons/card/card';
 import { AlertService } from '../../../../../constants/alertservice';
 import { Data } from '../../../../../Service/data';
 import { ApiRoutesConstants } from '../../../../../constants/api-route-constants';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FileUpload } from "../../../../../Z-Commons/file-upload/file-upload";
 import { FilePreview } from "../../../../../Z-Commons/file-preview/file-preview";
 
@@ -15,10 +15,8 @@ import { FilePreview } from "../../../../../Z-Commons/file-preview/file-preview"
     Card,
     ReactiveFormsModule,
     FormsModule,
-    NgIf,
     CommonModule,
-    FileUpload,
-    // FilePreview
+    FileUpload
 ],
   templateUrl: './level2-create-edit.html',
   styleUrls: ['./level2-create-edit.scss'],

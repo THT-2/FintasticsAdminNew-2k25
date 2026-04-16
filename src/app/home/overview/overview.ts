@@ -5,7 +5,7 @@ import { Filter, ServerFilterPayload } from '../dashboard/filter/filter';
 import { ApiRoutesConstants } from '../../constants/api-route-constants';
 import { AlertService } from '../../constants/alertservice';
 import { Data } from '../../Service/data';
-import { CommonModule } from '@angular/common';
+
 import { Insights } from "../revenue-insights/insights/insights";
 
 type QuickKey = 'today' | 'yesterday' | '7d' | '30d' | 'ytd' | 'custom';
@@ -21,7 +21,7 @@ const KEY_TO_SERVER: any= {
 
 @Component({
   selector: 'app-overview',
-  imports: [GraphInsights, DailyRegitrations, Filter, CommonModule, Insights],
+  imports: [GraphInsights, DailyRegitrations, Filter, Insights],
   templateUrl: './overview.html',
   styleUrl: './overview.scss',
   providers: [AlertService]

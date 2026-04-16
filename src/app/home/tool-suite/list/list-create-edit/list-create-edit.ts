@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule, NgIf } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileUpload } from '../../../../Z-Commons/file-upload/file-upload';
@@ -15,15 +15,13 @@ import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 @Component({
   selector: 'app-list-create-edit',
   imports: [
-      Card ,
-      CommonModule,
-      FormsModule,
-      ReactiveFormsModule,
-      FileUpload,
-      FilePreview,
-      NgIf,
-      NgxEditorModule
-    ],
+    Card,
+    FormsModule,
+    ReactiveFormsModule,
+    FileUpload,
+    FilePreview,
+    NgxEditorModule
+],
   templateUrl: './list-create-edit.html',
   styleUrl: './list-create-edit.scss',
   providers: [AlertService],

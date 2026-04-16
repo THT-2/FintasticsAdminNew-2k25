@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute,Router} from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,Validators,} from '@angular/forms';
 import { Data } from '../../../Service/data';
 import { AlertService } from '../../../constants/alertservice';
@@ -10,12 +10,7 @@ import { Card } from '../../../Z-Commons/card/card';
 
 @Component({
   selector: 'app-ad-settings-create-edit',
-  imports: [  Card,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    // FilePreview  ,
-    NgIf],
+  imports: [Card, CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './ad-settings-create-edit.html',
   styleUrl: './ad-settings-create-edit.scss',
   providers: [AlertService],

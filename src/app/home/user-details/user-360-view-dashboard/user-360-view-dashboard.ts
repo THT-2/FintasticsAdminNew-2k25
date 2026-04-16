@@ -5,15 +5,15 @@ import { MaterialModule } from "../../../Z-Commons/material-module";
 import { Data } from '../../../Service/data';
 import { ApiRoutesConstants } from '../../../constants/api-route-constants';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-user-360-view-dashboard',
   imports: [
     UserSidebar,
     UserMainArea,
-    MaterialModule,CommonModule
-  ],
+    MaterialModule
+],
   templateUrl: './user-360-view-dashboard.html',
   styleUrl: './user-360-view-dashboard.scss'
 })

@@ -94,6 +94,7 @@ export class ApiRoutesConstants {
   // News urls
   public static newscroll_getlist = "newscroll/getlist";
   public static NEWS_SCROLL = "newscroll";
+  public static NEWS_SCROLL_delete = "newscroll/delete";
   public static NEWS_SCROLL_create = "newscroll/create";
   public static NEWS_SCROLL_edit = "newscroll/edit";
 

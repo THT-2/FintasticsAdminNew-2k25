@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,10 +12,11 @@ import { HeaderConstants } from '../../constants/header-constants';
 import { Card } from '../../Z-Commons/card/card';
 import { MessageDialogue } from '../../Z-Commons/message-dialogue/message-dialogue';
 import { Table } from '../../Z-Commons/table/table';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-storyboard',
-  imports: [CommonModule, FormsModule,Card, Table],
+  imports: [FormsModule, Card, Table],
   templateUrl: './storyboard.html',
   styleUrl: './storyboard.scss',
   providers:[AlertService]
@@ -46,7 +47,7 @@ export class Storyboard implements OnInit{
     getstory(){
     this.loader = true;
     this.storyData = [];
-    this.navService.getData(this.apiUrl).subscribe({
+    this.navService.getData(this.apiUrl).pipe(take(1)).subscribe({
       next:(res:any)=> {
         console.log('storyData',res);
 
@@ -58,7 +59,7 @@ export class Storyboard implements OnInit{
           this.alertService.toast("error",true,res.Message);
         }
         this.loader=false;
-        this.cdr.detectChanges();
+        // this.cdr.detectChanges();
       },
       error: (error:any) => {
         console.log(error);

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { MessageDialogue } from '../../Z-Commons/message-dialogue/message-dialog
 
 @Component({
   selector: 'app-family-user-list',
-  imports: [CommonModule, FormsModule,Card, Table],
+  imports: [FormsModule, Card, Table],
   templateUrl: './family-user-list.html',
   styleUrl: './family-user-list.scss',
   providers:[AlertService]

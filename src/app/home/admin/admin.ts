@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { Table } from '../../Z-Commons/table/table';
 
 @Component({
   selector: 'app-admin',
-  imports: [CommonModule, FormsModule, Table, Card],
+  imports: [FormsModule, Table, Card],
   templateUrl: './admin.html',
   styleUrl: './admin.scss',
   providers:[AlertService]

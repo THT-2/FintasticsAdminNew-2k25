@@ -13,9 +13,11 @@
                   <span class="input-group-text"><i class="bi bi-card-image"></i></span>
                   <input type="text" class="form-control" formControlName="title" placeholder="Banner Title" />
                 </div>
-                <div *ngIf="bannerForm.get('title')?.touched && bannerForm.get('title')?.invalid" class="text-danger">
-                  Banner Title is required.
-                </div>
+                @if (bannerForm.get('title')?.touched && bannerForm.get('title')?.invalid) {
+                  <div class="text-danger">
+                    Banner Title is required.
+                  </div>
+                }
               </div>
               <div class="col-md-6">
                 <label class="form-label">Page Name<span class="req">*</span></label>
@@ -23,50 +25,57 @@
                   <span class="input-group-text"><i class="bi bi-file-text"></i></span>
                   <input type="text" class="form-control" formControlName="page_name" placeholder="Page Name" />
                 </div>
-                <div *ngIf="bannerForm.get('page_name')?.touched && bannerForm.get('page_name')?.invalid" class="text-danger">
-                  Page Name is required.
-                </div>
+                @if (bannerForm.get('page_name')?.touched && bannerForm.get('page_name')?.invalid) {
+                  <div class="text-danger">
+                    Page Name is required.
+                  </div>
+                }
               </div>
 
-  <!-- Icon -->
+              <!-- Icon -->
               <div class="col-md-6">
                 <label class="form-label">File Path <span class="req">*</span></label>
-                <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
+                <app-file-upload 
+  (getFilePath)="onFilePathReceived($event)"
+  (fileError)="onFileError($event)">
+</app-file-upload>
+@if (fileUploadError) {
+  <div class="text-danger mt-1">
+    {{ fileUploadError }}
+  </div>
+}
                 @if(bannerFormControl['filepath'].value) {
                   <!-- <div class="mt-2">
-                    <app-file-preview [filePath]="categoryFormControl['icon'].value"></app-file-preview>
-                  </div> -->
-                   <div class="position-relative d-inline-block">
-                      <img width="100px" [src]="bannerFormControl['filepath'].value" />
-                      <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('filepath')">X</span>
-                    </div>
-                }
-                <div *ngIf="bannerForm.get('filepath')?.touched && bannerForm.get('filepath')?.invalid" class="text-danger">
-                  File Path  is required.
+                  <app-file-preview [filePath]="categoryFormControl['icon'].value"></app-file-preview>
+                </div> -->
+                <div class="position-relative d-inline-block">
+                  <img width="100px" [src]="bannerFormControl['filepath'].value" />
+                  <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('filepath')">X</span>
                 </div>
-              </div>
-               <!-- Description -->
-                <div class="col-6">
-                  <label class="form-label">Description</label>
-                  <textarea class="form-control" formControlName="description" placeholder="Description..."></textarea>
-                </div>
+              }
+@if (bannerForm.get('filepath')?.touched && bannerForm.get('filepath')?.invalid) { <div class="text-danger"> File Path is required. </div> }        </div>
+            <!-- Description -->
+            <div class="col-6">
+              <label class="form-label">Description</label>
+              <textarea class="form-control" formControlName="description" placeholder="Description..."></textarea>
             </div>
+          </div>
 
-            <!-- Submit -->
-            <div class="d-flex justify-content-end gap-2 mt-4">
-              <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
-                @if(btnLoader) {
-                  <div class="spinner-border text-white" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                  </div>
-                } @else {
-                  {{bannerFormControl['_id'].value ? 'Update' : 'Submit'}}
-                }
-              </button>
-            </div>
-          </form>
-        </div>
-      </section>
-    </app-card>
-  </div>
+          <!-- Submit -->
+          <div class="d-flex justify-content-end gap-2 mt-4">
+            <button type="submit" [disabled]="btnLoader || fileUploadError" class="btn btn-cta btn-cta-wide">
+              @if(btnLoader) {
+                <div class="spinner-border text-white" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              } @else {
+                {{bannerFormControl['_id'].value ? 'Update' : 'Submit'}}
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </app-card>
+</div>
 </div>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import {ActivatedRoute,Router} from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import {FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,Validators,} from '@angular/forms';
 import { Card } from '../../../Z-Commons/card/card';
 import { FileUpload } from '../../../Z-Commons/file-upload/file-upload';
@@ -14,13 +14,10 @@ import { ApiRoutesConstants } from '../../../constants/api-route-constants';
   selector: 'app-app-banner-create-edit',
    imports: [
     Card,
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    FileUpload ,
-    // FilePreview  ,
-    NgIf
-  ],
+    FileUpload
+],
   templateUrl: './app-banner-create-edit.html',
   styleUrl: './app-banner-create-edit.scss',
   providers: [AlertService],
@@ -35,6 +32,7 @@ export class AppBannerCreateEdit implements OnInit{
   selectedimage: any;
   public btnLoader:boolean = false;
   editId: any;
+  fileUploadError: string = '';
   GlobalConstant: any = GlobalConstant;
 
   constructor(
@@ -136,9 +134,18 @@ ngOnInit(): void {
       this.bannerForm.markAllAsTouched();
     }
   }
-  onFilePathReceived(filePath: string) {
-    this.bannerFormControl['filepath'].setValue(filePath);
-  }
+ onFilePathReceived(filePath: string) {
+  this.fileUploadError = '';
+  this.bannerFormControl['filepath'].setValue(filePath);
+  this.bannerFormControl['filepath'].setErrors(null);
+}
+
+  onFileError(error: string) {
+  this.fileUploadError = error;
+
+  // Also mark form control as invalid manually
+  this.bannerFormControl['filepath'].setErrors({ customError: true });
+}
 
   removeImages(key:any) {
     if(key == "image") {

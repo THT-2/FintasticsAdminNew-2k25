@@ -13,9 +13,11 @@
                   <span class="input-group-text"><i class="bi bi-award"></i></span>
                   <input type="text" class="form-control" formControlName="payment_type" placeholder="Payment Type" />
                 </div>
-                <div *ngIf="categoryForm.get('payment_type')?.touched && categoryForm.get('payment_type')?.invalid" class="text-danger">
-                  Payment Type is required.
-                </div>
+                @if (categoryForm.get('payment_type')?.touched && categoryForm.get('payment_type')?.invalid) {
+                  <div class="text-danger">
+                    Payment Type is required.
+                  </div>
+                }
               </div>
 
               <!-- Icon -->
@@ -24,21 +26,23 @@
                 <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
                 @if(categoryFormControl['icon'].value) {
                   <!-- <div class="mt-2">
-                    <app-file-preview [filePath]="categoryFormControl['icon'].value"></app-file-preview>
-                  </div> -->
-                  <div class="position-relative d-inline-block">
-                      <img width="100px" [src]="categoryFormControl['icon'].value" />
-                      <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('icon')">X</span>
-                    </div>
-                }
-                <div *ngIf="categoryForm.get('icon')?.touched && categoryForm.get('icon')?.invalid" class="text-danger">
+                  <app-file-preview [filePath]="categoryFormControl['icon'].value"></app-file-preview>
+                </div> -->
+                <div class="position-relative d-inline-block">
+                  <img width="100px" [src]="categoryFormControl['icon'].value" />
+                  <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('icon')">X</span>
+                </div>
+              }
+              @if (categoryForm.get('icon')?.touched && categoryForm.get('icon')?.invalid) {
+                <div class="text-danger">
                   Icon is required.
                 </div>
-              </div>
+              }
             </div>
+          </div>
 
-            <!-- Submit -->
-           <div class="d-flex justify-content-end gap-2 mt-4">
+          <!-- Submit -->
+          <div class="d-flex justify-content-end gap-2 mt-4">
             <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
               @if(btnLoader) {
                 <div class="spinner-border text-white" role="status">

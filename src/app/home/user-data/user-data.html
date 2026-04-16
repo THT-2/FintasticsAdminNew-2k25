@@ -42,11 +42,11 @@
     <!-- TYPE FILTER -->
     <div class="filter-group">
       <label class="filter-label">Type</label>
-      
+
       <select class="filter-select" [(ngModel)]="type" name="type" (change)="onTypeChange()">
         <option value="" disabled selected hidden>
-      Select Type
-    </option>
+          Select Type
+        </option>
         <option value="subscription">Subscription</option>
         <option value="registered">Registered</option>
         <option value="challenge">Challenge</option>
@@ -57,33 +57,35 @@
     <div class="quick-select">
       <span class="quick-label">Quick Select:</span>
       <button type="button" class="quick-btn"
-  [class.active]="activeQuick === 'today'"
-  (click)="quickSelect('today')">
-  Today
-</button>
+        [class.active]="activeQuick === 'today'"
+        (click)="quickSelect('today')">
+        Today
+      </button>
 
-<button type="button" class="quick-btn"
-  [class.active]="activeQuick === 'yesterday'"
-  (click)="quickSelect('yesterday')">
-  Yesterday
-</button>
+      <button type="button" class="quick-btn"
+        [class.active]="activeQuick === 'yesterday'"
+        (click)="quickSelect('yesterday')">
+        Yesterday
+      </button>
 
-<button type="button" class="quick-btn"
-  [class.active]="activeQuick === 'week'"
-  (click)="quickSelect('week')">
-  This Week
-</button>
+      <button type="button" class="quick-btn"
+        [class.active]="activeQuick === 'week'"
+        (click)="quickSelect('week')">
+        This Week
+      </button>
 
-<button type="button" class="quick-btn"
-  [class.active]="activeQuick === 'month'"
-  (click)="quickSelect('month')">
-  This Month
-</button>
+      <button type="button" class="quick-btn"
+        [class.active]="activeQuick === 'month'"
+        (click)="quickSelect('month')">
+        This Month
+      </button>
 
     </div>
 
     <!-- ERROR MESSAGE -->
-    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+    @if (errorMessage) {
+      <div class="error-message">{{ errorMessage }}</div>
+    }
 
   </div>
 

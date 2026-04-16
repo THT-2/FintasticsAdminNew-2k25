@@ -13,9 +13,11 @@
                   <span class="input-group-text"><i class="bi bi-card-image"></i></span>
                   <input type="text" class="form-control" formControlName="title" placeholder="Badge Title" />
                 </div>
-                <div *ngIf="badgeForm.get('title')?.touched && badgeForm.get('title')?.invalid" class="text-danger">
-                  Name is required.
-                </div>
+                @if (badgeForm.get('title')?.touched && badgeForm.get('title')?.invalid) {
+                  <div class="text-danger">
+                    Name is required.
+                  </div>
+                }
               </div>
 
               <div class="col-md-6">
@@ -24,9 +26,11 @@
                   <span class="input-group-text"><i class="bi bi-card-image"></i></span>
                   <input type="number" class="form-control" formControlName="points" placeholder="Fin Coin Value" />
                 </div>
-                <div *ngIf="badgeForm.get('points')?.touched && badgeForm.get('points')?.invalid" class="text-danger">
-                  Fin Coin Value is required.
-                </div>
+                @if (badgeForm.get('points')?.touched && badgeForm.get('points')?.invalid) {
+                  <div class="text-danger">
+                    Fin Coin Value is required.
+                  </div>
+                }
               </div>
 
               <!-- Progress -->
@@ -36,117 +40,133 @@
                   <span class="input-group-text"><i class="bi bi-card-image"></i></span>
                   <input type="number" class="form-control" formControlName="progress" placeholder="Fin Coin Value" />
                 </div>
-                <div *ngIf="badgeForm.get('progress')?.touched && badgeForm.get('progress')?.invalid" class="text-danger">
-                  Value is required.
-                </div>
+                @if (badgeForm.get('progress')?.touched && badgeForm.get('progress')?.invalid) {
+                  <div class="text-danger">
+                    Value is required.
+                  </div>
+                }
               </div>
 
               <!-- Condition -->
-               <div class="col-md-6">
+              <div class="col-md-6">
                 <label class="form-label">Condition</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="bi bi-card-image"></i></span>
                   <input type="text" class="form-control" formControlName="condition" placeholder="Condition" />
                 </div>
-                <div *ngIf="badgeForm.get('condition')?.touched && badgeForm.get('condition')?.invalid" class="text-danger">
-                  Condition is required.
-                </div>
+                @if (badgeForm.get('condition')?.touched && badgeForm.get('condition')?.invalid) {
+                  <div class="text-danger">
+                    Condition is required.
+                  </div>
+                }
               </div>
 
               <div class="col-md-6">
-              <label class="form-label">Status <span class="req">*</span></label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-list-ul"></i></span>
-                <select class="form-select" formControlName="status">
-                  <option hidden [value]="">Please Select</option>
-                  <option *ngFor="let item of statusOptions">{{ item }}</option>
-                </select>
+                <label class="form-label">Status <span class="req">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-list-ul"></i></span>
+                  <select class="form-select" formControlName="status">
+                    <option hidden [value]="">Please Select</option>
+                    @for (item of statusOptions; track item) {
+                      <option>{{ item }}</option>
+                    }
+                  </select>
+                </div>
+                @if (badgeForm.get('status')?.touched && badgeForm.get('status')?.invalid) {
+                  <div class="text-danger">
+                    Status is required.
+                  </div>
+                }
               </div>
-              <div *ngIf="badgeForm.get('status')?.touched && badgeForm.get('status')?.invalid" class="text-danger">
-                Status is required.
-              </div>
-            </div>
-           
 
-  <!-- Icon -->
+
+              <!-- Icon -->
               <div class="col-md-6">
                 <label class="form-label">Icon <span class="req">*</span></label>
                 <app-file-upload (getFilePath)="onFilePathReceived($event,'icon')"></app-file-upload>
                 @if(badgeFormControl['icon'].value) {
                   <!-- <div class="mt-2">
-                    <app-file-preview [filePath]="categoryFormControl['icon'].value"></app-file-preview>
-                  </div> -->
-                   <div class="position-relative d-inline-block">
-                      <img width="100px" [src]="badgeFormControl['icon'].value" />
-                      <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('icon')">X</span>
-                    </div>
-                }
-                <div *ngIf="badgeForm.get('icon')?.touched && badgeForm.get('icon')?.invalid" class="text-danger">
+                  <app-file-preview [filePath]="categoryFormControl['icon'].value"></app-file-preview>
+                </div> -->
+                <div class="position-relative d-inline-block">
+                  <img width="100px" [src]="badgeFormControl['icon'].value" />
+                  <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('icon')">X</span>
+                </div>
+              }
+              @if (badgeForm.get('icon')?.touched && badgeForm.get('icon')?.invalid) {
+                <div class="text-danger">
                   File Path  is required.
                 </div>
-              </div>
-
-              <!-- bannerimage -->
-              <div class="col-md-6">
-                <label class="form-label">Banner <span class="req">*</span></label>
-                <app-file-upload (getFilePath)="onFilePathReceived($event,'banner')"></app-file-upload>
-                @if(badgeFormControl['banner'].value) {
-                  <!-- <div class="mt-2">
-                    <app-file-preview [filePath]="categoryFormControl['icon'].value"></app-file-preview>
-                  </div> -->
-                   <div class="position-relative d-inline-block">
-                      <img width="100px" [src]="badgeFormControl['banner'].value" />
-                      <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('banner')">X</span>
-                    </div>
-                }
-                <div *ngIf="badgeForm.get('banner')?.touched && badgeForm.get('banner')?.invalid" class="text-danger">
-                  File Path  is required.
-                </div>
-              </div>
-         <!--Type-->
-              <div class="col-md-6">
-  <label class="form-label">Type <span class="req">*</span></label>
-  <div class="input-group">
-    <span class="input-group-text"><i class="bi bi-award"></i></span>
-    <select class="form-select" formControlName="type">
-      <option value="" disabled selected>Select Type</option>
-      <option *ngFor="let item of Types" [value]="item">{{ item }}</option>
-    </select>
-  </div>
-  <div *ngIf="badgeForm.get('type')?.touched && badgeForm.get('type')?.invalid" class="text-danger">
-    Type is required.
-  </div>
-</div>
-
-              <!-- Description -->
-                <div class="col-6">
-                  <label class="form-label">Description</label>
-                  <textarea class="form-control" formControlName="description" placeholder="Description..."></textarea>
-                </div>
-              <!-- Message -->
-                <div class="col-6">
-                  <label class="form-label">Message<span class="req">*</span></label>
-                  <textarea class="form-control" formControlName="message" placeholder="Message..."></textarea>
-                </div>
-
+              }
             </div>
 
-            <!-- Submit -->
-            <div class="d-flex justify-content-end gap-2 mt-4">
-              <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
-                @if(btnLoader) {
-                  <div class="spinner-border text-white" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                  </div>
-                } @else {
-                  {{badgeFormControl['_id'].value ? 'Update' : 'Submit'}}
+            <!-- bannerimage -->
+            <div class="col-md-6">
+              <label class="form-label">Banner <span class="req">*</span></label>
+              <app-file-upload (getFilePath)="onFilePathReceived($event,'banner')"></app-file-upload>
+              @if(badgeFormControl['banner'].value) {
+                <!-- <div class="mt-2">
+                <app-file-preview [filePath]="categoryFormControl['icon'].value"></app-file-preview>
+              </div> -->
+              <div class="position-relative d-inline-block">
+                <img width="100px" [src]="badgeFormControl['banner'].value" />
+                <span class="badge bg-danger position-absolute top-0 end-0" style="cursor:pointer" (click)="removeImages('banner')">X</span>
+              </div>
+            }
+            @if (badgeForm.get('banner')?.touched && badgeForm.get('banner')?.invalid) {
+              <div class="text-danger">
+                File Path  is required.
+              </div>
+            }
+          </div>
+          <!--Type-->
+          <div class="col-md-6">
+            <label class="form-label">Type <span class="req">*</span></label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-award"></i></span>
+              <select class="form-select" formControlName="type">
+                <option value="" disabled selected>Select Type</option>
+                @for (item of Types; track item) {
+                  <option [value]="item">{{ item }}</option>
                 }
-              </button>
+              </select>
             </div>
+            @if (badgeForm.get('type')?.touched && badgeForm.get('type')?.invalid) {
+              <div class="text-danger">
+                Type is required.
+              </div>
+            }
+          </div>
 
-          </form>
+          <!-- Description -->
+          <div class="col-6">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" formControlName="description" placeholder="Description..."></textarea>
+          </div>
+          <!-- Message -->
+          <div class="col-6">
+            <label class="form-label">Message<span class="req">*</span></label>
+            <textarea class="form-control" formControlName="message" placeholder="Message..."></textarea>
+          </div>
+
         </div>
-      </section>
-    </app-card>
-  </div>
+
+        <!-- Submit -->
+        <div class="d-flex justify-content-end gap-2 mt-4">
+          <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+            @if(btnLoader) {
+              <div class="spinner-border text-white" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            } @else {
+              {{badgeFormControl['_id'].value ? 'Update' : 'Submit'}}
+            }
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </section>
+</app-card>
+</div>
 </div>

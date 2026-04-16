@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Card } from "../../../Z-Commons/card/card";
 import { Table } from "../../../Z-Commons/table/table";
-import { CommonModule } from '@angular/common';
+
 import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ApiRoutesConstants } from '../../../constants/api-route-constants';
@@ -15,7 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-bank',
-  imports: [CommonModule, FormsModule, Card, Table],
+  imports: [FormsModule, Card, Table],
   templateUrl: './bank.html',
   styleUrl: './bank.scss',
   providers:[AlertService]

@@ -3,7 +3,7 @@
     [cardTitle]="StoryBoardFormControl['_id'].value ? GlobalConstant['EDIT'] + ' Story' : GlobalConstant['ADD'] + ' Story'"
     blockClass="pc-component"
     route_button=""
-  >
+    >
     <div class="add-body">
       <div class="add-inner">
         <form [formGroup]="StoryBoardForm" (ngSubmit)="submit()">
@@ -17,90 +17,97 @@
                 <input type="text" class="form-control" placeholder="Title" formControlName="title" />
               </div>
               <!-- <div *ngIf="StoryBoardForm.get('title')?.touched && StoryBoardForm.get('title')?.invalid" class="text-danger">
-                Title is required.
-              </div> -->
+              Title is required.
+            </div> -->
+          </div>
+
+          <!-- Media Type -->
+          <div class="col-md-6">
+            <label class="form-label">Media Type <span class="req">*</span></label>
+
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-file-earmark"></i>
+              </span>
+
+              <select class="form-control" formControlName="mediaType">
+                <option value="" disabled selected>Select Media Type</option>
+                <option value="image">Image</option>
+                <option value="video">Video</option>
+              </select>
             </div>
 
-            <!-- Media Type -->
-<div class="col-md-6">
-  <label class="form-label">Media Type <span class="req">*</span></label>
-
-  <div class="input-group">
-    <span class="input-group-text">
-      <i class="bi bi-file-earmark"></i>
-    </span>
-
-    <select class="form-control" formControlName="mediaType">
-      <option value="" disabled selected>Select Media Type</option>
-      <option value="image">Image</option>
-      <option value="video">Video</option>
-    </select>
-  </div>
-
-  <div *ngIf="StoryBoardForm.get('mediaType')?.touched && StoryBoardForm.get('mediaType')?.invalid" class="text-danger">
-    Media Type is required.
-  </div>
-</div>
-            <!-- Upload Media File -->
-            <div class="col-md-6">
-              <label class="form-label">Upload Media File <span class="req">*</span></label>
-              <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
-              <div *ngIf="StoryBoardFormControl['mediaUrl']?.value" class="mt-2">
+            @if (StoryBoardForm.get('mediaType')?.touched && StoryBoardForm.get('mediaType')?.invalid) {
+              <div class="text-danger">
+                Media Type is required.
+              </div>
+            }
+          </div>
+          <!-- Upload Media File -->
+          <div class="col-md-6">
+            <label class="form-label">Upload Media File <span class="req">*</span></label>
+            <app-file-upload (getFilePath)="onFilePathReceived($event)"></app-file-upload>
+            @if (StoryBoardFormControl['mediaUrl']?.value) {
+              <div class="mt-2">
                 <app-file-preview [filePath]="StoryBoardFormControl['mediaUrl'].value"></app-file-preview>
               </div>
-              <div *ngIf="StoryBoardForm.get('mediaUrl')?.touched && StoryBoardForm.get('mediaUrl')?.invalid" class="text-danger">
+            }
+            @if (StoryBoardForm.get('mediaUrl')?.touched && StoryBoardForm.get('mediaUrl')?.invalid) {
+              <div class="text-danger">
                 Upload media file is required.
               </div>
-            </div>
-
-            <!-- Notification Title -->
-            <div class="col-md-6">
-              <label class="form-label">Notification Title <span class="req">*</span></label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-bell"></i></span>
-                <input type="text" class="form-control" placeholder="Notification Title" formControlName="notifi_title" />
-              </div>
-            </div>
-
-            <div class="col-md-6">
-  <label class="form-label">Expiry Days <span class="req">*</span></label>
-
-  <div class="input-group">
-    <span class="input-group-text">
-      <i class="bi bi-calendar"></i>
-    </span>
-
-    <select class="form-control" formControlName="expiryDays">
-      <option *ngFor="let day of [1,2,3,4,5,6,7,8,9,10]" [value]="day">
-        {{ day }} Day{{ day > 1 ? 's' : '' }}
-      </option>
-    </select>
-  </div>
-</div>
-
-            <!-- Notification Description -->
-            <div class="col-md-6">
-              <label class="form-label">Notification Description <span class="req">*</span></label>
-              <textarea class="form-control" placeholder="Notification Description" formControlName="notifi_body"></textarea>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="col-12 d-flex justify-content-end pt-2">
-              <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
-                <ng-container *ngIf="btnLoader; else btnText">
-                  <div class="spinner-border text-white" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                  </div>
-                </ng-container>
-                <ng-template #btnText>
-                  {{ StoryBoardFormControl['_id'].value ? 'Update' : 'Submit' }}
-                </ng-template>
-              </button>
-            </div>
-
+            }
           </div>
-        </form>
-      </div>
+
+          <!-- Notification Title -->
+          <div class="col-md-6">
+            <label class="form-label">Notification Title <span class="req">*</span></label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-bell"></i></span>
+              <input type="text" class="form-control" placeholder="Notification Title" formControlName="notifi_title" />
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Expiry Days <span class="req">*</span></label>
+
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-calendar"></i>
+              </span>
+
+              <select class="form-control" formControlName="expiryDays">
+                @for (day of [1,2,3,4,5,6,7,8,9,10]; track day) {
+                  <option [value]="day">
+                    {{ day }} Day{{ day > 1 ? 's' : '' }}
+                  </option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <!-- Notification Description -->
+          <div class="col-md-6">
+            <label class="form-label">Notification Description <span class="req">*</span></label>
+            <textarea class="form-control" placeholder="Notification Description" formControlName="notifi_body"></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="col-12 d-flex justify-content-end pt-2">
+            <button type="submit" [disabled]="btnLoader" class="btn btn-cta btn-cta-wide">
+              @if (btnLoader) {
+                <div class="spinner-border text-white" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              } @else {
+                {{ StoryBoardFormControl['_id'].value ? 'Update' : 'Submit' }}
+              }
+            </button>
+          </div>
+
+        </div>
+      </form>
     </div>
-  </app-card>
+  </div>
+</app-card>
 </section>

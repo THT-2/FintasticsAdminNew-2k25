@@ -1,7 +1,7 @@
 import { Component, HostListener, ViewEncapsulation } from '@angular/core';
 
 import { _supportsShadowDom } from '@angular/cdk/platform';
-import { CommonModule } from '@angular/common';
+
 import { ChatLeft } from './chat-left/chat-left';
 import { ChatRight } from './chat-right/chat-right';
 

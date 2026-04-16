@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Data } from '../../../Service/data';
 import { AlertService } from '../../../constants/alertservice';
@@ -8,7 +8,7 @@ import { ApiRoutesConstants } from '../../../constants/api-route-constants';
 @Component({
   selector: 'app-by-platform',
   // standalone: true,
-  imports: [DatePipe, CommonModule, NgFor, NgIf, RouterLink],
+  imports: [DatePipe, CommonModule, RouterLink],
   templateUrl: './by-platform.html',
   styleUrl: './by-platform.scss',
   providers:[AlertService]

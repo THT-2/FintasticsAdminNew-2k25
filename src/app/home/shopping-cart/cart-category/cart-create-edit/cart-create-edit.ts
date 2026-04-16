@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import { AlertService } from '../../../../constants/alertservice';
 import { Card } from '../../../../Z-Commons/card/card';
 import { GlobalConstant } from '../../../../constants/global-constants';
@@ -12,11 +12,7 @@ import { FileUpload } from "../../../../Z-Commons/file-upload/file-upload";
 
 @Component({
   selector: 'app-cart-create-edit',
-    imports: [Card,
-    NgIf,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule, FilePreview, FileUpload],
+    imports: [Card, FormsModule, ReactiveFormsModule, FilePreview, FileUpload],
   templateUrl: './cart-create-edit.html',
   styleUrl: './cart-create-edit.scss',
   providers:[AlertService]

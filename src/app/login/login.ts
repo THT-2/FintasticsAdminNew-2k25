@@ -126,7 +126,7 @@ export class Login {
           }
 
           this.alertService.toast('success', true, res.message);
-          this.router.navigate(['/admin/start']); // ✅ now start can redirect correctly
+          this.router.navigate(['/admin/start']); // now start can redirect correctly
         },
         error: (err: any) => {
           console.error('Error fetching role permissions', err);

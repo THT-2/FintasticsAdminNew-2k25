@@ -5,31 +5,35 @@
       <div class="box-header"><i class="bi bi-activity"></i> Live User Transactions</div>
       <div class="live-viewport">
         <ul class="vlist live-list small ticker" style="--dist: 379.5px; --dur: 32s;">
-          <li *ngFor="let tx of displayedItems">
-            <span class="label">
-              <strong class="name">{{ tx.name }}</strong>
-              <span class="type-badge" [ngClass]="badgeClass(tx.type)">{{ tx.type }}</span>
-            </span>
-            <span class="amount">
-              {{ tx.amount | currency: 'INR':'symbol':'1.0-0':'en-IN' }}
-              <span class="method-badge ms-2">
-                <i [class]="methodIcon(tx.through)"></i>{{ tx.through }}
+          @for (tx of displayedItems; track tx) {
+            <li>
+              <span class="label">
+                <strong class="name">{{ tx.name }}</strong>
+                <span class="type-badge" [ngClass]="badgeClass(tx.type)">{{ tx.type }}</span>
               </span>
-            </span>
-          </li>
+              <span class="amount">
+                {{ tx.amount | currency: 'INR':'symbol':'1.0-0':'en-IN' }}
+                <span class="method-badge ms-2">
+                  <i [class]="methodIcon(tx.through)"></i>{{ tx.through }}
+                </span>
+              </span>
+            </li>
+          }
           <!-- Duplicate items for smooth ticker -->
-          <li *ngFor="let tx of displayedItems">
-            <span class="label">
-              <strong class="name">{{ tx.name }}</strong>
-              <span class="type-badge" [ngClass]="badgeClass(tx.type)">{{ tx.type }}</span>
-            </span>
-            <span class="amount">
-              {{ tx.amount | currency: 'INR':'symbol':'1.0-0':'en-IN' }}
-              <span class="method-badge ms-2">
-                <i [class]="methodIcon(tx.through)"></i>{{ tx.through }}
+          @for (tx of displayedItems; track tx) {
+            <li>
+              <span class="label">
+                <strong class="name">{{ tx.name }}</strong>
+                <span class="type-badge" [ngClass]="badgeClass(tx.type)">{{ tx.type }}</span>
               </span>
-            </span>
-          </li>
+              <span class="amount">
+                {{ tx.amount | currency: 'INR':'symbol':'1.0-0':'en-IN' }}
+                <span class="method-badge ms-2">
+                  <i [class]="methodIcon(tx.through)"></i>{{ tx.through }}
+                </span>
+              </span>
+            </li>
+          }
         </ul>
       </div>
     </div>

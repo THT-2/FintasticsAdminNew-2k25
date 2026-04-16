@@ -3,11 +3,11 @@ import { Left } from "./left/left";
 import { Right } from "./right/right";
 import { _supportsShadowDom } from '@angular/cdk/platform';
 import { ChatCanDeactivate } from '../../Service/chat-block-guard';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-chats',
-  imports: [Left, Right,CommonModule],
+  imports: [Left, Right],
   templateUrl: './chats.html',
   styleUrl: './chats.scss',
   encapsulation:ViewEncapsulation.ShadowDom

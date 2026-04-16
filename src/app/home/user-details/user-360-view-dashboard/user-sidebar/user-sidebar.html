@@ -1,81 +1,74 @@
 
 
 
-    <div class="sidebar-header">
-      <!-- <button mat-icon-button class="back-btn"  (click)="goBack()">
-        <mat-icon>arrow_back</mat-icon>
-      </button> -->
-      <!-- <a routerLink="/admin/user-details"><mat-icon>arrow_back</mat-icon></a> -->
+<div class="sidebar-header">
+  <!-- <button mat-icon-button class="back-btn"  (click)="goBack()">
+  <mat-icon>arrow_back</mat-icon>
+</button> -->
+<!-- <a routerLink="/admin/user-details"><mat-icon>arrow_back</mat-icon></a> -->
+</div>
+
+@if (sidebarOpened) {
+  <div class="user-header">
+    <div class="user-avatar">
+      <mat-icon class="avatar-icon">person</mat-icon>
+      <div class="status-indicator"></div>
     </div>
-
-    <div class="user-header" *ngIf="sidebarOpened">
-      <div class="user-avatar">
-        <mat-icon class="avatar-icon">person</mat-icon>
-        <div class="status-indicator"></div>
+    <h1 class="user-name">
+      {{ userData?.user?.username }}
+    </h1>
+    <div class="user-meta">
+      <div class="user-meta-item">
+        <mat-icon>call</mat-icon>
+        <span>{{ userData?.user?.mobile_num }}</span>
       </div>
-
-      <h1 class="user-name">
-  {{ userData?.user?.username }}
-</h1>
-
-<div class="user-meta">
-  <div class="user-meta-item">
-    <mat-icon>call</mat-icon>
-    <span>{{ userData?.user?.mobile_num }}</span>
-  </div>
-
-  <div class="user-meta-item">
-    <mat-icon>calendar_today</mat-icon>
-    <span>{{ userData?.user?.createdAt | date }}</span>
-  </div>
-</div>
-
-<div class="user-id">
-  ID: {{ userData?.user?._id || '-'}}
-</div>
-
-      
-
-     <mat-chip-set class="tags">
-  <mat-chip class="tag tag-premium">
-    {{ userData?.user?.usersubscriptions_details?.type || '-' }}
-  </mat-chip>
-
-  <mat-chip class="tag tag-active">
-    {{ userData?.user?.usersubscriptions_details?.expired ? 'Expired' : 'Active'}}
-  </mat-chip>
-</mat-chip-set>
+      <div class="user-meta-item">
+        <mat-icon>calendar_today</mat-icon>
+        <span>{{ userData?.user?.createdAt | date }}</span>
+      </div>
     </div>
-
-    <!-- User Stats -->
-    <mat-card class="user-stats" *ngIf="sidebarOpened">
-      <div class="stats-grid">
-       <div class="stat-item">
-  <div class="stat-value">
-    {{ userData?.budgetOverview?.debitCount + userData?.budgetOverview?.creditCount || '0'}}
+    <div class="user-id">
+      ID: {{ userData?.user?._id || '-'}}
+    </div>
+    <mat-chip-set class="tags">
+      <mat-chip class="tag tag-premium">
+        {{ userData?.user?.usersubscriptions_details?.type || '-' }}
+      </mat-chip>
+      <mat-chip class="tag tag-active">
+        {{ userData?.user?.usersubscriptions_details?.expired ? 'Expired' : 'Active'}}
+      </mat-chip>
+    </mat-chip-set>
   </div>
-  <div class="stat-label">Transactions</div>
-</div>
+}
 
-<div class="stat-item">
-  <div class="stat-value">
-    ₹{{ userData?.budgetOverview?.totalIncome || '0' }}
-  </div>
-  <div class="stat-label">Total Income</div>
-</div>
-
-<div class="stat-item">
-  <div class="stat-value">
-    ₹{{ userData?.budgetOverview?.totalSpent }}
-  </div>
-  <div class="stat-label">Total Expenses</div>
-</div>
-
-<div class="stat-item">
-  <div class="stat-value">
-    {{ userData?.active_days }}
-  </div>
-  <div class="stat-label">Active Days</div>
-</div>
+<!-- User Stats -->
+@if (sidebarOpened) {
+  <mat-card class="user-stats">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-value">
+          {{ userData?.budgetOverview?.debitCount + userData?.budgetOverview?.creditCount || '0'}}
+        </div>
+        <div class="stat-label">Transactions</div>
       </div>
-    </mat-card>
+      <div class="stat-item">
+        <div class="stat-value">
+          ₹{{ userData?.budgetOverview?.totalIncome || '0' }}
+        </div>
+        <div class="stat-label">Total Income</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">
+          ₹{{ userData?.budgetOverview?.totalSpent }}
+        </div>
+        <div class="stat-label">Total Expenses</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">
+          {{ userData?.active_days }}
+        </div>
+        <div class="stat-label">Active Days</div>
+      </div>
+    </div>
+  </mat-card>
+}

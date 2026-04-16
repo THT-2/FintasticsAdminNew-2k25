@@ -17,13 +17,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withRouterConfig({ onSameUrlNavigation: 'reload' }),
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
     provideClientHydration(withEventReplay()),
-    importProvidersFrom(BrowserModule,BrowserModule,MaterialModule), provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          }), provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          })
+    importProvidersFrom(BrowserModule,MaterialModule),
+     provideServiceWorker('ngsw-worker.js', {
+  enabled: !isDevMode(),
+  registrationStrategy: 'registerWhenStable:30000'
+})
 
   ]
 };

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { MessageDialogue } from '../../Z-Commons/message-dialogue/message-dialog
 import { Table } from '../../Z-Commons/table/table';
 @Component({
   selector: 'app-dues-remainders',
-  imports: [CommonModule, FormsModule, Table, Card],
+  imports: [FormsModule, Table, Card],
   templateUrl: './dues-remainders.html',
   styleUrl: './dues-remainders.scss',
   providers:[AlertService]

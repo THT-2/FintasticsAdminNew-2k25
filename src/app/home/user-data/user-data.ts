@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,7 +15,7 @@ import { GlobalConstant } from '../../constants/global-constants';
 
 @Component({
   selector: 'app-user-data',
-  imports: [CommonModule, FormsModule, Card, Table],
+  imports: [FormsModule, Card, Table],
   templateUrl: './user-data.html',
   styleUrl: './user-data.scss',
   providers: [AlertService]

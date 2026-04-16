@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import {ActivatedRoute,Router,} from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import {FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,Validators,} from '@angular/forms';
 import { Data } from '../../../../Service/data';
 import { AlertService } from '../../../../constants/alertservice';
@@ -16,10 +16,8 @@ import { Card } from "../../../../Z-Commons/card/card";
   selector: 'app-sub-create-edit',
   imports: [
     Card,
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgIf,
     FileUpload,
     FilePreview
 ],

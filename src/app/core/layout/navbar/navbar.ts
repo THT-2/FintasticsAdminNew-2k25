@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertService } from '../../../constants/alertservice';
@@ -14,7 +14,7 @@ function isTrue(v: any): boolean {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, HomeRoutingModule, MatDialogModule],
+  imports: [HomeRoutingModule, MatDialogModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
   providers:[AlertService]

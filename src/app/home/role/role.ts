@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { Table } from '../../Z-Commons/table/table';
 
 @Component({
   selector: 'app-role',
-  imports: [CommonModule, FormsModule, Table, Card],
+  imports: [FormsModule, Table, Card],
   templateUrl: './role.html',
   styleUrl: './role.scss',
   providers:[AlertService]

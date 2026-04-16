@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Card } from "../../../../Z-Commons/card/card";
 import { Table } from "../../../../Z-Commons/table/table";
@@ -13,7 +13,7 @@ import { GlobalConstant } from '../../../../constants/global-constants';
 
 @Component({
   selector: 'app-subscribed-users',
-  imports: [CommonModule, Card, Table],
+  imports: [Card, Table],
   templateUrl: './subscribed-users.html',
   styleUrls: ['./subscribed-users.scss'],
   providers: [AlertService],

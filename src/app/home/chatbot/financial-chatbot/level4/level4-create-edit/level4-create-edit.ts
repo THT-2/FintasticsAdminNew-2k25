@@ -5,15 +5,13 @@ import { Card } from '../../../../../Z-Commons/card/card';
 import { AlertService } from '../../../../../constants/alertservice';
 import { ApiRoutesConstants } from '../../../../../constants/api-route-constants';
 import { Data } from '../../../../../Service/data';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FilePreview } from "../../../../../Z-Commons/file-preview/file-preview";
 import { FileUpload } from "../../../../../Z-Commons/file-upload/file-upload";
 
 @Component({
   selector: 'app-level4-create-edit',
-  imports: [Card, ReactiveFormsModule, FormsModule, NgIf, CommonModule,
-    //  FilePreview,
-    FileUpload],
+  imports: [Card, ReactiveFormsModule, FormsModule, CommonModule, FileUpload],
   templateUrl: './level4-create-edit.html',
   styleUrls: ['./level4-create-edit.scss'],
   providers: [AlertService]

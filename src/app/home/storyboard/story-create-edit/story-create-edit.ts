@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule, NgIf } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -13,11 +13,7 @@ import { ApiRoutesConstants } from '../../../constants/api-route-constants';
 
 @Component({
   selector: 'app-story-create-edit',
-  imports: [Card,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgIf, FileUpload, FilePreview],
+  imports: [Card, FormsModule, ReactiveFormsModule, FileUpload, FilePreview],
   templateUrl: './story-create-edit.html',
   styleUrl: './story-create-edit.scss',
   providers:[AlertService]
@@ -165,7 +161,6 @@ submit() {
     this.dataService.getData(apiUrl).subscribe({
       next:(res:any)=> {
         console.log(res);
-
         if (res.Code === 200){
           this.categoryData = res.Data;
         }else {

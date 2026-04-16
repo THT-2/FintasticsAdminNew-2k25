@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgIf } from '@angular/common';
+
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Data } from '../../../Service/data';
@@ -11,13 +11,7 @@ import { ApiRoutesConstants } from '../../../constants/api-route-constants';
 
 @Component({
   selector: 'app-fingoals-create-edit',
-    imports: [Card,
-    NgIf,
-    FormsModule,
-    ReactiveFormsModule,
-    FileUpload,
-    // FilePreview
-  ],
+    imports: [Card, FormsModule, ReactiveFormsModule, FileUpload],
   templateUrl: './fingoals-create-edit.html',
   styleUrl: './fingoals-create-edit.scss',
   providers: [AlertService],

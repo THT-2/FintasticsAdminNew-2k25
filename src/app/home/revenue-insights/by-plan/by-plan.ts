@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Data } from '../../../Service/data';
 import { AlertService } from '../../../constants/alertservice';
@@ -7,7 +7,7 @@ import { ApiRoutesConstants } from '../../../constants/api-route-constants';
 
 @Component({
   selector: 'app-by-plan',
-  imports: [NgFor,NgIf,DatePipe,RouterLink],
+  imports: [DatePipe, RouterLink],
   templateUrl: './by-plan.html',
   styleUrl: './by-plan.scss',
   providers:[AlertService],

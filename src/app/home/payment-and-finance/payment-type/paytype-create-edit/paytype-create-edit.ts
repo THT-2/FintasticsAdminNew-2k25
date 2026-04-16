@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute,Router} from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import {FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,Validators} from '@angular/forms';
 import { GlobalConstant } from '../../../../constants/global-constants';
 import { AlertService } from '../../../../constants/alertservice';
@@ -14,13 +14,10 @@ import { ApiRoutesConstants } from '../../../../constants/api-route-constants';
   selector: 'app-paytype-create-edit',
   imports: [
     Card,
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    FileUpload,
-    // FilePreview,
-    NgIf
-  ],
+    FileUpload
+],
   templateUrl: './paytype-create-edit.html',
   styleUrl: './paytype-create-edit.scss',
   providers: [AlertService],

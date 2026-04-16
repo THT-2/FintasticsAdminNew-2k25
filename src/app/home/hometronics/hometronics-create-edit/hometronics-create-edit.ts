@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute,Router} from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import {FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,Validators,} from '@angular/forms';
 import { Data } from '../../../Service/data';
 import { AlertService } from '../../../constants/alertservice';
@@ -14,13 +14,10 @@ import { FileUpload } from '../../../Z-Commons/file-upload/file-upload';
   selector: 'app-hometronics-create-edit',
   imports: [
     Card,
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    FileUpload ,
-    // FilePreview  ,
-    NgIf
-  ],
+    FileUpload
+],
   templateUrl: './hometronics-create-edit.html',
   styleUrl: './hometronics-create-edit.scss',
   providers: [AlertService],

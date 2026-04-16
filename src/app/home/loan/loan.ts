@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { Table } from '../../Z-Commons/table/table';
 
 @Component({
   selector: 'app-loan',
-  imports: [CommonModule, FormsModule, Card, Table],
+  imports: [FormsModule, Card, Table],
   templateUrl: './loan.html',
   styleUrl: './loan.scss',
   providers:[AlertService]

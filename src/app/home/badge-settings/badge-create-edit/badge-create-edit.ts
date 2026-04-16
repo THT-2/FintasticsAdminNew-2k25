@@ -3,7 +3,7 @@ import { Card } from "../../../Z-Commons/card/card";
 import { FileUpload } from "../../../Z-Commons/file-upload/file-upload";
 import { OnInit } from '@angular/core';
 import {ActivatedRoute,Router} from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import {FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,Validators,} from '@angular/forms';
 import { AlertService } from '../../../constants/alertservice';
 import { GlobalConstant } from '../../../constants/global-constants';
@@ -12,13 +12,7 @@ import { ApiRoutesConstants } from '../../../constants/api-route-constants';
 
 @Component({
   selector: 'app-badge-create-edit',
-  imports: [Card,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    FileUpload ,
-    // FilePreview,
-    NgIf],
+  imports: [Card, FormsModule, ReactiveFormsModule, FileUpload],
   templateUrl: './badge-create-edit.html',
   styleUrl: './badge-create-edit.scss',
   providers: [AlertService],

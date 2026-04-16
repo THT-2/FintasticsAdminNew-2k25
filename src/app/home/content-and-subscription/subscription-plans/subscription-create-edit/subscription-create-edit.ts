@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AlertService } from '../../../../constants/alertservice';
 import { FilePreview } from '../../../../Z-Commons/file-preview/file-preview';
@@ -14,13 +14,11 @@ import { ApiRoutesConstants } from '../../../../constants/api-route-constants';
   selector: 'app-subscription-create-edit',
   imports: [
     Card,
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     FileUpload,
-    FilePreview,
-    NgIf,
-  ],
+    FilePreview
+],
   templateUrl: './subscription-create-edit.html',
   styleUrl: './subscription-create-edit.scss',
   providers: [AlertService],

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { Table } from '../../Z-Commons/table/table';
 
 @Component({
   selector: 'app-news-update',
-  imports: [CommonModule, FormsModule, Card, Table],
+  imports: [FormsModule, Card, Table],
   templateUrl: './news-update.html',
   styleUrl: './news-update.scss',
   providers:[AlertService]
@@ -87,8 +87,8 @@ export class NewsUpdate implements OnInit{
       });
       dialogRef.afterClosed().subscribe((confirmed: boolean) => {
         if (confirmed) {
-          let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.NEWS_SCROLL + ApiRoutesConstants.DELETE ;
-          this.navService.postData(apiUrl,{}).subscribe({
+          let apiUrl = ApiRoutesConstants.BASE_URL+ ApiRoutesConstants.NEWS_SCROLL_delete ;
+          this.navService.postData(apiUrl,{_id:event.data._id}).subscribe({
             next: (res: any) => {
               if (res['Status'] == 'Success') {
                 this.alertService.toast("success",true,res.Message);
@@ -101,7 +101,7 @@ export class NewsUpdate implements OnInit{
                 this.responseMessage = error.error.message;
               } else {
                 this.responseMessage = GlobalConstant.genericError;
-              }
+              } 
             }
           })
         }

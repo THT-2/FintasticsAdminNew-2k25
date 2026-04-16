@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { Table } from '../../Z-Commons/table/table';
 
 @Component({
   selector: 'app-onboarding-questions',
-  imports: [CommonModule, FormsModule, Card, Table],
+  imports: [FormsModule, Card, Table],
   templateUrl: './onboarding-questions.html',
   styleUrl: './onboarding-questions.scss',
   providers:[AlertService]

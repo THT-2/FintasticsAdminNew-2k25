@@ -108,7 +108,6 @@ export class Push {
                }
              }
            })
-
          }
        })
      }else if(event.actions === "Update"){
@@ -130,7 +129,7 @@ export class Push {
         });
      }else if(event.actions === "SendNow"){
       let apiUrl =ApiRoutesConstants.BASE_URL + ApiRoutesConstants.pushnotification_instant;
-        this.navService.postData(apiUrl, {type:["Normal"],_id:event.data._id}).subscribe({
+        this.navService.postData(apiUrl, {type:["Normal"],notification_popup: event.data.notification_popup || "false",_id:event.data._id}).subscribe({
           next: (res: any) => {
             if (res.Code === 200) {
               this.alertService.toast('success', true, res.Message);

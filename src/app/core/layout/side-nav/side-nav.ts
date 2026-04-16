@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,7 +10,7 @@ import { HomeRoutingModule } from "../../../home/home-routing-module";
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [CommonModule, RouterLink, HttpClientModule, HomeRoutingModule],
+  imports: [RouterLink, HttpClientModule, HomeRoutingModule],
   templateUrl: './side-nav.html',
   styleUrls: ['./side-nav.scss']
 })

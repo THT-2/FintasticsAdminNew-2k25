@@ -3,7 +3,7 @@ import { FileUpload } from "../../../../../Z-Commons/file-upload/file-upload";
 import { Card } from "../../../../../Z-Commons/card/card";
 import { OnInit } from '@angular/core';
 import {ActivatedRoute,Router} from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+
 import {FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,Validators,} from '@angular/forms';
 import { AlertService } from '../../../../../constants/alertservice';
 import { GlobalConstant } from '../../../../../constants/global-constants';
@@ -13,13 +13,10 @@ import { ApiRoutesConstants } from '../../../../../constants/api-route-constants
   selector: 'app-subscribed-user-create-edit',
     imports: [
     Card,
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    FileUpload ,
-    // FilePreview  ,
-    NgIf
-  ],
+    FileUpload
+],
   templateUrl: './subscribed-user-create-edit.html',
   styleUrl: './subscribed-user-create-edit.scss',
   providers: [AlertService],

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Card } from "../../Z-Commons/card/card";
 import { Table } from "../../Z-Commons/table/table";
 import { ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { MessageDialogue } from '../../Z-Commons/message-dialogue/message-dialog
 
 @Component({
   selector: 'app-subscription-features',
-  imports: [Card, Table,CommonModule, FormsModule,],
+  imports: [Card, Table, FormsModule],
   templateUrl: './subscription-features.html',
   styleUrl: './subscription-features.scss',
   providers:[AlertService]

@@ -1,7 +1,7 @@
 
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FileUpload } from '../../../Z-Commons/file-upload/file-upload';
 import { Card } from '../../../Z-Commons/card/card';

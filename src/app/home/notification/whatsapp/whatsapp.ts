@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Card } from "../../../Z-Commons/card/card";
-import { CommonModule } from '@angular/common';
+
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from '../../../constants/alertservice';
@@ -9,7 +9,7 @@ import { ApiRoutesConstants } from '../../../constants/api-route-constants';
 
 @Component({
   selector: 'app-whatsapp',
-  imports: [Card,CommonModule,FormsModule,ReactiveFormsModule],
+  imports: [Card, FormsModule, ReactiveFormsModule],
   templateUrl: './whatsapp.html',
   styleUrl: './whatsapp.scss',
   providers:[AlertService]
